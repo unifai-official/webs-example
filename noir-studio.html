@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR Studio | עיצוב שיער</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Heebo:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --noir:#0A0A0A;--noir-2:#111111;--noir-3:#1A1A1A;--noir-4:#222222;
+  --gold:#C5A467;--gold-light:#DCC48E;--gold-pale:#F0E4C8;--gold-dark:#9E833F;
+  --cream:#F5F0E8;--cream-muted:#E8E0D4;
+  --rose:#B07D6A;--rose-light:#C99A87;
+  --text-primary:#F5F0E8;--text-secondary:rgba(245,240,232,0.55);--text-muted:rgba(245,240,232,0.3);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Heebo',sans-serif;background:var(--noir);color:var(--text-primary);overflow-x:hidden;cursor:default}
+::selection{background:var(--gold);color:var(--noir)}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;width:20px;height:20px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.3s;mix-blend-mode:difference}
+.cursor-dot{position:fixed;width:4px;height:4px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.08s ease}
+.cursor.hover{transform:scale(2.5);opacity:0.5}
+
+/* LOADER */
+.loader{position:fixed;inset:0;z-index:10000;background:var(--noir);display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.8s ease,visibility 0.8s}
+.loader.done{opacity:0;visibility:hidden;pointer-events:none}
+.loader-text{font-family:'Cormorant Garamond',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:300;color:var(--cream);letter-spacing:0.3em;overflow:hidden}
+.loader-text span{display:inline-block;animation:loaderReveal 0.6s ease forwards;opacity:0;transform:translateY(100%)}
+.loader-line{width:60px;height:1px;background:var(--gold);margin-top:1.5rem;animation:loaderLine 1.5s ease forwards}
+@keyframes loaderReveal{to{opacity:1;transform:translateY(0)}}
+@keyframes loaderLine{from{width:0}to{width:60px}}
+
+/* NAV */
+nav{position:fixed;top:0;right:0;left:0;z-index:1000;padding:1.8rem 3.5rem;display:flex;justify-content:space-between;align-items:center;transition:all 0.6s cubic-bezier(0.16,1,0.3,1)}
+nav.scrolled{padding:1rem 3.5rem;background:rgba(10,10,10,0.85);backdrop-filter:blur(30px) saturate(1.5);border-bottom:1px solid rgba(197,164,103,0.08)}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:300;letter-spacing:0.35em;text-transform:uppercase;color:var(--cream);text-decoration:none;position:relative}
+.nav-logo::after{content:'';position:absolute;bottom:-4px;right:0;width:100%;height:1px;background:linear-gradient(to left,var(--gold),transparent);opacity:0.4}
+.nav-links{display:flex;gap:2.8rem;align-items:center;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text-secondary);font-size:0.82rem;font-weight:300;letter-spacing:0.15em;text-transform:uppercase;transition:color 0.4s;position:relative}
+.nav-links a:hover{color:var(--gold)}
+.nav-cta-wrap{margin-right:0.5rem}
+.nav-cta{border:1px solid rgba(197,164,103,0.4) !important;color:var(--gold) !important;padding:0.65rem 1.8rem;border-radius:0;font-size:0.78rem !important;letter-spacing:0.2em !important;transition:all 0.4s !important;background:transparent}
+.nav-cta:hover{background:var(--gold) !important;color:var(--noir) !important}
+
+.hamburger{display:none;background:none;border:none;cursor:pointer;z-index:200;width:30px;height:20px;position:relative}
+.hamburger span{position:absolute;right:0;width:100%;height:1px;background:var(--cream);transition:all 0.4s}
+.hamburger span:nth-child(1){top:0;width:100%}
+.hamburger span:nth-child(2){top:50%;width:70%}
+.hamburger span:nth-child(3){top:100%;width:40%}
+.hamburger:hover span{width:100%}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(197,164,103,0.06) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(176,125,106,0.04) 0%,transparent 50%),var(--noir)}
+.hero-grain{position:absolute;inset:0;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none}
+.hero-lines{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-line{position:absolute;width:1px;height:100vh;background:linear-gradient(to bottom,transparent,rgba(197,164,103,0.06),transparent);animation:heroLineDrift 20s linear infinite}
+.hero-line:nth-child(1){right:20%;animation-delay:0s}
+.hero-line:nth-child(2){right:40%;animation-delay:5s}
+.hero-line:nth-child(3){right:60%;animation-delay:10s}
+.hero-line:nth-child(4){right:80%;animation-delay:15s}
+@keyframes heroLineDrift{0%{transform:translateY(-100%)}100%{transform:translateY(100%)}}
+
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:2rem}
+.hero-tag{font-size:0.72rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:2rem;overflow:hidden}
+.hero-tag span{display:inline-block;opacity:0;animation:textReveal 0.8s 1.8s forwards}
+.hero-tag-line{display:inline-block;width:40px;height:1px;background:var(--gold);vertical-align:middle;margin:0 1rem;opacity:0;animation:lineGrow 0.8s 1.6s forwards}
+@keyframes lineGrow{from{width:0;opacity:0}to{width:40px;opacity:1}}
+
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(3rem,8vw,7rem);font-weight:300;line-height:1.05;margin-bottom:2rem;overflow:hidden}
+.hero h1 .line{display:block;overflow:hidden}
+.hero h1 .line span{display:inline-block;opacity:0;transform:translateY(110%);animation:heroTextUp 1s cubic-bezier(0.16,1,0.3,1) forwards}
+.hero h1 .line:nth-child(1) span{animation-delay:2s}
+.hero h1 .line:nth-child(2) span{animation-delay:2.15s}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:1rem;color:var(--text-secondary);font-weight:200;max-width:500px;margin:0 auto 3rem;opacity:0;animation:fadeUp 1s 2.5s forwards;letter-spacing:0.02em;line-height:1.8}
+@keyframes heroTextUp{to{opacity:1;transform:translateY(0)}}
+@keyframes textReveal{to{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.hero-cta-group{display:flex;gap:1.2rem;justify-content:center;opacity:0;animation:fadeUp 1s 2.8s forwards}
+.btn-lux{display:inline-flex;align-items:center;gap:0.8rem;padding:1.1rem 2.8rem;font-family:'Heebo',sans-serif;font-size:0.82rem;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;transition:all 0.5s cubic-bezier(0.16,1,0.3,1);position:relative;overflow:hidden}
+.btn-lux-fill{background:var(--gold);color:var(--noir)}
+.btn-lux-fill:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 15px 40px rgba(197,164,103,0.25)}
+.btn-lux-outline{background:transparent;color:var(--cream);border:1px solid rgba(245,240,232,0.2)}
+.btn-lux-outline:hover{border-color:var(--gold);color:var(--gold)}
+.btn-arrow{transition:transform 0.4s}.btn-lux:hover .btn-arrow{transform:translateX(-4px)}
+
+.hero-scroll{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.8rem;opacity:0;animation:fadeIn 1s 3.5s forwards}
+.hero-scroll span{font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--text-muted);writing-mode:vertical-rl}
+.scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:0.3;height:50px}50%{opacity:1;height:70px}}
+
+/* MARQUEE */
+.marquee{padding:1.5rem 0;border-top:1px solid rgba(197,164,103,0.08);border-bottom:1px solid rgba(197,164,103,0.08);overflow:hidden;white-space:nowrap}
+.marquee-track{display:inline-flex;animation:marqueeScroll 30s linear infinite}
+.marquee-item{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--text-muted);padding:0 2rem;letter-spacing:0.15em;flex-shrink:0}
+.marquee-dot{color:var(--gold);padding:0 0.5rem}
+@keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTIONS */
+section{padding:8rem 3.5rem;position:relative}
+.section-inner{max-width:1300px;margin:0 auto}
+.s-tag{font-size:0.68rem;letter-spacing:0.5em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem}
+.s-tag::before{content:'';width:30px;height:1px;background:var(--gold)}
+.s-title{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;line-height:1.15;margin-bottom:1rem}
+.s-title em{font-style:italic;color:var(--gold)}
+.s-desc{font-size:0.95rem;color:var(--text-secondary);font-weight:200;max-width:480px;line-height:1.8}
+
+.reveal-up{opacity:0;transform:translateY(60px);transition:all 1s cubic-bezier(0.16,1,0.3,1)}
+.reveal-up.vis{opacity:1;transform:translateY(0)}
+
+/* ABOUT */
+.about{background:var(--noir)}
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:center}
+.about-img-wrap{position:relative}
+.about-img-frame{position:relative;overflow:hidden}
+.about-img-inner{width:100%;aspect-ratio:3/4;background:linear-gradient(135deg,var(--noir-3),var(--noir-4));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.about-img-inner::after{content:'';position:absolute;inset:0;border:1px solid rgba(197,164,103,0.1)}
+.about-img-inner svg{opacity:0.25}
+.about-img-deco{position:absolute;top:-15px;right:-15px;width:100%;height:100%;border:1px solid rgba(197,164,103,0.15);pointer-events:none;transition:transform 0.6s cubic-bezier(0.16,1,0.3,1)}
+.about-img-wrap:hover .about-img-deco{transform:translate(-8px,8px)}
+.about-corner{position:absolute;width:60px;height:60px;border-color:var(--gold);opacity:0.3}
+.about-corner-tl{top:-1px;right:-1px;border-top:1px solid;border-right:1px solid}
+.about-corner-br{bottom:-1px;left:-1px;border-bottom:1px solid;border-left:1px solid}
+.about-text{margin-top:2rem}
+.about-text p{color:var(--text-secondary);font-weight:200;font-size:0.95rem;line-height:1.9;margin-bottom:1.2rem}
+.about-sig{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-style:italic;color:var(--gold);margin-top:2rem;opacity:0.7}
+.about-stats-row{display:flex;gap:3rem;margin-top:3rem;padding-top:2rem;border-top:1px solid rgba(197,164,103,0.1)}
+.about-stat-n{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:300;color:var(--gold)}
+.about-stat-l{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.15em;text-transform:uppercase;margin-top:0.3rem}
+
+/* SERVICES */
+.services{background:var(--noir-2);position:relative}
+.services::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to left,transparent,rgba(197,164,103,0.15),transparent)}
+.services-header{text-align:center;margin-bottom:5rem}
+.services-header .s-desc{margin:0 auto}
+.services-header .s-tag{justify-content:center}
+.services-header .s-tag::before{display:none}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(197,164,103,0.06)}
+.srv-card{background:var(--noir-2);padding:3rem 2.5rem;position:relative;overflow:hidden;transition:all 0.6s cubic-bezier(0.16,1,0.3,1)}
+.srv-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(197,164,103,0.03),transparent);opacity:0;transition:opacity 0.6s}
+.srv-card:hover::before{opacity:1}
+.srv-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,0.3)}
+.srv-num{font-family:'Cormorant Garamond',serif;font-size:3.5rem;font-weight:300;color:rgba(197,164,103,0.1);position:absolute;top:1.5rem;left:1.5rem;line-height:1}
+.srv-icon{font-size:1.6rem;margin-bottom:1.5rem;display:block}
+.srv-name{font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:400;margin-bottom:0.8rem;letter-spacing:0.02em}
+.srv-desc{font-size:0.85rem;color:var(--text-secondary);font-weight:200;line-height:1.8;margin-bottom:2rem}
+.srv-meta{display:flex;justify-content:space-between;align-items:flex-end;padding-top:1.2rem;border-top:1px solid rgba(197,164,103,0.08)}
+.srv-price{font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;color:var(--gold)}
+.srv-price small{font-size:0.7rem;font-family:'Heebo',sans-serif;font-weight:300;color:var(--text-muted);letter-spacing:0.1em;display:block}
+.srv-dur{font-size:0.75rem;color:var(--text-muted);letter-spacing:0.1em}
+
+/* GALLERY */
+.gallery{background:var(--noir);overflow:hidden}
+.gallery-header{margin-bottom:4rem}
+.gallery-strip{display:flex;gap:1.2rem;overflow-x:auto;scrollbar-width:none;padding-bottom:2rem;cursor:grab}
+.gallery-strip::-webkit-scrollbar{display:none}
+.gallery-strip:active{cursor:grabbing}
+.g-item{flex:0 0 auto;position:relative;overflow:hidden;border-radius:4px}
+.g-item.tall{width:320px;height:440px}
+.g-item.wide{width:480px;height:340px}
+.g-item.sq{width:340px;height:340px}
+.g-item-bg{width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.16,1,0.3,1);display:flex;align-items:center;justify-content:center}
+.g-item:hover .g-item-bg{transform:scale(1.08)}
+.g-item-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.7) 0%,transparent 50%);opacity:0;transition:opacity 0.5s;display:flex;align-items:flex-end;padding:1.5rem}
+.g-item:hover .g-item-overlay{opacity:1}
+.g-item-label{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:300;color:var(--cream)}
+
+/* TESTIMONIALS */
+.testimonials{background:var(--noir-2);position:relative}
+.testimonials::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to left,transparent,rgba(197,164,103,0.15),transparent)}
+.testi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2rem;margin-top:4rem}
+.testi-card{border:1px solid rgba(197,164,103,0.08);padding:2.8rem;position:relative;transition:all 0.5s;background:var(--noir-2)}
+.testi-card:hover{border-color:rgba(197,164,103,0.25);background:rgba(197,164,103,0.02)}
+.testi-quote{position:absolute;top:1.5rem;left:1.5rem;font-family:'Cormorant Garamond',serif;font-size:4rem;color:rgba(197,164,103,0.12);line-height:1}
+.testi-stars{color:var(--gold);font-size:0.7rem;letter-spacing:4px;margin-bottom:1.2rem}
+.testi-text{font-size:0.92rem;color:var(--text-secondary);font-weight:200;line-height:1.9;margin-bottom:2rem;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:1rem;padding-top:1.2rem;border-top:1px solid rgba(197,164,103,0.06)}
+.testi-avatar{width:46px;height:46px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--gold);font-weight:300}
+.testi-name{font-size:0.88rem;font-weight:400;color:var(--cream)}
+.testi-info{font-size:0.72rem;color:var(--text-muted);margin-top:0.2rem;letter-spacing:0.1em}
+
+/* BOOKING */
+.booking{background:var(--noir);position:relative}
+.booking::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(197,164,103,0.04) 0%,transparent 60%);pointer-events:none}
+.booking-inner{max-width:660px;margin:0 auto;text-align:center;position:relative;z-index:2}
+.booking .s-tag{justify-content:center}
+.booking .s-tag::before{display:none}
+.booking .s-desc{margin:0 auto 3rem}
+.book-form{border:1px solid rgba(197,164,103,0.12);padding:3rem;background:rgba(17,17,17,0.6);backdrop-filter:blur(20px)}
+.book-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.book-group{text-align:right}
+.book-group label{display:block;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.5rem}
+.book-group input,.book-group select,.book-group textarea{width:100%;padding:0.9rem 1.2rem;background:rgba(245,240,232,0.03);border:1px solid rgba(197,164,103,0.1);color:var(--cream);font-family:'Heebo',sans-serif;font-size:0.9rem;font-weight:300;transition:border-color 0.4s;direction:rtl}
+.book-group input:focus,.book-group select:focus,.book-group textarea:focus{outline:none;border-color:var(--gold)}
+.book-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23C5A467' stroke-width='1'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 1rem center}
+.book-group select option{background:var(--noir-2);color:var(--cream)}
+.book-group textarea{resize:vertical;min-height:80px}
+.book-full{grid-column:1/-1}
+.book-submit{width:100%;margin-top:0.5rem;padding:1.1rem;font-size:0.82rem;border-radius:0}
+.book-msg{margin-top:1.2rem;font-size:0.85rem;color:var(--gold);display:none;letter-spacing:0.05em}
+
+/* CONTACT */
+.contact-strip{background:var(--noir-3);padding:4rem 3.5rem;border-top:1px solid rgba(197,164,103,0.06)}
+.contact-row{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.c-item{text-align:center;padding:2rem 1rem}
+.c-icon{width:48px;height:48px;border:1px solid rgba(197,164,103,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;color:var(--gold);transition:all 0.4s}
+.c-item:hover .c-icon{background:var(--gold);color:var(--noir);transform:translateY(-3px)}
+.c-label{font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted);margin-bottom:0.4rem}
+.c-val{font-size:0.95rem;font-weight:400;color:var(--cream);text-decoration:none;direction:ltr}
+.c-val-rtl{direction:rtl}
+
+/* FOOTER */
+footer{background:var(--noir);padding:3rem 3.5rem 1.5rem;border-top:1px solid rgba(197,164,103,0.06)}
+.footer-inner{max-width:1300px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem}
+.footer-logo{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--cream)}
+.footer-social{display:flex;gap:0.6rem}
+.footer-social a{width:38px;height:38px;border:1px solid rgba(245,240,232,0.1);display:flex;align-items:center;justify-content:center;color:var(--text-secondary);text-decoration:none;transition:all 0.4s}
+.footer-social a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.footer-bot{max-width:1300px;margin:1.5rem auto 0;padding-top:1.5rem;border-top:1px solid rgba(245,240,232,0.04);text-align:center;font-size:0.7rem;color:var(--text-muted);letter-spacing:0.15em}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .srv-grid{grid-template-columns:1fr 1fr}
+  .testi-grid{grid-template-columns:1fr}
+  .contact-row{grid-template-columns:1fr 1fr}
+  section{padding:5rem 2rem}
+}
+@media(max-width:700px){
+  nav{padding:1.2rem 1.5rem}
+  .nav-links{display:none}
+  .hamburger{display:block}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;inset:0;background:var(--noir);justify-content:center;align-items:center;gap:2.5rem;z-index:150}
+  .nav-links.open a{font-size:1.2rem;letter-spacing:0.2em}
+  .hero h1{font-size:clamp(2.5rem,10vw,4rem)}
+  .hero-cta-group{flex-direction:column;align-items:center}
+  .srv-grid{grid-template-columns:1fr;gap:0}
+  .about-stats-row{flex-direction:column;gap:1.5rem;text-align:center}
+  .contact-row{grid-template-columns:1fr}
+  .g-item.tall,.g-item.wide,.g-item.sq{width:280px;height:320px}
+  .cursor,.cursor-dot{display:none}
+  section{padding:4rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div class="loader" id="loader">
+  <div class="loader-text">
+    <span style="animation-delay:0.2s">N</span><span style="animation-delay:0.3s">O</span><span style="animation-delay:0.4s">I</span><span style="animation-delay:0.5s">R</span>
+  </div>
+  <div class="loader-line"></div>
+</div>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">NOIR</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">הסיפור</a></li>
+    <li><a href="#services">שירותים</a></li>
+    <li><a href="#gallery">גלריה</a></li>
+    <li><a href="#testimonials">המלצות</a></li>
+    <li class="nav-cta-wrap"><a href="#booking" class="nav-cta">קביעת תור</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="תפריט">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-lines">
+    <div class="hero-line"></div><div class="hero-line"></div><div class="hero-line"></div><div class="hero-line"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="hero-tag-line"></span>
+      <span>Hair Atelier</span>
+      <span class="hero-tag-line"></span>
+    </div>
+    <h1>
+      <div class="line"><span>אומנות של</span></div>
+      <div class="line"><span>עיצוב <em>שיער</em></span></div>
+    </h1>
+    <p class="hero-sub">חוויה בוטיק אינטימית שבה כל תספורת היא יצירה. סטודיו פרטי, תשומת לב מוחלטת, תוצאות שמדברות בעד עצמן.</p>
+    <div class="hero-cta-group">
+      <a href="#booking" class="btn-lux btn-lux-fill">
+        קביעת תור
+        <svg class="btn-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+      </a>
+      <a href="#services" class="btn-lux btn-lux-outline">גלו את השירותים</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span>גלילה</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="marquee-item">תספורות נשים</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">צבע מקצועי</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">החלקות קראטין</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">עיצוב כלות</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">טיפולי שיקום</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">ייעוץ אישי</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">בלונד מקצועי</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">תספורות נשים</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">צבע מקצועי</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">החלקות קראטין</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">עיצוב כלות</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">טיפולי שיקום</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">ייעוץ אישי</span><span class="marquee-dot">&bull;</span>
+    <span class="marquee-item">בלונד מקצועי</span><span class="marquee-dot">&bull;</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-img-wrap reveal-up">
+        <div class="about-img-frame">
+          <div class="about-img-inner">
+            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.3)" stroke-width="0.8"><circle cx="12" cy="8" r="5"/><path d="M3 21v-2a7 7 0 0 1 7-7h4a7 7 0 0 1 7 7v2"/></svg>
+          </div>
+          <div class="about-corner about-corner-tl"></div>
+          <div class="about-corner about-corner-br"></div>
+        </div>
+        <div class="about-img-deco"></div>
+      </div>
+      <div class="reveal-up" style="transition-delay:0.15s">
+        <div class="s-tag">הסיפור שלי</div>
+        <h2 class="s-title">שיער הוא לא רק מראה.<br>שיער הוא <em>תחושה</em>.</h2>
+        <div class="about-text">
+          <p>אני נועה, מעצבת שיער עם למעלה מ-8 שנות ניסיון. אחרי הכשרה מקצועית בישראל ואירופה, בניתי סטודיו בוטיק שבו כל לקוחה מקבלת חוויה אישית ומלאה.</p>
+          <p>אני מאמינה שתספורת מעולה מתחילה בהקשבה. להבין את הסגנון, את אורח החיים, את מה שגורם לך להרגיש הכי את. ואז -- להפוך את זה למציאות.</p>
+        </div>
+        <div class="about-sig">- Noa</div>
+        <div class="about-stats-row">
+          <div>
+            <div class="about-stat-n">8+</div>
+            <div class="about-stat-l">שנות ניסיון</div>
+          </div>
+          <div>
+            <div class="about-stat-n">2K+</div>
+            <div class="about-stat-l">לקוחות</div>
+          </div>
+          <div>
+            <div class="about-stat-n">15+</div>
+            <div class="about-stat-l">השתלמויות</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="section-inner">
+    <div class="services-header reveal-up">
+      <div class="s-tag">שירותים</div>
+      <h2 class="s-title">חוויות שמותאמות <em>לך</em></h2>
+      <p class="s-desc">כל טיפול מותאם אישית עם חומרים מהשורה הראשונה ותשומת לב לכל פרט</p>
+    </div>
+    <div class="srv-grid reveal-up">
+      <div class="srv-card">
+        <div class="srv-num">01</div>
+        <span class="srv-icon">&#9986;</span>
+        <div class="srv-name">תספורת נשים</div>
+        <p class="srv-desc">תספורת מדויקת ומותאמת אישית לצורת הפנים, למרקם השיער ולסגנון החיים שלך. כולל שמפו ועיצוב.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;180<small>החל מ</small></div>
+          <div class="srv-dur">45 דק'</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">02</div>
+        <span class="srv-icon">&#127912;</span>
+        <div class="srv-name">צבע וגוונים</div>
+        <p class="srv-desc">צביעה מקצועית, בלונד, גוונים טבעיים או דרמטיים. חומרים פרימיום שמשמרים את בריאות השיער.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;350<small>החל מ</small></div>
+          <div class="srv-dur">90-120 דק'</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">03</div>
+        <span class="srv-icon">&#10024;</span>
+        <div class="srv-name">החלקה</div>
+        <p class="srv-desc">החלקות קראטין וברזילאיות עם מוצרים איכותיים. תוצאות חלקות, בריאות ועמידות לאורך זמן.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;700<small>החל מ</small></div>
+          <div class="srv-dur">2-3 שעות</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">04</div>
+        <span class="srv-icon">&#128141;</span>
+        <div class="srv-name">עיצוב כלות</div>
+        <p class="srv-desc">עיצוב שיער ליום המושלם שלך. כולל ניסיון מקדים, התאמה לשמלה, לסגנון ולאווירה.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;500<small>החל מ</small></div>
+          <div class="srv-dur">60-90 דק'</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">05</div>
+        <span class="srv-icon">&#128167;</span>
+        <div class="srv-name">טיפולי שיקום</div>
+        <p class="srv-desc">טיפולי עומק לשיער יבש, פגום או צבוע. החזרת ברק, גמישות ובריאות לשיער שלך.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;250<small>החל מ</small></div>
+          <div class="srv-dur">60 דק'</div>
+        </div>
+      </div>
+      <div class="srv-card">
+        <div class="srv-num">06</div>
+        <span class="srv-icon">&#128161;</span>
+        <div class="srv-name">ייעוץ אישי</div>
+        <p class="srv-desc">פגישת ייעוץ לבחירת הסגנון, הגוון, והטיפול המתאים ביותר. ללא התחייבות, ביושר מלא.</p>
+        <div class="srv-meta">
+          <div class="srv-price">&#8362;80<small>החל מ</small></div>
+          <div class="srv-dur">30 דק'</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="section-inner">
+    <div class="gallery-header reveal-up">
+      <div class="s-tag">גלריה</div>
+      <h2 class="s-title">כל תספורת היא <em>יצירה</em></h2>
+    </div>
+  </div>
+  <div class="gallery-strip" id="galleryStrip">
+    <div class="g-item tall">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#2A2520,#1A1815)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">בלונד קריר</span></div>
+    </div>
+    <div class="g-item sq">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#1E2520,#151A15)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">קארה קלאסי</span></div>
+    </div>
+    <div class="g-item wide">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#25201E,#181412)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">גוונים טבעיים</span></div>
+    </div>
+    <div class="g-item tall">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#201E25,#14121A)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">עיצוב כלה</span></div>
+    </div>
+    <div class="g-item sq">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#252018,#1A1510)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">החלקה ברזילאית</span></div>
+    </div>
+    <div class="g-item wide">
+      <div class="g-item-bg" style="background:linear-gradient(135deg,#20251E,#151A12)">
+        <svg width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="rgba(197,164,103,0.2)" stroke-width="0.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+      </div>
+      <div class="g-item-overlay"><span class="g-item-label">שיקום שיער</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div class="section-inner">
+    <div class="reveal-up">
+      <div class="s-tag">המלצות</div>
+      <h2 class="s-title">מילים שחשובות <em>לי</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal-up">
+        <div class="testi-quote">&ldquo;</div>
+        <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testi-text">נועה היא לא סתם מעצבת שיער -- היא אמנית. היא הקשיבה בדיוק למה שרציתי ונתנה לי תספורת שאני מקבלת עליה מחמאות כל יום. האווירה בסטודיו שלה מרגיעה ומפנקת.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ש</div>
+          <div><div class="testi-name">שירה כ.</div><div class="testi-info">לקוחה קבועה &bull; 3 שנים</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal-up" style="transition-delay:0.1s">
+        <div class="testi-quote">&ldquo;</div>
+        <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testi-text">עשיתי אצל נועה החלקה ברזילאית והתוצאות מדהימות. השיער שלי חלק, בריא ומבריק כבר 4 חודשים. היא באמת מבינה את החומרים שהיא עובדת איתם ומסבירה הכל.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">מ</div>
+          <div><div class="testi-name">מיכל ר.</div><div class="testi-info">לקוחה קבועה &bull; שנה</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal-up" style="transition-delay:0.2s">
+        <div class="testi-quote">&ldquo;</div>
+        <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testi-text">נועה עיצבה לי את השיער לחתונה -- הניסיון והיום עצמו היו מושלמים. היא רגועה, מקצועית, ויודעת בדיוק מה עובד. כל החברות שלי שאלו מי עשה לי.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ד</div>
+          <div><div class="testi-name">דנה ל.</div><div class="testi-info">עיצוב כלה &bull; 2024</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal-up" style="transition-delay:0.3s">
+        <div class="testi-quote">&ldquo;</div>
+        <div class="testi-stars">&#9733; &#9733; &#9733; &#9733; &#9733;</div>
+        <p class="testi-text">אחרי שנים שפחדתי לצבוע, נועה נתנה לי ייעוץ מקצועי ושינתה לי את הגוון בצורה טבעית ומחמיאה. סוף סוף מצאתי מישהי שאני סומכת עליה לגמרי.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ל</div>
+          <div><div class="testi-name">לינוי א.</div><div class="testi-info">לקוחה קבועה &bull; 2 שנים</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking">
+  <div class="section-inner">
+    <div class="booking-inner reveal-up">
+      <div class="s-tag">הזמנת תור</div>
+      <h2 class="s-title">הצעד הראשון<br>לשיער <em>מושלם</em></h2>
+      <p class="s-desc">מלאי את הפרטים ואחזור אליך עם אישור תוך כמה שעות</p>
+      <div class="book-form">
+        <div class="book-row">
+          <div class="book-group"><label>שם מלא</label><input type="text" placeholder="השם שלך"></div>
+          <div class="book-group"><label>טלפון</label><input type="tel" placeholder="050-000-0000" dir="ltr"></div>
+        </div>
+        <div class="book-row">
+          <div class="book-group">
+            <label>סוג טיפול</label>
+            <select><option value="">בחרי טיפול</option><option>תספורת נשים</option><option>צבע וגוונים</option><option>החלקה</option><option>עיצוב כלות</option><option>ייעוץ אישי</option><option>טיפולי שיקום</option></select>
+          </div>
+          <div class="book-group"><label>תאריך מבוקש</label><input type="date"></div>
+        </div>
+        <div class="book-row">
+          <div class="book-group book-full"><label>הערות</label><textarea placeholder="משהו שחשוב לי לדעת?"></textarea></div>
+        </div>
+        <button class="btn-lux btn-lux-fill book-submit" onclick="handleBook()">
+          שליחת בקשה
+          <svg class="btn-arrow" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 7h12M7 1l6 6-6 6"/></svg>
+        </button>
+        <p class="book-msg" id="bookMsg">הבקשה נשלחה בהצלחה. אחזור אליך בקרוב.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-strip">
+  <div class="contact-row">
+    <div class="c-item reveal-up">
+      <div class="c-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="c-label">טלפון</div>
+      <a href="tel:+972501234567" class="c-val">050-123-4567</a>
+    </div>
+    <div class="c-item reveal-up" style="transition-delay:0.1s">
+      <div class="c-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="c-label">מיקום</div>
+      <div class="c-val c-val-rtl">רחוב הזית 12, תל אביב</div>
+    </div>
+    <div class="c-item reveal-up" style="transition-delay:0.2s">
+      <div class="c-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="c-label">שעות</div>
+      <div class="c-val c-val-rtl">א'-ה' 9:00-19:00</div>
+    </div>
+    <div class="c-item reveal-up" style="transition-delay:0.3s">
+      <div class="c-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div class="c-label">אינסטגרם</div>
+      <a href="#" class="c-val">@noir.studio</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">NOIR</div>
+    <div class="footer-social">
+      <a href="#" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+      <a href="https://wa.me/972501234567" aria-label="WhatsApp"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg></a>
+    </div>
+  </div>
+  <div class="footer-bot">&copy; 2026 NOIR Studio. All rights reserved.</div>
+</footer>
+
+<script>
+// --- Loader ---
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('done'),2200)});
+
+// --- Custom Cursor ---
+const cursor=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx-2+'px';dot.style.top=my-2+'px'});
+(function loop(){cx+=(mx-cx)*0.12;cy+=(my-cy)*0.12;cursor.style.left=cx-10+'px';cursor.style.top=cy-10+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button,.srv-card,.testi-card,.g-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('hover'));
+});
+
+// --- Navbar scroll ---
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>80));
+
+// --- Mobile menu ---
+const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// --- Scroll Reveal ---
+const reveals=document.querySelectorAll('.reveal-up');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')})},{threshold:0.12});
+reveals.forEach(el=>obs.observe(el));
+
+// --- Gallery Drag Scroll ---
+const strip=document.getElementById('galleryStrip');
+let isDown=false,startX,scrollLeft;
+strip.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX-strip.offsetLeft;scrollLeft=strip.scrollLeft});
+strip.addEventListener('mouseleave',()=>isDown=false);
+strip.addEventListener('mouseup',()=>isDown=false);
+strip.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-strip.offsetLeft;strip.scrollLeft=scrollLeft-(x-startX)*1.5});
+
+// --- Counter Animation ---
+const counters=document.querySelectorAll('.about-stat-n');
+const cObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){animateCounter(e.target);cObs.unobserve(e.target)}})},{threshold:0.5});
+counters.forEach(el=>cObs.observe(el));
+function animateCounter(el){
+  const text=el.textContent;const num=parseInt(text);const suffix=text.replace(/[\d]/g,'');
+  let start=0;const dur=1500;const startT=performance.now();
+  function step(t){const p=Math.min((t-startT)/dur,1);const eased=1-Math.pow(1-p,3);
+    el.textContent=Math.floor(eased*num)+suffix;if(p<1)requestAnimationFrame(step)}
+  requestAnimationFrame(step);
+}
+
+// --- Booking ---
+function handleBook(){const m=document.getElementById('bookMsg');m.style.display='block';setTimeout(()=>m.style.display='none',4000)}
+</script>
+</body>
+</html>

@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד"ר דניאל כהן — מרפאת שיניים מתקדמת בתל אביב</title>
+<meta name="description" content="מרפאת שיניים מתקדמת בתל אביב. ד״ר דניאל כהן מומחה להשתלות, הלבנה ואסתטיקה דנטלית. קביעת תור: 03-1234567">
+<meta property="og:title" content="ד״ר דניאל כהן — מרפאת שיניים מתקדמת">
+<meta property="og:description" content="טיפולי שיניים מתקדמים בסביבה נעימה ומקצועית. טכנולוגיה חדשנית, גישה אישית.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dentist",
+  "name": "ד״ר דניאל כהן - מרפאת שיניים",
+  "address": { "@type": "PostalAddress", "streetAddress": "רחוב הרצל 45", "addressLocality": "תל אביב", "addressCountry": "IL" },
+  "telephone": "+97231234567",
+  "openingHours": ["Su-Th 08:00-20:00", "Fr 08:00-13:00"]
+}
+</script>
+<style>
+/* ========== FOUNDATION ========== */
+:root {
+  --bg: #0A0E17;
+  --bg-elevated: #111827;
+  --surface: rgba(255,255,255,0.04);
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-strong: rgba(255,255,255,0.1);
+  --gold: #D4A853;
+  --gold-glow: rgba(212,168,83,0.3);
+  --gold-subtle: rgba(212,168,83,0.08);
+  --white: #FFFFFF;
+  --text: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.55);
+  --text-tertiary: rgba(255,255,255,0.35);
+  --success: #34D399;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*,*::before,*::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.7;
+  position: relative;
+}
+
+/* Noise texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 128px;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+::selection { background: var(--gold); color: var(--bg); }
+
+a { color: inherit; text-decoration: none; }
+
+/* ========== AMBIENT ORBS ========== */
+.ambient-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  will-change: transform;
+}
+
+.orb-1 {
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(212,168,83,0.25), transparent 70%);
+  top: -10%; right: -5%;
+  animation: orbFloat1 20s ease-in-out infinite;
+}
+
+.orb-2 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(59,130,246,0.15), transparent 70%);
+  bottom: 20%; left: -8%;
+  animation: orbFloat2 25s ease-in-out infinite;
+}
+
+.orb-3 {
+  width: 350px; height: 350px;
+  background: radial-gradient(circle, rgba(212,168,83,0.12), transparent 70%);
+  top: 50%; right: 30%;
+  animation: orbFloat3 18s ease-in-out infinite;
+}
+
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-60px, 40px) scale(1.1); }
+  66% { transform: translate(30px, -50px) scale(0.95); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -30px) scale(1.05); }
+  66% { transform: translate(-40px, 60px) scale(0.9); }
+}
+@keyframes orbFloat3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-70px, -40px) scale(1.15); }
+}
+
+/* ========== GLASS MIXINS ========== */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(40px) saturate(150%);
+  -webkit-backdrop-filter: blur(40px) saturate(150%);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: var(--glass-strong);
+  backdrop-filter: blur(60px) saturate(180%);
+  -webkit-backdrop-filter: blur(60px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* ========== NAVBAR ========== */
+.navbar {
+  position: fixed;
+  top: 16px;
+  right: 50%;
+  transform: translateX(50%);
+  z-index: 1000;
+  padding: 12px 16px;
+  border-radius: 100px;
+  transition: all 0.6s var(--ease);
+  width: auto;
+  max-width: 90vw;
+  background: rgba(10,14,23,0.4);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.navbar.scrolled {
+  background: rgba(10,14,23,0.75);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 12px 0 20px;
+  white-space: nowrap;
+}
+
+.nav-logo-mark {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--gold), #E8C77B);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+  color: var(--bg);
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--white);
+  letter-spacing: -0.3px;
+}
+
+.nav-divider {
+  width: 1px;
+  height: 24px;
+  background: rgba(255,255,255,0.1);
+  margin: 0 4px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2px;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  transition: all 0.3s var(--ease);
+  white-space: nowrap;
+}
+
+.nav-links a:hover {
+  color: var(--white);
+  background: rgba(255,255,255,0.06);
+}
+
+.nav-cta-link {
+  background: var(--gold) !important;
+  color: var(--bg) !important;
+  font-weight: 600 !important;
+  padding: 8px 22px !important;
+  margin-right: 4px;
+  transition: all 0.3s var(--ease) !important;
+}
+
+.nav-cta-link:hover {
+  background: #E8C77B !important;
+  transform: scale(1.04);
+  box-shadow: 0 4px 20px var(--gold-glow);
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 36px; height: 36px;
+  position: relative;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 20px;
+  height: 1.5px;
+  background: var(--white);
+  margin: 5px auto;
+  transition: all 0.3s var(--ease);
+  border-radius: 2px;
+}
+
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(4px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(4px, -5px); }
+
+/* ========== HERO ========== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  padding-top: 80px;
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 20%, transparent 70%);
+}
+
+.hero-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 18px 6px 8px;
+  border-radius: 50px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--gold);
+  border: 1px solid rgba(212,168,83,0.2);
+  background: rgba(212,168,83,0.06);
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroReveal 0.9s var(--ease-out) 0.2s forwards;
+}
+
+.eyebrow-dot {
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  animation: pulse 2.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--gold-glow);
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero h1 {
+  font-size: clamp(40px, 5.5vw, 64px);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+  margin-bottom: 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroReveal 1s var(--ease-out) 0.35s forwards;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--gold), #F0D78C, var(--gold));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 6s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  margin-bottom: 40px;
+  max-width: 440px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroReveal 1s var(--ease-out) 0.5s forwards;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroReveal 1s var(--ease-out) 0.65s forwards;
+}
+
+/* Premium buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 34px;
+  border-radius: 60px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-gold {
+  background: linear-gradient(135deg, var(--gold), #E8C77B);
+  color: var(--bg);
+  box-shadow: 0 4px 24px var(--gold-glow), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+
+.btn-gold:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 40px rgba(212,168,83,0.45), inset 0 1px 0 rgba(255,255,255,0.3);
+}
+
+.btn-gold:active { transform: translateY(-1px) scale(0.99); }
+
+.btn-glass {
+  background: rgba(255,255,255,0.06);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+}
+
+.btn-glass:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.2);
+  transform: translateY(-3px);
+}
+
+.btn-icon {
+  font-size: 18px;
+  transition: transform 0.3s var(--ease-spring);
+}
+
+.btn:hover .btn-icon { transform: translateX(-4px); }
+
+/* Hero stats */
+.hero-metrics {
+  display: flex;
+  gap: 44px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroReveal 1s var(--ease-out) 0.8s forwards;
+}
+
+.metric {
+  position: relative;
+}
+
+.metric::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: 0;
+  width: 32px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 2px;
+  opacity: 0.4;
+}
+
+.metric-value {
+  display: block;
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -1px;
+  margin-top: 8px;
+}
+
+.metric-label {
+  font-size: 13px;
+  color: var(--text-tertiary);
+  font-weight: 400;
+}
+
+@keyframes heroReveal {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero visual */
+.hero-visual {
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  animation: heroVisualReveal 1.2s var(--ease-out) 0.4s forwards;
+}
+
+@keyframes heroVisualReveal {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.hero-card-main {
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 2px;
+}
+
+.hero-card-inner {
+  border-radius: 26px;
+  overflow: hidden;
+  position: relative;
+  height: 520px;
+  background: linear-gradient(145deg, #1a2235, #111827);
+}
+
+.hero-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 20%, rgba(212,168,83,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(59,130,246,0.08) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.hero-card-emoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 140px;
+  opacity: 0.08;
+  z-index: 0;
+}
+
+.hero-card-content {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 36px;
+  z-index: 2;
+  background: linear-gradient(transparent, rgba(10,14,23,0.9));
+}
+
+.hero-card-tag {
+  display: inline-block;
+  padding: 5px 14px;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 600;
+  background: rgba(212,168,83,0.15);
+  color: var(--gold);
+  border: 1px solid rgba(212,168,83,0.2);
+  margin-bottom: 12px;
+  letter-spacing: 0.5px;
+}
+
+.hero-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.hero-card-desc {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  font-weight: 300;
+}
+
+/* Floating glass cards */
+.float-glass {
+  position: absolute;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  z-index: 10;
+  background: rgba(17,24,39,0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+.float-glass-1 {
+  bottom: 60px;
+  right: -28px;
+  animation: floatGlass 5s ease-in-out infinite;
+}
+
+.float-glass-2 {
+  top: 50px;
+  left: -20px;
+  animation: floatGlass 5s ease-in-out 2.5s infinite;
+}
+
+@keyframes floatGlass {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.float-icon-wrap {
+  width: 40px; height: 40px;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.float-icon-wrap.gold-bg { background: rgba(212,168,83,0.15); }
+.float-icon-wrap.green-bg { background: rgba(52,211,153,0.15); }
+
+.float-label { font-weight: 600; font-size: 13.5px; }
+.float-sub { font-size: 11.5px; color: var(--text-tertiary); }
+
+/* ========== SECTIONS ========== */
+.section {
+  padding: 120px 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: clamp(30px, 4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+.container { max-width: 1240px; margin: 0 auto; }
+
+/* ========== SERVICES ========== */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.service-card {
+  border-radius: var(--radius);
+  padding: 36px 30px;
+  transition: all 0.5s var(--ease);
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  background: var(--glass);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid var(--glass-border);
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, var(--gold-subtle) 0%, transparent 70%);
+  transition: all 0.5s var(--ease);
+  opacity: 0;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212,168,83,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(212,168,83,0.1);
+}
+
+.service-card:hover::before { opacity: 1; width: 250px; height: 250px; }
+
+.svc-icon {
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(212,168,83,0.04));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 22px;
+  transition: all 0.4s var(--ease-spring);
+  border: 1px solid rgba(212,168,83,0.08);
+}
+
+.service-card:hover .svc-icon {
+  transform: scale(1.12) rotate(-6deg);
+  background: linear-gradient(135deg, rgba(212,168,83,0.2), rgba(212,168,83,0.08));
+  border-color: rgba(212,168,83,0.2);
+}
+
+.service-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.service-card p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ========== ABOUT ========== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 5fr 6fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.about-visual {
+  position: relative;
+}
+
+.about-card {
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 2px;
+}
+
+.about-card-inner {
+  border-radius: 26px;
+  height: 500px;
+  background: linear-gradient(160deg, #1a2235 0%, #111420 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card-inner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 40% 30%, rgba(212,168,83,0.1) 0%, transparent 60%);
+}
+
+.about-card-inner::after {
+  content: '👨‍⚕️';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  opacity: 0.06;
+}
+
+.about-badge-float {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 5;
+  border-radius: 16px;
+  padding: 16px 24px;
+  background: rgba(10,14,23,0.7);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(212,168,83,0.2);
+}
+
+.about-badge-number {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gold);
+}
+
+.about-badge-label {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.about-content h2 {
+  font-size: 38px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  margin-bottom: 24px;
+}
+
+.about-content h2 span { color: var(--gold); }
+
+.about-content > p {
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+  line-height: 1.8;
+  font-weight: 300;
+}
+
+.about-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0;
+}
+
+.chip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  transition: all 0.3s var(--ease);
+}
+
+.chip:hover {
+  border-color: rgba(212,168,83,0.2);
+  background: rgba(212,168,83,0.06);
+}
+
+.chip-icon {
+  width: 34px; height: 34px;
+  border-radius: 9px;
+  background: var(--gold-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+/* ========== BEFORE/AFTER ========== */
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.ba-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  transition: all 0.5s var(--ease);
+}
+
+.ba-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  border-color: rgba(212,168,83,0.15);
+}
+
+.ba-split {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  height: 220px;
+}
+
+.ba-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px;
+  position: relative;
+}
+
+.ba-before { background: rgba(255,255,255,0.02); }
+.ba-after { background: rgba(212,168,83,0.04); }
+
+.ba-divider-line {
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
+  width: 1px;
+}
+
+.ba-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.ba-before .ba-tag {
+  background: rgba(255,255,255,0.06);
+  color: var(--text-tertiary);
+}
+
+.ba-after .ba-tag {
+  background: rgba(212,168,83,0.12);
+  color: var(--gold);
+}
+
+.ba-placeholder {
+  font-size: 13px;
+  color: var(--text-tertiary);
+}
+
+.ba-card-footer {
+  padding: 18px 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ba-card-footer h4 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.ba-card-footer span {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* ========== TESTIMONIALS ========== */
+.testimonials-section {
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(212,168,83,0.03) 50%, var(--bg) 100%);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.testi-card {
+  border-radius: var(--radius);
+  padding: 34px 28px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(40px);
+  transition: all 0.5s var(--ease);
+  position: relative;
+}
+
+.testi-card::before {
+  content: '"';
+  position: absolute;
+  top: 20px;
+  left: 24px;
+  font-size: 60px;
+  font-weight: 800;
+  color: rgba(212,168,83,0.08);
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+
+.testi-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,168,83,0.15);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.25);
+}
+
+.testi-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 18px;
+}
+
+.testi-star {
+  width: 16px; height: 16px;
+  background: var(--gold);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.testi-text {
+  font-size: 14.5px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 26px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.testi-avatar {
+  width: 42px; height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold), #E8C77B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--bg);
+}
+
+.testi-name { font-weight: 600; font-size: 14px; }
+.testi-role { font-size: 12px; color: var(--text-tertiary); }
+
+/* ========== WHY US ========== */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.why-card {
+  text-align: center;
+  padding: 40px 24px;
+  border-radius: var(--radius);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(30px);
+  transition: all 0.5s var(--ease);
+  position: relative;
+  overflow: hidden;
+}
+
+.why-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(212,168,83,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.why-card:hover .why-icon-wrap {
+  background: linear-gradient(135deg, rgba(212,168,83,0.2), rgba(212,168,83,0.06));
+  border-color: rgba(212,168,83,0.25);
+  transform: scale(1.08);
+}
+
+.why-icon-wrap {
+  width: 60px; height: 60px;
+  margin: 0 auto 20px;
+  border-radius: 16px;
+  background: var(--gold-subtle);
+  border: 1px solid rgba(212,168,83,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  transition: all 0.4s var(--ease-spring);
+}
+
+.why-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--white);
+}
+
+.why-card p {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ========== CTA BANNER ========== */
+.cta-section {
+  padding: 100px 48px;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-card {
+  max-width: 1240px;
+  margin: 0 auto;
+  border-radius: 32px;
+  padding: 80px 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(212,168,83,0.12), rgba(212,168,83,0.04));
+  border: 1px solid rgba(212,168,83,0.15);
+  backdrop-filter: blur(40px);
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse at center, rgba(212,168,83,0.08) 0%, transparent 60%);
+  animation: orbFloat1 15s ease-in-out infinite;
+}
+
+.cta-card h2 {
+  font-size: 38px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card p {
+  font-size: 17px;
+  color: var(--text-secondary);
+  margin-bottom: 36px;
+  font-weight: 300;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-card .btn { position: relative; z-index: 1; }
+
+/* ========== CONTACT ========== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.contact-form-card {
+  border-radius: 28px;
+  padding: 44px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(40px);
+}
+
+.contact-form-card h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.contact-form-card > p {
+  color: var(--text-secondary);
+  font-size: 14.5px;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.form-group { margin-bottom: 16px; }
+
+.form-group label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 13px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 14.5px;
+  color: var(--text);
+  background: rgba(255,255,255,0.04);
+  transition: all 0.3s var(--ease);
+  outline: none;
+  direction: rtl;
+}
+
+.form-group select { appearance: none; cursor: pointer; }
+.form-group select option { background: var(--bg-elevated); }
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px var(--gold-subtle);
+  background: rgba(255,255,255,0.06);
+}
+
+.form-group textarea { height: 100px; resize: vertical; }
+
+.form-submit {
+  width: 100%;
+  padding: 16px;
+  border-radius: 14px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), #E8C77B);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s var(--ease);
+  margin-top: 6px;
+}
+
+.form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px var(--gold-glow);
+}
+
+.contact-info-side h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.contact-info-side > p {
+  color: var(--text-secondary);
+  font-size: 14.5px;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+.info-items { display: flex; flex-direction: column; gap: 16px; }
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  border-radius: 16px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s var(--ease);
+}
+
+.info-item:hover {
+  border-color: rgba(212,168,83,0.15);
+  background: rgba(212,168,83,0.04);
+}
+
+.info-icon {
+  width: 46px; height: 46px;
+  border-radius: 13px;
+  background: var(--gold-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.info-label { font-size: 12px; color: var(--text-tertiary); }
+.info-value { font-size: 15px; font-weight: 500; margin-top: 2px; }
+
+.hours-card {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 18px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+}
+
+.hours-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: var(--gold);
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  font-size: 13.5px;
+}
+
+.hours-row:last-child { border: none; }
+.hours-day { font-weight: 500; }
+.hours-time { color: var(--text-secondary); }
+.hours-closed { color: #EF4444; font-weight: 500; }
+
+.map-placeholder {
+  margin-top: 24px;
+  height: 180px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 13px;
+}
+
+/* ========== FOOTER ========== */
+.footer {
+  padding: 60px 48px 30px;
+  position: relative;
+  z-index: 2;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.footer-grid {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 48px;
+  padding-bottom: 48px;
+}
+
+.footer-brand-desc {
+  color: var(--text-tertiary);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-top: 16px;
+  max-width: 260px;
+  font-weight: 300;
+}
+
+.footer-col h4 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-col ul a {
+  color: var(--text-tertiary);
+  font-size: 13.5px;
+  transition: all 0.3s var(--ease);
+  font-weight: 300;
+}
+
+.footer-col ul a:hover { color: var(--white); }
+
+.footer-bottom {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-socials a {
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  font-size: 14px;
+  transition: all 0.3s var(--ease);
+}
+
+.footer-socials a:hover {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+/* ========== WHATSAPP ========== */
+.wa-float {
+  position: fixed;
+  bottom: 28px;
+  left: 28px;
+  z-index: 999;
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  background: #25D366;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  transition: all 0.4s var(--ease);
+  opacity: 0;
+  transform: scale(0.8) translateY(20px);
+}
+
+.wa-float.visible {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+}
+
+.wa-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(37,211,102,0.5);
+}
+
+.wa-float::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(37,211,102,0.3);
+  animation: waPulse 2s ease-out infinite;
+}
+
+@keyframes waPulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* ========== SCROLL REVEALS ========== */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .services-grid, .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+  .about-grid { gap: 50px; }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    top: 10px;
+    right: 12px;
+    left: 12px;
+    transform: none;
+    width: auto;
+    border-radius: 18px;
+    padding: 10px 16px;
+  }
+
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 280px;
+    height: 100dvh;
+    background: rgba(10,14,23,0.95);
+    backdrop-filter: blur(40px);
+    flex-direction: column;
+    padding: 90px 28px 28px;
+    gap: 4px;
+    border-left: 1px solid rgba(255,255,255,0.06);
+    z-index: 999;
+  }
+
+  .nav-links.active { display: flex; }
+
+  .nav-links a {
+    padding: 14px 18px !important;
+    font-size: 15px !important;
+    border-radius: 12px !important;
+    margin: 0 !important;
+  }
+
+  .nav-divider { display: none; }
+  .hamburger { display: block; }
+
+  .section { padding: 80px 24px; }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 100px 24px 60px;
+  }
+
+  .hero-visual { order: -1; }
+  .hero-card-inner { height: 300px; }
+  .float-glass { display: none; }
+  .hero-actions { flex-direction: column; }
+  .hero-metrics { gap: 28px; flex-wrap: wrap; }
+  .hero h1 { letter-spacing: -0.5px; }
+
+  .services-grid,
+  .testimonials-grid,
+  .ba-grid { grid-template-columns: 1fr; }
+
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-card-inner { height: 300px; }
+  .about-chips { grid-template-columns: 1fr; }
+
+  .why-grid { grid-template-columns: 1fr 1fr; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-form-card { padding: 28px; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .cta-section { padding: 60px 24px; }
+  .cta-card { padding: 50px 28px; border-radius: 24px; }
+  .cta-card h2 { font-size: 28px; }
+
+  .footer { padding: 48px 24px 24px; }
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .why-grid { grid-template-columns: 1fr; }
+  .hero-metrics { gap: 20px; }
+  .metric-value { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- AMBIENT ORBS -->
+<div class="ambient-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-mark">DC</div>
+      <span class="nav-logo-text">ד"ר דניאל כהן</span>
+    </a>
+    <div class="nav-divider"></div>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">שירותים</a></li>
+      <li><a href="#about">אודות</a></li>
+      <li><a href="#gallery">גלריה</a></li>
+      <li><a href="#testimonials">המלצות</a></li>
+      <li><a href="#contact">צור קשר</a></li>
+      <li><a href="#contact" class="nav-cta-link">קביעת תור</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="תפריט">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        המרפאה המובילה בתל אביב
+      </div>
+      <h1>רפואת שיניים<br>ברמה <span class="text-gradient">אחרת לגמרי</span></h1>
+      <p class="hero-sub">טכנולוגיה חדשנית, גישה אישית, ותוצאות שמדברות בעד עצמן. חוויית טיפול שתשנה את הדרך שבה אתם חושבים על רופא שיניים.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-gold">
+          <span>קביעת תור</span>
+          <span class="btn-icon">←</span>
+        </a>
+        <a href="#services" class="btn btn-glass">
+          <span>גלו את השירותים</span>
+        </a>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric">
+          <span class="metric-value" data-count="15">0</span>
+          <span class="metric-label">שנות ניסיון</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value" data-count="8000">0</span>
+          <span class="metric-label">מטופלים מרוצים</span>
+        </div>
+        <div class="metric">
+          <span class="metric-value" data-count="98">0</span>
+          <span class="metric-label">אחוז שביעות רצון</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="hero-card-inner">
+          <span class="hero-card-emoji">🦷</span>
+          <div class="hero-card-content">
+            <span class="hero-card-tag">מרפאה מתקדמת</span>
+            <div class="hero-card-title">ציוד דיגיטלי מהדור האחרון</div>
+            <div class="hero-card-desc">סורק 3D, לייזר רפואי, הדמיה דיגיטלית</div>
+          </div>
+        </div>
+      </div>
+      <div class="float-glass float-glass-1">
+        <div class="float-icon-wrap green-bg">✓</div>
+        <div>
+          <div class="float-label">תור אושר</div>
+          <div class="float-sub">יום ראשון, 10:00</div>
+        </div>
+      </div>
+      <div class="float-glass float-glass-2">
+        <div class="float-icon-wrap gold-bg">★</div>
+        <div>
+          <div class="float-label">4.9 מתוך 5</div>
+          <div class="float-sub">+350 ביקורות</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">השירותים שלנו</span>
+      <h2 class="section-title">כל מה שהחיוך שלך צריך</h2>
+      <p class="section-subtitle">מגוון טיפולים מתקדמים תחת קורת גג אחת, בליווי צוות מומחים וטכנולוגיה חדשנית</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="svc-icon">🦷</div>
+        <h3>השתלות שיניים</h3>
+        <p>השתלות בטכנולוגיית ניווט 3D עם אחוזי הצלחה של 98%. החלמה מהירה, תוצאות לכל החיים.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">✨</div>
+        <h3>הלבנת שיניים</h3>
+        <p>טיפולי הלבנה מקצועיים בשיטת ZOOM. תוצאות מיידיות עד 8 גוונים בהירים יותר בביקור אחד.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">👑</div>
+        <h3>כתרים וציפויים</h3>
+        <p>ציפויי למינייט וכתרי חרסינה בהתאמה אישית. חיוך טבעי ומושלם שנשמר לשנים.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">◇</div>
+        <h3>יישור שיניים שקוף</h3>
+        <p>Invisalign ופתרונות יישור מתקדמים. יישור דיסקרטי ללא סמכים מתכתיים, מותאם אישית.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">🛡</div>
+        <h3>טיפולי שורש</h3>
+        <p>טיפולי שורש ללא כאב עם מיקרוסקופ אנדודונטי. שימור השן הטבעית ברמה הגבוהה ביותר.</p>
+      </div>
+      <div class="service-card reveal">
+        <div class="svc-icon">☺</div>
+        <h3>טיפולי ילדים</h3>
+        <p>סביבה ידידותית ורגועה לילדים. גישה חמה ומקצועית שבונה ביטחון מגיל צעיר.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-card">
+          <div class="about-card-inner"></div>
+        </div>
+        <div class="about-badge-float">
+          <div class="about-badge-number">15+</div>
+          <div class="about-badge-label">שנות ניסיון מוכח</div>
+        </div>
+      </div>
+      <div class="about-content reveal">
+        <span class="section-eyebrow">הכירו אותנו</span>
+        <h2>ד"ר דניאל כהן<br><span>מומחה</span> ברפואת שיניים</h2>
+        <p>בוגר הפקולטה לרפואת שיניים באוניברסיטת תל אביב עם התמחות בהשתלות ואסתטיקה דנטלית. השתלם בארה"ב ובאירופה אצל מובילי התחום.</p>
+        <p>המרפאה מצוידת בציוד הדיגיטלי המתקדם ביותר — סורק תלת-ממדי, לייזר רפואי, וצילום CBCT. כל מטופל מקבל תוכנית טיפול מותאמת אישית.</p>
+        <div class="about-chips">
+          <div class="chip">
+            <div class="chip-icon">🎓</div>
+            אוניברסיטת תל אביב
+          </div>
+          <div class="chip">
+            <div class="chip-icon">🏆</div>
+            מומחה מוסמך
+          </div>
+          <div class="chip">
+            <div class="chip-icon">🔬</div>
+            טכנולוגיה דיגיטלית
+          </div>
+          <div class="chip">
+            <div class="chip-icon">💎</div>
+            שירות פרימיום
+          </div>
+        </div>
+        <a href="#contact" class="btn btn-gold">קביעת ייעוץ ראשוני ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE/AFTER -->
+<section class="section" id="gallery">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">לפני ואחרי</span>
+      <h2 class="section-title">תוצאות שמדברות</h2>
+      <p class="section-subtitle">כל מקרה הוא סיפור הצלחה. צפו בתוצאות האמיתיות של המטופלים שלנו</p>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card reveal">
+        <div class="ba-split">
+          <div class="ba-side ba-before">
+            <span class="ba-tag">לפני</span>
+            <span class="ba-placeholder">תמונת לפני</span>
+          </div>
+          <div class="ba-divider-line"></div>
+          <div class="ba-side ba-after">
+            <span class="ba-tag">אחרי</span>
+            <span class="ba-placeholder">תמונת אחרי</span>
+          </div>
+        </div>
+        <div class="ba-card-footer">
+          <h4>ציפויי חרסינה</h4>
+          <span>6 ציפויים</span>
+        </div>
+      </div>
+      <div class="ba-card reveal">
+        <div class="ba-split">
+          <div class="ba-side ba-before">
+            <span class="ba-tag">לפני</span>
+            <span class="ba-placeholder">תמונת לפני</span>
+          </div>
+          <div class="ba-divider-line"></div>
+          <div class="ba-side ba-after">
+            <span class="ba-tag">אחרי</span>
+            <span class="ba-placeholder">תמונת אחרי</span>
+          </div>
+        </div>
+        <div class="ba-card-footer">
+          <h4>הלבנת שיניים</h4>
+          <span>ביקור אחד</span>
+        </div>
+      </div>
+      <div class="ba-card reveal">
+        <div class="ba-split">
+          <div class="ba-side ba-before">
+            <span class="ba-tag">לפני</span>
+            <span class="ba-placeholder">תמונת לפני</span>
+          </div>
+          <div class="ba-divider-line"></div>
+          <div class="ba-side ba-after">
+            <span class="ba-tag">אחרי</span>
+            <span class="ba-placeholder">תמונת אחרי</span>
+          </div>
+        </div>
+        <div class="ba-card-footer">
+          <h4>השתלות + שיקום</h4>
+          <span>שיקום מלא</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">המלצות</span>
+      <h2 class="section-title">מה אומרים עלינו</h2>
+      <p class="section-subtitle">אלפי מטופלים בחרו בנו. הנה חלק מהסיפורים שלהם</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars"><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div></div>
+        <p class="testi-text">"חוויה יוצאת דופן. ד"ר כהן והצוות גרמו לי להרגיש בנוח מהרגע הראשון. התוצאה של הציפויים מדהימה — אני לא מפסיקה לחייך."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">מ</div>
+          <div><div class="testi-name">מירב לוי</div><div class="testi-role">ציפויי חרסינה</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars"><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div></div>
+        <p class="testi-text">"אחרי שנים של פחד מטיפולי שיניים, מצאתי מקום שבו אני מרגיש בטוח. הטיפול היה ללא כאב והתוצאה מושלמת. ממליץ בחום."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">א</div>
+          <div><div class="testi-name">אבי כהן</div><div class="testi-role">השתלת שיניים</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars"><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div><div class="testi-star"></div></div>
+        <p class="testi-text">"הילדה שלי פחדה מכל רופא, אבל הצוות כאן פשוט קסם. היא יוצאת עם חיוך ומבקשת לחזור. שירות ברמה אחרת לגמרי."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ר</div>
+          <div><div class="testi-name">רונית שמעון</div><div class="testi-role">טיפולי ילדים</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">למה אנחנו</span>
+      <h2 class="section-title">היתרון שלנו</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon-wrap">🏥</div>
+        <h3>ציוד דיגיטלי</h3>
+        <p>סורק 3D, לייזר, צילום CBCT — הכל תחת קורת גג אחת</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon-wrap">💉</div>
+        <h3>ללא כאב</h3>
+        <p>שיטות הרדמה מתקדמות לחוויית טיפול רגועה ונעימה</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon-wrap">⏰</div>
+        <h3>זמינות מלאה</h3>
+        <p>תורים גמישים כולל ערבים, מענה מהיר לחירום</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon-wrap">💳</div>
+        <h3>מימון נוח</h3>
+        <p>פריסה ללא ריבית עד 12 תשלומים, עבודה מול כל הקופות</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-section">
+  <div class="cta-card reveal">
+    <h2>מוכנים ל<span class="text-gradient">חיוך מושלם</span>?</h2>
+    <p>הצעד הראשון הוא שיחת ייעוץ קצרה. אנחנו כאן בשבילכם.</p>
+    <a href="tel:+97231234567" class="btn btn-gold">התקשרו עכשיו — 03-1234567</a>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-eyebrow">צור קשר</span>
+      <h2 class="section-title">בואו נתחיל</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-form-card reveal">
+        <h3>קביעת תור</h3>
+        <p>מלאו את הפרטים ונחזור אליכם תוך שעות</p>
+        <form id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>שם מלא *</label>
+              <input type="text" placeholder="השם שלכם" required>
+            </div>
+            <div class="form-group">
+              <label>טלפון *</label>
+              <input type="tel" placeholder="050-0000000" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>דוא"ל</label>
+            <input type="email" placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label>סוג טיפול</label>
+            <select>
+              <option value="">בחרו סוג טיפול</option>
+              <option>בדיקה תקופתית</option>
+              <option>השתלת שיניים</option>
+              <option>הלבנת שיניים</option>
+              <option>כתרים וציפויים</option>
+              <option>יישור שיניים</option>
+              <option>טיפול שורש</option>
+              <option>טיפולי ילדים</option>
+              <option>אחר</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>הערות</label>
+            <textarea placeholder="ספרו לנו בקצרה..."></textarea>
+          </div>
+          <button type="submit" class="form-submit" id="submitBtn">שליחת בקשה</button>
+        </form>
+      </div>
+      <div class="contact-info-side reveal">
+        <h3>דברו איתנו</h3>
+        <p>נשמח לענות על כל שאלה</p>
+        <div class="info-items">
+          <a href="tel:+97231234567" class="info-item">
+            <div class="info-icon">📞</div>
+            <div><div class="info-label">טלפון</div><div class="info-value">03-1234567</div></div>
+          </a>
+          <a href="https://wa.me/9720501234567" class="info-item">
+            <div class="info-icon">💬</div>
+            <div><div class="info-label">וואטסאפ</div><div class="info-value">050-1234567</div></div>
+          </a>
+          <div class="info-item">
+            <div class="info-icon">📍</div>
+            <div><div class="info-label">כתובת</div><div class="info-value">רחוב הרצל 45, תל אביב</div></div>
+          </div>
+          <a href="mailto:info@dr-cohen-dental.co.il" class="info-item">
+            <div class="info-icon">✉</div>
+            <div><div class="info-label">דוא"ל</div><div class="info-value">info@dr-cohen-dental.co.il</div></div>
+          </a>
+        </div>
+        <div class="hours-card">
+          <h4>שעות פעילות</h4>
+          <div class="hours-row"><span class="hours-day">ראשון — חמישי</span><span class="hours-time">08:00 – 20:00</span></div>
+          <div class="hours-row"><span class="hours-day">שישי</span><span class="hours-time">08:00 – 13:00</span></div>
+          <div class="hours-row"><span class="hours-day">שבת</span><span class="hours-closed">סגור</span></div>
+        </div>
+        <div class="map-placeholder">
+          <!-- REPLACE: הטמיעו כאן iframe של Google Maps -->
+          📍 מפת Google Maps
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <a href="#" class="nav-logo" style="display:inline-flex;gap:10px;align-items:center;">
+        <div class="nav-logo-mark">DC</div>
+        <span class="nav-logo-text">ד"ר דניאל כהן</span>
+      </a>
+      <p class="footer-brand-desc">מרפאת שיניים מתקדמת המציעה טיפולים ברמה הגבוהה ביותר. אנחנו כאן בשביל החיוך שלכם.</p>
+    </div>
+    <div class="footer-col">
+      <h4>שירותים</h4>
+      <ul>
+        <li><a href="#services">השתלות שיניים</a></li>
+        <li><a href="#services">הלבנת שיניים</a></li>
+        <li><a href="#services">כתרים וציפויים</a></li>
+        <li><a href="#services">יישור שיניים</a></li>
+        <li><a href="#services">טיפולי שורש</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>ניווט</h4>
+      <ul>
+        <li><a href="#hero">דף הבית</a></li>
+        <li><a href="#about">אודות</a></li>
+        <li><a href="#gallery">גלריה</a></li>
+        <li><a href="#testimonials">המלצות</a></li>
+        <li><a href="#contact">צור קשר</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>מידע</h4>
+      <ul>
+        <li><a href="#">מדיניות פרטיות</a></li>
+        <li><a href="#">תנאי שימוש</a></li>
+        <li><a href="#">נגישות</a></li>
+        <li><a href="#">שאלות נפוצות</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="year"></span> ד"ר דניאל כהן — כל הזכויות שמורות</span>
+    <div class="footer-socials">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Instagram">ig</a>
+      <a href="#" aria-label="TikTok">tk</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/9720501234567?text=שלום, אשמח לקבל פרטים נוספים" target="_blank" rel="noopener" class="wa-float" id="waFloat" aria-label="שלחו הודעה בוואטסאפ">💬</a>
+
+<script>
+// Dynamic year
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Navbar scroll
+const navbar = document.getElementById('navbar');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// Mobile menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('active');
+  navLinks.classList.toggle('active');
+});
+
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('active');
+    navLinks.classList.remove('active');
+  });
+});
+
+// WhatsApp button delay
+setTimeout(() => {
+  document.getElementById('waFloat').classList.add('visible');
+}, 2500);
+
+// Scroll reveal with stagger
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      // Stagger children if in a grid
+      const parent = entry.target.parentElement;
+      if (parent) {
+        const siblings = [...parent.querySelectorAll('.reveal')];
+        const idx = siblings.indexOf(entry.target);
+        entry.target.style.transitionDelay = `${idx * 0.1}s`;
+      }
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.1,
+  rootMargin: '0px 0px -60px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// Animated counters with spring easing
+function animateCounter(el) {
+  const target = parseInt(el.dataset.count);
+  const suffix = target === 98 ? '%' : target === 15 ? '+' : '+';
+  const duration = 2000;
+  const startTime = performance.now();
+
+  function easeOutExpo(t) {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeOutExpo(progress);
+    const current = Math.round(eased * target);
+
+    if (target >= 1000) {
+      el.textContent = current.toLocaleString() + suffix;
+    } else {
+      el.textContent = current + suffix;
+    }
+
+    if (progress < 1) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.metric-value').forEach(el => animateCounter(el));
+    counterObserver.disconnect();
+  }
+}, { threshold: 0.5 });
+
+counterObserver.observe(document.querySelector('.hero-metrics'));
+
+// Form submission
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submitBtn');
+  const originalText = btn.textContent;
+  btn.textContent = 'שולח...';
+  btn.style.opacity = '0.7';
+
+  setTimeout(() => {
+    btn.textContent = 'הבקשה נשלחה בהצלחה ✓';
+    btn.style.background = '#059669';
+    btn.style.opacity = '1';
+    btn.style.boxShadow = '0 8px 30px rgba(5,150,105,0.3)';
+
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.style.boxShadow = '';
+      this.reset();
+    }, 3000);
+  }, 800);
+});
+
+// Parallax orbs on scroll
+window.addEventListener('scroll', () => {
+  const y = window.scrollY;
+  const orbs = document.querySelectorAll('.orb');
+  orbs[0].style.transform = `translate(${Math.sin(y * 0.002) * 30}px, ${y * 0.05}px)`;
+  orbs[1].style.transform = `translate(${Math.cos(y * 0.002) * 20}px, ${y * -0.03}px)`;
+  orbs[2].style.transform = `translate(${Math.sin(y * 0.003) * 25}px, ${y * 0.02}px)`;
+}, { passive: true });
+</script>
+
+</body>
+</html>

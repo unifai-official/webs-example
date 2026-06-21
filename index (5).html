@@ -1,0 +1,1854 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>לילי מכון יופי — טיפולי פנים והסרת שיער בהרצליה | סוקולוב</title>
+  <meta name="description" content="לילי מכון יופי בהרצליה — טיפולי פנים מתקדמים, הסרת שיער בשעווה ולייזר, עיצוב גבות ועוד. קוסמטיקאית מוסמכת עם ניסיון של 15+ שנים. קבעי תור עכשיו!">
+  <meta name="keywords" content="מכון יופי הרצליה, קוסמטיקאית הרצליה, הסרת שיער הרצליה, טיפולי פנים הרצליה, עיצוב גבות הרצליה, לייזר הרצליה, שעווה הרצליה">
+  <link rel="canonical" href="https://www.lily-beauty.co.il">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="לילי מכון יופי — טיפולי פנים והסרת שיער בהרצליה">
+  <meta property="og:description" content="טיפוח מקצועי בלב הרצליה. טיפולי פנים, הסרת שיער, עיצוב גבות ועוד. קבעי תור עכשיו!">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:url" content="https://www.lily-beauty.co.il">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BeautySalon",
+    "name": "לילי מכון יופי",
+    "description": "מכון יופי מוביל בהרצליה — טיפולי פנים מתקדמים, הסרת שיער, עיצוב גבות ועוד",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "סוקולוב 6",
+      "addressLocality": "הרצליה",
+      "addressCountry": "IL"
+    },
+    "telephone": "+972-9-9503982",
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"], "opens": "09:00", "closes": "20:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Friday", "opens": "09:00", "closes": "14:00" }
+    ],
+    "priceRange": "₪₪",
+    "image": "https://www.lily-beauty.co.il/og-image.jpg",
+    "url": "https://www.lily-beauty.co.il"
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Secular+One&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & ROOT ===== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --lavender: #E8D5E0;
+      --lavender-deep: #C9A6B8;
+      --lavender-light: #F3ECF0;
+      --cream: #FFF9F0;
+      --cream-dark: #F5EDE0;
+      --gold: #D4AF37;
+      --gold-light: #E8CB6B;
+      --gold-muted: #BFA04A;
+      --white: #FFFFFF;
+      --text-dark: #2D2028;
+      --text-body: #4A3F45;
+      --text-muted: #7A6D73;
+      --bg-section-alt: #FBF6F9;
+      --shadow-sm: 0 2px 8px rgba(45, 32, 40, 0.06);
+      --shadow-md: 0 4px 20px rgba(45, 32, 40, 0.1);
+      --shadow-lg: 0 8px 40px rgba(45, 32, 40, 0.14);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --header-h: 72px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Heebo', sans-serif;
+      font-weight: 400;
+      color: var(--text-body);
+      background: var(--white);
+      line-height: 1.7;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    /* ===== SKIP LINK ===== */
+    .skip-link {
+      position: absolute; top: -100%; right: 0;
+      background: var(--gold); color: var(--white);
+      padding: 12px 24px; z-index: 100000;
+      font-weight: 600; border-radius: 0 0 0 var(--radius-sm);
+      transition: top var(--transition);
+    }
+    .skip-link:focus { top: 0; }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .section-pad { padding: 96px 0; }
+    @media (max-width: 768px) { .section-pad { padding: 56px 0; } }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .section-header h2 {
+      font-family: 'Secular One', 'Heebo', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+    .section-header .accent-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--lavender-deep));
+      margin: 0 auto 16px;
+      border-radius: 2px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      position: fixed; top: 0; right: 0; left: 0;
+      z-index: 1000;
+      height: var(--header-h);
+      display: flex; align-items: center;
+      transition: background var(--transition), box-shadow var(--transition), height var(--transition);
+      background: transparent;
+    }
+    .site-header.scrolled {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-sm);
+      height: 60px;
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    }
+    .logo {
+      font-family: 'Secular One', sans-serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      text-decoration: none;
+      transition: color var(--transition);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logo .logo-icon {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--white);
+    }
+    .site-header.scrolled .logo { color: var(--text-dark); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.9);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      position: relative;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; right: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover::after,
+    .nav-links a:focus::after { width: 100%; }
+    .site-header.scrolled .nav-links a { color: var(--text-body); }
+    .site-header.scrolled .nav-links a:hover { color: var(--text-dark); }
+
+    .header-cta {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--gold);
+      color: var(--white);
+      padding: 10px 22px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .header-cta:hover { background: var(--gold-muted); transform: translateY(-1px); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      width: 32px; height: 24px;
+      position: relative; z-index: 1001;
+    }
+    .hamburger span {
+      display: block; width: 100%; height: 2.5px;
+      background: var(--white);
+      border-radius: 2px;
+      position: absolute; right: 0;
+      transition: var(--transition);
+    }
+    .site-header.scrolled .hamburger span { background: var(--text-dark); }
+    .hamburger span:nth-child(1) { top: 0; }
+    .hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); width: 75%; }
+    .hamburger span:nth-child(3) { bottom: 0; width: 50%; }
+    .hamburger.active span { background: var(--text-dark); }
+    .hamburger.active span:nth-child(1) { top: 50%; transform: translateY(-50%) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { bottom: auto; top: 50%; width: 100%; transform: translateY(-50%) rotate(-45deg); }
+
+    /* Mobile Nav */
+    .mobile-nav {
+      position: fixed; top: 0; right: -100%; width: 80%; max-width: 360px;
+      height: 100vh; background: var(--white);
+      z-index: 1000;
+      padding: 100px 32px 40px;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-lg);
+      display: flex; flex-direction: column;
+    }
+    .mobile-nav.open { right: 0; }
+    .mobile-nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(45, 32, 40, 0.5);
+      z-index: 999;
+      opacity: 0; visibility: hidden;
+      transition: var(--transition);
+    }
+    .mobile-nav-overlay.open { opacity: 1; visibility: visible; }
+    .mobile-nav a {
+      display: block; padding: 14px 0;
+      color: var(--text-dark);
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      border-bottom: 1px solid var(--lavender-light);
+      transition: color var(--transition);
+    }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-nav .mobile-cta {
+      margin-top: auto;
+      text-align: center;
+      background: var(--gold);
+      color: var(--white);
+      padding: 14px; border-radius: 50px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 900px) {
+      .nav-links, .header-cta { display: none; }
+      .hamburger { display: block; }
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, rgba(45,32,40,0.65) 0%, rgba(200,166,184,0.45) 50%, rgba(212,175,55,0.25) 100%),
+        linear-gradient(180deg, rgba(45,32,40,0.5) 0%, transparent 40%, rgba(45,32,40,0.4) 100%);
+      z-index: 1;
+    }
+    /* Decorative background pattern */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(232,213,224,0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(212,175,55,0.15) 0%, transparent 40%);
+      z-index: 0;
+    }
+    .hero-placeholder-bg {
+      position: absolute; inset: 0;
+      /* REPLACE: Use an actual hero photo of the salon interior or treatment scene */
+      background: linear-gradient(135deg, #3D2B35 0%, #5A3E4E 40%, #7A5D6A 100%);
+      z-index: 0;
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 680px;
+      padding: 0 24px;
+      margin: 0 auto 0 0; /* RTL: push to right */
+      padding-right: 8%;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(212,175,55,0.2);
+      border: 1px solid rgba(212,175,55,0.35);
+      padding: 8px 20px;
+      border-radius: 50px;
+      color: var(--gold-light);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      backdrop-filter: blur(6px);
+    }
+    .hero h1 {
+      font-family: 'Secular One', sans-serif;
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      color: var(--white);
+      line-height: 1.25;
+      margin-bottom: 20px;
+    }
+    .hero h1 .highlight {
+      color: var(--gold-light);
+    }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 36px;
+      line-height: 1.8;
+      max-width: 520px;
+    }
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--gold-muted);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212,175,55,0.35);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+      border: 1.5px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(6px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.2);
+      border-color: rgba(255,255,255,0.5);
+    }
+
+    /* Hero scroll indicator */
+    .scroll-indicator {
+      position: absolute; bottom: 32px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.6);
+      font-size: 0.8rem;
+    }
+    .scroll-indicator .arrow {
+      width: 24px; height: 24px;
+      border-left: 2px solid rgba(255,255,255,0.5);
+      border-bottom: 2px solid rgba(255,255,255,0.5);
+      transform: rotate(-45deg);
+      animation: scrollBounce 2s infinite;
+    }
+    @keyframes scrollBounce {
+      0%, 100% { transform: rotate(-45deg) translate(0,0); opacity: 0.5; }
+      50% { transform: rotate(-45deg) translate(5px, 5px); opacity: 1; }
+    }
+
+    /* ===== SERVICES ===== */
+    .services { background: var(--bg-section-alt); }
+
+    .service-category {
+      margin-bottom: 48px;
+    }
+    .service-category:last-child { margin-bottom: 0; }
+
+    .service-category-title {
+      font-family: 'Secular One', sans-serif;
+      font-size: 1.35rem;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .service-category-title .cat-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--lavender), var(--lavender-light));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 28px;
+      border: 1px solid rgba(232,213,224,0.4);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; right: 0;
+      width: 4px; height: 0;
+      background: linear-gradient(180deg, var(--gold), var(--lavender-deep));
+      transition: height 0.4s ease;
+      border-radius: 0 0 2px 2px;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--lavender);
+    }
+    .service-card:hover::before { height: 100%; }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .service-card .service-desc {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.65;
+    }
+    .service-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid var(--lavender-light);
+      font-size: 0.88rem;
+    }
+    .service-meta .duration {
+      color: var(--text-muted);
+      display: flex; align-items: center; gap: 4px;
+    }
+    .service-meta .price {
+      font-weight: 600;
+      color: var(--gold-muted);
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-image-wrap {
+      position: relative;
+    }
+    .about-image {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius);
+      object-fit: cover;
+      /* REPLACE: Lily's professional portrait photo */
+      background: linear-gradient(135deg, var(--lavender-light), var(--lavender));
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .about-image-wrap::after {
+      content: '';
+      position: absolute;
+      bottom: -16px; right: -16px;
+      width: 60%; height: 60%;
+      border: 3px solid var(--gold);
+      border-radius: var(--radius);
+      z-index: -1;
+      opacity: 0.3;
+    }
+    .about-content h2 {
+      font-family: 'Secular One', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .about-content .subtitle {
+      color: var(--gold-muted);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    .about-content p {
+      margin-bottom: 16px;
+      line-height: 1.8;
+    }
+    .about-badges {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      margin-top: 28px;
+    }
+    .about-badge {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--lavender-light);
+      padding: 10px 18px;
+      border-radius: 50px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .about-image-wrap { max-width: 360px; margin: 0 auto; }
+    }
+
+    /* ===== BEFORE & AFTER ===== */
+    .ba-section { background: var(--bg-section-alt); }
+    .ba-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .ba-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .ba-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .ba-images {
+      display: grid; grid-template-columns: 1fr 1fr;
+      position: relative;
+    }
+    .ba-img {
+      aspect-ratio: 1;
+      object-fit: cover;
+      width: 100%;
+      /* REPLACE: actual before/after photos */
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem; color: var(--text-muted);
+    }
+    .ba-img.before { background: var(--cream-dark); }
+    .ba-img.after { background: var(--lavender-light); }
+    .ba-images .ba-divider {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--white);
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.75rem; font-weight: 700;
+      color: var(--gold);
+      box-shadow: var(--shadow-sm);
+      z-index: 2;
+    }
+    .ba-card-info {
+      padding: 16px 20px;
+    }
+    .ba-card-info h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+    .ba-card-info p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .ba-disclaimer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .testimonial-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 32px;
+      border: 1px solid var(--lavender-light);
+      position: relative;
+      transition: all var(--transition);
+    }
+    .testimonial-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--lavender);
+    }
+    .testimonial-card .quote-mark {
+      font-size: 3rem;
+      color: var(--lavender);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-family: Georgia, serif;
+    }
+    .testimonial-card p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+      margin-bottom: 20px;
+      color: var(--text-body);
+    }
+    .testimonial-author {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .testimonial-avatar {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--lavender-light), var(--lavender));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 600; color: var(--text-dark);
+      font-size: 1rem;
+    }
+    .testimonial-author .name {
+      font-weight: 600; color: var(--text-dark); font-size: 0.95rem;
+    }
+    .testimonial-author .stars {
+      color: var(--gold); font-size: 0.85rem; letter-spacing: 2px;
+    }
+
+    .rating-badge {
+      display: flex; align-items: center; justify-content: center; gap: 24px;
+      margin-top: 40px;
+      padding: 24px;
+      background: var(--lavender-light);
+      border-radius: var(--radius);
+    }
+    .rating-badge .rating-number {
+      font-family: 'Secular One', sans-serif;
+      font-size: 2.8rem;
+      color: var(--gold);
+    }
+    .rating-badge .rating-info { text-align: start; }
+    .rating-badge .rating-stars { color: var(--gold); font-size: 1.2rem; letter-spacing: 3px; }
+    .rating-badge .rating-count { font-size: 0.88rem; color: var(--text-muted); }
+
+    /* ===== FAQ ===== */
+    .faq-section { background: var(--bg-section-alt); }
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      background: var(--white);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      border: 1px solid var(--lavender-light);
+      overflow: hidden;
+      transition: border-color var(--transition);
+    }
+    .faq-item.active { border-color: var(--lavender); }
+    .faq-question {
+      width: 100%; text-align: start;
+      padding: 20px 24px;
+      background: none; border: none;
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 16px;
+    }
+    .faq-question .faq-icon {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--lavender-light);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform var(--transition), background var(--transition);
+      flex-shrink: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+      background: var(--lavender);
+      color: var(--white);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      color: var(--text-body);
+      font-size: 0.95rem;
+      line-height: 1.8;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .contact-form-wrap h3 {
+      font-family: 'Secular One', sans-serif;
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .contact-form-wrap > p {
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--lavender-light);
+      border-radius: var(--radius-sm);
+      font-family: 'Heebo', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      direction: rtl;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--lavender-deep);
+      box-shadow: 0 0 0 3px rgba(232,213,224,0.3);
+    }
+    .form-group input.error,
+    .form-group select.error {
+      border-color: #e74c3c;
+    }
+    .form-group .error-msg {
+      color: #e74c3c;
+      font-size: 0.82rem;
+      margin-top: 4px;
+      display: none;
+    }
+    .form-group input.error ~ .error-msg,
+    .form-group select.error ~ .error-msg { display: block; }
+
+    .form-submit {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 50px;
+      background: var(--gold);
+      color: var(--white);
+      font-family: 'Heebo', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      position: relative;
+    }
+    .form-submit:hover { background: var(--gold-muted); transform: translateY(-1px); }
+    .form-submit.loading { pointer-events: none; opacity: 0.8; }
+    .form-submit.loading::after {
+      content: '';
+      width: 18px; height: 18px;
+      border: 2.5px solid rgba(255,255,255,0.3);
+      border-top-color: var(--white);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin-right: 8px;
+      display: inline-block; vertical-align: middle;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 32px;
+      background: var(--lavender-light);
+      border-radius: var(--radius);
+    }
+    .form-success .check-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .form-success h4 {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .form-success p { color: var(--text-muted); font-size: 0.95rem; }
+
+    .contact-info-side h3 {
+      font-family: 'Secular One', sans-serif;
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+    .contact-info-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      margin-bottom: 24px;
+    }
+    .contact-info-item .ci-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--lavender-light);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+    .contact-info-item .ci-label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .contact-info-item .ci-value {
+      font-weight: 500;
+      color: var(--text-dark);
+    }
+    .contact-info-item a { color: var(--text-dark); text-decoration: none; }
+    .contact-info-item a:hover { color: var(--gold); }
+
+    .hours-table {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+    }
+    .hours-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--lavender-light);
+      font-size: 0.92rem;
+    }
+    .hours-table td:first-child { font-weight: 500; color: var(--text-dark); }
+    .hours-table td:last-child { color: var(--text-muted); }
+    .hours-table tr:last-child td { border-bottom: none; }
+    .hours-table .closed { color: #c0392b; font-weight: 500; }
+
+    @media (max-width: 768px) {
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===== MAP ===== */
+    .map-wrap {
+      margin-top: 48px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .map-wrap iframe {
+      width: 100%;
+      height: 340px;
+      border: none;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.7);
+      padding: 64px 0 0;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand .footer-logo {
+      font-family: 'Secular One', sans-serif;
+      font-size: 1.3rem;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .footer-brand p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      max-width: 300px;
+    }
+    .footer-col h4 {
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .footer-col a {
+      display: block;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 5px 0;
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--gold-light); }
+    .footer-social {
+      display: flex; gap: 12px;
+      margin-top: 20px;
+    }
+    .footer-social a {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      color: rgba(255,255,255,0.7);
+      transition: all var(--transition);
+      padding: 0;
+    }
+    .footer-social a:hover {
+      background: var(--gold);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px;
+      font-size: 0.85rem;
+    }
+    .footer-bottom a {
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer-bottom a:hover { color: var(--gold-light); }
+    .footer-legal { display: flex; gap: 20px; }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+      .footer-bottom {
+        flex-direction: column; text-align: center;
+      }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== WHATSAPP BUTTON ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 24px;
+      left: 24px; /* RTL: bottom-left */
+      z-index: 9999;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .whatsapp-float.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .whatsapp-float a {
+      display: flex; align-items: center; justify-content: center;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      color: white;
+      font-size: 1.6rem;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.4);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+    }
+    .whatsapp-float a:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+    }
+    .whatsapp-float .wa-pulse {
+      position: absolute; inset: -4px;
+      border-radius: 50%;
+      border: 2px solid #25D366;
+      animation: waPulse 2s infinite;
+    }
+    @keyframes waPulse {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .whatsapp-float .wa-tooltip {
+      position: absolute;
+      bottom: 68px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--white);
+      color: var(--text-dark);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: var(--shadow-md);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    .whatsapp-float a:hover .wa-tooltip { opacity: 1; }
+
+    /* ===== MOBILE BOTTOM BAR ===== */
+    .mobile-bottom-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; right: 0; left: 0;
+      z-index: 998;
+      background: var(--white);
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.08);
+      padding: 10px 16px;
+      gap: 10px;
+    }
+    .mobile-bottom-bar a {
+      flex: 1;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 12px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .mbb-call {
+      background: var(--lavender-light);
+      color: var(--text-dark);
+    }
+    .mbb-whatsapp {
+      background: #25D366;
+      color: var(--white);
+    }
+    @media (max-width: 768px) {
+      .mobile-bottom-bar { display: flex; }
+      .whatsapp-float { bottom: 80px; }
+      body { padding-bottom: 70px; }
+    }
+
+    /* ===== COOKIE BANNER ===== */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0; right: 0; left: 0;
+      z-index: 10000;
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.85);
+      padding: 16px 24px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      font-size: 0.88rem;
+    }
+    .cookie-banner.show { display: flex; }
+    .cookie-banner button {
+      background: var(--gold);
+      color: var(--white);
+      border: none;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-family: 'Heebo', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    @media (max-width: 768px) {
+      .cookie-banner { flex-direction: column; text-align: center; bottom: 70px; }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* Hero entrance animation */
+    .hero-content > * {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: heroFadeIn 0.8s ease forwards;
+    }
+    .hero-content > *:nth-child(1) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.6s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.8s; }
+    @keyframes heroFadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Skip to content -->
+  <a href="#main-content" class="skip-link">דלגי לתוכן הראשי</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" id="siteHeader">
+    <div class="header-inner">
+      <a href="#" class="logo" aria-label="לילי מכון יופי — דף הבית">
+        <span class="logo-icon">✿</span>
+        <span>לילי מכון יופי</span>
+      </a>
+
+      <nav aria-label="ניווט ראשי">
+        <ul class="nav-links">
+          <li><a href="#services">טיפולים</a></li>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#gallery">לפני ואחרי</a></li>
+          <li><a href="#testimonials">המלצות</a></li>
+          <li><a href="#faq">שאלות נפוצות</a></li>
+          <li><a href="#contact">צרי קשר</a></li>
+        </ul>
+      </nav>
+
+      <!-- REPLACE: Update WhatsApp number with actual number -->
+      <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" class="header-cta" aria-label="קביעת תור בוואטסאפ">
+        📱 קבעי תור
+      </a>
+
+      <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Drawer -->
+  <div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
+  <nav class="mobile-nav" id="mobileNav" aria-label="תפריט נייד">
+    <a href="#services" class="mobile-nav-link">טיפולים</a>
+    <a href="#about" class="mobile-nav-link">אודות לילי</a>
+    <a href="#gallery" class="mobile-nav-link">לפני ואחרי</a>
+    <a href="#testimonials" class="mobile-nav-link">המלצות</a>
+    <a href="#faq" class="mobile-nav-link">שאלות נפוצות</a>
+    <a href="#contact" class="mobile-nav-link">צרי קשר</a>
+    <!-- REPLACE: WhatsApp number -->
+    <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" class="mobile-cta mobile-nav-link">💬 קבעי תור בוואטסאפ</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-placeholder-bg" role="img" aria-label="תמונת רקע של מכון יופי לילי"></div>
+    <div class="hero-bg"></div>
+    <div class="hero-content container">
+      <div class="hero-badge">✦ קוסמטיקאית מוסמכת · 15+ שנות ניסיון</div>
+      <h1>לילי מכון יופי — <br><span class="highlight">טיפוח מקצועי בלב הרצליה</span></h1>
+      <p>טיפולי פנים מתקדמים, הסרת שיער מקצועית ועיצוב גבות מושלם. בואי לגלות את היופי הטבעי שלך באווירה חמה ומפנקת.</p>
+      <div class="hero-actions">
+        <!-- REPLACE: WhatsApp number -->
+        <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" class="btn btn-primary">
+          קבעי תור עכשיו
+          <span>←</span>
+        </a>
+        <a href="tel:+97299503982" class="btn btn-secondary">
+          📞 התקשרי: 09-9503982
+        </a>
+      </div>
+    </div>
+    <div class="scroll-indicator" aria-hidden="true">
+      <span>גללי למטה</span>
+      <div class="arrow"></div>
+    </div>
+  </section>
+
+  <main id="main-content">
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services section-pad" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>הטיפולים שלנו</h2>
+          <div class="accent-line"></div>
+          <p>מגוון טיפולי יופי וטיפוח מקצועיים, מותאמים אישית עבורך</p>
+        </div>
+
+        <!-- Category: Hair Removal -->
+        <div class="service-category reveal">
+          <h3 class="service-category-title">
+            <span class="cat-icon">✦</span>
+            הסרת שיער
+          </h3>
+          <div class="services-grid">
+            <div class="service-card">
+              <h3>הסרת שיער בשעווה</h3>
+              <p class="service-desc">הסרת שיער יסודית בשעווה חמה איכותית, מתאימה לכל אזורי הגוף. תוצאות חלקות ועור רך לאורך זמן.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 20–60 דקות</span>
+                <span class="price">₪80 – ₪250</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>הסרת שיער בלייזר</h3>
+              <p class="service-desc">טכנולוגיית לייזר מתקדמת להסרת שיער לטווח ארוך. מתאימה לכל סוגי העור עם מינימום אי נוחות.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 15–45 דקות</span>
+                <span class="price">₪150 – ₪500</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>הסרה קבועה בטכנולוגיה מתקדמת</h3>
+              <p class="service-desc">שיטה ייחודית להסרת שיער קבועה ומוחלטת. סדרת טיפולים מותאמת אישית לתוצאות מושלמות ומתמשכות.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 30–60 דקות</span>
+                <span class="price">₪200 – ₪600</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Facial Treatments -->
+        <div class="service-category reveal">
+          <h3 class="service-category-title">
+            <span class="cat-icon">✧</span>
+            טיפולי פנים
+          </h3>
+          <div class="services-grid">
+            <div class="service-card">
+              <h3>ניקוי פנים עמוק</h3>
+              <p class="service-desc">ניקוי יסודי ומעמיק של העור: אדים, חילוץ, מסכת הזנה ולחות. העור ייראה זוהר, נקי ורענן מיד לאחר הטיפול.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 60 דקות</span>
+                <span class="price">₪250</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>טיפול הזנה ולחות</h3>
+              <p class="service-desc">טיפול מפנק המחזיר לחות ועושר לעור יבש ומתוח. שילוב סרומים וויטמינים לתוצאות מיידיות ועור קטיפתי.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 50 דקות</span>
+                <span class="price">₪220</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>טיפול אנטי-אייג׳ינג</h3>
+              <p class="service-desc">טיפול אנטי-אייג׳ינג ממוקד: חומרים פעילים לצמצום קמטים, מיצוק העור והחזרת המראה הצעיר והזוהר.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 70 דקות</span>
+                <span class="price">₪320</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>פילינג מקצועי</h3>
+              <p class="service-desc">פילינג כימי או מכני מבוקר, מסיר שכבת תאים מתים וחושף עור חדש, אחיד וזוהר. מתאים לכתמים וצלקות.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 40 דקות</span>
+                <span class="price">₪280</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category: Brows -->
+        <div class="service-category reveal">
+          <h3 class="service-category-title">
+            <span class="cat-icon">❋</span>
+            גבות
+          </h3>
+          <div class="services-grid">
+            <div class="service-card">
+              <h3>עיצוב גבות</h3>
+              <p class="service-desc">עיצוב מקצועי ומדויק המותאם לצורת הפנים שלך. גבות מושלמות שמסגרות את המבט ומוסיפות הרמוניה לפנים.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 20 דקות</span>
+                <span class="price">₪60</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>צביעת גבות</h3>
+              <p class="service-desc">צביעה מקצועית בגוון מותאם אישית, מעניקה עומק ומלאות לגבות. תוצאה טבעית שנראית מושלמת לאורך שבועות.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 15 דקות</span>
+                <span class="price">₪50</span>
+              </div>
+            </div>
+            <div class="service-card">
+              <h3>למינציית גבות</h3>
+              <p class="service-desc">טיפול טרנדי ליישור ועיצוב השערות, יוצר מראה מלא וגבות מסודרות בצורה מושלמת. התוצאה נמשכת עד 6 שבועות.</p>
+              <div class="service-meta">
+                <span class="duration">⏱ 45 דקות</span>
+                <span class="price">₪180</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="section-pad" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-image-wrap reveal">
+            <!-- REPLACE: Insert Lily's professional photo -->
+            <div class="about-image" aria-label="לילי — קוסמטיקאית מוסמכת">
+              <span>📷 תמונת פורטרט של לילי</span>
+            </div>
+          </div>
+          <div class="about-content reveal">
+            <h2>הכירו את לילי</h2>
+            <p class="subtitle">קוסמטיקאית מוסמכת ומטפלת מוסמכת</p>
+            <p>שמי לילי, ואני קוסמטיקאית מוסמכת עם ניסיון של למעלה מ-15 שנים בתחום הטיפוח והיופי. המכון שלי, הממוקם ברחוב סוקולוב 6 בהרצליה, הוא מקום חם ומזמין שבו כל לקוחה מקבלת יחס אישי ומקצועי.</p>
+            <p>אני מאמינה שכל אישה ראויה להרגיש יפה ומטופחת. הגישה שלי משלבת טכנולוגיות מתקדמות עם מגע אישי, תוך התאמה מדויקת לסוג העור, הצרכים והרצונות של כל לקוחה.</p>
+            <!-- REPLACE: Customize Lily's bio with actual details -->
+            <p>אני משתלמת באופן קבוע בארץ ובחו"ל כדי להביא לכן את הטיפולים המתקדמים ביותר. מוזמנות לבוא לגלות את ההבדל.</p>
+            <div class="about-badges">
+              <span class="about-badge">🎓 קוסמטיקאית מוסמכת</span>
+              <span class="about-badge">⏳ 15+ שנות ניסיון</span>
+              <span class="about-badge">💎 השתלמויות בחו״ל</span>
+              <span class="about-badge">🛡 מבוטחת</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BEFORE & AFTER ===== -->
+    <section class="ba-section section-pad" id="gallery">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>לפני ואחרי</h2>
+          <div class="accent-line"></div>
+          <p>תוצאות אמיתיות מלקוחות שלנו — הוכחה לאיכות הטיפולים</p>
+        </div>
+        <div class="ba-grid">
+          <!-- REPLACE: Use actual before/after photos with client permission -->
+          <div class="ba-card reveal">
+            <div class="ba-images">
+              <div class="ba-img before">לפני</div>
+              <div class="ba-img after">אחרי</div>
+              <span class="ba-divider">↔</span>
+            </div>
+            <div class="ba-card-info">
+              <h3>ניקוי פנים עמוק</h3>
+              <p>שיפור משמעותי במרקם ובזוהר העור לאחר טיפול בודד</p>
+            </div>
+          </div>
+          <div class="ba-card reveal reveal-delay-1">
+            <div class="ba-images">
+              <div class="ba-img before">לפני</div>
+              <div class="ba-img after">אחרי</div>
+              <span class="ba-divider">↔</span>
+            </div>
+            <div class="ba-card-info">
+              <h3>למינציית גבות</h3>
+              <p>גבות מלאות ומעוצבות עם מראה טבעי ומושלם</p>
+            </div>
+          </div>
+          <div class="ba-card reveal reveal-delay-2">
+            <div class="ba-images">
+              <div class="ba-img before">לפני</div>
+              <div class="ba-img after">אחרי</div>
+              <span class="ba-divider">↔</span>
+            </div>
+            <div class="ba-card-info">
+              <h3>טיפול אנטי-אייג׳ינג</h3>
+              <p>צמצום קמטים ומיצוק העור — תוצאות לאחר סדרה של 4 טיפולים</p>
+            </div>
+          </div>
+        </div>
+        <p class="ba-disclaimer">* התוצאות עשויות להשתנות מאדם לאדם. התמונות מוצגות באישור הלקוחות.</p>
+      </div>
+    </section>
+
+    <!-- ===== TESTIMONIALS ===== -->
+    <section class="section-pad" id="testimonials">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>מה הלקוחות אומרות</h2>
+          <div class="accent-line"></div>
+          <p>המלצות אמיתיות מלקוחות מרוצות</p>
+        </div>
+        <!-- REPLACE: Use actual client testimonials -->
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal">
+            <div class="quote-mark">"</div>
+            <p>לילי היא קוסמטיקאית מדהימה! אני מגיעה אליה כבר 5 שנים לטיפולי פנים ולהסרת שיער. התוצאות תמיד מעולות, היחס חם ומקצועי. ממליצה בחום!</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">מ</div>
+              <div>
+                <div class="name">מיכל כ.</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-delay-1">
+            <div class="quote-mark">"</div>
+            <p>עשיתי למינציית גבות אצל לילי ואני מאוד מרוצה. היא מאוד מדויקת, סבלנית ומקפידה על תוצאה מושלמת. המקום נקי ונעים, תמיד חוויה מפנקת.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">ש</div>
+              <div>
+                <div class="name">שירה ל.</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-delay-2">
+            <div class="quote-mark">"</div>
+            <p>הגעתי ללילי עם בעיות עור כרוניות, ואחרי סדרת טיפולי פנים העור שלי השתפר בצורה דרמטית. היא ממש מבינה בעור ויודעת לייעץ מה מתאים. תודה לילי!</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar">נ</div>
+              <div>
+                <div class="name">נועה ד.</div>
+                <div class="stars">★★★★★</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="rating-badge reveal">
+          <div class="rating-number">4.8</div>
+          <div class="rating-info">
+            <div class="rating-stars">★★★★★</div>
+            <div class="rating-count">מבוסס על 120+ ביקורות</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq-section section-pad" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>שאלות נפוצות</h2>
+          <div class="accent-line"></div>
+          <p>תשובות לשאלות שנשאלות הכי הרבה</p>
+        </div>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>האם טיפול הסרת שיער בלייזר כואב?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">רוב הלקוחות מתארות את התחושה כעקצוץ קל, דומה להקפצת גומייה על העור. המכשיר שלנו כולל מערכת קירור מובנית שמפחיתה משמעותית את אי הנוחות. ברוב המקרים, הטיפול נסבל מאוד ואפילו נעים יותר משעווה.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>כמה זמן לוקח טיפול פנים?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">טיפול פנים סטנדרטי (ניקוי עמוק) לוקח כ-60 דקות. טיפולי הזנה ולחות לוקחים כ-50 דקות, וטיפול אנטי-אייג׳ינג מלא לוקח כ-70 דקות. בטיפול הראשון מקדישה לילי זמן נוסף להיכרות עם סוג העור וייעוץ אישי.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>מה ההבדל בין הסרת שיער בשעווה ללייזר?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">שעווה מסירה את השיער מהשורש ומחזיקה 3-4 שבועות, אך השיער חוזר. לייזר פוגע בזקיק השערה ומביא לדילול הדרגתי ולאורך זמן להפחתה משמעותית — עד הסרה קבועה. שעווה מתאימה למי שמחפשת פתרון מיידי וזול, לייזר מתאים למי שמחפשת פתרון ארוך טווח.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>כל כמה זמן מומלץ לעשות טיפול פנים?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">ניקוי פנים עמוק מומלץ אחת ל-4 עד 6 שבועות, בהתאם לסוג העור. לטיפולי אנטי-אייג׳ינג מומלצת סדרה ראשונית של 4-6 טיפולים במרווחים של שבועיים, ולאחריה טיפול תחזוקה חודשי. לילי תבנה עבורך תוכנית מותאמת אישית.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>האם אפשר להגיע עם עור רגיש?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">בהחלט! לילי מתמחה גם בעור רגיש ומשתמשת בתכשירים היפואלרגניים ועדינים במיוחד. בטיפול הראשון נבצע בדיקת רגישות ונתאים את המוצרים והטכניקות בדיוק לסוג העור שלך.</div>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>כמה זמן מחזיקה למינציית גבות?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              <div class="faq-answer-inner">למינציית גבות מחזיקה בדרך כלל 4-6 שבועות, תלוי בסוג השערה ובתחזוקה. מומלץ להימנע מהרטבת הגבות ב-24 השעות הראשונות, ולילי תיתן לך הנחיות טיפוח מלאות לשמירה על התוצאה.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT & BOOKING ===== -->
+    <section class="section-pad" id="contact">
+      <div class="container">
+        <div class="section-header reveal">
+          <h2>צרי קשר וקבעי תור</h2>
+          <div class="accent-line"></div>
+          <p>נשמח לענות על כל שאלה ולמצוא עבורך את הזמן המושלם</p>
+        </div>
+
+        <div class="contact-grid">
+          <!-- Form -->
+          <div class="contact-form-wrap reveal">
+            <h3>השאירי פרטים</h3>
+            <p>נחזור אלייך תוך מספר שעות לאישור התור</p>
+
+            <form id="contactForm" novalidate>
+              <div class="form-group">
+                <label for="fullName">שם מלא *</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="השם שלך">
+                <span class="error-msg">נא להזין שם מלא</span>
+              </div>
+              <div class="form-group">
+                <label for="phone">טלפון *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="050-0000000" pattern="^0[0-9]{1,2}-?[0-9]{7}$">
+                <span class="error-msg">נא להזין מספר טלפון תקין</span>
+              </div>
+              <div class="form-group">
+                <label for="email">אימייל</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com">
+              </div>
+              <div class="form-group">
+                <label for="service">סוג טיפול</label>
+                <select id="service" name="service">
+                  <option value="">בחרי טיפול...</option>
+                  <option value="wax">הסרת שיער — שעווה</option>
+                  <option value="laser">הסרת שיער — לייזר</option>
+                  <option value="permanent">הסרה קבועה</option>
+                  <option value="facial-deep">ניקוי פנים עמוק</option>
+                  <option value="facial-hydrate">טיפול הזנה ולחות</option>
+                  <option value="facial-anti-age">טיפול אנטי-אייג׳ינג</option>
+                  <option value="peeling">פילינג מקצועי</option>
+                  <option value="brows-shape">עיצוב גבות</option>
+                  <option value="brows-tint">צביעת גבות</option>
+                  <option value="brows-lamination">למינציית גבות</option>
+                  <option value="other">אחר</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="prefDate">תאריך מועדף</label>
+                <input type="date" id="prefDate" name="prefDate">
+              </div>
+              <div class="form-group">
+                <label for="message">הערות</label>
+                <textarea id="message" name="message" rows="3" placeholder="האם יש משהו שנרצה לדעת מראש?"></textarea>
+              </div>
+              <button type="submit" class="form-submit" id="submitBtn">שליחת בקשה לקביעת תור</button>
+            </form>
+
+            <div class="form-success" id="formSuccess">
+              <div class="check-icon">✓</div>
+              <h4>הבקשה נשלחה בהצלחה!</h4>
+              <p>תודה! נחזור אלייך בהקדם לאישור התור.</p>
+            </div>
+          </div>
+
+          <!-- Contact Info Side -->
+          <div class="contact-info-side reveal">
+            <h3>דרכי יצירת קשר</h3>
+
+            <div class="contact-info-item">
+              <span class="ci-icon">📍</span>
+              <div>
+                <div class="ci-label">כתובת</div>
+                <div class="ci-value">סוקולוב 6, הרצליה</div>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="ci-icon">📞</span>
+              <div>
+                <div class="ci-label">טלפון</div>
+                <a href="tel:+97299503982" class="ci-value">09-9503982</a>
+              </div>
+            </div>
+            <div class="contact-info-item">
+              <span class="ci-icon">💬</span>
+              <div>
+                <div class="ci-label">וואטסאפ</div>
+                <!-- REPLACE: WhatsApp number -->
+                <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" class="ci-value">שלחי הודעה בוואטסאפ</a>
+              </div>
+            </div>
+
+            <h3 style="margin-top: 36px;">שעות פעילות</h3>
+            <table class="hours-table">
+              <tr><td>ראשון</td><td>09:00 – 20:00</td></tr>
+              <tr><td>שני</td><td>09:00 – 20:00</td></tr>
+              <tr><td>שלישי</td><td>09:00 – 20:00</td></tr>
+              <tr><td>רביעי</td><td>09:00 – 20:00</td></tr>
+              <tr><td>חמישי</td><td>09:00 – 20:00</td></tr>
+              <tr><td>שישי</td><td>09:00 – 14:00</td></tr>
+              <tr><td>שבת</td><td class="closed">סגור</td></tr>
+            </table>
+
+            <!-- Google Maps -->
+            <div class="map-wrap">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3380.7!2d34.7906!3d32.1630!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sSokolov+6%2C+Herzliya!5e0!3m2!1she!2sil!4v1"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="מיקום לילי מכון יופי — סוקולוב 6, הרצליה"
+                aria-label="מפה המציגה את מיקום המכון ברחוב סוקולוב 6, הרצליה"
+              ></iframe>
+              <!-- REPLACE: Embed correct Google Maps URL for סוקולוב 6, הרצליה -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">✿ לילי מכון יופי</div>
+          <p>מכון יופי מוביל בהרצליה. טיפולי פנים מתקדמים, הסרת שיער ועיצוב גבות מקצועי. בואי לגלות את היופי הטבעי שלך.</p>
+          <div class="footer-social">
+            <!-- REPLACE: Actual social media links -->
+            <a href="#" aria-label="אינסטגרם" title="אינסטגרם">📷</a>
+            <a href="#" aria-label="פייסבוק" title="פייסבוק">📘</a>
+            <a href="#" aria-label="טיקטוק" title="טיקטוק">🎵</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>טיפולים</h4>
+          <a href="#services">הסרת שיער</a>
+          <a href="#services">טיפולי פנים</a>
+          <a href="#services">עיצוב גבות</a>
+          <a href="#services">למינציית גבות</a>
+        </div>
+        <div class="footer-col">
+          <h4>מידע</h4>
+          <a href="#about">אודות לילי</a>
+          <a href="#gallery">לפני ואחרי</a>
+          <a href="#testimonials">המלצות</a>
+          <a href="#faq">שאלות נפוצות</a>
+        </div>
+        <div class="footer-col">
+          <h4>יצירת קשר</h4>
+          <a href="tel:+97299503982">09-9503982</a>
+          <a href="https://wa.me/97299503982">וואטסאפ</a>
+          <a href="#contact">טופס יצירת קשר</a>
+          <a href="https://maps.google.com/?q=סוקולוב+6+הרצליה" target="_blank" rel="noopener">סוקולוב 6, הרצליה</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>כל הזכויות שמורות © <span id="currentYear"></span> לילי מכון יופי</span>
+        <div class="footer-legal">
+          <a href="#">מדיניות פרטיות</a>
+          <a href="#">הצהרת נגישות</a>
+          <a href="#">תקנון</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP FLOATING BUTTON ===== -->
+  <!-- REPLACE: WhatsApp number -->
+  <div class="whatsapp-float" id="waFloat" aria-label="שלחי הודעה בוואטסאפ">
+    <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" target="_blank" rel="noopener" aria-label="פתיחת שיחת וואטסאפ עם לילי מכון יופי">
+      <span class="wa-pulse"></span>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      <span class="wa-tooltip">שלחי הודעה בוואטסאפ</span>
+    </a>
+  </div>
+
+  <!-- ===== MOBILE BOTTOM BAR ===== -->
+  <div class="mobile-bottom-bar">
+    <a href="tel:+97299503982" class="mbb-call" aria-label="התקשרי">📞 התקשרי</a>
+    <!-- REPLACE: WhatsApp number -->
+    <a href="https://wa.me/97299503982?text=שלום לילי, אשמח לקבוע תור" class="mbb-whatsapp" aria-label="וואטסאפ">💬 וואטסאפ</a>
+  </div>
+
+  <!-- ===== COOKIE BANNER ===== -->
+  <div class="cookie-banner" id="cookieBanner">
+    <span>אתר זה משתמש בעוגיות לשיפור חוויית השימוש שלך.</span>
+    <button id="acceptCookies">אישור</button>
+  </div>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // === HEADER SCROLL ===
+    const header = document.getElementById('siteHeader');
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // === HAMBURGER MENU ===
+    const hamburger = document.getElementById('hamburger');
+    const mobileNav = document.getElementById('mobileNav');
+    const mobileNavOverlay = document.getElementById('mobileNavOverlay');
+
+    function toggleMobileNav() {
+      const isOpen = mobileNav.classList.toggle('open');
+      mobileNavOverlay.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    }
+    hamburger.addEventListener('click', toggleMobileNav);
+    mobileNavOverlay.addEventListener('click', toggleMobileNav);
+
+    // Close mobile nav on link click
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (mobileNav.classList.contains('open')) toggleMobileNav();
+      });
+    });
+
+    // === FAQ ACCORDION ===
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const answer = item.querySelector('.faq-answer');
+        const isActive = item.classList.contains('active');
+
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-answer').style.maxHeight = null;
+          i.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isActive) {
+          item.classList.add('active');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // === REVEAL ON SCROLL (Intersection Observer) ===
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // === WHATSAPP BUTTON SHOW ===
+    setTimeout(() => {
+      document.getElementById('waFloat').classList.add('visible');
+    }, 2000);
+
+    // === CONTACT FORM ===
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formSuccess = document.getElementById('formSuccess');
+
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      // Validate name
+      const nameInput = document.getElementById('fullName');
+      if (!nameInput.value.trim()) {
+        nameInput.classList.add('error');
+        valid = false;
+      } else {
+        nameInput.classList.remove('error');
+      }
+
+      // Validate phone
+      const phoneInput = document.getElementById('phone');
+      const phonePattern = /^0[0-9]{1,2}-?[0-9]{7}$/;
+      if (!phonePattern.test(phoneInput.value.replace(/\s/g, ''))) {
+        phoneInput.classList.add('error');
+        valid = false;
+      } else {
+        phoneInput.classList.remove('error');
+      }
+
+      if (!valid) return;
+
+      // Show loading
+      submitBtn.classList.add('loading');
+      submitBtn.textContent = 'שולח...';
+
+      // Simulate submission (replace with actual backend integration)
+      setTimeout(() => {
+        contactForm.style.display = 'none';
+        formSuccess.style.display = 'block';
+        submitBtn.classList.remove('loading');
+      }, 1500);
+
+      /* INTEGRATION NOTE:
+       * Replace the setTimeout above with an actual fetch() call to your backend:
+       * fetch('/api/contact', { method: 'POST', body: new FormData(contactForm) })
+       *   .then(res => { ... })
+       *   .catch(err => { ... });
+       */
+    });
+
+    // Clear error on input
+    document.querySelectorAll('#contactForm input, #contactForm select').forEach(input => {
+      input.addEventListener('input', () => input.classList.remove('error'));
+    });
+
+    // === FOOTER YEAR ===
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+    // === COOKIE BANNER ===
+    if (!localStorage.getItem('cookiesAccepted')) {
+      document.getElementById('cookieBanner').classList.add('show');
+    }
+    document.getElementById('acceptCookies').addEventListener('click', () => {
+      localStorage.setItem('cookiesAccepted', 'true');
+      document.getElementById('cookieBanner').classList.remove('show');
+    });
+
+    // === SMOOTH SCROLL FOR ANCHOR LINKS (fallback) ===
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

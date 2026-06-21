@@ -1,0 +1,2969 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- REPLACE: Update title with actual business name and location -->
+    <title>ביסטרו לבנטין — מטבח ים תיכוני בלב תל אביב | תפריט, הזמנות ומשלוחים</title>
+    <meta name="description" content="ביסטרו לבנטין — חוויה קולינרית ים תיכונית אותנטית בלב ליבה של תל אביב. תפריט עשיר, קייטרינג לאירועים, משלוחים והזמנת שולחן.">
+    <meta name="keywords" content="מסעדה ים תיכונית תל אביב, ביסטרו תל אביב, אוכל ים תיכוני, קייטרינג תל אביב, משלוח אוכל תל אביב, מסעדה כשרה תל אביב">
+    <link rel="canonical" href="https://www.bistro-levantine.co.il">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="ביסטרו לבנטין — מטבח ים תיכוני בלב תל אביב">
+    <meta property="og:description" content="חוויה קולינרית ים תיכונית אותנטית. תפריט עשיר, אווירה ייחודית, קייטרינג לאירועים.">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="he_IL">
+    <meta property="og:url" content="https://www.bistro-levantine.co.il">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Heebo:wght@300;400;500;600;700&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "ביסטרו לבנטין",
+        "image": "",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "רחוב דיזנגוף 99",
+            "addressLocality": "תל אביב",
+            "addressRegion": "תל אביב",
+            "postalCode": "6433222",
+            "addressCountry": "IL"
+        },
+        "telephone": "+972-3-555-1234",
+        "servesCuisine": "Mediterranean",
+        "priceRange": "₪₪₪",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Sunday","Monday","Tuesday","Wednesday","Thursday"],
+                "opens": "12:00",
+                "closes": "23:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Friday",
+                "opens": "12:00",
+                "closes": "15:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "20:00",
+                "closes": "00:00"
+            }
+        ],
+        "hasMenu": {
+            "@type": "Menu",
+            "name": "תפריט ביסטרו לבנטין"
+        }
+    }
+    </script>
+
+    <style>
+        /* ===== CSS CUSTOM PROPERTIES ===== */
+        :root {
+            --color-bg: #FAF6F1;
+            --color-bg-warm: #F3ECE2;
+            --color-bg-dark: #1A1714;
+            --color-bg-section: #EFEBE4;
+            --color-primary: #8B6F47;
+            --color-primary-dark: #6D5636;
+            --color-primary-light: #C4A97D;
+            --color-accent: #C75B39;
+            --color-accent-light: #E07A5A;
+            --color-olive: #5B6B4A;
+            --color-olive-light: #8A9E6F;
+            --color-text: #2C2520;
+            --color-text-light: #6B6058;
+            --color-text-muted: #9B9089;
+            --color-white: #FFFFFF;
+            --color-cream: #FFF9F2;
+            --color-border: #DDD5CA;
+            --color-overlay: rgba(26, 23, 20, 0.65);
+
+            --font-display: 'Secular One', sans-serif;
+            --font-body: 'Heebo', sans-serif;
+            --font-handwritten: 'Amatic SC', cursive;
+
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.10);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+            --shadow-xl: 0 16px 48px rgba(0,0,0,0.18);
+
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 50%;
+
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            --header-height: 80px;
+        }
+
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color var(--transition);
+        }
+
+        ul { list-style: none; }
+
+        /* Skip to content */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            right: 0;
+            background: var(--color-accent);
+            color: var(--color-white);
+            padding: 8px 16px;
+            z-index: 100000;
+            font-size: 14px;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* ===== UTILITY ===== */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 96px 0;
+        }
+
+        .section-label {
+            font-family: var(--font-handwritten);
+            font-size: clamp(22px, 3vw, 28px);
+            color: var(--color-accent);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4.5vw, 44px);
+            color: var(--color-text);
+            margin-bottom: 16px;
+            line-height: 1.3;
+        }
+
+        .section-subtitle {
+            font-size: 17px;
+            color: var(--color-text-light);
+            max-width: 640px;
+            line-height: 1.8;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-header .section-subtitle {
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all var(--transition);
+            line-height: 1;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+        .btn-primary:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--color-white);
+            border: 2px solid var(--color-white);
+        }
+        .btn-secondary:hover {
+            background: var(--color-white);
+            color: var(--color-text);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+        .btn-outline:hover {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .btn-dark {
+            background: var(--color-bg-dark);
+            color: var(--color-white);
+        }
+        .btn-dark:hover {
+            background: #2d2822;
+            transform: translateY(-2px);
+        }
+
+        /* Decorative divider */
+        .divider {
+            width: 60px;
+            height: 3px;
+            background: var(--color-accent);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== HEADER ===== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            transition: all var(--transition);
+            background: transparent;
+        }
+
+        .site-header.scrolled {
+            background: rgba(250, 246, 241, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-sm);
+            height: 64px;
+        }
+
+        .site-header.scrolled .header-logo-text {
+            color: var(--color-text);
+        }
+
+        .site-header.scrolled .nav-link {
+            color: var(--color-text);
+        }
+
+        .site-header.scrolled .nav-link:hover,
+        .site-header.scrolled .nav-link.active {
+            color: var(--color-accent);
+        }
+
+        .site-header.scrolled .header-cta {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo-icon {
+            width: 38px;
+            height: 38px;
+            fill: var(--color-white);
+            transition: fill var(--transition);
+        }
+
+        .site-header.scrolled .header-logo-icon {
+            fill: var(--color-accent);
+        }
+
+        .header-logo-text {
+            font-family: var(--font-display);
+            font-size: 22px;
+            color: var(--color-white);
+            transition: color var(--transition);
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
+
+        .nav-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.9);
+            position: relative;
+            padding: 4px 0;
+            transition: color var(--transition);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width var(--transition);
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-white);
+        }
+
+        .header-cta {
+            padding: 10px 24px;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: var(--color-white);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all var(--transition);
+            font-family: var(--font-body);
+        }
+
+        .header-cta:hover {
+            background: var(--color-accent);
+            border-color: var(--color-accent);
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            z-index: 1100;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: var(--color-white);
+            transition: all var(--transition);
+        }
+
+        .site-header.scrolled .hamburger span {
+            background: var(--color-text);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile nav drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 85%;
+            max-width: 360px;
+            height: 100vh;
+            background: var(--color-bg-dark);
+            z-index: 1050;
+            padding: 100px 32px 40px;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+        }
+
+        .mobile-drawer.open {
+            right: 0;
+        }
+
+        .mobile-drawer .nav-link {
+            display: block;
+            font-size: 18px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            color: rgba(255,255,255,0.85);
+        }
+
+        .mobile-drawer .nav-link:hover {
+            color: var(--color-accent-light);
+        }
+
+        .mobile-drawer-cta {
+            display: block;
+            margin-top: 28px;
+            padding: 16px;
+            text-align: center;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .drawer-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1040;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition);
+        }
+
+        .drawer-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            /* REPLACE: Use actual high-quality food/restaurant photo */
+            background: linear-gradient(135deg, #3a2e25 0%, #1a1714 40%, #2c2218 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--color-overlay);
+        }
+
+        /* Decorative grain overlay */
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+            background-size: 200px 200px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 24px;
+            max-width: 800px;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-handwritten);
+            font-size: clamp(24px, 4vw, 36px);
+            color: var(--color-primary-light);
+            font-weight: 700;
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.8s 0.3s forwards;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(42px, 8vw, 80px);
+            color: var(--color-white);
+            line-height: 1.15;
+            margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.8s 0.5s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: rgba(255,255,255,0.75);
+            max-width: 560px;
+            margin: 0 auto 36px;
+            line-height: 1.8;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.8s 0.7s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(24px);
+            animation: fadeUp 0.8s 0.9s forwards;
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0;
+            animation: fadeUp 0.8s 1.2s forwards;
+        }
+
+        .hero-scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 40px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 14px;
+            position: relative;
+        }
+
+        .hero-scroll-indicator span::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 2px;
+            animation: scrollBounce 2s infinite;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); opacity: 1; }
+            50% { transform: translateX(-50%) translateY(12px); opacity: 0.3; }
+        }
+
+        /* ===== FEATURES STRIP ===== */
+        .features-strip {
+            background: var(--color-bg-dark);
+            padding: 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .feature-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 36px 20px;
+            border-left: 1px solid rgba(255,255,255,0.06);
+            transition: background var(--transition);
+        }
+
+        .feature-item:last-child { border-left: none; }
+
+        .feature-item:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .feature-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--color-white);
+            margin-bottom: 4px;
+        }
+
+        .feature-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ===== MENU SECTION ===== */
+        .menu-section {
+            background: var(--color-bg);
+        }
+
+        .menu-categories {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+
+        .menu-cat-btn {
+            padding: 10px 24px;
+            border: 1.5px solid var(--color-border);
+            background: transparent;
+            color: var(--color-text-light);
+            border-radius: 30px;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .menu-cat-btn:hover,
+        .menu-cat-btn.active {
+            background: var(--color-bg-dark);
+            color: var(--color-white);
+            border-color: var(--color-bg-dark);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .menu-item {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--color-border);
+            transform: translateY(-2px);
+        }
+
+        .menu-item-img {
+            width: 90px;
+            height: 90px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .menu-item-img-placeholder {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+        }
+
+        .menu-item-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .menu-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .menu-item-name {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--color-text);
+        }
+
+        .menu-item-price {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--color-accent);
+            white-space: nowrap;
+        }
+
+        .menu-item-desc {
+            font-size: 13px;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .menu-item-tags {
+            display: flex;
+            gap: 6px;
+        }
+
+        .menu-tag {
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: var(--color-bg-warm);
+            color: var(--color-text-muted);
+        }
+
+        .menu-tag.vegan { background: #E8F5E9; color: #2E7D32; }
+        .menu-tag.gf { background: #FFF3E0; color: #E65100; }
+        .menu-tag.spicy { background: #FFEBEE; color: #C62828; }
+
+        .menu-note {
+            text-align: center;
+            margin-top: 32px;
+            font-size: 14px;
+            color: var(--color-text-muted);
+        }
+
+        /* ===== ABOUT ===== */
+        .about-section {
+            background: var(--color-bg-dark);
+            color: var(--color-white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image-main {
+            width: 100%;
+            aspect-ratio: 4/5;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: linear-gradient(135deg, #3a2e25, #5a4535);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+        }
+
+        .about-image-accent {
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 180px;
+            height: 180px;
+            border-radius: var(--radius-md);
+            background: var(--color-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 4px;
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .about-accent-number {
+            font-family: var(--font-display);
+            font-size: 48px;
+            color: var(--color-white);
+            line-height: 1;
+        }
+
+        .about-accent-text {
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            text-align: center;
+        }
+
+        .about-content .section-label {
+            color: var(--color-primary-light);
+        }
+
+        .about-content .section-title {
+            color: var(--color-white);
+        }
+
+        .about-text {
+            font-size: 16px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.85;
+            margin-bottom: 20px;
+        }
+
+        .about-signature {
+            margin-top: 28px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .about-signature-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .about-signature-name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .about-signature-role {
+            font-size: 13px;
+            color: var(--color-primary-light);
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-section {
+            background: var(--color-bg-warm);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 240px);
+            gap: 12px;
+        }
+
+        .gallery-item {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            background: var(--color-bg-dark);
+        }
+
+        .gallery-item:nth-child(1) {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .gallery-item-inner {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            transition: transform 0.5s ease;
+            background: linear-gradient(135deg, rgba(139,111,71,0.3), rgba(199,91,57,0.2));
+        }
+
+        .gallery-item:hover .gallery-item-inner {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(26,23,20,0);
+            transition: background var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            background: rgba(26,23,20,0.3);
+        }
+
+        .gallery-item-overlay svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all var(--transition);
+        }
+
+        .gallery-item:hover .gallery-item-overlay svg {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ===== RESERVATION ===== */
+        .reservation-section {
+            background: var(--color-bg);
+            position: relative;
+        }
+
+        .reservation-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        .reservation-info h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .reservation-info p {
+            color: var(--color-text-light);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        .reservation-perks {
+            margin-top: 28px;
+        }
+
+        .reservation-perk {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .reservation-perk-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+        }
+
+        .reservation-perk-text {
+            font-size: 14px;
+            color: var(--color-text-light);
+            padding-top: 6px;
+        }
+
+        .reservation-perk-text strong {
+            color: var(--color-text);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .reservation-form {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 6px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-size: 15px;
+            color: var(--color-text);
+            background: var(--color-bg);
+            transition: border-color var(--transition);
+            direction: rtl;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: var(--color-white);
+        }
+
+        .form-textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-accent);
+            color: var(--color-white);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .form-submit:hover {
+            background: var(--color-accent-light);
+            transform: translateY(-1px);
+        }
+
+        .form-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-success {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .form-success.show {
+            display: block;
+        }
+
+        .form-success-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .form-success h3 {
+            font-family: var(--font-display);
+            margin-bottom: 8px;
+        }
+
+        .form-success p {
+            color: var(--color-text-light);
+        }
+
+        /* ===== DELIVERY ===== */
+        .delivery-section {
+            background: var(--color-bg-warm);
+        }
+
+        .delivery-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .delivery-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: 36px 28px;
+            text-align: center;
+            transition: all var(--transition);
+            border: 1px solid var(--color-border);
+        }
+
+        .delivery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-primary-light);
+        }
+
+        .delivery-card-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
+        }
+
+        .delivery-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .delivery-card p {
+            font-size: 14px;
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .delivery-card .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===== CATERING ===== */
+        .catering-section {
+            background: var(--color-bg);
+        }
+
+        .catering-packages {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .catering-package {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            transition: all var(--transition);
+        }
+
+        .catering-package.featured {
+            border-color: var(--color-accent);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-8px);
+        }
+
+        .catering-package-header {
+            padding: 28px 24px;
+            text-align: center;
+            background: var(--color-bg-warm);
+        }
+
+        .catering-package.featured .catering-package-header {
+            background: var(--color-accent);
+            color: var(--color-white);
+        }
+
+        .catering-package-badge {
+            display: inline-block;
+            padding: 4px 14px;
+            background: var(--color-white);
+            color: var(--color-accent);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .catering-package-name {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
+        .catering-package-price {
+            font-size: 15px;
+            opacity: 0.75;
+        }
+
+        .catering-package-body {
+            padding: 24px;
+        }
+
+        .catering-package-features {
+            margin-bottom: 24px;
+        }
+
+        .catering-package-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            font-size: 14px;
+            color: var(--color-text-light);
+            border-bottom: 1px solid var(--color-bg-section);
+        }
+
+        .catering-package-feature:last-child {
+            border-bottom: none;
+        }
+
+        .catering-package-feature .check {
+            color: var(--color-olive);
+            font-weight: 700;
+        }
+
+        .catering-package .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* ===== KASHRUT ===== */
+        .kashrut-section {
+            background: var(--color-bg-dark);
+            color: var(--color-white);
+        }
+
+        .kashrut-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .kashrut-card {
+            text-align: center;
+            padding: 36px 24px;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: var(--radius-lg);
+            transition: all var(--transition);
+        }
+
+        .kashrut-card:hover {
+            background: rgba(255,255,255,0.03);
+            border-color: rgba(255,255,255,0.12);
+        }
+
+        .kashrut-card-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .kashrut-card h3 {
+            font-family: var(--font-display);
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .kashrut-card p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.7;
+        }
+
+        /* ===== REVIEWS ===== */
+        .reviews-section {
+            background: var(--color-bg-warm);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .review-card {
+            background: var(--color-white);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            position: relative;
+            transition: all var(--transition);
+        }
+
+        .review-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .review-quote {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            font-size: 48px;
+            color: var(--color-bg-warm);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .review-stars {
+            color: #F5A623;
+            font-size: 16px;
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .review-text {
+            font-size: 15px;
+            color: var(--color-text-light);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .review-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--color-primary);
+        }
+
+        .review-author-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .review-author-source {
+            font-size: 12px;
+            color: var(--color-text-muted);
+        }
+
+        /* ===== LOCATION ===== */
+        .location-section {
+            background: var(--color-bg);
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+        }
+
+        .location-map {
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            height: 400px;
+            background: var(--color-bg-warm);
+        }
+
+        .location-map iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .location-info h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+
+        .location-detail {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .location-detail-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: var(--color-bg-warm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .location-detail-text {
+            padding-top: 4px;
+        }
+
+        .location-detail-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+        }
+
+        .location-detail-value {
+            font-size: 15px;
+            color: var(--color-text);
+            font-weight: 500;
+        }
+
+        .location-detail-value a {
+            color: var(--color-accent);
+        }
+
+        .location-detail-value a:hover {
+            text-decoration: underline;
+        }
+
+        .hours-table {
+            width: 100%;
+            margin-top: 28px;
+            border-collapse: collapse;
+        }
+
+        .hours-table tr {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .hours-table td {
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .hours-table td:first-child {
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .hours-table td:last-child {
+            color: var(--color-text-light);
+            text-align: left;
+        }
+
+        .hours-table tr.today {
+            background: var(--color-bg-warm);
+        }
+
+        .hours-table tr.today td {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact-section {
+            background: var(--color-bg-warm);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+        }
+
+        .contact-methods {
+            display: grid;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--color-white);
+            border-radius: var(--radius-md);
+            transition: all var(--transition);
+        }
+
+        .contact-method:hover {
+            transform: translateX(-4px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-method-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .contact-method-icon.whatsapp { background: #E8F5E9; }
+        .contact-method-icon.phone { background: #E3F2FD; }
+        .contact-method-icon.email { background: #FFF3E0; }
+        .contact-method-icon.instagram { background: #FCE4EC; }
+
+        .contact-method-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
+        }
+
+        .contact-method-value {
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .contact-form-wrapper {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+
+        .contact-form-wrapper h3 {
+            font-family: var(--font-display);
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+
+        /* ===== FOOTER ===== */
+        .site-footer {
+            background: var(--color-bg-dark);
+            color: rgba(255,255,255,0.7);
+            padding: 64px 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand-name {
+            font-family: var(--font-display);
+            font-size: 24px;
+            color: var(--color-white);
+            margin-bottom: 12px;
+        }
+
+        .footer-brand-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-full);
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            transition: all var(--transition);
+        }
+
+        .footer-social a:hover {
+            background: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .footer-col-title {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--color-white);
+            margin-bottom: 16px;
+        }
+
+        .footer-link {
+            display: block;
+            font-size: 14px;
+            padding: 5px 0;
+            color: rgba(255,255,255,0.55);
+            transition: color var(--transition);
+        }
+
+        .footer-link:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-legal-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .footer-legal-links a {
+            color: rgba(255,255,255,0.35);
+            transition: color var(--transition);
+        }
+
+        .footer-legal-links a:hover {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== WHATSAPP FAB ===== */
+        .whatsapp-fab {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 9999;
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-full);
+            background: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            transition: all var(--transition);
+            opacity: 0;
+            transform: scale(0.8);
+            cursor: pointer;
+        }
+
+        .whatsapp-fab.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .whatsapp-fab:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        .whatsapp-fab svg {
+            width: 28px;
+            height: 28px;
+            fill: white;
+        }
+
+        .whatsapp-fab-pulse {
+            position: absolute;
+            inset: -4px;
+            border-radius: var(--radius-full);
+            border: 2px solid #25D366;
+            animation: waPulse 2s infinite;
+        }
+
+        @keyframes waPulse {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+
+        /* ===== MOBILE STICKY BAR ===== */
+        .mobile-sticky-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 9998;
+            background: var(--color-bg-dark);
+            padding: 10px 16px;
+            gap: 10px;
+        }
+
+        .mobile-sticky-bar a {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--color-white);
+        }
+
+        .mobile-sticky-bar .bar-call {
+            background: var(--color-primary);
+        }
+
+        .mobile-sticky-bar .bar-whatsapp {
+            background: #25D366;
+        }
+
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .main-nav { display: none; }
+            .header-cta { display: none; }
+            .hamburger { display: flex; }
+
+            .menu-grid { grid-template-columns: 1fr; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(3, 180px);
+            }
+            .reservation-wrapper { grid-template-columns: 1fr; }
+            .delivery-cards { grid-template-columns: 1fr; }
+            .catering-packages { grid-template-columns: 1fr; }
+            .catering-package.featured { transform: none; }
+            .kashrut-grid { grid-template-columns: 1fr; }
+            .reviews-grid { grid-template-columns: 1fr; }
+            .location-grid { grid-template-columns: 1fr; }
+            .location-map { height: 300px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .section-padding { padding: 64px 0; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .feature-item { border-left: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(4, 160px);
+            }
+            .gallery-item:nth-child(1) {
+                grid-column: span 2;
+                grid-row: span 1;
+            }
+            .form-row { grid-template-columns: 1fr; }
+            .reservation-form { padding: 28px 20px; }
+            .contact-form-wrapper { padding: 28px 20px; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+
+            .whatsapp-fab { bottom: 80px; }
+            .mobile-sticky-bar { display: flex; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-actions { flex-direction: column; align-items: center; }
+            .hero-actions .btn { width: 80%; justify-content: center; }
+            .about-image-accent { width: 140px; height: 140px; bottom: -10px; left: -10px; }
+            .about-accent-number { font-size: 36px; }
+            .menu-item { flex-direction: column; }
+            .menu-item-img { width: 100%; height: 160px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content -->
+    <a href="#main-content" class="skip-link">דלג לתוכן הראשי</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header" id="site-header">
+        <div class="header-inner">
+            <a href="#" class="header-logo">
+                <!-- REPLACE: Use actual logo SVG or image -->
+                <svg class="header-logo-icon" viewBox="0 0 40 40" aria-hidden="true">
+                    <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M13 26 C13 18, 20 12, 27 14 C22 14, 18 18, 18 26 Z" fill="currentColor"/>
+                    <circle cx="24" cy="18" r="3" fill="currentColor"/>
+                </svg>
+                <span class="header-logo-text">ביסטרו לבנטין</span>
+            </a>
+
+            <nav class="main-nav" aria-label="ניווט ראשי">
+                <a href="#menu" class="nav-link">תפריט</a>
+                <a href="#about" class="nav-link">הסיפור שלנו</a>
+                <a href="#gallery" class="nav-link">גלריה</a>
+                <a href="#reservation" class="nav-link">הזמנת שולחן</a>
+                <a href="#catering" class="nav-link">קייטרינג</a>
+                <a href="#location" class="nav-link">איך מגיעים</a>
+                <a href="#contact" class="nav-link">צור קשר</a>
+            </nav>
+
+            <!-- REPLACE: Update WhatsApp number -->
+            <a href="https://wa.me/97235551234?text=שלום, אשמח להזמין שולחן" class="header-cta" aria-label="הזמנת שולחן בוואטסאפ">
+                הזמנת שולחן
+            </a>
+
+            <button class="hamburger" id="hamburger" aria-label="תפריט ניווט" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile drawer -->
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+    <nav class="mobile-drawer" id="mobile-drawer" aria-label="תפריט ניווט נייד">
+        <a href="#menu" class="nav-link">תפריט</a>
+        <a href="#about" class="nav-link">הסיפור שלנו</a>
+        <a href="#gallery" class="nav-link">גלריה</a>
+        <a href="#reservation" class="nav-link">הזמנת שולחן</a>
+        <a href="#catering" class="nav-link">קייטרינג</a>
+        <a href="#location" class="nav-link">איך מגיעים</a>
+        <a href="#contact" class="nav-link">צור קשר</a>
+        <a href="https://wa.me/97235551234?text=שלום, אשמח להזמין שולחן" class="mobile-drawer-cta">📱 הזמנת שולחן בוואטסאפ</a>
+    </nav>
+
+    <main id="main-content">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="hero-bg">
+                <!-- REPLACE: Add background-image URL of your restaurant/food hero photo -->
+            </div>
+            <div class="hero-content">
+                <p class="hero-tagline">מטבח ים תיכוני אותנטי</p>
+                <h1 class="hero-title">ביסטרו לבנטין</h1>
+                <p class="hero-subtitle">
+                    טעמים מקוריים מחופי הים התיכון, חומרי גלם טריים מהשוק,
+                    ואווירה שגורמת לכם להרגיש בבית
+                </p>
+                <div class="hero-actions">
+                    <a href="#menu" class="btn btn-primary">לתפריט המלא</a>
+                    <a href="#reservation" class="btn btn-secondary">הזמנת שולחן</a>
+                </div>
+            </div>
+            <div class="hero-scroll-indicator" aria-hidden="true">
+                <span></span>
+            </div>
+        </section>
+
+        <!-- ===== FEATURES STRIP ===== -->
+        <section class="features-strip" aria-label="יתרונות">
+            <div class="features-grid container">
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🌿</span>
+                    <span class="feature-title">חומרי גלם טריים</span>
+                    <span class="feature-text">ישירות מהשוק, כל יום</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">✡️</span>
+                    <!-- REPLACE: Update kashrut info -->
+                    <span class="feature-title">כשרות רבנות ת״א</span>
+                    <span class="feature-text">בהשגחת הרבנות הראשית</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🚗</span>
+                    <span class="feature-title">משלוחים עד הבית</span>
+                    <span class="feature-text">Wolt ו-10bis</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-icon" aria-hidden="true">🎉</span>
+                    <span class="feature-title">קייטרינג לאירועים</span>
+                    <span class="feature-text">מ-20 עד 500 מוזמנים</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== MENU ===== -->
+        <section class="menu-section section-padding" id="menu">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">טעמים של הים התיכון</p>
+                    <h2 class="section-title">התפריט שלנו</h2>
+                    <p class="section-subtitle">כל מנה מבוססת על מתכונים מסורתיים עם טוויסט מודרני, חומרי גלם עונתיים ואהבה אמיתית לבישול</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="menu-categories reveal">
+                    <button class="menu-cat-btn active" data-category="all">הכל</button>
+                    <button class="menu-cat-btn" data-category="starters">מנות ראשונות</button>
+                    <button class="menu-cat-btn" data-category="mains">עיקריות</button>
+                    <button class="menu-cat-btn" data-category="sides">תוספות</button>
+                    <button class="menu-cat-btn" data-category="desserts">קינוחים</button>
+                    <button class="menu-cat-btn" data-category="drinks">משקאות</button>
+                </div>
+
+                <div class="menu-grid" id="menu-grid">
+                    <!-- STARTERS -->
+                    <div class="menu-item reveal" data-category="starters">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🫒</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">חומוס ביתי עם שמן זית</span>
+                                <span class="menu-item-price">₪38</span>
+                            </div>
+                            <p class="menu-item-desc">חומוס קרמי טחון במקום עם טחינה גולמית, שמן זית כתית מעולה, פטרוזיליה ופלפל חריף</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag vegan">🌱 טבעוני</span>
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="starters">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍆</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">סלט חצילים מעושנים</span>
+                                <span class="menu-item-price">₪42</span>
+                            </div>
+                            <p class="menu-item-desc">חצילים מעושנים על גחלים, עגבניות שרי צלויות, טחינה ביתית ורוטב שום קונפי</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag vegan">🌱 טבעוני</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="starters">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🦐</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">קרפצ'יו פטריות פורצ'יני</span>
+                                <span class="menu-item-price">₪54</span>
+                            </div>
+                            <p class="menu-item-desc">פטריות פורצ'יני דקיקות עם שמן כמהין, פרמז'ן מגורר ורוקולה טרייה</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="starters">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🥗</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">טאבולה ירוקה</span>
+                                <span class="menu-item-price">₪44</span>
+                            </div>
+                            <p class="menu-item-desc">בורגול דק, פטרוזיליה, נענע, עגבניות ובצל ברוטב לימון ושמן זית</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag vegan">🌱 טבעוני</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MAINS -->
+                    <div class="menu-item reveal" data-category="mains">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🐟</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">פילה דניס צלוי</span>
+                                <span class="menu-item-price">₪98</span>
+                            </div>
+                            <p class="menu-item-desc">דג דניס שלם צלוי בתנור על מצע ירקות שורש, עגבניות שרי, זיתי קלמטה ורוטב שמן זית ולימון</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="mains">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍖</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">כתף טלה בבישול איטי</span>
+                                <span class="menu-item-price">₪128</span>
+                            </div>
+                            <p class="menu-item-desc">כתף טלה מבושלת 8 שעות בתנור נמוך עם ירקות שורש, יין אדום, רוזמרין ושום קונפי. מוגשת עם פולנטה קרמית</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="mains">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍝</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">פסטה פפרדלה ברגו פטריות</span>
+                                <span class="menu-item-price">₪78</span>
+                            </div>
+                            <p class="menu-item-desc">פסטה ביתית עם רגו פטריות יער, שמנת, שום קונפי ופרמז'ן מיושן</p>
+                            <div class="menu-item-tags"></div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="mains">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🥘</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">שקשוקה לבנטינית</span>
+                                <span class="menu-item-price">₪62</span>
+                            </div>
+                            <p class="menu-item-desc">ביצים בתוך רוטב עגבניות פיקנטי עם פלפלים קלויים, פטה מפורר, זעתר ולחם טאבון חם</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag spicy">🌶 חריף</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SIDES -->
+                    <div class="menu-item reveal" data-category="sides">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🥔</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">תפוחי אדמה בייבי צלויים</span>
+                                <span class="menu-item-price">₪28</span>
+                            </div>
+                            <p class="menu-item-desc">תפוחי אדמה בייבי צלויים בשמן זית עם רוזמרין, שום ומלח גס</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag vegan">🌱 טבעוני</span>
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="sides">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🥬</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">סלט ירוק עונתי</span>
+                                <span class="menu-item-price">₪32</span>
+                            </div>
+                            <p class="menu-item-desc">עלים ירוקים מיקס, אגוזי מלך, גבינת עיזים, רימונים וויניגרט דבש-חרדל</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag gf">ללא גלוטן</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DESSERTS -->
+                    <div class="menu-item reveal" data-category="desserts">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍫</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">פונדנט שוקולד מריר</span>
+                                <span class="menu-item-price">₪48</span>
+                            </div>
+                            <p class="menu-item-desc">עוגת שוקולד חמה עם לב נוזלי, גלידת וניל ביתית ופירות יער טריים</p>
+                            <div class="menu-item-tags"></div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="desserts">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍰</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">קנאפה ביתי</span>
+                                <span class="menu-item-price">₪44</span>
+                            </div>
+                            <p class="menu-item-desc">קנאפה מסורתי עם גבינה מתוקה, סירופ סוכר בטעם מי ורדים ופיסטוקים כתושים</p>
+                            <div class="menu-item-tags"></div>
+                        </div>
+                    </div>
+
+                    <!-- DRINKS -->
+                    <div class="menu-item reveal" data-category="drinks">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍷</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">יין ישראלי — כוס</span>
+                                <span class="menu-item-price">₪42-58</span>
+                            </div>
+                            <p class="menu-item-desc">מבחר יינות ישראליים איכותיים. שאלו את המלצר על מבצעי הבקבוק</p>
+                            <div class="menu-item-tags"></div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item reveal" data-category="drinks">
+                        <div class="menu-item-img">
+                            <div class="menu-item-img-placeholder">🍹</div>
+                        </div>
+                        <div class="menu-item-content">
+                            <div class="menu-item-header">
+                                <span class="menu-item-name">לימונענע טרייה</span>
+                                <span class="menu-item-price">₪24</span>
+                            </div>
+                            <p class="menu-item-desc">לימון סחוט טרי, נענע, סוכר ומים מוגזים — הקלאסיקה הישראלית</p>
+                            <div class="menu-item-tags">
+                                <span class="menu-tag vegan">🌱 טבעוני</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="menu-note reveal">* המחירים כוללים מע"מ. התפריט עשוי להשתנות בהתאם לעונה ולזמינות חומרי הגלם</p>
+            </div>
+        </section>
+
+        <!-- ===== ABOUT ===== -->
+        <section class="about-section section-padding" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-image reveal">
+                        <div class="about-image-main">
+                            <!-- REPLACE: Chef/team photo -->
+                            👨‍🍳
+                        </div>
+                        <div class="about-image-accent">
+                            <span class="about-accent-number">15+</span>
+                            <span class="about-accent-text">שנות ניסיון<br>במטבח ים תיכוני</span>
+                        </div>
+                    </div>
+                    <div class="about-content reveal">
+                        <p class="section-label">הסיפור שלנו</p>
+                        <h2 class="section-title">מהלב של הים התיכון<br>ללב של תל אביב</h2>
+                        <p class="about-text">
+                            <!-- REPLACE: Write your actual story -->
+                            ביסטרו לבנטין נולד מתוך אהבה עמוקה למטבח הים תיכוני — הטעמים שגדלנו עליהם, הריחות שמלאו את בית סבתא, והפשטות המופלאה של חומרי גלם איכותיים.
+                        </p>
+                        <p class="about-text">
+                            השף שלנו, יונתן כהן, חזר לארץ אחרי שנים במטבחים באיטליה, יוון ותורכיה, עם חזון ברור: לבשל אוכל ים תיכוני אותנטי, ללא פשרות על איכות, עם חומרי גלם עונתיים ומקומיים.
+                        </p>
+                        <p class="about-text">
+                            כל מנה בתפריט מספרת סיפור — מהחומוס שנטחן כל בוקר מאפס, ועד כתף הטלה שמתבשלת 8 שעות. בואו לטעום את ההבדל.
+                        </p>
+                        <div class="about-signature">
+                            <div class="about-signature-avatar">👨‍🍳</div>
+                            <div>
+                                <!-- REPLACE: Chef name and title -->
+                                <div class="about-signature-name">שף יונתן כהן</div>
+                                <div class="about-signature-role">מייסד ושף ראשי</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== GALLERY ===== -->
+        <section class="gallery-section section-padding" id="gallery">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">רגעים מהמסעדה</p>
+                    <h2 class="section-title">הגלריה שלנו</h2>
+                    <p class="section-subtitle">תמונות מהמטבח, מהמנות ומהאווירה הייחודית שלנו</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="gallery-grid reveal">
+                    <!-- REPLACE: All gallery items with actual photos -->
+                    <div class="gallery-item">
+                        <div class="gallery-item-inner">🍽️</div>
+                        <div class="gallery-item-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-inner">🥘</div>
+                        <div class="gallery-item-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-inner">🍷</div>
+                        <div class="gallery-item-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-inner">🏛️</div>
+                        <div class="gallery-item-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-item-inner">🧑‍🍳</div>
+                        <div class="gallery-item-overlay">
+                            <svg viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== RESERVATION ===== -->
+        <section class="reservation-section section-padding" id="reservation">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">הזמנת מקום</p>
+                    <h2 class="section-title">שמרו שולחן אצלנו</h2>
+                    <p class="section-subtitle">מומלץ להזמין מקום מראש, במיוחד בסופי שבוע ובערבי חג</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="reservation-wrapper">
+                    <div class="reservation-info reveal">
+                        <h3>למה כדאי להזמין מראש?</h3>
+                        <p>אנחנו דואגים שכל אורח ייהנה מחוויה מושלמת — מהשבת לשולחן ועד הטעם האחרון. הזמנה מראש מבטיחה לכם את השולחן האידיאלי.</p>
+
+                        <div class="reservation-perks">
+                            <div class="reservation-perk">
+                                <div class="reservation-perk-icon">🪑</div>
+                                <div class="reservation-perk-text">
+                                    <strong>ישיבה פנימית וחיצונית</strong>
+                                    מרפסת מוצלת לערבי קיץ, אווירה אינטימית בפנים
+                                </div>
+                            </div>
+                            <div class="reservation-perk">
+                                <div class="reservation-perk-icon">👥</div>
+                                <div class="reservation-perk-text">
+                                    <strong>אירועים פרטיים</strong>
+                                    חדר פרטי לעד 30 אורחים, מושלם לימי הולדת ואירועי חברה
+                                </div>
+                            </div>
+                            <div class="reservation-perk">
+                                <div class="reservation-perk-icon">🍽️</div>
+                                <div class="reservation-perk-text">
+                                    <strong>תפריט מותאם</strong>
+                                    אנחנו מתאימים את התפריט לצרכים תזונתיים ואלרגיות
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reservation-form reveal" id="reservation-form-container">
+                        <form id="reservation-form" novalidate>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="res-name">שם מלא *</label>
+                                    <input type="text" id="res-name" class="form-input" required placeholder="ישראל ישראלי">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="res-phone">טלפון *</label>
+                                    <input type="tel" id="res-phone" class="form-input" required placeholder="050-000-0000">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="res-date">תאריך *</label>
+                                    <input type="date" id="res-date" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="res-time">שעה *</label>
+                                    <select id="res-time" class="form-select" required>
+                                        <option value="">בחרו שעה</option>
+                                        <option>12:00</option>
+                                        <option>12:30</option>
+                                        <option>13:00</option>
+                                        <option>13:30</option>
+                                        <option>14:00</option>
+                                        <option>19:00</option>
+                                        <option>19:30</option>
+                                        <option>20:00</option>
+                                        <option>20:30</option>
+                                        <option>21:00</option>
+                                        <option>21:30</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="res-guests">מספר סועדים *</label>
+                                <select id="res-guests" class="form-select" required>
+                                    <option value="">כמה תהיו?</option>
+                                    <option>1-2</option>
+                                    <option>3-4</option>
+                                    <option>5-6</option>
+                                    <option>7-8</option>
+                                    <option>9-10</option>
+                                    <option>10+</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="res-notes">בקשות מיוחדות</label>
+                                <textarea id="res-notes" class="form-textarea" placeholder="אלרגיות, ישיבה מועדפת, אירוע מיוחד..."></textarea>
+                            </div>
+                            <button type="submit" class="form-submit" id="res-submit">שמרו לי שולחן</button>
+                        </form>
+                        <div class="form-success" id="reservation-success">
+                            <div class="form-success-icon">✅</div>
+                            <h3>ההזמנה התקבלה!</h3>
+                            <p>ניצור אתכם קשר בהקדם לאישור. תודה שבחרתם בביסטרו לבנטין!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== DELIVERY ===== -->
+        <section class="delivery-section section-padding" id="delivery">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">הזמנות ומשלוחים</p>
+                    <h2 class="section-title">הטעם שלנו — אצלכם בבית</h2>
+                    <p class="section-subtitle">אפשר להזמין דרך הפלטפורמות המובילות או ישירות מאיתנו</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="delivery-cards reveal">
+                    <div class="delivery-card">
+                        <div class="delivery-card-icon">📱</div>
+                        <h3>וואטסאפ ישיר</h3>
+                        <p>הדרך המהירה ביותר. שלחו הודעה ונחזור אליכם תוך דקות עם אישור הזמנה</p>
+                        <!-- REPLACE: WhatsApp number -->
+                        <a href="https://wa.me/97235551234?text=היי, אשמח להזמין משלוח" class="btn btn-primary">הזמינו בוואטסאפ</a>
+                    </div>
+                    <div class="delivery-card">
+                        <div class="delivery-card-icon">🛵</div>
+                        <h3>Wolt</h3>
+                        <p>הזמינו דרך אפליקציית Wolt ותהנו ממשלוח מהיר ישירות עד הדלת</p>
+                        <!-- REPLACE: Wolt link -->
+                        <a href="#" class="btn btn-outline">הזמינו ב-Wolt</a>
+                    </div>
+                    <div class="delivery-card">
+                        <div class="delivery-card-icon">🍽️</div>
+                        <h3>10bis</h3>
+                        <p>הזמינו דרך 10bis — מושלם להזמנות של משרד או ארוחה ביתית</p>
+                        <!-- REPLACE: 10bis link -->
+                        <a href="#" class="btn btn-outline">הזמינו ב-10bis</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CATERING ===== -->
+        <section class="catering-section section-padding" id="catering">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">לאירועים שלכם</p>
+                    <h2 class="section-title">קייטרינג ואירועים</h2>
+                    <p class="section-subtitle">מחתונות אינטימיות ועד אירועי חברה גדולים — אנחנו מביאים את הטעם של הביסטרו לכל מקום</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="catering-packages reveal">
+                    <div class="catering-package">
+                        <div class="catering-package-header">
+                            <h3 class="catering-package-name">חבילה בסיסית</h3>
+                            <p class="catering-package-price">החל מ-₪120 לסועד</p>
+                        </div>
+                        <div class="catering-package-body">
+                            <div class="catering-package-features">
+                                <div class="catering-package-feature"><span class="check">✓</span> 3 מנות ראשונות</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> 2 עיקריות לבחירה</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> תוספות ולחמים</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> קינוח</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> שתייה קלה</div>
+                            </div>
+                            <a href="https://wa.me/97235551234?text=היי, אשמח לקבל פרטים על החבילה הבסיסית לקייטרינג" class="btn btn-outline">לפרטים נוספים</a>
+                        </div>
+                    </div>
+
+                    <div class="catering-package featured">
+                        <div class="catering-package-header">
+                            <span class="catering-package-badge">הכי פופולרי</span>
+                            <h3 class="catering-package-name">חבילת פרימיום</h3>
+                            <p class="catering-package-price">החל מ-₪180 לסועד</p>
+                        </div>
+                        <div class="catering-package-body">
+                            <div class="catering-package-features">
+                                <div class="catering-package-feature"><span class="check">✓</span> 5 מנות ראשונות</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> 3 עיקריות לבחירה</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> תוספות, לחמים וסלטים</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> שולחן קינוחים</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> בר משקאות (כולל יין)</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> צוות שירות מקצועי</div>
+                            </div>
+                            <a href="https://wa.me/97235551234?text=היי, אשמח לקבל פרטים על חבילת הפרימיום לקייטרינג" class="btn btn-primary">לפרטים נוספים</a>
+                        </div>
+                    </div>
+
+                    <div class="catering-package">
+                        <div class="catering-package-header">
+                            <h3 class="catering-package-name">חבילת שף</h3>
+                            <p class="catering-package-price">החל מ-₪250 לסועד</p>
+                        </div>
+                        <div class="catering-package-body">
+                            <div class="catering-package-features">
+                                <div class="catering-package-feature"><span class="check">✓</span> תפריט טעימות 7 מנות</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> השף מבשל בלייב</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> זיווג יינות מקצועי</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> שולחן קינוחים מפואר</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> עיצוב שולחנות</div>
+                                <div class="catering-package-feature"><span class="check">✓</span> צוות שירות VIP</div>
+                            </div>
+                            <a href="https://wa.me/97235551234?text=היי, אשמח לקבל פרטים על חבילת השף לקייטרינג" class="btn btn-outline">לפרטים נוספים</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== KASHRUT & ALLERGENS ===== -->
+        <section class="kashrut-section section-padding" id="kashrut">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label" style="color: var(--color-primary-light);">כשרות ואלרגנים</p>
+                    <h2 class="section-title" style="color: var(--color-white);">מחויבים לאיכות ובטיחות</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="kashrut-grid reveal">
+                    <div class="kashrut-card">
+                        <div class="kashrut-card-icon">✡️</div>
+                        <!-- REPLACE: Actual kashrut details -->
+                        <h3>כשרות רבנות תל אביב</h3>
+                        <p>המסעדה פועלת תחת השגחת הרבנות הראשית של תל אביב-יפו. תעודת כשרות מעודכנת תלויה בכניסה למסעדה.</p>
+                    </div>
+                    <div class="kashrut-card">
+                        <div class="kashrut-card-icon">⚠️</div>
+                        <h3>מידע על אלרגנים</h3>
+                        <p>המנות עלולות להכיל: גלוטן, אגוזים, שומשום, ביצים, חלב ודגים. נא ליידע את הצוות על כל אלרגיה או רגישות.</p>
+                    </div>
+                    <div class="kashrut-card">
+                        <div class="kashrut-card-icon">🌱</div>
+                        <h3>התאמות תזונתיות</h3>
+                        <p>אנחנו מתאימים מנות לצרכים תזונתיים: טבעוני, ללא גלוטן, ללא לקטוז ועוד. ספרו לנו ונדאג לכם.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVIEWS ===== -->
+        <section class="reviews-section section-padding" id="reviews">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">מה אומרים עלינו</p>
+                    <h2 class="section-title">הביקורות שלכם</h2>
+                    <p class="section-subtitle">תודה לכל הלקוחות שמשתפים את החוויה שלהם</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="reviews-grid reveal">
+                    <!-- REPLACE: Real reviews -->
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">אוכל ברמה של מסעדות יוקרה באירופה, במחירים סבירים ובאווירה חמה ומשפחתית. כתף הטלה היא המנה הכי טובה שאכלתי השנה.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">מ.ש</div>
+                            <div>
+                                <div class="review-author-name">מיכל שמעוני</div>
+                                <div class="review-author-source">Google Reviews</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">הקייטרינג שהם עשו לנו לחתונה היה פשוט מדהים. כל האורחים לא הפסיקו לדבר על האוכל. מקצועיות ברמה הגבוהה ביותר.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">ד.ל</div>
+                            <div>
+                                <div class="review-author-name">דני ולירון</div>
+                                <div class="review-author-source">Google Reviews</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-card">
+                        <div class="review-quote">"</div>
+                        <div class="review-stars">★★★★★</div>
+                        <p class="review-text">הפכנו ללקוחות קבועים. החומוס הכי טוב בתל אביב, בלי ויכוח. השקשוקה שלהם מגדירה מחדש את הז'אנר.</p>
+                        <div class="review-author">
+                            <div class="review-avatar">א.כ</div>
+                            <div>
+                                <div class="review-author-name">אורי כהנא</div>
+                                <div class="review-author-source">TripAdvisor</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== LOCATION & HOURS ===== -->
+        <section class="location-section section-padding" id="location">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">בואו לבקר</p>
+                    <h2 class="section-title">איפה אנחנו ומתי</h2>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="location-grid reveal">
+                    <div class="location-map">
+                        <!-- REPLACE: Actual Google Maps embed with your address -->
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.2!2d34.77!3d32.08!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzLCsDA0JzQ4LjAiTiAzNMKwNDYnMTIuMCJF!5e0!3m2!1siw!2sil!4v1"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="מיקום ביסטרו לבנטין על המפה">
+                        </iframe>
+                    </div>
+
+                    <div class="location-info">
+                        <h3>פרטי הגעה</h3>
+
+                        <div class="location-detail">
+                            <div class="location-detail-icon">📍</div>
+                            <div class="location-detail-text">
+                                <div class="location-detail-label">כתובת</div>
+                                <!-- REPLACE: Actual address -->
+                                <div class="location-detail-value">רחוב דיזנגוף 99, תל אביב-יפו</div>
+                            </div>
+                        </div>
+
+                        <div class="location-detail">
+                            <div class="location-detail-icon">📞</div>
+                            <div class="location-detail-text">
+                                <div class="location-detail-label">טלפון</div>
+                                <!-- REPLACE: Actual phone number -->
+                                <div class="location-detail-value"><a href="tel:+97235551234">03-555-1234</a></div>
+                            </div>
+                        </div>
+
+                        <div class="location-detail">
+                            <div class="location-detail-icon">🅿️</div>
+                            <div class="location-detail-text">
+                                <div class="location-detail-label">חניה</div>
+                                <!-- REPLACE: Actual parking info -->
+                                <div class="location-detail-value">חניון דיזנגוף סנטר (3 דקות הליכה), חניון גורדון</div>
+                            </div>
+                        </div>
+
+                        <div class="location-detail">
+                            <div class="location-detail-icon">🚌</div>
+                            <div class="location-detail-text">
+                                <div class="location-detail-label">תחבורה ציבורית</div>
+                                <div class="location-detail-value">קווים 5, 18, 61 — תחנת דיזנגוף/פרישמן</div>
+                            </div>
+                        </div>
+
+                        <!-- REPLACE: Actual hours -->
+                        <table class="hours-table">
+                            <tr>
+                                <td>ראשון — חמישי</td>
+                                <td>12:00 — 23:00</td>
+                            </tr>
+                            <tr>
+                                <td>שישי</td>
+                                <td>12:00 — 15:00</td>
+                            </tr>
+                            <tr>
+                                <td>שבת</td>
+                                <td>20:00 — 00:00</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT ===== -->
+        <section class="contact-section section-padding" id="contact">
+            <div class="container">
+                <div class="section-header reveal">
+                    <p class="section-label">דברו איתנו</p>
+                    <h2 class="section-title">צרו קשר</h2>
+                    <p class="section-subtitle">שאלות, הצעות, או סתם רוצים להגיד שלום — אנחנו כאן</p>
+                    <div class="divider"></div>
+                </div>
+
+                <div class="contact-grid reveal">
+                    <div>
+                        <div class="contact-methods">
+                            <!-- REPLACE: All contact details -->
+                            <a href="https://wa.me/97235551234?text=שלום, אשמח לקבל פרטים נוספים" class="contact-method">
+                                <div class="contact-method-icon whatsapp">💬</div>
+                                <div>
+                                    <div class="contact-method-label">וואטסאפ</div>
+                                    <div class="contact-method-value">053-555-1234</div>
+                                </div>
+                            </a>
+                            <a href="tel:+97235551234" class="contact-method">
+                                <div class="contact-method-icon phone">📞</div>
+                                <div>
+                                    <div class="contact-method-label">טלפון</div>
+                                    <div class="contact-method-value">03-555-1234</div>
+                                </div>
+                            </a>
+                            <a href="mailto:info@bistro-levantine.co.il" class="contact-method">
+                                <div class="contact-method-icon email">✉️</div>
+                                <div>
+                                    <div class="contact-method-label">אימייל</div>
+                                    <div class="contact-method-value">info@bistro-levantine.co.il</div>
+                                </div>
+                            </a>
+                            <!-- REPLACE: Instagram link -->
+                            <a href="https://instagram.com/bistrolevantine" target="_blank" rel="noopener" class="contact-method">
+                                <div class="contact-method-icon instagram">📷</div>
+                                <div>
+                                    <div class="contact-method-label">אינסטגרם</div>
+                                    <div class="contact-method-value">@bistrolevantine</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-wrapper">
+                        <h3>שלחו לנו הודעה</h3>
+                        <form id="contact-form" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" for="contact-name">שם מלא *</label>
+                                <input type="text" id="contact-name" class="form-input" required placeholder="השם שלכם">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-phone">טלפון *</label>
+                                    <input type="tel" id="contact-phone" class="form-input" required placeholder="050-000-0000">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="contact-email">אימייל</label>
+                                    <input type="email" id="contact-email" class="form-input" placeholder="your@email.com">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contact-subject">נושא הפנייה</label>
+                                <select id="contact-subject" class="form-select">
+                                    <option value="">בחרו נושא</option>
+                                    <option>הזמנת שולחן</option>
+                                    <option>קייטרינג ואירועים</option>
+                                    <option>משוב</option>
+                                    <option>שיתוף פעולה</option>
+                                    <option>אחר</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="contact-message">הודעה *</label>
+                                <textarea id="contact-message" class="form-textarea" required placeholder="איך נוכל לעזור?"></textarea>
+                            </div>
+                            <button type="submit" class="form-submit" id="contact-submit">שליחה</button>
+                        </form>
+                        <div class="form-success" id="contact-success">
+                            <div class="form-success-icon">✅</div>
+                            <h3>ההודעה נשלחה!</h3>
+                            <p>נחזור אליכם בהקדם. תודה!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <div class="footer-brand-name">ביסטרו לבנטין</div>
+                    <p class="footer-brand-desc">מטבח ים תיכוני אותנטי בלב ליבה של תל אביב. חומרי גלם טריים, מתכונים מסורתיים וטוויסט מודרני.</p>
+                    <div class="footer-social">
+                        <!-- REPLACE: Social links -->
+                        <a href="https://instagram.com/bistrolevantine" target="_blank" rel="noopener" aria-label="אינסטגרם">📷</a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="פייסבוק">📘</a>
+                        <a href="#" target="_blank" rel="noopener" aria-label="טיקטוק">🎵</a>
+                    </div>
+                </div>
+                <div>
+                    <div class="footer-col-title">ניווט מהיר</div>
+                    <a href="#menu" class="footer-link">תפריט</a>
+                    <a href="#reservation" class="footer-link">הזמנת שולחן</a>
+                    <a href="#catering" class="footer-link">קייטרינג</a>
+                    <a href="#delivery" class="footer-link">משלוחים</a>
+                    <a href="#contact" class="footer-link">צור קשר</a>
+                </div>
+                <div>
+                    <div class="footer-col-title">מידע</div>
+                    <a href="#about" class="footer-link">הסיפור שלנו</a>
+                    <a href="#kashrut" class="footer-link">כשרות ואלרגנים</a>
+                    <a href="#gallery" class="footer-link">גלריה</a>
+                    <a href="#reviews" class="footer-link">ביקורות</a>
+                </div>
+                <div>
+                    <div class="footer-col-title">צרו קשר</div>
+                    <!-- REPLACE: Contact info -->
+                    <a href="tel:+97235551234" class="footer-link">📞 03-555-1234</a>
+                    <a href="https://wa.me/97235551234" class="footer-link">💬 וואטסאפ</a>
+                    <a href="mailto:info@bistro-levantine.co.il" class="footer-link">✉️ info@bistro-levantine.co.il</a>
+                    <span class="footer-link">📍 דיזנגוף 99, תל אביב</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>כל הזכויות שמורות &copy; <span id="footer-year"></span> ביסטרו לבנטין</span>
+                <div class="footer-legal-links">
+                    <a href="#">מדיניות פרטיות</a>
+                    <a href="#">הצהרת נגישות</a>
+                    <a href="#">תקנון</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== WHATSAPP FAB ===== -->
+    <!-- REPLACE: WhatsApp number -->
+    <a href="https://wa.me/97235551234?text=שלום, אשמח לקבל פרטים נוספים" class="whatsapp-fab" id="whatsapp-fab" aria-label="שלחו לנו הודעה בוואטסאפ" target="_blank" rel="noopener">
+        <div class="whatsapp-fab-pulse"></div>
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    </a>
+
+    <!-- ===== MOBILE STICKY BAR ===== -->
+    <div class="mobile-sticky-bar">
+        <!-- REPLACE: Phone and WhatsApp numbers -->
+        <a href="tel:+97235551234" class="bar-call" aria-label="התקשרו אלינו">📞 התקשרו</a>
+        <a href="https://wa.me/97235551234?text=שלום, אשמח לקבל פרטים" class="bar-whatsapp" aria-label="שלחו הודעה בוואטסאפ">💬 וואטסאפ</a>
+    </div>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+    (function() {
+        'use strict';
+
+        // === Dynamic year ===
+        document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+        // === Header scroll effect ===
+        const header = document.getElementById('site-header');
+        let lastScroll = 0;
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+            if (scrollY > 60) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            lastScroll = scrollY;
+        }
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // === Mobile menu ===
+        const hamburger = document.getElementById('hamburger');
+        const drawer = document.getElementById('mobile-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+
+        function toggleMenu() {
+            const isOpen = drawer.classList.contains('open');
+            drawer.classList.toggle('open');
+            overlay.classList.toggle('show');
+            hamburger.classList.toggle('active');
+            hamburger.setAttribute('aria-expanded', !isOpen);
+            document.body.style.overflow = isOpen ? '' : 'hidden';
+        }
+
+        function closeMenu() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('show');
+            hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', closeMenu);
+
+        drawer.querySelectorAll('.nav-link').forEach(function(link) {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // === WhatsApp FAB visibility ===
+        const waFab = document.getElementById('whatsapp-fab');
+        function checkWAVisibility() {
+            if (window.scrollY > 400) {
+                waFab.classList.add('visible');
+            } else {
+                waFab.classList.remove('visible');
+            }
+        }
+        window.addEventListener('scroll', checkWAVisibility, { passive: true });
+        setTimeout(function() { waFab.classList.add('visible'); }, 3000);
+
+        // === Menu category filter ===
+        const categoryBtns = document.querySelectorAll('.menu-cat-btn');
+        const menuItems = document.querySelectorAll('.menu-item');
+
+        categoryBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                categoryBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                const cat = btn.getAttribute('data-category');
+
+                menuItems.forEach(function(item) {
+                    if (cat === 'all' || item.getAttribute('data-category') === cat) {
+                        item.style.display = 'flex';
+                        setTimeout(function() { item.style.opacity = '1'; item.style.transform = 'translateY(0)'; }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(16px)';
+                        setTimeout(function() { item.style.display = 'none'; }, 300);
+                    }
+                });
+            });
+        });
+
+        // === Reservation form ===
+        var resForm = document.getElementById('reservation-form');
+        var resSuccess = document.getElementById('reservation-success');
+
+        if (resForm) {
+            resForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var name = document.getElementById('res-name').value.trim();
+                var phone = document.getElementById('res-phone').value.trim();
+                var date = document.getElementById('res-date').value;
+                var time = document.getElementById('res-time').value;
+                var guests = document.getElementById('res-guests').value;
+
+                if (!name || !phone || !date || !time || !guests) {
+                    alert('אנא מלאו את כל השדות המסומנים בכוכבית');
+                    return;
+                }
+
+                var submitBtn = document.getElementById('res-submit');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+
+                // Simulate submission — REPLACE: connect to backend / Tabit / Google Reserve
+                setTimeout(function() {
+                    resForm.style.display = 'none';
+                    resSuccess.classList.add('show');
+                }, 1200);
+            });
+        }
+
+        // === Contact form ===
+        var contactForm = document.getElementById('contact-form');
+        var contactSuccess = document.getElementById('contact-success');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var name = document.getElementById('contact-name').value.trim();
+                var phone = document.getElementById('contact-phone').value.trim();
+                var msg = document.getElementById('contact-message').value.trim();
+
+                if (!name || !phone || !msg) {
+                    alert('אנא מלאו את כל השדות המסומנים בכוכבית');
+                    return;
+                }
+
+                var submitBtn = document.getElementById('contact-submit');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'שולח...';
+
+                // Simulate submission — REPLACE: connect to backend or mailto
+                setTimeout(function() {
+                    contactForm.style.display = 'none';
+                    contactSuccess.classList.add('show');
+                }, 1200);
+            });
+        }
+
+        // === Scroll reveal (Intersection Observer) ===
+        var revealElements = document.querySelectorAll('.reveal');
+
+        if ('IntersectionObserver' in window) {
+            var revealObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+            revealElements.forEach(function(el) {
+                revealObserver.observe(el);
+            });
+        } else {
+            revealElements.forEach(function(el) { el.classList.add('visible'); });
+        }
+
+        // === Set min date for reservation ===
+        var dateInput = document.getElementById('res-date');
+        if (dateInput) {
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+            dateInput.setAttribute('min', yyyy + '-' + mm + '-' + dd);
+        }
+
+        // === Highlight current day in hours table ===
+        var dayNames = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+        var todayDay = new Date().getDay();
+        var hoursRows = document.querySelectorAll('.hours-table tr');
+        // Sunday=0 matches row 0 (ראשון—חמישי covers 0-4), Friday=5 row 1, Saturday=6 row 2
+        hoursRows.forEach(function(row) {
+            var dayText = row.querySelector('td:first-child');
+            if (!dayText) return;
+            var text = dayText.textContent;
+            if (todayDay >= 0 && todayDay <= 4 && text.includes('ראשון')) {
+                row.classList.add('today');
+            } else if (todayDay === 5 && text.includes('שישי')) {
+                row.classList.add('today');
+            } else if (todayDay === 6 && text.includes('שבת')) {
+                row.classList.add('today');
+            }
+        });
+
+    })();
+    </script>
+</body>
+</html>

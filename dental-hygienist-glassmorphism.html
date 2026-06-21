@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ד״ר ליאור כהן — שיננית מוסמכת | טיפולי שיניים מתקדמים בתל אביב</title>
+<meta name="description" content="שיננית מוסמכת עם למעלה מ-10 שנות ניסיון. טיפולי שיניים מקצועיים בגישה אישית — הלבנה, אבנית, חניכיים ועוד. קביעת תור: 050-123-4567">
+<meta property="og:title" content="ליאור כהן — שיננית מוסמכת בתל אביב">
+<meta property="og:description" content="טיפולי שיניים מקצועיים בסביבה מרגיעה ובגישה אישית. למעלה מ-2,500 מטופלים מרוצים.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Dentist",
+  "name":"ליאור כהן - שיננית מוסמכת",
+  "telephone":"+972501234567",
+  "address":{"@type":"PostalAddress","streetAddress":"רחוב הרצל 45","addressLocality":"תל אביב","addressCountry":"IL"},
+  "openingHours":["Su-Th 08:00-19:00","Fr 08:00-13:00"],
+  "priceRange":"₪₪"
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0A0E1A;
+  --bg2:#0F1322;
+  --bg3:#151A2E;
+  --glass:rgba(255,255,255,.04);
+  --glass2:rgba(255,255,255,.07);
+  --glass3:rgba(255,255,255,.1);
+  --glass-border:rgba(255,255,255,.08);
+  --glass-border2:rgba(255,255,255,.12);
+  --accent:#4AEADC;
+  --accent2:#36C5B8;
+  --accent-glow:rgba(74,234,220,.15);
+  --accent-glow2:rgba(74,234,220,.08);
+  --gold:#E8C56D;
+  --gold-glow:rgba(232,197,109,.12);
+  --white:#FFFFFF;
+  --t1:rgba(255,255,255,.95);
+  --t2:rgba(255,255,255,.7);
+  --t3:rgba(255,255,255,.45);
+  --t4:rgba(255,255,255,.2);
+  --radius:24px;
+  --radius-sm:16px;
+  --radius-xs:12px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Heebo',sans-serif;color:var(--t1);background:var(--bg);overflow-x:hidden;line-height:1.7;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+ul{list-style:none}
+::selection{background:var(--accent);color:var(--bg)}
+
+/* ── NOISE OVERLAY ── */
+body::before{content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── FLOATING ORBS ── */
+.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0;will-change:transform}
+.orb-1{width:600px;height:600px;background:radial-gradient(circle,rgba(74,234,220,.1),transparent 70%);top:-10%;right:-10%;animation:orbFloat 25s ease-in-out infinite}
+.orb-2{width:500px;height:500px;background:radial-gradient(circle,rgba(232,197,109,.07),transparent 70%);bottom:10%;left:-15%;animation:orbFloat 30s ease-in-out infinite reverse}
+.orb-3{width:400px;height:400px;background:radial-gradient(circle,rgba(74,234,220,.06),transparent 70%);top:40%;right:30%;animation:orbFloat 20s ease-in-out infinite 5s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-60px) scale(1.05)}50%{transform:translate(-30px,40px) scale(.95)}75%{transform:translate(50px,20px) scale(1.02)}}
+
+/* ── NAV ── */
+.nav{position:fixed;top:0;right:0;left:0;z-index:100;padding:20px 0;transition:all .5s cubic-bezier(.16,1,.3,1)}
+.nav.scrolled{padding:12px 0}
+.nav.scrolled .nav-glass{background:rgba(10,14,26,.75);backdrop-filter:blur(20px) saturate(1.2);-webkit-backdrop-filter:blur(20px) saturate(1.2);border-bottom:1px solid var(--glass-border)}
+.nav-glass{transition:all .5s cubic-bezier(.16,1,.3,1)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:'Rubik',sans-serif;font-weight:700;font-size:1.35rem;color:var(--t1);display:flex;align-items:center;gap:12px;letter-spacing:-.02em}
+.logo-mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.logo-mark::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.2));border-radius:12px}
+.logo-mark svg{width:20px;height:20px;fill:var(--bg);position:relative;z-index:1}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-links a{font-weight:500;font-size:.9rem;color:var(--t2);transition:all .3s;position:relative}
+.nav-links a:hover{color:var(--t1)}
+.nav-links a::after{content:'';position:absolute;bottom:-6px;right:50%;width:0;height:2px;background:var(--accent);transition:all .3s;border-radius:1px;transform:translateX(50%)}
+.nav-links a:hover::after{width:20px}
+.nav-cta{background:var(--glass2)!important;color:var(--accent)!important;padding:10px 28px;border-radius:50px;font-weight:600;border:1px solid var(--glass-border2);backdrop-filter:blur(10px);transition:all .4s cubic-bezier(.16,1,.3,1)}
+.nav-cta:hover{background:var(--accent-glow)!important;border-color:rgba(74,234,220,.25);transform:translateY(-1px);box-shadow:0 8px 30px var(--accent-glow)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px;z-index:201}
+.hamburger span{width:24px;height:2px;background:var(--t1);border-radius:2px;transition:all .3s}
+.hamburger.active span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(10,14,26,.95);backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);z-index:200;flex-direction:column;align-items:center;justify-content:center;gap:28px;opacity:0;transition:opacity .4s}
+.mobile-menu.open{display:flex;opacity:1}
+.mobile-menu a{font-size:1.6rem;font-weight:600;color:var(--t1);transition:color .3s}
+.mobile-menu a:hover{color:var(--accent)}
+
+/* ── GLASS CARD MIXIN ── */
+.glass{background:var(--glass);backdrop-filter:blur(20px) saturate(1.1);-webkit-backdrop-filter:blur(20px) saturate(1.1);border:1px solid var(--glass-border);border-radius:var(--radius)}
+.glass-strong{background:var(--glass2);backdrop-filter:blur(30px) saturate(1.2);-webkit-backdrop-filter:blur(30px) saturate(1.2);border:1px solid var(--glass-border2);border-radius:var(--radius)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:100px}
+.hero-mesh{position:absolute;inset:0;background:
+  radial-gradient(ellipse 60% 50% at 70% 30%,rgba(74,234,220,.08),transparent),
+  radial-gradient(ellipse 50% 60% at 20% 70%,rgba(232,197,109,.05),transparent),
+  radial-gradient(ellipse 80% 40% at 50% 0%,rgba(74,234,220,.04),transparent);
+  pointer-events:none}
+.hero-grid-bg{position:absolute;inset:0;background-image:
+  linear-gradient(var(--glass-border) 1px,transparent 1px),
+  linear-gradient(90deg,var(--glass-border) 1px,transparent 1px);
+  background-size:80px 80px;opacity:.3;mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black,transparent);-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,black,transparent)}
+.hero-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;position:relative;z-index:2;width:100%}
+.hero-content{opacity:0;animation:heroIn 1s .2s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes heroIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 20px 8px 10px;border-radius:50px;font-size:.82rem;font-weight:600;color:var(--accent);margin-bottom:28px;background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(10px)}
+.hero-badge-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent);animation:dotPulse 2s infinite}
+@keyframes dotPulse{0%,100%{opacity:1;box-shadow:0 0 12px var(--accent)}50%{opacity:.6;box-shadow:0 0 20px var(--accent)}}
+.hero h1{font-family:'Rubik',sans-serif;font-size:4rem;font-weight:900;line-height:1.1;letter-spacing:-.03em;margin-bottom:24px}
+.hero h1 .accent{background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-desc{font-size:1.15rem;color:var(--t2);line-height:1.9;margin-bottom:40px;max-width:480px;font-weight:300}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.btn-glow{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);padding:16px 40px;border-radius:50px;font-weight:700;font-size:1rem;border:none;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1);display:inline-flex;align-items:center;gap:10px;font-family:'Heebo',sans-serif;position:relative;overflow:hidden}
+.btn-glow::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.2));border-radius:50px}
+.btn-glow:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(74,234,220,.35)}
+.btn-ghost{color:var(--t2);padding:16px 32px;border-radius:50px;font-weight:600;font-size:1rem;border:1px solid var(--glass-border2);cursor:pointer;transition:all .4s;display:inline-flex;align-items:center;gap:10px;font-family:'Heebo',sans-serif;background:var(--glass);backdrop-filter:blur(10px)}
+.btn-ghost:hover{border-color:rgba(74,234,220,.3);color:var(--accent);background:var(--accent-glow);transform:translateY(-2px)}
+.hero-visual{position:relative;display:flex;justify-content:center;align-items:center;opacity:0;animation:heroIn 1s .5s cubic-bezier(.16,1,.3,1) forwards}
+.hero-card-main{width:100%;max-width:440px;aspect-ratio:3/4;border-radius:32px;overflow:hidden;position:relative;background:linear-gradient(160deg,var(--glass2),var(--glass));border:1px solid var(--glass-border2);backdrop-filter:blur(20px)}
+.hero-card-inner{position:absolute;inset:2px;border-radius:30px;overflow:hidden;background:linear-gradient(160deg,rgba(74,234,220,.08),rgba(232,197,109,.04),var(--glass));display:flex;align-items:center;justify-content:center}
+.hero-card-inner svg{width:140px;height:140px;opacity:.12;fill:var(--accent)}
+.hero-card-shimmer{position:absolute;inset:0;background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.03) 45%,rgba(255,255,255,.06) 50%,rgba(255,255,255,.03) 55%,transparent 60%);animation:shimmer 8s infinite;border-radius:30px}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.hero-float{position:absolute;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);background:rgba(15,19,34,.7);border:1px solid var(--glass-border2);border-radius:20px;padding:18px 24px;display:flex;align-items:center;gap:14px;animation:floatY 5s ease-in-out infinite}
+.hero-float.f1{bottom:60px;right:-30px;animation-delay:0s}
+.hero-float.f2{top:50px;left:-20px;animation-delay:1.5s}
+.hero-float.f3{top:50%;right:-40px;animation-delay:3s}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.float-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.float-icon svg{width:22px;height:22px}
+.float-icon.fi-accent{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.float-icon.fi-accent svg{fill:var(--bg)}
+.float-icon.fi-gold{background:linear-gradient(135deg,var(--gold),#D4A84B)}
+.float-icon.fi-gold svg{fill:var(--bg)}
+.float-icon.fi-glass{background:var(--glass3);border:1px solid var(--glass-border2)}
+.float-icon.fi-glass svg{fill:var(--accent)}
+.float-val{font-family:'Rubik',sans-serif;font-weight:800;font-size:1.4rem;color:var(--t1)}
+.float-label{font-size:.75rem;color:var(--t3);font-weight:400}
+
+/* ── STATS BAR ── */
+.stats-bar{position:relative;z-index:2;padding:60px 0;border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+.stats-inner{max-width:1280px;margin:0 auto;padding:0 40px;display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.stat-glass{text-align:center;padding:28px 20px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(10px);transition:all .4s}
+.stat-glass:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-4px)}
+.stat-num{font-family:'Rubik',sans-serif;font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
+.stat-label{color:var(--t3);font-size:.88rem;font-weight:500;margin-top:6px}
+
+/* ── SECTION DEFAULTS ── */
+.section{padding:120px 0;position:relative;z-index:2}
+.section-inner{max-width:1280px;margin:0 auto;padding:0 40px}
+.section-header{text-align:center;margin-bottom:72px}
+.stag{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:50px;font-size:.8rem;font-weight:600;color:var(--accent);margin-bottom:20px;background:var(--accent-glow);border:1px solid rgba(74,234,220,.12);letter-spacing:.02em}
+.stag-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.stitle{font-family:'Rubik',sans-serif;font-size:2.8rem;font-weight:900;letter-spacing:-.03em;line-height:1.15;margin-bottom:16px}
+.sdesc{color:var(--t3);font-size:1.05rem;max-width:520px;margin:0 auto;font-weight:300;line-height:1.8}
+
+/* ── ABOUT ── */
+.about-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:80px;align-items:center}
+.about-visual{position:relative}
+.about-img{width:100%;aspect-ratio:4/5;border-radius:32px;overflow:hidden;position:relative;background:var(--glass);border:1px solid var(--glass-border2)}
+.about-img-inner{position:absolute;inset:2px;border-radius:30px;background:linear-gradient(160deg,rgba(74,234,220,.06),rgba(232,197,109,.04));display:flex;align-items:center;justify-content:center}
+.about-img-inner svg{width:100px;height:100px;opacity:.1;fill:var(--accent)}
+.about-accent-card{position:absolute;bottom:-20px;left:-20px;background:rgba(15,19,34,.8);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border2);border-radius:20px;padding:20px 28px;display:flex;align-items:center;gap:14px}
+.about-accent-num{font-family:'Rubik',sans-serif;font-weight:900;font-size:2rem;background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.about-accent-txt{font-size:.85rem;color:var(--t3);line-height:1.5}
+.about-content .stag{margin-bottom:16px}
+.about-content h2{font-family:'Rubik',sans-serif;font-size:2.4rem;font-weight:800;letter-spacing:-.02em;margin-bottom:24px;line-height:1.2}
+.about-content p{color:var(--t2);font-size:1.02rem;line-height:2;margin-bottom:16px;font-weight:300}
+.about-pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
+.about-pill{display:flex;align-items:center;gap:10px;padding:12px 22px;background:var(--glass);border:1px solid var(--glass-border);border-radius:50px;font-size:.88rem;font-weight:500;color:var(--t2);transition:all .3s}
+.about-pill:hover{background:var(--accent-glow);border-color:rgba(74,234,220,.2);color:var(--accent)}
+.about-pill svg{width:16px;height:16px;fill:var(--accent)}
+
+/* ── SERVICES ── */
+.services{background:linear-gradient(180deg,var(--bg),var(--bg2),var(--bg))}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.srv{padding:40px 32px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);transition:all .5s cubic-bezier(.16,1,.3,1);position:relative;overflow:hidden;cursor:default}
+.srv::before{content:'';position:absolute;top:0;right:0;left:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .4s}
+.srv:hover{transform:translateY(-8px);background:var(--glass2);border-color:var(--glass-border2);box-shadow:0 20px 60px rgba(0,0,0,.3),0 0 60px var(--accent-glow2)}
+.srv:hover::before{opacity:1}
+.srv-icon{width:56px;height:56px;border-radius:16px;background:var(--accent-glow);border:1px solid rgba(74,234,220,.12);display:flex;align-items:center;justify-content:center;margin-bottom:24px;transition:all .4s}
+.srv:hover .srv-icon{background:linear-gradient(135deg,var(--accent),var(--accent2));border-color:transparent;box-shadow:0 8px 30px var(--accent-glow)}
+.srv-icon svg{width:26px;height:26px;fill:var(--accent);transition:fill .3s}
+.srv:hover .srv-icon svg{fill:var(--bg)}
+.srv h3{font-family:'Rubik',sans-serif;font-size:1.2rem;font-weight:700;margin-bottom:12px;letter-spacing:-.01em}
+.srv p{color:var(--t3);font-size:.92rem;line-height:1.9;font-weight:300}
+.srv-price{margin-top:24px;display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:10px;background:var(--glass);border:1px solid var(--glass-border);font-weight:700;font-size:.88rem;color:var(--accent);transition:all .3s}
+.srv:hover .srv-price{background:var(--accent-glow);border-color:rgba(74,234,220,.2)}
+
+/* ── TESTIMONIALS ── */
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.tcard{padding:36px 30px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);position:relative;transition:all .4s;overflow:hidden}
+.tcard::after{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle at center,var(--accent-glow2),transparent 50%);opacity:0;transition:opacity .4s;pointer-events:none}
+.tcard:hover{transform:translateY(-6px);border-color:var(--glass-border2)}
+.tcard:hover::after{opacity:1}
+.tcard-quote{font-size:3.5rem;line-height:1;color:var(--accent);opacity:.2;font-family:serif;margin-bottom:12px}
+.tcard-stars{display:flex;gap:4px;margin-bottom:16px}
+.tcard-stars svg{width:16px;height:16px;fill:var(--gold)}
+.tcard p{color:var(--t2);font-size:.95rem;line-height:1.9;font-weight:300;margin-bottom:24px;position:relative;z-index:1}
+.tcard-author{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+.tcard-av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--accent-glow),var(--glass2));border:1px solid var(--glass-border2);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent);font-size:.9rem}
+.tcard-name{font-weight:700;font-size:.92rem}
+.tcard-role{font-size:.78rem;color:var(--t3)}
+
+/* ── PROCESS ── */
+.process{background:linear-gradient(180deg,var(--bg),var(--bg2))}
+.proc-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.pstep{text-align:center;padding:40px 24px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px);transition:all .4s;position:relative}
+.pstep:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateY(-6px)}
+.pstep-num{width:64px;height:64px;border-radius:50%;background:var(--glass2);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-family:'Rubik',sans-serif;font-weight:900;font-size:1.3rem;color:var(--accent);transition:all .4s;position:relative}
+.pstep-num::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:1px solid var(--accent-glow);opacity:0;transition:opacity .3s}
+.pstep:hover .pstep-num{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);box-shadow:0 0 40px var(--accent-glow)}
+.pstep:hover .pstep-num::after{opacity:1}
+.pstep h4{font-family:'Rubik',sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:10px}
+.pstep p{font-size:.85rem;color:var(--t3);line-height:1.8;font-weight:300}
+.proc-connector{display:none}
+
+/* ── CTA BANNER ── */
+.cta-banner{position:relative;z-index:2;padding:100px 0;overflow:hidden}
+.cta-card{max-width:1280px;margin:0 auto;padding:80px 60px;border-radius:32px;background:linear-gradient(135deg,rgba(74,234,220,.08),rgba(232,197,109,.05),var(--glass));border:1px solid var(--glass-border2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);text-align:center;position:relative;overflow:hidden;margin-left:40px;margin-right:40px}
+.cta-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 80% at 50% 0%,var(--accent-glow2),transparent);pointer-events:none}
+.cta-card h2{font-family:'Rubik',sans-serif;font-size:2.6rem;font-weight:900;letter-spacing:-.03em;margin-bottom:16px;position:relative}
+.cta-card p{color:var(--t3);font-size:1.05rem;max-width:480px;margin:0 auto 40px;font-weight:300;position:relative}
+.cta-card .btn-glow{position:relative}
+
+/* ── CONTACT ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.cinfo h2{font-family:'Rubik',sans-serif;font-size:2rem;font-weight:800;margin-bottom:16px;letter-spacing:-.02em}
+.cinfo>p{color:var(--t3);font-size:1rem;line-height:1.9;margin-bottom:36px;font-weight:300}
+.citem{display:flex;align-items:center;gap:18px;margin-bottom:24px;padding:18px 22px;border-radius:var(--radius-sm);background:var(--glass);border:1px solid var(--glass-border);transition:all .3s;cursor:pointer}
+.citem:hover{background:var(--glass2);border-color:var(--glass-border2);transform:translateX(-4px)}
+.citem-icon{width:50px;height:50px;border-radius:14px;background:var(--accent-glow);border:1px solid rgba(74,234,220,.12);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.citem-icon svg{width:22px;height:22px;fill:var(--accent)}
+.citem-txt{font-weight:600;font-size:1rem}
+.citem-lbl{font-size:.8rem;color:var(--t3);font-weight:400}
+.hours-glass{margin-top:32px;padding:28px;border-radius:var(--radius-sm);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(12px)}
+.hours-glass h4{font-family:'Rubik',sans-serif;font-weight:700;font-size:1rem;margin-bottom:16px;color:var(--accent)}
+.hrow{display:flex;justify-content:space-between;padding:8px 0;font-size:.9rem;border-bottom:1px solid var(--glass-border);color:var(--t3)}
+.hrow:last-child{border:none}
+.hrow span:last-child{font-weight:700;color:var(--accent)}
+.cform{padding:44px;border-radius:var(--radius);background:var(--glass);border:1px solid var(--glass-border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.fgroup{margin-bottom:16px}
+.fgroup label{display:block;font-weight:600;font-size:.85rem;margin-bottom:8px;color:var(--t2)}
+.fgroup input,.fgroup textarea,.fgroup select{width:100%;padding:14px 18px;border:1px solid var(--glass-border2);border-radius:var(--radius-xs);font-family:'Heebo',sans-serif;font-size:.95rem;transition:all .3s;background:var(--glass);color:var(--t1);outline:none;-webkit-appearance:none}
+.fgroup input::placeholder,.fgroup textarea::placeholder{color:var(--t4)}
+.fgroup input:focus,.fgroup textarea:focus,.fgroup select:focus{border-color:var(--accent);box-shadow:0 0 20px var(--accent-glow2)}
+.fgroup textarea{resize:vertical;min-height:110px}
+.fgroup select{cursor:pointer}
+.fgroup select option{background:var(--bg2);color:var(--t1)}
+.fsubmit{background:linear-gradient(135deg,var(--accent),var(--accent2));color:var(--bg);padding:16px;border-radius:50px;font-weight:700;font-size:1.05rem;border:none;cursor:pointer;transition:all .4s cubic-bezier(.16,1,.3,1);font-family:'Heebo',sans-serif;width:100%;position:relative;overflow:hidden}
+.fsubmit::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.15));border-radius:50px}
+.fsubmit:hover{transform:translateY(-2px);box-shadow:0 10px 40px rgba(74,234,220,.3)}
+
+/* ── FOOTER ── */
+.footer{border-top:1px solid var(--glass-border);padding:60px 0 32px;position:relative;z-index:2}
+.footer-inner{max-width:1280px;margin:0 auto;padding:0 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.footer-brand p{font-size:.88rem;color:var(--t3);line-height:1.9;margin-top:14px;max-width:300px;font-weight:300}
+.footer h4{font-family:'Rubik',sans-serif;font-weight:700;color:var(--t1);font-size:.95rem;margin-bottom:18px}
+.footer ul li{margin-bottom:10px}
+.footer ul li a{font-size:.88rem;color:var(--t3);transition:all .3s;font-weight:400}
+.footer ul li a:hover{color:var(--accent)}
+.footer-social{display:flex;gap:10px;margin-top:18px}
+.footer-social a{width:40px;height:40px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;transition:all .3s}
+.footer-social a:hover{background:var(--accent-glow);border-color:rgba(74,234,220,.2);transform:translateY(-2px)}
+.footer-social a svg{width:18px;height:18px;fill:var(--t3);transition:fill .3s}
+.footer-social a:hover svg{fill:var(--accent)}
+.footer-bottom{border-top:1px solid var(--glass-border);padding-top:24px;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;color:var(--t4)}
+.footer-bottom a{color:var(--t3);transition:color .3s}
+.footer-bottom a:hover{color:var(--accent)}
+.footer-links{display:flex;gap:24px}
+
+/* ── WHATSAPP FLOAT ── */
+.wa{position:fixed;bottom:28px;left:28px;z-index:99;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,.4);animation:waPulse 3s infinite}
+.wa:hover{transform:scale(1.1);box-shadow:0 6px 30px rgba(37,211,102,.5)}
+.wa svg{width:30px;height:30px;fill:#fff}
+@keyframes waPulse{0%{box-shadow:0 4px 20px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,.4)}70%{box-shadow:0 4px 20px rgba(37,211,102,.35),0 0 0 20px rgba(37,211,102,0)}100%{box-shadow:0 4px 20px rgba(37,211,102,.35),0 0 0 0 rgba(37,211,102,0)}}
+
+/* ── SCROLL REVEAL ── */
+.rv{opacity:0;transform:translateY(32px);transition:all .7s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:48px}
+  .hero-desc{margin:0 auto 40px}
+  .hero-btns{justify-content:center}
+  .hero-visual{order:-1}
+  .hero-card-main{max-width:340px;aspect-ratio:3/3.5}
+  .hero-float.f1{right:0;bottom:30px}
+  .hero-float.f2{left:0;top:30px}
+  .hero-float.f3{display:none}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .about-visual{max-width:400px;margin:0 auto}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .testimonials-grid{grid-template-columns:1fr 1fr}
+  .proc-steps{grid-template-columns:1fr 1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .stats-inner{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .hero h1{font-size:2.6rem}
+  .stitle{font-size:2rem}
+  .services-grid{grid-template-columns:1fr}
+  .testimonials-grid{grid-template-columns:1fr}
+  .proc-steps{grid-template-columns:1fr 1fr}
+  .section{padding:80px 0}
+  .frow{grid-template-columns:1fr}
+  .cta-card{padding:50px 28px;margin-left:20px;margin-right:20px}
+  .cta-card h2{font-size:1.9rem}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;gap:12px;text-align:center}
+  .footer-links{justify-content:center}
+  .stats-inner{grid-template-columns:1fr 1fr}
+  .stat-num{font-size:2.2rem}
+  .hero-float{padding:14px 18px}
+  .float-val{font-size:1.1rem}
+  .nav-inner{padding:0 20px}
+  .section-inner{padding:0 20px}
+}
+@media(max-width:480px){
+  .hero h1{font-size:2.1rem}
+  .hero-card-main{max-width:260px}
+  .hero-float.f1,.hero-float.f2{display:none}
+  .proc-steps{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- Floating Orbs -->
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<!-- NAV -->
+<nav class="nav" id="navbar">
+  <div class="nav-glass">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.88 7.08 6.62 7.62L8 22h8l-1.62-3.38A9.003 9.003 0 0012 2zm-1 14.5v-1h2v1h-2zm2-3h-2c0-3.25 3-3 3-5a2 2 0 10-4 0H8a4 4 0 118 0c0 2.5-3 2.75-3 5z"/></svg></div>
+        ליאור כהן
+      </a>
+      <div class="nav-links">
+        <a href="#about">אודות</a>
+        <a href="#services">טיפולים</a>
+        <a href="#reviews">המלצות</a>
+        <a href="#process">תהליך</a>
+        <a href="#contact">צור קשר</a>
+        <a href="https://wa.me/972501234567?text=שלום, אשמח לקבוע תור" class="nav-cta" target="_blank">קביעת תור</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="תפריט">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">אודות</a>
+  <a href="#services" onclick="toggleMenu()">טיפולים</a>
+  <a href="#reviews" onclick="toggleMenu()">המלצות</a>
+  <a href="#process" onclick="toggleMenu()">תהליך</a>
+  <a href="#contact" onclick="toggleMenu()">צור קשר</a>
+  <a href="https://wa.me/972501234567?text=שלום, אשמח לקבוע תור" target="_blank" style="color:var(--accent)">קביעת תור</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-mesh"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>מקבלת מטופלים חדשים</div>
+      <h1>חיוך שמשנה<br>את <span class="accent">כל התמונה</span></h1>
+      <p class="hero-desc">שיננית מוסמכת עם למעלה מ-10 שנות ניסיון. טיפולים מתקדמים בסביבה מרגיעה, עם גישה אישית וטכנולוגיה חדשנית לחיוך בריא ומושלם.</p>
+      <div class="hero-btns">
+        <a href="https://wa.me/972501234567?text=שלום, אשמח לקבוע תור" target="_blank" class="btn-glow">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+          שלחו הודעה בוואטסאפ
+        </a>
+        <a href="tel:+972501234567" class="btn-ghost">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          050-123-4567
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card-main">
+        <div class="hero-card-inner">
+          <!-- REPLACE: hero image of the hygienist -->
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        </div>
+        <div class="hero-card-shimmer"></div>
+      </div>
+      <div class="hero-float f1">
+        <div class="float-icon fi-accent"><svg viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/></svg></div>
+        <div><div class="float-val">2,500+</div><div class="float-label">מטופלים מרוצים</div></div>
+      </div>
+      <div class="hero-float f2">
+        <div class="float-icon fi-gold"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+        <div><div class="float-val">4.9</div><div class="float-label">דירוג גוגל</div></div>
+      </div>
+      <div class="hero-float f3">
+        <div class="float-icon fi-glass"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
+        <div><div class="float-val">10+</div><div class="float-label">שנות ניסיון</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-glass rv"><div class="stat-num">10+</div><div class="stat-label">שנות ניסיון</div></div>
+    <div class="stat-glass rv"><div class="stat-num">2,500+</div><div class="stat-label">מטופלים</div></div>
+    <div class="stat-glass rv"><div class="stat-num">4.9</div><div class="stat-label">דירוג גוגל</div></div>
+    <div class="stat-glass rv"><div class="stat-num">98%</div><div class="stat-label">שביעות רצון</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-visual rv">
+        <div class="about-img">
+          <div class="about-img-inner">
+            <!-- REPLACE: professional photo -->
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+          </div>
+        </div>
+        <div class="about-accent-card">
+          <div class="about-accent-num">10+</div>
+          <div class="about-accent-txt">שנות ניסיון<br>מקצועי</div>
+        </div>
+      </div>
+      <div class="about-content rv">
+        <div class="stag"><span class="stag-dot"></span>קצת עליי</div>
+        <h2>מחויבת לבריאות<br>הפה שלכם</h2>
+        <p>שמי ליאור כהן, שיננית מוסמכת ובוגרת בית הספר לרפואת שיניים באוניברסיטת תל אביב. אני מאמינה שטיפול מקצועי ומניעתי הוא המפתח לחיוך בריא לכל החיים.</p>
+        <p>המרפאה שלי מצוידת בטכנולוגיה מתקדמת ביותר, כולל ציוד אולטרסוני מהדור האחרון וצילום דיגיטלי. אני משקיעה בהשתלמויות מקצועיות כל שנה כדי להביא את הטיפול הטוב ביותר.</p>
+        <div class="about-pills">
+          <div class="about-pill"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>הסמכה מלאה</div>
+          <div class="about-pill"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>ציוד מתקדם</div>
+          <div class="about-pill"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>השתלמויות שנתיות</div>
+          <div class="about-pill"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>גישה עדינה ואישית</div>
+          <div class="about-pill"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>מבוטחת מלאה</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section services" id="services">
+  <div class="section-inner">
+    <div class="section-header rv">
+      <div class="stag"><span class="stag-dot"></span>הטיפולים שלי</div>
+      <h2 class="stitle">טיפולים מתקדמים<br>לכל צורך</h2>
+      <p class="sdesc">מגוון טיפולים מקצועיים בטכנולוגיה חדשנית, בסביבה נעימה ובגישה אישית</p>
+    </div>
+    <div class="services-grid">
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/></svg></div>
+        <h3>הסרת אבנית</h3>
+        <p>ניקוי מקצועי של אבנית ומשקעים באמצעות ציוד אולטרסוני מתקדם. הטיפול כולל פוליש ובדיקת חניכיים מקיפה.</p>
+        <div class="srv-price">החל מ-₪250</div>
+      </div>
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg></div>
+        <h3>הלבנת שיניים</h3>
+        <p>הלבנה מקצועית בשיטות מתקדמות עם תוצאות מיידיות ומרשימות. תוכנית הלבנה מותאמת אישית לכל מטופל.</p>
+        <div class="srv-price">החל מ-₪600</div>
+      </div>
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
+        <h3>טיפול חניכיים</h3>
+        <p>אבחון וטיפול מקיף במחלות חניכיים, כולל טיפול בכיסי חניכיים עמוקים ומעקב שוטף לשיקום מלא.</p>
+        <div class="srv-price">החל מ-₪350</div>
+      </div>
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg></div>
+        <h3>טיפול מונע</h3>
+        <p>הדרכה אישית מותאמת לצחצוח נכון, שימוש בחוט דנטלי ותוכנית מניעה מקיפה לבריאות הפה.</p>
+        <div class="srv-price">החל מ-₪180</div>
+      </div>
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></div>
+        <h3>טיפולי ילדים</h3>
+        <p>טיפולים עדינים ומותאמים לילדים עם דגש על חוויה חיובית ומהנה, הקניית הרגלי היגיינה נכונים מגיל צעיר.</p>
+        <div class="srv-price">החל מ-₪200</div>
+      </div>
+      <div class="srv rv">
+        <div class="srv-icon"><svg viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg></div>
+        <h3>Air Flow</h3>
+        <p>ניקוי מתקדם בטכנולוגיית Air Flow שמסיר כתמים, ביופילם ומשקעים בצורה יעילה ונעימה במיוחד.</p>
+        <div class="srv-price">החל מ-₪300</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="reviews">
+  <div class="section-inner">
+    <div class="section-header rv">
+      <div class="stag"><span class="stag-dot"></span>המלצות</div>
+      <h2 class="stitle">המטופלים מספרים</h2>
+      <p class="sdesc">מאות מטופלים מרוצים שסומכים עליי עם החיוך שלהם</p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="tcard rv">
+        <div class="tcard-quote">"</div>
+        <div class="tcard-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+        <p>ליאור היא שיננית מדהימה. הטיפול היה עדין ויסודי בצורה יוצאת דופן, והשיניים מרגישות כמו חדשות. הסביבה מרגיעה ומקצועית. ממליצה בחום!</p>
+        <div class="tcard-author">
+          <div class="tcard-av">מ.ל</div>
+          <div><div class="tcard-name">מיכל לוי</div><div class="tcard-role">מטופלת קבועה, 3 שנים</div></div>
+        </div>
+      </div>
+      <div class="tcard rv">
+        <div class="tcard-quote">"</div>
+        <div class="tcard-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+        <p>הילדים שלי פחדו מרופאי שיניים עד שהגענו לליאור. היא יצרה חוויה כל כך נעימה שהם מחכים לתור הבא. מקצועיות ברמה אחרת לגמרי.</p>
+        <div class="tcard-author">
+          <div class="tcard-av">ד.א</div>
+          <div><div class="tcard-name">דנה אברהם</div><div class="tcard-role">אמא ל-3</div></div>
+        </div>
+      </div>
+      <div class="tcard rv">
+        <div class="tcard-quote">"</div>
+        <div class="tcard-stars"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></div>
+        <p>עשיתי הלבנת שיניים אצל ליאור והתוצאות פשוט מדהימות. היא הסבירה כל שלב בתהליך, ואני מרגיש בטוח בידיים שלה. שירות ברמה גבוהה מאוד.</p>
+        <div class="tcard-author">
+          <div class="tcard-av">י.כ</div>
+          <div><div class="tcard-name">יוסי כהן</div><div class="tcard-role">הלבנת שיניים</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section process" id="process">
+  <div class="section-inner">
+    <div class="section-header rv">
+      <div class="stag"><span class="stag-dot"></span>תהליך הטיפול</div>
+      <h2 class="stitle">ארבעה שלבים פשוטים</h2>
+      <p class="sdesc">מקביעת התור ועד החיוך המושלם - תהליך נוח ומקצועי</p>
+    </div>
+    <div class="proc-steps">
+      <div class="pstep rv">
+        <div class="pstep-num">1</div>
+        <h4>קביעת תור</h4>
+        <p>שלחו הודעה בוואטסאפ או התקשרו ונמצא יחד מועד נוח</p>
+      </div>
+      <div class="pstep rv">
+        <div class="pstep-num">2</div>
+        <h4>אבחון מקיף</h4>
+        <p>בדיקה יסודית של מצב הפה, החניכיים והשיניים עם צילום דיגיטלי</p>
+      </div>
+      <div class="pstep rv">
+        <div class="pstep-num">3</div>
+        <h4>טיפול אישי</h4>
+        <p>טיפול מותאם עם הטכנולוגיה המתקדמת ביותר, בסביבה מרגיעה</p>
+      </div>
+      <div class="pstep rv">
+        <div class="pstep-num">4</div>
+        <h4>מעקב ותחזוקה</h4>
+        <p>תוכנית מעקב אישית עם תזכורות לתורים ועצות לשמירה על הפה</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner">
+  <div class="cta-card">
+    <h2>מוכנים לחיוך שתמיד<br>חלמתם עליו?</h2>
+    <p>קבעו תור עוד היום ותתחילו את הדרך לפה בריא וחיוך מושלם</p>
+    <a href="https://wa.me/972501234567?text=שלום, אשמח לקבוע תור" target="_blank" class="btn-glow">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+      קבעו תור בוואטסאפ
+    </a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-inner">
+    <div class="section-header rv">
+      <div class="stag"><span class="stag-dot"></span>צרו קשר</div>
+      <h2 class="stitle">נשמח לשמוע מכם</h2>
+      <p class="sdesc">השאירו פרטים ונחזור אליכם תוך שעות ספורות</p>
+    </div>
+    <div class="contact-grid">
+      <div class="cinfo rv">
+        <h2>בואו נדבר</h2>
+        <p>אני זמינה לכל שאלה, ייעוץ או קביעת תור. פנו אליי בכל דרך שנוחה לכם ואשמח לעזור.</p>
+        <a href="tel:+972501234567" class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+          <div><div class="citem-txt">050-123-4567</div><div class="citem-lbl">טלפון</div></div>
+        </a>
+        <a href="mailto:lior@dental.co.il" class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></div>
+          <div><div class="citem-txt">lior@dental.co.il</div><div class="citem-lbl">אימייל</div></div>
+        </a>
+        <div class="citem">
+          <div class="citem-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+          <div><div class="citem-txt">רחוב הרצל 45, תל אביב</div><div class="citem-lbl">כתובת המרפאה</div></div>
+        </div>
+        <div class="hours-glass">
+          <h4>שעות פעילות</h4>
+          <div class="hrow"><span>ראשון - חמישי</span><span>08:00 - 19:00</span></div>
+          <div class="hrow"><span>שישי</span><span>08:00 - 13:00</span></div>
+          <div class="hrow"><span>שבת</span><span>סגור</span></div>
+        </div>
+      </div>
+      <div class="cform rv">
+        <form id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="frow">
+            <div class="fgroup"><label for="name">שם מלא</label><input id="name" type="text" placeholder="הכניסו את שמכם" required></div>
+            <div class="fgroup"><label for="phone">טלפון</label><input id="phone" type="tel" placeholder="050-000-0000" required></div>
+          </div>
+          <div class="fgroup"><label for="email">אימייל</label><input id="email" type="email" placeholder="your@email.com"></div>
+          <div class="fgroup"><label for="service">סוג טיפול</label>
+            <select id="service"><option value="">בחרו טיפול</option><option>הסרת אבנית</option><option>הלבנת שיניים</option><option>טיפול חניכיים</option><option>טיפול מונע</option><option>טיפולי ילדים</option><option>Air Flow</option><option>אחר</option></select>
+          </div>
+          <div class="fgroup"><label for="msg">הודעה</label><textarea id="msg" placeholder="ספרו לנו איך נוכל לעזור..."></textarea></div>
+          <button type="submit" class="fsubmit" id="submitBtn">שליחת פנייה</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo">
+          <div class="logo-mark"><svg viewBox="0 0 24 24"><path d="M12 2a9 9 0 00-9 9c0 3.87 2.88 7.08 6.62 7.62L8 22h8l-1.62-3.38A9.003 9.003 0 0012 2zm-1 14.5v-1h2v1h-2zm2-3h-2c0-3.25 3-3 3-5a2 2 0 10-4 0H8a4 4 0 118 0c0 2.5-3 2.75-3 5z"/></svg></div>
+          ליאור כהן
+        </div>
+        <p>שיננית מוסמכת עם ניסיון של למעלה מ-10 שנים. מחויבת לספק טיפול מקצועי ואישי ברמה הגבוהה ביותר.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 01-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 017.8 2m-.2 2A3.6 3.6 0 004 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 003.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5M12 7a5 5 0 110 10 5 5 0 010-10m0 2a3 3 0 100 6 3 3 0 000-6z"/></svg></a>
+          <a href="https://wa.me/972501234567" aria-label="WhatsApp" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>ניווט</h4>
+        <ul>
+          <li><a href="#about">אודות</a></li>
+          <li><a href="#services">טיפולים</a></li>
+          <li><a href="#reviews">המלצות</a></li>
+          <li><a href="#contact">צור קשר</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>טיפולים</h4>
+        <ul>
+          <li><a href="#services">הסרת אבנית</a></li>
+          <li><a href="#services">הלבנת שיניים</a></li>
+          <li><a href="#services">טיפול חניכיים</a></li>
+          <li><a href="#services">Air Flow</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>שעות פעילות</h4>
+        <ul>
+          <li>א׳-ה׳: 08:00-19:00</li>
+          <li>ו׳: 08:00-13:00</li>
+          <li>שבת: סגור</li>
+          <li style="margin-top:14px"><a href="tel:+972501234567" style="color:var(--accent)">050-123-4567</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="yr"></span> ליאור כהן | שיננית מוסמכת. כל הזכויות שמורות.</span>
+      <div class="footer-links">
+        <a href="#">מדיניות פרטיות</a>
+        <a href="#">הצהרת נגישות</a>
+        <a href="#">תקנון</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/972501234567?text=שלום, אשמח לקבל פרטים נוספים" target="_blank" class="wa" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+</a>
+
+<script>
+// Year
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+// Nav scroll
+const nav=document.getElementById('navbar');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+
+// Mobile menu
+function toggleMenu(){
+  const m=document.getElementById('mobileMenu');
+  const h=document.getElementById('hamburger');
+  m.classList.toggle('open');
+  h.classList.toggle('active');
+  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
+}
+
+// Scroll reveal with stagger
+const rvs=document.querySelectorAll('.rv');
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((entry)=>{
+    if(entry.isIntersecting){
+      // stagger siblings
+      const parent=entry.target.parentElement;
+      const siblings=[...parent.querySelectorAll('.rv')];
+      const idx=siblings.indexOf(entry.target);
+      setTimeout(()=>entry.target.classList.add('vis'),idx*100);
+      obs.unobserve(entry.target);
+    }
+  });
+},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+rvs.forEach(r=>obs.observe(r));
+
+// Form
+function handleSubmit(e){
+  e.preventDefault();
+  const btn=document.getElementById('submitBtn');
+  btn.textContent='שולח...';
+  btn.style.opacity='.7';
+  setTimeout(()=>{
+    btn.textContent='נשלח בהצלחה!';
+    btn.style.opacity='1';
+    btn.style.background='linear-gradient(135deg,#25D366,#128C7E)';
+    setTimeout(()=>{
+      btn.textContent='שליחת פנייה';
+      btn.style.background='';
+      e.target.reset();
+    },3000);
+  },1000);
+}
+
+// Parallax orbs on mouse
+document.addEventListener('mousemove',(e)=>{
+  const x=(e.clientX/window.innerWidth-.5)*30;
+  const y=(e.clientY/window.innerHeight-.5)*30;
+  document.querySelectorAll('.orb').forEach((o,i)=>{
+    const factor=(i+1)*.4;
+    o.style.transform=`translate(${x*factor}px,${y*factor}px)`;
+  });
+},{passive:true});
+</script>
+</body>
+</html>

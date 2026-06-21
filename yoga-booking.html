@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שקט פנימי | סטודיו יוגה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Heebo:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --sand: #F5F0E8;
+  --sand-dark: #E8E0D0;
+  --clay: #C4A882;
+  --clay-deep: #A68B6B;
+  --earth: #8B7355;
+  --bark: #5C4A32;
+  --charcoal: #2C2418;
+  --sage: #8FA68B;
+  --sage-light: #B5C9B2;
+  --sage-deep: #6B8B67;
+  --cream: #FFFDF8;
+  --warm-white: #FAF7F2;
+  --terracotta: #C17F59;
+  --terracotta-light: #D4A07A;
+  --radius: 12px;
+  --radius-lg: 24px;
+  --shadow-soft: 0 4px 24px rgba(92,74,50,0.08);
+  --shadow-md: 0 8px 40px rgba(92,74,50,0.12);
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Heebo', sans-serif;
+  background: var(--cream);
+  color: var(--charcoal);
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Grain Overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── Typography ─── */
+.serif { font-family: 'Frank Ruhl Libre', 'Cormorant Garamond', serif; }
+.display { font-family: 'Cormorant Garamond', serif; }
+
+h1, h2, h3 { font-family: 'Frank Ruhl Libre', serif; font-weight: 400; }
+
+/* ─── Navigation ─── */
+nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 1.2rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: var(--transition);
+  background: transparent;
+}
+
+nav.scrolled {
+  background: rgba(255, 253, 248, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 rgba(92,74,50,0.06);
+}
+
+.nav-logo {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--charcoal);
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+
+nav.hero-nav .nav-logo { color: var(--cream); }
+nav.scrolled .nav-logo { color: var(--charcoal); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--charcoal);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  position: relative;
+  transition: var(--transition);
+}
+
+nav.hero-nav .nav-links a { color: rgba(255,253,248,0.85); }
+nav.hero-nav .nav-links a:hover { color: var(--cream); }
+nav.scrolled .nav-links a { color: var(--charcoal); }
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  right: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--terracotta);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  background: var(--terracotta) !important;
+  color: var(--cream) !important;
+  padding: 0.6rem 1.6rem;
+  border-radius: 50px;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.nav-cta:hover { background: var(--clay-deep) !important; transform: translateY(-1px); }
+.nav-cta::after { display: none !important; }
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--charcoal);
+  transition: var(--transition);
+}
+
+nav.hero-nav .hamburger span { background: var(--cream); }
+nav.scrolled .hamburger span { background: var(--charcoal); }
+
+/* ─── Hero ─── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--charcoal);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 50%, rgba(139,115,85,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 30%, rgba(107,139,103,0.2) 0%, transparent 50%),
+    linear-gradient(160deg, #3a3020 0%, #2C2418 40%, #1a2018 100%);
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(circle at 20% 80%, var(--clay) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, var(--sage) 1px, transparent 1px);
+  background-size: 60px 60px, 80px 80px;
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  animation: fadeUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border: 1px solid rgba(196,168,130,0.3);
+  border-radius: 50px;
+  font-size: 0.8rem;
+  color: var(--clay);
+  letter-spacing: 0.15em;
+  margin-bottom: 2rem;
+  animation: fadeUp 1.2s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero h1 {
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  color: var(--cream);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  animation: fadeUp 1.2s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero h1 em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  color: var(--clay);
+  font-weight: 300;
+}
+
+.hero-sub {
+  font-size: 1.15rem;
+  color: rgba(255,253,248,0.6);
+  font-weight: 300;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  animation: fadeUp 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  animation: fadeUp 1.2s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.btn-primary {
+  background: var(--terracotta);
+  color: var(--cream);
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 50px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-primary:hover { background: var(--terracotta-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(193,127,89,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--cream);
+  padding: 1rem 2.5rem;
+  border: 1px solid rgba(255,253,248,0.25);
+  border-radius: 50px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+}
+
+.btn-secondary:hover { border-color: var(--clay); color: var(--clay); }
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+.scroll-indicator div {
+  width: 24px;
+  height: 40px;
+  border: 2px solid rgba(255,253,248,0.2);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-indicator div::after {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 8px;
+  background: var(--clay);
+  border-radius: 2px;
+  animation: scrollDot 2s infinite;
+}
+
+@keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+@keyframes scrollDot { 0% { opacity: 1; top: 6px; } 100% { opacity: 0; top: 20px; } }
+
+/* ─── Section Styles ─── */
+section { padding: 6rem 2rem; }
+
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.section-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--terracotta);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.section-header h2 {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--charcoal);
+}
+
+.section-header p {
+  margin-top: 1rem;
+  color: var(--earth);
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: 300;
+}
+
+.container { max-width: 1200px; margin: 0 auto; }
+
+/* ─── About ─── */
+.about { background: var(--warm-white); }
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.about-image {
+  aspect-ratio: 4/5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: relative;
+  background:
+    linear-gradient(135deg, var(--sage-light) 0%, var(--sand-dark) 50%, var(--clay) 100%);
+}
+
+.about-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(255,255,255,0.2) 0%, transparent 60%),
+    radial-gradient(ellipse at 70% 70%, rgba(107,139,103,0.3) 0%, transparent 40%);
+}
+
+.about-image .lotus {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  opacity: 0.15;
+}
+
+.about-text h3 {
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.about-text p {
+  color: var(--earth);
+  margin-bottom: 1rem;
+  font-weight: 300;
+  font-size: 1.05rem;
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--sand-dark);
+}
+
+.stat-item .stat-num {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 2.5rem;
+  color: var(--terracotta);
+  font-weight: 400;
+  line-height: 1;
+}
+
+.stat-item .stat-label {
+  font-size: 0.85rem;
+  color: var(--earth);
+  margin-top: 0.3rem;
+}
+
+/* ─── Classes ─── */
+.classes { background: var(--cream); }
+
+.classes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+.class-card {
+  background: var(--warm-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: var(--transition);
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.class-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--sand-dark);
+}
+
+.class-card-img {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+}
+
+.class-card-img .gradient {
+  position: absolute;
+  inset: 0;
+}
+
+.class-card:nth-child(1) .gradient { background: linear-gradient(135deg, #B5C9B2, #8FA68B); }
+.class-card:nth-child(2) .gradient { background: linear-gradient(135deg, #D4A07A, #C17F59); }
+.class-card:nth-child(3) .gradient { background: linear-gradient(135deg, #C4A882, #A68B6B); }
+.class-card:nth-child(4) .gradient { background: linear-gradient(135deg, #8FA68B, #5C7A58); }
+.class-card:nth-child(5) .gradient { background: linear-gradient(135deg, #C9B5B5, #A68B8B); }
+.class-card:nth-child(6) .gradient { background: linear-gradient(135deg, #A8B5C4, #8B9AA6); }
+
+.class-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  opacity: 0.3;
+  color: white;
+}
+
+.class-level {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  color: white;
+  font-weight: 500;
+}
+
+.class-card-body { padding: 1.5rem; }
+
+.class-card-body h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.class-card-body p {
+  color: var(--earth);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.class-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--sand-dark);
+  font-size: 0.85rem;
+  color: var(--clay-deep);
+}
+
+/* ─── Schedule ─── */
+.schedule { background: var(--sand); }
+
+.schedule-wrapper {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+.schedule-days {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  border-bottom: 1px solid var(--sand-dark);
+  -webkit-overflow-scrolling: touch;
+}
+
+.schedule-day {
+  flex: 1;
+  min-width: 100px;
+  padding: 1.2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: 'Heebo', sans-serif;
+  transition: var(--transition);
+  position: relative;
+  font-size: 0.9rem;
+  color: var(--earth);
+}
+
+.schedule-day.active {
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+.schedule-day.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 1rem;
+  left: 1rem;
+  height: 2px;
+  background: var(--terracotta);
+  border-radius: 2px 2px 0 0;
+}
+
+.schedule-day:hover { color: var(--terracotta); }
+
+.schedule-slots { padding: 1.5rem; }
+
+.slot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.75rem;
+  background: var(--warm-white);
+  transition: var(--transition);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.slot:hover { background: var(--sand); }
+
+.slot-time {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 1.3rem;
+  color: var(--charcoal);
+  min-width: 80px;
+}
+
+.slot-info { flex: 1; min-width: 150px; }
+.slot-info h4 { font-weight: 500; font-size: 1rem; }
+.slot-info span { font-size: 0.8rem; color: var(--earth); }
+
+.slot-spots {
+  font-size: 0.8rem;
+  color: var(--sage-deep);
+  padding: 0.3rem 0.8rem;
+  background: rgba(107,139,103,0.1);
+  border-radius: 50px;
+}
+
+.slot-spots.low { color: var(--terracotta); background: rgba(193,127,89,0.1); }
+
+.slot-book {
+  padding: 0.6rem 1.5rem;
+  background: var(--charcoal);
+  color: var(--cream);
+  border: none;
+  border-radius: 50px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: 500;
+}
+
+.slot-book:hover { background: var(--terracotta); transform: translateY(-1px); }
+
+/* ─── Pricing ─── */
+.pricing { background: var(--cream); }
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.price-card {
+  background: var(--warm-white);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  text-align: center;
+  border: 1px solid var(--sand-dark);
+  transition: var(--transition);
+  position: relative;
+}
+
+.price-card.featured {
+  background: var(--charcoal);
+  color: var(--cream);
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+.price-card:hover:not(.featured) {
+  border-color: var(--clay);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.price-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--terracotta);
+  color: var(--cream);
+  padding: 0.3rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.price-card h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.featured h3 { color: var(--cream); }
+
+.price-amount {
+  font-family: 'Frank Ruhl Libre', serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  margin: 1rem 0;
+  line-height: 1;
+}
+
+.price-amount span { font-size: 1.2rem; }
+.featured .price-amount { color: var(--terracotta-light); }
+
+.price-period {
+  font-size: 0.85rem;
+  color: var(--earth);
+  margin-bottom: 2rem;
+}
+
+.featured .price-period { color: rgba(255,253,248,0.5); }
+
+.price-features {
+  list-style: none;
+  text-align: right;
+  margin-bottom: 2rem;
+}
+
+.price-features li {
+  padding: 0.6rem 0;
+  font-size: 0.9rem;
+  color: var(--earth);
+  border-bottom: 1px solid var(--sand-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.featured .price-features li { color: rgba(255,253,248,0.7); border-color: rgba(255,253,248,0.1); }
+
+.price-features li::before {
+  content: '✓';
+  color: var(--sage-deep);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.featured .price-features li::before { color: var(--sage-light); }
+
+.price-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 50px;
+  border: none;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.price-card:not(.featured) .price-btn {
+  background: transparent;
+  border: 1.5px solid var(--charcoal);
+  color: var(--charcoal);
+}
+
+.price-card:not(.featured) .price-btn:hover { background: var(--charcoal); color: var(--cream); }
+
+.featured .price-btn {
+  background: var(--terracotta);
+  color: var(--cream);
+}
+
+.featured .price-btn:hover { background: var(--terracotta-light); }
+
+/* ─── Testimonials ─── */
+.testimonials { background: var(--sand); }
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.testimonial-card {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-soft);
+  transition: var(--transition);
+}
+
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.testimonial-stars {
+  color: var(--terracotta);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  letter-spacing: 2px;
+}
+
+.testimonial-card p {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: var(--bark);
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.testimonial-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--cream);
+}
+
+.testimonial-card:nth-child(1) .testimonial-avatar { background: var(--sage); }
+.testimonial-card:nth-child(2) .testimonial-avatar { background: var(--terracotta); }
+.testimonial-card:nth-child(3) .testimonial-avatar { background: var(--clay-deep); }
+
+.testimonial-author-info span { display: block; }
+.testimonial-author-info .name { font-weight: 500; font-size: 0.95rem; }
+.testimonial-author-info .role { font-size: 0.8rem; color: var(--earth); }
+
+/* ─── Booking Modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(44,36,24,0.6);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  max-width: 520px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.95) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  padding: 2rem 2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.modal-header h2 {
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.modal-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--sand);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  color: var(--earth);
+}
+
+.modal-close:hover { background: var(--sand-dark); }
+
+.modal-body { padding: 1.5rem 2rem 2rem; }
+
+.form-group { margin-bottom: 1.25rem; }
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--bark);
+  margin-bottom: 0.4rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--sand-dark);
+  border-radius: var(--radius);
+  font-family: 'Heebo', sans-serif;
+  font-size: 0.95rem;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  transition: var(--transition);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--terracotta);
+  box-shadow: 0 0 0 3px rgba(193,127,89,0.1);
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.modal-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--terracotta);
+  color: var(--cream);
+  border: none;
+  border-radius: 50px;
+  font-family: 'Heebo', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+}
+
+.modal-submit:hover { background: var(--terracotta-light); transform: translateY(-1px); }
+
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.success-message.show { display: block; }
+
+.success-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(107,139,103,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  font-size: 2rem;
+  color: var(--sage-deep);
+}
+
+.success-message h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.success-message p { color: var(--earth); font-weight: 300; }
+
+/* ─── Contact ─── */
+.contact { background: var(--charcoal); color: var(--cream); }
+
+.contact .section-tag { color: var(--clay); }
+.contact .section-header h2 { color: var(--cream); }
+.contact .section-header p { color: rgba(255,253,248,0.5); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-item {
+  text-align: center;
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  background: rgba(255,253,248,0.04);
+  border: 1px solid rgba(255,253,248,0.06);
+  transition: var(--transition);
+}
+
+.contact-item:hover {
+  background: rgba(255,253,248,0.08);
+  transform: translateY(-4px);
+}
+
+.contact-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(193,127,89,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.3rem;
+}
+
+.contact-item h4 { font-size: 1.1rem; margin-bottom: 0.5rem; font-weight: 500; }
+.contact-item p { font-size: 0.9rem; color: rgba(255,253,248,0.6); direction: ltr; }
+
+/* ─── Footer ─── */
+footer {
+  background: #1a1510;
+  padding: 2rem;
+  text-align: center;
+  color: rgba(255,253,248,0.3);
+  font-size: 0.85rem;
+}
+
+footer a { color: var(--clay); text-decoration: none; }
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--cream);
+    flex-direction: column;
+    padding: 5rem 2rem 2rem;
+    gap: 1.5rem;
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+    z-index: 1000;
+  }
+
+  .nav-links.open { right: 0; }
+  .nav-links a, nav.hero-nav .nav-links a { color: var(--charcoal) !important; font-size: 1.1rem; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-image { aspect-ratio: 16/9; max-height: 280px; }
+  .about-stats { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .stat-item .stat-num { font-size: 1.8rem; }
+
+  .classes-grid { grid-template-columns: 1fr; }
+
+  section { padding: 4rem 1.25rem; }
+
+  .slot { padding: 1rem; }
+  .slot-time { font-size: 1.1rem; }
+
+  .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+  .price-card.featured { transform: scale(1); }
+
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  .modal { margin: 0.5rem; border-radius: 20px; }
+  .modal-header, .modal-body { padding-right: 1.5rem; padding-left: 1.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+
+  .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+}
+
+@media (max-width: 480px) {
+  .schedule-days { gap: 0; }
+  .schedule-day { min-width: 70px; padding: 1rem 0.5rem; font-size: 0.8rem; }
+  .slot { flex-direction: column; align-items: flex-start; }
+  .slot-book { width: 100%; text-align: center; }
+}
+
+/* ─── Scroll Animations ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="hero-nav" id="navbar">
+  <a href="#" class="nav-logo">שקט פנימי</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">אודות</a></li>
+    <li><a href="#classes">שיעורים</a></li>
+    <li><a href="#schedule">לוח זמנים</a></li>
+    <li><a href="#pricing">מחירון</a></li>
+    <li><a href="#testimonials">המלצות</a></li>
+    <li><a href="#booking" class="nav-cta" onclick="openModal()">הזמנת שיעור</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-badge">סטודיו יוגה מוביל בישראל</div>
+    <h1>מצאו את ה<em>שקט</em><br>שבתוככם</h1>
+    <p class="hero-sub">חוויית יוגה מעצימה המשלבת מסורת עתיקה עם גישה מודרנית. הצטרפו אלינו למסע של חיבור גוף, נפש ורוח.</p>
+    <div class="hero-buttons">
+      <a href="#booking" class="btn-primary" onclick="openModal()">הזמינו שיעור ניסיון</a>
+      <a href="#classes" class="btn-secondary">גלו את השיעורים</a>
+    </div>
+  </div>
+  <div class="scroll-indicator"><div></div></div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-image reveal">
+        <svg class="lotus" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M100 40c0 0-30 30-30 70s30 50 30 50 30-10 30-50-30-70-30-70z" fill="white" opacity="0.5"/>
+          <path d="M100 40c0 0-60 20-60 80s60 40 60 40 60 20 60-40-60-80-60-80z" fill="white" opacity="0.3"/>
+          <path d="M100 160c0 0-10-40 0-80s0 80 0 80z" stroke="white" stroke-width="1.5" opacity="0.4"/>
+        </svg>
+      </div>
+      <div class="about-text reveal">
+        <div class="section-tag">הסיפור שלנו</div>
+        <h3>יותר מסטודיו —<br>קהילה של צמיחה</h3>
+        <p>סטודיו "שקט פנימי" נוסד מתוך אמונה שיוגה היא לא רק תרגול גופני, אלא דרך חיים. אנחנו מאמינים שכל אדם יכול למצוא את האיזון והשלווה שהוא מחפש.</p>
+        <p>הצוות שלנו מורכב ממורים מוסמכים בעלי ניסיון של שנים, שעברו הכשרות מעמיקות בהודו ובעולם. אנחנו מציעים מגוון סגנונות יוגה המותאמים לכל רמה — ממתחילים ועד מתקדמים.</p>
+        <div class="about-stats">
+          <div class="stat-item">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">שנות ניסיון</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">3,500+</div>
+            <div class="stat-label">תלמידים מרוצים</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num">8</div>
+            <div class="stat-label">מורים מוסמכים</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Classes -->
+<section class="classes" id="classes">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">השיעורים שלנו</div>
+      <h2>מצאו את הסגנון שמתאים לכם</h2>
+      <p>מגוון שיעורים לכל רמה ולכל מטרה — מהרפיה עמוקה ועד אתגר גופני</p>
+    </div>
+    <div class="classes-grid">
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">☽</div><div class="class-level">כל הרמות</div></div>
+        <div class="class-card-body">
+          <h3>האטה ויניאסה</h3>
+          <p>זרימה איטית ומודעת המחברת נשימה לתנועה. מושלם למי שמחפש איזון ושלווה.</p>
+          <div class="class-meta"><span>60 דקות</span><span>יום א׳, ג׳, ה׳</span></div>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">☀</div><div class="class-level">מתקדמים</div></div>
+        <div class="class-card-body">
+          <h3>אשטנגה יוגה</h3>
+          <p>סדרת תנוחות דינמית ומאתגרת הבונה כוח, גמישות וריכוז. לתלמידים עם ניסיון.</p>
+          <div class="class-meta"><span>90 דקות</span><span>יום ב׳, ד׳</span></div>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">◯</div><div class="class-level">מתחילים</div></div>
+        <div class="class-card-body">
+          <h3>יוגה למתחילים</h3>
+          <p>הכרות עדינה עם עולם היוגה. לימוד תנוחות בסיס, טכניקות נשימה ומדיטציה פשוטה.</p>
+          <div class="class-meta"><span>60 דקות</span><span>יום א׳ - ה׳</span></div>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">❋</div><div class="class-level">כל הרמות</div></div>
+        <div class="class-card-body">
+          <h3>יין יוגה</h3>
+          <p>תרגול שקט ומעמיק שבו מחזיקים תנוחות למספר דקות. שחרור רקמות עמוקות ומתחים.</p>
+          <div class="class-meta"><span>75 דקות</span><span>יום ג׳, ו׳</span></div>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">✦</div><div class="class-level">בינוני-מתקדם</div></div>
+        <div class="class-card-body">
+          <h3>פאוור יוגה</h3>
+          <p>שיעור אינטנסיבי הבונה חוזק וסיבולת. שילוב של תנוחות מאתגרות עם נשימה עמוקה.</p>
+          <div class="class-meta"><span>60 דקות</span><span>יום ב׳, ד׳, ו׳</span></div>
+        </div>
+      </div>
+      <div class="class-card reveal">
+        <div class="class-card-img"><div class="gradient"></div><div class="class-icon">◎</div><div class="class-level">כל הרמות</div></div>
+        <div class="class-card-body">
+          <h3>מדיטציה ונשימה</h3>
+          <p>שיעור המתמקד בפרנאיאמה (תרגולי נשימה) ומדיטציה מונחית להרגעת המוח והנפש.</p>
+          <div class="class-meta"><span>45 דקות</span><span>כל יום</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Schedule -->
+<section class="schedule" id="schedule">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">לוח זמנים</div>
+      <h2>בחרו את הזמן שנוח לכם</h2>
+      <p>שיעורים לאורך כל השבוע — בוקר, צהריים וערב</p>
+    </div>
+    <div class="schedule-wrapper reveal">
+      <div class="schedule-days" id="scheduleDays">
+        <button class="schedule-day active" data-day="0">יום ראשון</button>
+        <button class="schedule-day" data-day="1">יום שני</button>
+        <button class="schedule-day" data-day="2">יום שלישי</button>
+        <button class="schedule-day" data-day="3">יום רביעי</button>
+        <button class="schedule-day" data-day="4">יום חמישי</button>
+        <button class="schedule-day" data-day="5">יום שישי</button>
+      </div>
+      <div class="schedule-slots" id="scheduleSlots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">מחירון</div>
+      <h2>מנויים וכרטיסיות</h2>
+      <p>בחרו את המסלול שמתאים לכם ביותר</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <h3>שיעור בודד</h3>
+        <div class="price-amount">₪75</div>
+        <div class="price-period">לשיעור</div>
+        <ul class="price-features">
+          <li>שיעור בודד לבחירה</li>
+          <li>ללא התחייבות</li>
+          <li>אפשרות להביא חבר/ה</li>
+        </ul>
+        <button class="price-btn" onclick="openModal()">הזמינו עכשיו</button>
+      </div>
+      <div class="price-card featured reveal">
+        <div class="price-badge">הכי פופולרי</div>
+        <h3>מנוי חודשי</h3>
+        <div class="price-amount">₪349<span>/חודש</span></div>
+        <div class="price-period">ללא הגבלת שיעורים</div>
+        <ul class="price-features">
+          <li>שיעורים ללא הגבלה</li>
+          <li>גישה לכל סוגי השיעורים</li>
+          <li>סדנאות חודשיות בחינם</li>
+          <li>10% הנחה על פרטיים</li>
+        </ul>
+        <button class="price-btn" onclick="openModal()">הצטרפו עכשיו</button>
+      </div>
+      <div class="price-card reveal">
+        <h3>כרטיסייה 10</h3>
+        <div class="price-amount">₪599</div>
+        <div class="price-period">10 שיעורים | תוקף 3 חודשים</div>
+        <ul class="price-features">
+          <li>10 שיעורים לבחירה</li>
+          <li>גמישות מלאה</li>
+          <li>חיסכון של ₪151</li>
+        </ul>
+        <button class="price-btn" onclick="openModal()">רכשו כרטיסייה</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">המלצות</div>
+      <h2>מה התלמידים שלנו אומרים</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>״הסטודיו הזה שינה לי את החיים. האווירה, המורים, הקהילה — הכל מושלם. אחרי שנה אני מרגישה אדם אחר לגמרי.״</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">נ.כ</div>
+          <div class="testimonial-author-info">
+            <span class="name">נועה כהן</span>
+            <span class="role">תלמידה 3 שנים</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>״הגעתי עם כאבי גב כרוניים ואחרי חודשיים של תרגול קבוע הכאבים כמעט נעלמו. המורים מקצועיים ברמה הגבוהה ביותר.״</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">ד.ל</div>
+          <div class="testimonial-author-info">
+            <span class="name">דניאל לוי</span>
+            <span class="role">תלמיד שנה</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>״כמתחילה מוחלטת חששתי, אבל מהרגע הראשון הרגשתי בבית. שיעורי היין יוגה הם חוויה שאי אפשר לתאר במילים.״</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">ש.א</div>
+          <div class="testimonial-author-info">
+            <span class="name">שירה אברהם</span>
+            <span class="role">תלמידה חצי שנה</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-header reveal">
+      <div class="section-tag">צרו קשר</div>
+      <h2>נשמח לשמוע מכם</h2>
+      <p>יש שאלות? רוצים לדעת עוד? אנחנו כאן בשבילכם</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-item reveal">
+        <div class="contact-icon">📍</div>
+        <h4>כתובת</h4>
+        <p>רחוב דיזנגוף 120<br>תל אביב</p>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">📞</div>
+        <h4>טלפון</h4>
+        <p>03-555-1234</p>
+      </div>
+      <div class="contact-item reveal">
+        <div class="contact-icon">✉</div>
+        <h4>אימייל</h4>
+        <p>hello@sheket-pnimi.co.il</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2026 שקט פנימי — סטודיו יוגה. כל הזכויות שמורות.</p>
+</footer>
+
+<!-- Booking Modal -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="modal">
+    <div id="bookingForm">
+      <div class="modal-header">
+        <h2>הזמנת שיעור</h2>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>שם מלא</label>
+          <input type="text" id="fname" placeholder="הכניסו את שמכם" required>
+        </div>
+        <div class="form-group">
+          <label>טלפון</label>
+          <input type="tel" id="fphone" placeholder="050-000-0000" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label>אימייל</label>
+          <input type="email" id="femail" placeholder="email@example.com" dir="ltr">
+        </div>
+        <div class="form-group">
+          <label>סוג שיעור</label>
+          <select id="fclass">
+            <option value="">בחרו שיעור</option>
+            <option>האטה ויניאסה</option>
+            <option>אשטנגה יוגה</option>
+            <option>יוגה למתחילים</option>
+            <option>יין יוגה</option>
+            <option>פאוור יוגה</option>
+            <option>מדיטציה ונשימה</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>תאריך</label>
+            <input type="date" id="fdate">
+          </div>
+          <div class="form-group">
+            <label>שעה מועדפת</label>
+            <select id="ftime">
+              <option value="">בחרו שעה</option>
+              <option>07:00</option>
+              <option>09:00</option>
+              <option>10:30</option>
+              <option>17:00</option>
+              <option>18:30</option>
+              <option>20:00</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>מסלול</label>
+          <select id="fplan">
+            <option value="">בחרו מסלול</option>
+            <option>שיעור ניסיון (חינם)</option>
+            <option>שיעור בודד — ₪75</option>
+            <option>כרטיסייה 10 — ₪599</option>
+            <option>מנוי חודשי — ₪349</option>
+          </select>
+        </div>
+        <button class="modal-submit" onclick="submitBooking()">אישור הזמנה</button>
+      </div>
+    </div>
+    <div class="success-message" id="successMsg">
+      <div class="success-icon">✓</div>
+      <h3>ההזמנה התקבלה!</h3>
+      <p>נשלח אליכם אישור בהודעה ובאימייל.<br>נתראה על המזרן 🧘</p>
+      <br>
+      <button class="modal-submit" onclick="closeModal()" style="max-width:200px;margin:0 auto;">סגירה</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Schedule Data ───
+const scheduleData = [
+  [ // Sunday
+    { time: '07:00', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 4, total: 15 },
+    { time: '09:00', name: 'יוגה למתחילים', teacher: 'דנה', spots: 8, total: 15 },
+    { time: '10:30', name: 'מדיטציה ונשימה', teacher: 'אורי', spots: 10, total: 12 },
+    { time: '17:00', name: 'פאוור יוגה', teacher: 'תומר', spots: 6, total: 15 },
+    { time: '18:30', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 2, total: 15 },
+    { time: '20:00', name: 'יין יוגה', teacher: 'שירה', spots: 7, total: 12 },
+  ],
+  [ // Monday
+    { time: '07:00', name: 'אשטנגה יוגה', teacher: 'תומר', spots: 5, total: 12 },
+    { time: '09:00', name: 'יוגה למתחילים', teacher: 'דנה', spots: 10, total: 15 },
+    { time: '17:00', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 3, total: 15 },
+    { time: '18:30', name: 'פאוור יוגה', teacher: 'תומר', spots: 7, total: 15 },
+    { time: '20:00', name: 'מדיטציה ונשימה', teacher: 'אורי', spots: 9, total: 12 },
+  ],
+  [ // Tuesday
+    { time: '07:00', name: 'האטה ויניאסה', teacher: 'שירה', spots: 6, total: 15 },
+    { time: '09:00', name: 'יין יוגה', teacher: 'מיכל', spots: 5, total: 12 },
+    { time: '10:30', name: 'יוגה למתחילים', teacher: 'דנה', spots: 11, total: 15 },
+    { time: '17:00', name: 'אשטנגה יוגה', teacher: 'תומר', spots: 4, total: 12 },
+    { time: '18:30', name: 'האטה ויניאסה', teacher: 'שירה', spots: 1, total: 15 },
+    { time: '20:00', name: 'מדיטציה ונשימה', teacher: 'אורי', spots: 8, total: 12 },
+  ],
+  [ // Wednesday
+    { time: '07:00', name: 'פאוור יוגה', teacher: 'תומר', spots: 9, total: 15 },
+    { time: '09:00', name: 'יוגה למתחילים', teacher: 'דנה', spots: 7, total: 15 },
+    { time: '17:00', name: 'אשטנגה יוגה', teacher: 'תומר', spots: 3, total: 12 },
+    { time: '18:30', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 5, total: 15 },
+    { time: '20:00', name: 'יין יוגה', teacher: 'שירה', spots: 6, total: 12 },
+  ],
+  [ // Thursday
+    { time: '07:00', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 8, total: 15 },
+    { time: '09:00', name: 'יוגה למתחילים', teacher: 'דנה', spots: 12, total: 15 },
+    { time: '10:30', name: 'מדיטציה ונשימה', teacher: 'אורי', spots: 10, total: 12 },
+    { time: '17:00', name: 'פאוור יוגה', teacher: 'תומר', spots: 4, total: 15 },
+    { time: '18:30', name: 'האטה ויניאסה', teacher: 'שירה', spots: 2, total: 15 },
+  ],
+  [ // Friday
+    { time: '07:00', name: 'פאוור יוגה', teacher: 'תומר', spots: 10, total: 15 },
+    { time: '09:00', name: 'האטה ויניאסה', teacher: 'מיכל', spots: 7, total: 15 },
+    { time: '10:30', name: 'יין יוגה', teacher: 'שירה', spots: 5, total: 12 },
+  ],
+];
+
+function renderSchedule(dayIndex) {
+  const slots = scheduleData[dayIndex];
+  const container = document.getElementById('scheduleSlots');
+  container.innerHTML = slots.map(s => {
+    const isLow = s.spots <= 3;
+    return `
+      <div class="slot">
+        <div class="slot-time">${s.time}</div>
+        <div class="slot-info">
+          <h4>${s.name}</h4>
+          <span>עם ${s.teacher}</span>
+        </div>
+        <div class="slot-spots ${isLow ? 'low' : ''}">${isLow ? 'נותרו ' + s.spots + ' מקומות!' : s.spots + ' מקומות פנויים'}</div>
+        <button class="slot-book" onclick="openModal()">הזמנה</button>
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('scheduleDays').addEventListener('click', e => {
+  const btn = e.target.closest('.schedule-day');
+  if (!btn) return;
+  document.querySelectorAll('.schedule-day').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSchedule(parseInt(btn.dataset.day));
+});
+
+renderSchedule(0);
+
+// ─── Navigation ───
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 80) {
+    navbar.classList.add('scrolled');
+    navbar.classList.remove('hero-nav');
+  } else {
+    navbar.classList.remove('scrolled');
+    navbar.classList.add('hero-nav');
+  }
+});
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+  });
+});
+
+// ─── Modal ───
+function openModal() {
+  document.getElementById('bookingModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('bookingForm').style.display = 'block';
+  document.getElementById('successMsg').classList.remove('show');
+}
+
+function closeModal() {
+  document.getElementById('bookingModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('bookingModal').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+
+function submitBooking() {
+  const name = document.getElementById('fname').value;
+  const phone = document.getElementById('fphone').value;
+  if (!name || !phone) {
+    alert('נא למלא שם וטלפון');
+    return;
+  }
+  document.getElementById('bookingForm').style.display = 'none';
+  document.getElementById('successMsg').classList.add('show');
+}
+
+// ─── Scroll Reveal ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── Set min date on date picker ───
+const dateInput = document.getElementById('fdate');
+const today = new Date().toISOString().split('T')[0];
+dateInput.setAttribute('min', today);
+</script>
+
+</body>
+</html>
