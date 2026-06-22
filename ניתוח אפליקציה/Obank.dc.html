@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@keyframes ob-fade { from { opacity:0 } to { opacity:1 } }
+@keyframes ob-slide { from { opacity:0; transform:translateY(14px) } to { opacity:1; transform:translateY(0) } }
+@keyframes ob-pop { 0% { transform:scale(0.5); opacity:0 } 60% { transform:scale(1.08) } 100% { transform:scale(1); opacity:1 } }
+@keyframes ob-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-10px) } }
+@keyframes ob-spin { to { transform:rotate(360deg) } }
+@keyframes ob-scan { 0% { top:8% } 100% { top:88% } }
+@keyframes ob-ring { 0% { transform:scale(0.7); opacity:.7 } 100% { transform:scale(1.6); opacity:0 } }
+.ob-scroll::-webkit-scrollbar { width:0; height:0 }
+.ob-scroll { scrollbar-width:none; -ms-overflow-style:none }
+</style>
+</helmet>
+<div style="min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(140% 120% at 50% 0%, #2b2548 0%, #15131f 55%, #0c0b12 100%);padding:32px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text','Inter Tight',system-ui,sans-serif">
+  <div style="{{ themeVars }};position:relative;width:390px;height:844px;border-radius:54px;background:#0a0a0c;box-shadow:0 0 0 12px #1b1b1f,0 0 0 13px #2c2c30,0 40px 90px rgba(0,0,0,.6),0 12px 30px rgba(0,0,0,.5)">
+    <div style="position:absolute;inset:12px;border-radius:42px;overflow:hidden;background:var(--canvas);display:flex;flex-direction:column">
+
+      <div style="position:absolute;top:0;left:0;right:0;height:54px;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:18px 30px 0;pointer-events:none">
+        <span style="font-size:15px;font-weight:600;color:{{ statusColor }};letter-spacing:-.01em">9:41</span>
+        <div style="display:flex;align-items:center;gap:6px;color:{{ statusColor }}">
+          <svg width="18" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="4" width="3" height="8" rx="1"/><rect x="10" y="2" width="3" height="10" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1"/></svg>
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><path d="M8.5 2.5c2 0 3.8.8 5.1 2l1.3-1.4A9.4 9.4 0 0 0 8.5.5 9.4 9.4 0 0 0 2 3.1l1.4 1.4a7.4 7.4 0 0 1 5.1-2Z" opacity=".9"/><path d="M8.5 6c1 0 2 .4 2.7 1.1l1.4-1.4A6 6 0 0 0 8.5 4 6 6 0 0 0 4.4 5.7l1.4 1.4A3.8 3.8 0 0 1 8.5 6Z"/><circle cx="8.5" cy="10" r="1.6"/></svg>
+          <svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x="1" y="1" width="21" height="11" rx="3" stroke="currentColor" stroke-opacity=".4" stroke-width="1"/><rect x="3" y="3" width="16" height="7" rx="1.5" fill="currentColor"/><rect x="23" y="4.5" width="2" height="4" rx="1" fill="currentColor" fill-opacity=".5"/></svg>
+        </div>
+      </div>
+
+      <div class="ob-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden;position:relative">
+
+        <!-- ============ SPLASH ============ -->
+        <sc-if value="{{ isSplash }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--brand-grad)">
+            <div style="animation:ob-float 3s var(--ease) infinite">
+              <div style="width:96px;height:96px;border-radius:28px;background:rgba(255,255,255,.16);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 20px 40px rgba(0,0,0,.25)">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg>
+              </div>
+            </div>
+            <div style="margin-top:26px;font-size:36px;font-weight:600;color:#fff;letter-spacing:-.03em">Obank</div>
+            <div style="margin-top:9px;display:flex;align-items:center;gap:9px;font-size:11px;font-weight:600;letter-spacing:.34em;text-transform:uppercase;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">
+              <span style="width:18px;height:1px;background:var(--gold);opacity:.6"></span>Premium wallet<span style="width:18px;height:1px;background:var(--gold);opacity:.6"></span>
+            </div>
+            <div style="position:absolute;bottom:64px;width:30px;height:30px;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:ob-spin .8s linear infinite"></div>
+          </div>
+        </sc-if>
+
+        <!-- ============ ONBOARDING ============ -->
+        <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--brand-grad)">
+            <div style="flex:1;display:flex;align-items:center;justify-content:center;position:relative">
+              <div style="position:absolute;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+              <div style="position:absolute;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+              <div style="position:relative;animation:ob-float 3.4s var(--ease) infinite">
+                <div style="width:150px;height:150px;border-radius:38px;background:rgba(255,255,255,.18);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 26px 50px rgba(0,0,0,.3)">
+                  <svg width="74" height="74" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20"/><circle cx="17.5" cy="14.5" r="1.5" fill="#fff"/></svg>
+                </div>
+              </div>
+            </div>
+            <div style="background:var(--card);border-radius:36px 36px 42px 42px;padding:40px 30px 34px;box-shadow:0 -10px 40px rgba(0,0,0,.12)">
+              <div style="display:flex;gap:7px;justify-content:center;margin-bottom:26px">
+                <div style="width:26px;height:6px;border-radius:3px;background:var(--accent)"></div>
+                <div style="width:6px;height:6px;border-radius:3px;background:var(--fill-2)"></div>
+                <div style="width:6px;height:6px;border-radius:3px;background:var(--fill-2)"></div>
+              </div>
+              <h1 style="margin:0;text-align:center;font-size:27px;font-weight:700;color:var(--text-1);letter-spacing:-.02em;line-height:1.2">Transactions secured,<br>safe and secure</h1>
+              <p style="margin:14px 0 30px;text-align:center;font-size:15px;line-height:1.5;color:var(--text-2)">Send, receive and manage your money with bank-grade encryption — anywhere, anytime.</p>
+              <button onClick="{{ goLogin }}" style="width:100%;height:58px;border:none;border-radius:18px;background:var(--cta-grad);color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow);transition:transform .15s var(--ease),filter .15s var(--ease)" style-hover="filter:brightness(1.06)" style-active="transform:scale(.97)">Get started</button>
+              <button onClick="{{ goRegister }}" style="width:100%;height:48px;margin-top:10px;border:none;background:transparent;color:var(--text-2);font-family:inherit;font-size:15px;font-weight:500;cursor:pointer">I already have an account</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ AUTH SCREENS ============ -->
+        <sc-if value="{{ isAuth }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--brand-grad)">
+            <div style="padding:64px 26px 26px;color:#fff">
+              <button onClick="{{ goAuthBack }}" style="width:42px;height:42px;border:none;border-radius:14px;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s var(--ease)" style-active="transform:scale(.92)">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+              </button>
+              <h1 style="margin:22px 0 4px;font-size:30px;font-weight:700;letter-spacing:-.02em">{{ authTitle }}</h1>
+              <p style="margin:0;font-size:15px;color:rgba(255,255,255,.72);line-height:1.45">{{ authSub }}</p>
+            </div>
+            <div style="flex:1;background:var(--card);border-radius:34px 34px 0 0;padding:32px 26px;display:flex;flex-direction:column">
+
+              <!-- LOGIN / REGISTER fields -->
+              <sc-if value="{{ showCredFields }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:16px;animation:ob-slide .4s var(--ease)">
+                  <sc-if value="{{ isRegister }}" hint-placeholder-val="{{ true }}">
+                    <label style="display:block">
+                      <span style="display:block;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px">Full name</span>
+                      <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-radius:16px;background:var(--field);border:1.5px solid var(--field-bd)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+                        <span style="color:var(--text-1);font-size:16px">Andrew Foster</span>
+                      </div>
+                    </label>
+                  </sc-if>
+                  <label style="display:block">
+                    <span style="display:block;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px">Email address</span>
+                    <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-radius:16px;background:var(--field);border:1.5px solid var(--field-bd)">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+                      <span style="color:var(--text-1);font-size:16px">andrew@obank.io</span>
+                    </div>
+                  </label>
+                  <label style="display:block">
+                    <span style="display:block;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px">Password</span>
+                    <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-radius:16px;background:var(--field);border:1.5px solid var(--field-bd)">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                      <span style="flex:1;color:var(--text-1);font-size:20px;letter-spacing:3px">••••••••</span>
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </div>
+                  </label>
+                  <sc-if value="{{ isLogin }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ goForgot }}" style="align-self:flex-end;border:none;background:transparent;color:var(--accent);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;padding:2px 0">Forgot password?</button>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <!-- FORGOT field -->
+              <sc-if value="{{ isForgot }}" hint-placeholder-val="{{ true }}">
+                <div style="animation:ob-slide .4s var(--ease)">
+                  <label style="display:block">
+                    <span style="display:block;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:8px">Email address</span>
+                    <div style="display:flex;align-items:center;gap:12px;height:56px;padding:0 16px;border-radius:16px;background:var(--field);border:1.5px solid var(--field-bd)">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="m3 6 9 7 9-7"/></svg>
+                      <span style="color:var(--text-1);font-size:16px">andrew@obank.io</span>
+                    </div>
+                  </label>
+                </div>
+              </sc-if>
+
+              <!-- OTP -->
+              <sc-if value="{{ isOtp }}" hint-placeholder-val="{{ true }}">
+                <div style="animation:ob-slide .4s var(--ease)">
+                  <div style="display:flex;gap:14px;justify-content:center;margin-top:6px">
+                    <sc-for list="{{ otpBoxes }}" as="box" hint-placeholder-count="4">
+                      <div style="width:64px;height:72px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:var(--text-1);background:var(--field);border:2px solid {{ box.bd }}">{{ box.d }}</div>
+                    </sc-for>
+                  </div>
+                  <p style="text-align:center;margin:24px 0 0;font-size:14px;color:var(--text-2)">Didn't receive a code? <span style="color:var(--accent);font-weight:600">Resend in 0:42</span></p>
+                </div>
+              </sc-if>
+
+              <div style="flex:1"></div>
+              <button onClick="{{ authPrimary }}" style="width:100%;height:58px;border:none;border-radius:18px;background:var(--cta-grad);color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow);transition:transform .15s var(--ease),filter .15s var(--ease)" style-hover="filter:brightness(1.06)" style-active="transform:scale(.97)">{{ authBtn }}</button>
+              <sc-if value="{{ showCredFields }}" hint-placeholder-val="{{ true }}">
+                <p style="text-align:center;margin:18px 0 0;font-size:14px;color:var(--text-2)">{{ authSwapPre }} <span onClick="{{ authSwap }}" style="color:var(--accent);font-weight:700;cursor:pointer">{{ authSwapLink }}</span></p>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ CREATE / ENTER PIN ============ -->
+        <sc-if value="{{ isPinScreen }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;background:var(--canvas);padding:64px 26px 26px">
+            <button onClick="{{ goAuthBack }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s var(--ease)" style-active="transform:scale(.92)">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <div style="text-align:center;margin-top:30px">
+              <div style="width:72px;height:72px;border-radius:24px;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;margin:0 auto 22px">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              </div>
+              <h1 style="margin:0;font-size:26px;font-weight:700;color:var(--text-1);letter-spacing:-.02em">{{ pinTitle }}</h1>
+              <p style="margin:10px 0 0;font-size:15px;color:var(--text-2)">{{ pinSub }}</p>
+            </div>
+            <div style="display:flex;gap:18px;justify-content:center;margin:34px 0 auto">
+              <sc-for list="{{ pinDots }}" as="dot" hint-placeholder-count="4">
+                <div style="width:18px;height:18px;border-radius:50%;border:2px solid var(--accent);background:{{ dot }};transition:background .15s var(--ease)"></div>
+              </sc-for>
+            </div>
+            <dc-import name="Numpad" onKey="{{ key }}" onDel="{{ del }}" showDot="{{ false }}" hint-size="100%,280px"></dc-import>
+          </div>
+        </sc-if>
+
+        <!-- ============ WELCOME SUCCESS ============ -->
+        <sc-if value="{{ isWelcome }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--brand-grad);padding:30px">
+            <div style="position:relative;width:130px;height:130px;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.2);animation:ob-ring 1.8s var(--ease) infinite"></div>
+              <div style="width:110px;height:110px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;animation:ob-pop .6s var(--ease);box-shadow:0 20px 40px rgba(0,0,0,.25)">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+            </div>
+            <h1 style="margin:34px 0 0;font-size:30px;font-weight:700;color:#fff;letter-spacing:-.02em">You're all set!</h1>
+            <p style="margin:12px 0 0;text-align:center;font-size:16px;color:rgba(255,255,255,.78);line-height:1.5;max-width:280px">Welcome to Obank, Andrew. Your secure wallet is ready to go.</p>
+            <button onClick="{{ goHome }}" style="margin-top:40px;width:100%;max-width:320px;height:58px;border:none;border-radius:18px;background:#fff;color:var(--accent);font-family:inherit;font-size:17px;font-weight:700;cursor:pointer;box-shadow:0 16px 30px rgba(0,0,0,.2);transition:transform .15s var(--ease)" style-active="transform:scale(.97)">Enter Obank</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ HOME ============ -->
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column">
+            <div style="background:var(--brand-grad);border-radius:0 0 34px 34px;padding:62px 22px 26px">
+              <div style="display:flex;align-items:center;gap:12px">
+                <div style="width:46px;height:46px;border-radius:16px;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff">AF</div>
+                <div style="flex:1">
+                  <div style="font-size:13px;color:rgba(255,255,255,.72)">Welcome back</div>
+                  <div style="font-size:17px;font-weight:700;color:#fff;letter-spacing:-.01em">Andrew Foster</div>
+                </div>
+                <button onClick="{{ toggleTheme }}" style="width:42px;height:42px;border:none;border-radius:14px;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .15s var(--ease)" style-active="transform:scale(.9)">
+                  <sc-if value="{{ themeIsDark }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="5"/><g stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></g></svg></sc-if>
+                  <sc-if value="{{ themeIsLight }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></sc-if>
+                </button>
+                <button style="width:42px;height:42px;border:none;border-radius:14px;background:rgba(255,255,255,.18);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative" style-active="transform:scale(.9)">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+                  <span style="position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:#FF5A5F;border:2px solid #7a64f8"></span>
+                </button>
+              </div>
+              <div style="position:relative;margin-top:22px;padding:22px;border-radius:24px;background:linear-gradient(150deg,rgba(255,255,255,.20),rgba(255,255,255,.06));backdrop-filter:blur(16px);overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 0 0 1px rgba(230,198,132,.28),0 18px 40px rgba(20,12,60,.35)">
+                <div style="position:absolute;top:-50px;right:-30px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(230,198,132,.22),transparent 70%)"></div>
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;position:relative">
+                  <div>
+                    <span style="font-size:10px;font-weight:600;color:rgba(255,255,255,.62);letter-spacing:.16em;text-transform:uppercase">Total balance</span>
+                    <div style="display:flex;align-items:center;gap:5px;margin-top:5px;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent"><svg width="11" height="11" viewBox="0 0 24 24" fill="#E6C684"><path d="m12 2 2.6 6.6L22 9.2l-5.2 4.6L18.4 21 12 17.3 5.6 21l1.6-7.2L2 9.2l7.4-.6z"/></svg>Premium</div>
+                  </div>
+                  <span style="display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#fff;background:rgba(255,255,255,.16);padding:5px 10px;border-radius:999px;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.25)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg>2.3%</span>
+                </div>
+                <div style="margin-top:12px;font-size:42px;font-weight:600;color:#fff;letter-spacing:-.03em;font-variant-numeric:tabular-nums;position:relative">${{ balanceDisplay }}</div>
+                <div style="margin-top:16px;display:flex;align-items:center;gap:10px;font-size:14px;color:rgba(255,255,255,.78);letter-spacing:2.5px;position:relative">
+                  <span style="width:30px;height:22px;border-radius:5px;background:linear-gradient(135deg,#F6E2AC,#D6A24C);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.1)"><svg width="14" height="11" viewBox="0 0 14 11" fill="none" stroke="rgba(120,80,20,.5)" stroke-width="1"><rect x="1" y="1" width="12" height="9" rx="1.5"/><path d="M5 1v9M9 1v9M1 4h12M1 7h12"/></svg></span>
+                  •••• 4829
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:22px 22px 120px">
+              <div style="display:flex;justify-content:space-between">
+                <button onClick="{{ actTopUp }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;border:none;background:transparent;cursor:pointer;font-family:inherit" style-active="transform:scale(.94)">
+                  <span style="width:56px;height:56px;border-radius:20px;background:var(--card);box-shadow:0 6px 16px rgba(20,22,45,.06);display:flex;align-items:center;justify-content:center;color:var(--accent)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                  <span style="font-size:12px;font-weight:600;color:var(--text-2)">Top Up</span>
+                </button>
+                <button onClick="{{ actTransfer }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;border:none;background:transparent;cursor:pointer;font-family:inherit" style-active="transform:scale(.94)">
+                  <span style="width:56px;height:56px;border-radius:20px;background:var(--card);box-shadow:0 6px 16px rgba(20,22,45,.06);display:flex;align-items:center;justify-content:center;color:var(--accent)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17V7h10M7 7l10 10"/></svg></span>
+                  <span style="font-size:12px;font-weight:600;color:var(--text-2)">Transfer</span>
+                </button>
+                <button onClick="{{ actWithdraw }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;border:none;background:transparent;cursor:pointer;font-family:inherit" style-active="transform:scale(.94)">
+                  <span style="width:56px;height:56px;border-radius:20px;background:var(--card);box-shadow:0 6px 16px rgba(20,22,45,.06);display:flex;align-items:center;justify-content:center;color:var(--accent)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 7v10H7M17 17 7 7"/></svg></span>
+                  <span style="font-size:12px;font-weight:600;color:var(--text-2)">Withdraw</span>
+                </button>
+                <button onClick="{{ actScan }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;border:none;background:transparent;cursor:pointer;font-family:inherit" style-active="transform:scale(.94)">
+                  <span style="width:56px;height:56px;border-radius:20px;background:var(--card);box-shadow:0 6px 16px rgba(20,22,45,.06);display:flex;align-items:center;justify-content:center;color:var(--accent)"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M4 12h16"/></svg></span>
+                  <span style="font-size:12px;font-weight:600;color:var(--text-2)">Scan</span>
+                </button>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:center;margin:30px 0 14px">
+                <span style="font-size:17px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">Send again</span>
+              </div>
+              <div class="ob-scroll" style="display:flex;gap:14px;overflow-x:auto;padding-bottom:4px">
+                <button style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;font-family:inherit;width:58px" style-active="transform:scale(.94)">
+                  <span style="width:54px;height:54px;border-radius:50%;border:2px dashed var(--fill-2);display:flex;align-items:center;justify-content:center;color:var(--text-3)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+                  <span style="font-size:11px;color:var(--text-2)">Add</span>
+                </button>
+                <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="5">
+                  <button onClick="{{ c.onTap }}" style="flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;border:none;background:transparent;cursor:pointer;font-family:inherit;width:58px" style-active="transform:scale(.94)">
+                    <span style="width:54px;height:54px;border-radius:50%;background:{{ c.color }};display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:#fff;box-shadow:0 6px 14px rgba(20,22,45,.12)">{{ c.initials }}</span>
+                    <span style="font-size:11px;color:var(--text-2);max-width:58px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ c.name }}</span>
+                  </button>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;justify-content:space-between;align-items:center;margin:30px 0 6px">
+                <span style="font-size:17px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">Recent activity</span>
+                <span style="font-size:13px;font-weight:600;color:var(--accent);cursor:pointer">See all</span>
+              </div>
+              <div style="display:flex;flex-direction:column">
+                <sc-for list="{{ transactions }}" as="tx" hint-placeholder-count="5">
+                  <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hairline)">
+                    <span style="width:46px;height:46px;border-radius:15px;background:{{ tx.color }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">{{ tx.initials }}</span>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:15px;font-weight:600;color:var(--text-1)">{{ tx.name }}</div>
+                      <div style="font-size:13px;color:var(--text-2)">{{ tx.sub }} · {{ tx.time }}</div>
+                    </div>
+                    <span style="font-size:15px;font-weight:700;color:{{ tx.amtColor }}">{{ tx.amt }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ TOP UP — METHOD ============ -->
+        <sc-if value="{{ isTopupMethod }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);padding:62px 22px 26px">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:26px">
+              <button onClick="{{ backHome }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.92)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <span style="font-size:19px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">Top up</span>
+            </div>
+            <p style="margin:0 0 16px;font-size:14px;color:var(--text-2)">Choose where to add money from</p>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <button onClick="{{ actTopUp }}" style="display:flex;align-items:center;gap:14px;padding:18px;border:2px solid var(--accent);border-radius:18px;background:var(--card);cursor:pointer;font-family:inherit;text-align:left" style-active="transform:scale(.99)">
+                <span style="width:46px;height:32px;border-radius:8px;background:linear-gradient(135deg,#5A6CFF,#3F58FE);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800">VISA</span>
+                <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-1)">Visa •••• 4829</div><div style="font-size:13px;color:var(--text-2)">Expires 09/27</div></div>
+                <span style="width:22px;height:22px;border-radius:50%;border:2px solid var(--accent);display:flex;align-items:center;justify-content:center"><span style="width:11px;height:11px;border-radius:50%;background:var(--accent)"></span></span>
+              </button>
+              <button onClick="{{ actTopUp }}" style="display:flex;align-items:center;gap:14px;padding:18px;border:2px solid transparent;border-radius:18px;background:var(--card);cursor:pointer;font-family:inherit;text-align:left" style-active="transform:scale(.99)">
+                <span style="width:46px;height:32px;border-radius:8px;background:#1A1A1A;display:flex;align-items:center;justify-content:center;color:#fff"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M5 6h14a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z"/></svg></span>
+                <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-1)">Bank transfer</div><div style="font-size:13px;color:var(--text-2)">Chase •••• 1102</div></div>
+                <span style="width:22px;height:22px;border-radius:50%;border:2px solid var(--fill-2)"></span>
+              </button>
+              <button onClick="{{ actTopUp }}" style="display:flex;align-items:center;gap:14px;padding:18px;border:2px solid transparent;border-radius:18px;background:var(--card);cursor:pointer;font-family:inherit;text-align:left" style-active="transform:scale(.99)">
+                <span style="width:46px;height:32px;border-radius:8px;background:var(--accent-tint);display:flex;align-items:center;justify-content:center;color:var(--accent)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+                <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-1)">Apple Pay</div><div style="font-size:13px;color:var(--text-2)">Instant top up</div></div>
+                <span style="width:22px;height:22px;border-radius:50%;border:2px solid var(--fill-2)"></span>
+              </button>
+            </div>
+            <button onClick="{{ actTopUp }}" style="position:absolute;left:22px;right:22px;bottom:30px;height:58px;border:none;border-radius:18px;background:var(--cta-grad);color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow)" style-active="transform:scale(.98)">Continue</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ SHARED AMOUNT SCREEN ============ -->
+        <sc-if value="{{ isAmountScreen }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);display:flex;flex-direction:column;padding:62px 22px 26px">
+            <div style="display:flex;align-items:center;gap:14px">
+              <button onClick="{{ amountBack }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.92)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <span style="font-size:19px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">{{ amountTitle }}</span>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:12px;margin:22px 0 0;padding:13px 16px;border-radius:16px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05)">
+              <sc-if value="{{ showPayeeChip }}" hint-placeholder-val="{{ true }}"><span style="width:42px;height:42px;border-radius:13px;background:{{ payeeColor }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">{{ payeeInitials }}</span></sc-if>
+              <sc-if value="{{ showCardChip }}" hint-placeholder-val="{{ true }}"><span style="width:42px;height:30px;border-radius:8px;background:linear-gradient(135deg,#5A6CFF,#3F58FE);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:800">VISA</span></sc-if>
+              <sc-if value="{{ showBankChip }}" hint-placeholder-val="{{ true }}"><span style="width:42px;height:42px;border-radius:13px;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 10h16M5 10 12 4l7 6M6 10v8M18 10v8M10 10v8M14 10v8"/></svg></span></sc-if>
+              <div style="flex:1"><div style="font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em">{{ amountContextSub }}</div><div style="font-size:15px;font-weight:600;color:var(--text-1)">{{ amountContextLabel }}</div></div>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center">
+              <span style="font-size:13px;font-weight:600;color:var(--text-2);text-transform:uppercase;letter-spacing:.08em">Enter amount</span>
+              <div style="margin-top:12px;display:flex;align-items:flex-start;gap:3px;color:var(--text-1)">
+                <span style="font-size:30px;font-weight:600;margin-top:8px">$</span>
+                <span style="font-size:58px;font-weight:700;letter-spacing:-.03em;line-height:1">{{ amountDisplay }}</span>
+              </div>
+              <span style="margin-top:10px;font-size:13px;color:var(--text-2)">Balance ${{ balanceDisplay }}</span>
+            </div>
+
+            <sc-if value="{{ isTopupAmount }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:10px;margin-bottom:18px">
+                <button onClick="{{ amt50 }}" style="flex:1;height:44px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-active="transform:scale(.96)">$50</button>
+                <button onClick="{{ amt100 }}" style="flex:1;height:44px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-active="transform:scale(.96)">$100</button>
+                <button onClick="{{ amt200 }}" style="flex:1;height:44px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-active="transform:scale(.96)">$200</button>
+              </div>
+            </sc-if>
+
+            <dc-import name="Numpad" onKey="{{ key }}" onDel="{{ del }}" onDot="{{ dot }}" showDot="{{ true }}" hint-size="100%,200px"></dc-import>
+            <button onClick="{{ amountContinue }}" style="margin-top:16px;height:58px;border:none;border-radius:18px;background:var(--cta-grad);color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow);opacity:{{ amtOpacity }};transition:opacity .15s var(--ease),transform .15s var(--ease)" style-active="transform:scale(.98)">Continue</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ TRANSFER — SELECT ============ -->
+        <sc-if value="{{ isTransferSelect }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);padding:62px 22px 26px">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <button onClick="{{ backHome }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.92)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <span style="font-size:19px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">Send to</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;height:52px;padding:0 16px;border-radius:16px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);margin-bottom:24px">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              <span style="color:var(--text-3);font-size:15px">Search name or @username</span>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px">Recent</div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="5">
+                <button onClick="{{ c.onTap }}" style="display:flex;align-items:center;gap:14px;padding:13px 0;border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:left;border-bottom:1px solid var(--hairline)" style-active="opacity:.6">
+                  <span style="width:48px;height:48px;border-radius:50%;background:{{ c.color }};display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#fff">{{ c.initials }}</span>
+                  <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-1)">{{ c.name }}</div><div style="font-size:13px;color:var(--text-2)">Obank user</div></div>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ SCAN ============ -->
+        <sc-if value="{{ isScan }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:#0b0b10;display:flex;flex-direction:column">
+            <div style="padding:62px 22px 0;display:flex;align-items:center;gap:14px;z-index:2">
+              <button onClick="{{ backHome }}" style="width:42px;height:42px;border:none;border-radius:14px;background:rgba(255,255,255,.14);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.92)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <span style="font-size:19px;font-weight:700;color:#fff">Scan to pay</span>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative">
+              <div style="position:relative;width:236px;height:236px">
+                <div style="position:absolute;inset:0;border-radius:28px;background:#15151c;display:flex;align-items:center;justify-content:center">
+                  <svg width="120" height="120" viewBox="0 0 24 24" fill="rgba(255,255,255,.14)"><path d="M3 3h7v7H3zM5 5v3h3V5zM14 3h7v7h-7zM16 5v3h3V5zM3 14h7v7H3zM5 16v3h3v-3zM14 14h3v3h-3zM18 14h3v3h-3zM14 18h3v3h-3zM18 18h3v3h-3z"/></svg>
+                </div>
+                <div style="position:absolute;inset:0;border-radius:28px;box-shadow:inset 0 0 0 3px rgba(255,255,255,.0)"></div>
+                <span style="position:absolute;top:-2px;left:-2px;width:34px;height:34px;border-top:4px solid #fff;border-left:4px solid #fff;border-radius:16px 0 0 0"></span>
+                <span style="position:absolute;top:-2px;right:-2px;width:34px;height:34px;border-top:4px solid #fff;border-right:4px solid #fff;border-radius:0 16px 0 0"></span>
+                <span style="position:absolute;bottom:-2px;left:-2px;width:34px;height:34px;border-bottom:4px solid #fff;border-left:4px solid #fff;border-radius:0 0 0 16px"></span>
+                <span style="position:absolute;bottom:-2px;right:-2px;width:34px;height:34px;border-bottom:4px solid #fff;border-right:4px solid #fff;border-radius:0 0 16px 0"></span>
+                <span style="position:absolute;left:8%;right:8%;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,#7E6BFF,transparent);box-shadow:0 0 14px #7E6BFF;animation:ob-scan 2s var(--ease) infinite alternate"></span>
+              </div>
+              <p style="margin:30px 0 0;font-size:15px;color:rgba(255,255,255,.7)">Hold steady — detecting QR code…</p>
+              <div style="margin-top:18px;width:26px;height:26px;border:3px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:ob-spin .8s linear infinite"></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ MONEY SUCCESS ============ -->
+        <sc-if value="{{ isMoneySuccess }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);display:flex;flex-direction:column;align-items:center;padding:90px 26px 26px">
+            <div style="position:relative;width:112px;height:112px;display:flex;align-items:center;justify-content:center">
+              <div style="position:absolute;inset:0;border-radius:50%;background:rgba(35,195,135,.18);animation:ob-ring 1.8s var(--ease) infinite"></div>
+              <div style="width:96px;height:96px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;animation:ob-pop .6s var(--ease);box-shadow:0 16px 32px rgba(35,195,135,.4)">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+            </div>
+            <h1 style="margin:30px 0 0;font-size:26px;font-weight:700;color:var(--text-1);letter-spacing:-.02em">{{ successTitle }}</h1>
+            <div style="margin:14px 0 4px;font-size:40px;font-weight:700;color:var(--text-1);letter-spacing:-.02em">{{ successAmount }}</div>
+            <p style="margin:0;font-size:15px;color:var(--text-2)">{{ successNote }}</p>
+
+            <div style="width:100%;margin-top:30px;padding:6px 18px;border-radius:20px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05)">
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px dashed var(--hairline)"><span style="font-size:14px;color:var(--text-2)">Recipient</span><span style="font-size:14px;font-weight:600;color:var(--text-1)">{{ successTo }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px dashed var(--hairline)"><span style="font-size:14px;color:var(--text-2)">Amount</span><span style="font-size:14px;font-weight:600;color:var(--text-1)">{{ successAmount }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px dashed var(--hairline)"><span style="font-size:14px;color:var(--text-2)">Fee</span><span style="font-size:14px;font-weight:600;color:var(--text-1)">$0.00</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0"><span style="font-size:14px;color:var(--text-2)">Status</span><span style="display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--green)"><span style="width:7px;height:7px;border-radius:50%;background:var(--green)"></span>Completed</span></div>
+            </div>
+
+            <div style="flex:1"></div>
+            <button onClick="{{ backHome }}" style="width:100%;height:58px;border:none;border-radius:18px;background:var(--cta-grad);color:#fff;font-family:inherit;font-size:17px;font-weight:600;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow)" style-active="transform:scale(.98)">Done</button>
+            <button style="width:100%;height:50px;margin-top:8px;border:none;background:transparent;color:var(--text-2);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer">Share receipt</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ STATISTICS ============ -->
+        <sc-if value="{{ isStats }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);padding:62px 22px 120px;overflow-y:auto" class="ob-scroll">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+              <span style="font-size:24px;font-weight:700;color:var(--text-1);letter-spacing:-.02em">Statistics</span>
+              <button onClick="{{ toggleTheme }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.9)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16M4 7h10M4 17h7"/></svg></button>
+            </div>
+            <div style="display:flex;gap:8px;padding:5px;border-radius:14px;background:var(--fill-1);margin-bottom:20px">
+              <span style="flex:1;text-align:center;padding:9px;border-radius:10px;background:var(--card);font-size:13px;font-weight:600;color:var(--text-1);box-shadow:0 2px 6px rgba(20,22,45,.06)">Week</span>
+              <span style="flex:1;text-align:center;padding:9px;font-size:13px;font-weight:600;color:var(--text-2)">Month</span>
+              <span style="flex:1;text-align:center;padding:9px;font-size:13px;font-weight:600;color:var(--text-2)">Year</span>
+            </div>
+            <div style="padding:22px;border-radius:24px;background:var(--brand-grad);color:#fff;box-shadow:0 12px 28px var(--cta-shadow)">
+              <div style="font-size:13px;color:rgba(255,255,255,.78)">Spent this week</div>
+              <div style="font-size:34px;font-weight:700;letter-spacing:-.02em;margin-top:4px">$1,284.40</div>
+              <div style="font-size:13px;color:rgba(255,255,255,.82);margin-top:6px">12% less than last week</div>
+              <div style="display:flex;align-items:flex-end;gap:10px;height:130px;margin-top:20px">
+                <sc-for list="{{ statsBars }}" as="bar" hint-placeholder-count="7">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end">
+                    <div style="width:100%;max-width:22px;height:{{ bar.barH }};border-radius:8px;background:rgba(255,255,255,.9)"></div>
+                    <span style="font-size:11px;color:rgba(255,255,255,.7)">{{ bar.l }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:var(--text-1);margin:26px 0 12px;letter-spacing:-.01em">Top categories</div>
+            <div style="display:flex;flex-direction:column;gap:16px">
+              <sc-for list="{{ statsCats }}" as="cat" hint-placeholder-count="4">
+                <div>
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+                    <span style="display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600;color:var(--text-1)"><span style="width:11px;height:11px;border-radius:4px;background:{{ cat.color }}"></span>{{ cat.name }}</span>
+                    <span style="font-size:14px;font-weight:700;color:var(--text-1)">{{ cat.amt }}</span>
+                  </div>
+                  <div style="height:8px;border-radius:6px;background:var(--fill-1);overflow:hidden"><div style="height:100%;width:{{ cat.pct }};border-radius:6px;background:{{ cat.color }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ WALLET ============ -->
+        <sc-if value="{{ isWallet }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);padding:62px 22px 120px;overflow-y:auto" class="ob-scroll">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px">
+              <span style="font-size:24px;font-weight:700;color:var(--text-1);letter-spacing:-.02em">My wallet</span>
+              <button style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.9)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+            </div>
+            <div style="position:relative;padding:24px;border-radius:24px;background:var(--metal-grad);color:#fff;box-shadow:0 22px 44px rgba(18,10,55,.5),inset 0 0 0 1px rgba(230,198,132,.22),inset 0 1px 0 rgba(255,255,255,.18);overflow:hidden">
+              <div style="position:absolute;inset:0;background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.14) 48%,transparent 58%)"></div>
+              <div style="position:absolute;top:-60px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(230,198,132,.18),transparent 70%)"></div>
+              <div style="display:flex;justify-content:space-between;align-items:center;position:relative">
+                <span style="display:flex;align-items:center;gap:8px;font-size:15px;font-weight:600;letter-spacing:.02em"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6"><circle cx="12" cy="12" r="10"/><path d="M12 2a5 5 0 0 1 0 10 5 5 0 0 0 0 10" fill="#fff" stroke="none"/><circle cx="12" cy="7" r="1.4" fill="#2A1E66"/><circle cx="12" cy="17" r="1.4" fill="#fff"/></svg>Obank</span>
+                <span style="font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:4px 9px;border-radius:999px;background:var(--gold-grad);color:#3A2A08">Infinite</span>
+              </div>
+              <div style="margin-top:28px;width:46px;height:33px;border-radius:7px;background:linear-gradient(135deg,#F6E2AC,#D6A24C);position:relative;box-shadow:inset 0 0 0 .5px rgba(0,0,0,.15)"><svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="rgba(110,75,18,.55)" stroke-width="1" style="position:absolute;inset:8.5px 12px"><rect x="0" y="0" width="22" height="16" rx="2"/><path d="M8 0v16M14 0v16M0 6h22M0 10h22"/></svg></div>
+              <div style="margin-top:18px;font-size:21px;letter-spacing:3px;font-weight:500;position:relative;font-variant-numeric:tabular-nums">5412 •••• •••• 4829</div>
+              <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:18px;position:relative">
+                <div><div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.14em">Card holder</div><div style="font-size:14px;font-weight:600;letter-spacing:.02em">Andrew Foster</div></div>
+                <div style="text-align:right"><div style="font-size:9px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.14em">Valid thru</div><div style="font-size:14px;font-weight:600">09 / 27</div></div>
+                <svg width="40" height="25" viewBox="0 0 26 18" fill="none"><circle cx="10" cy="9" r="7.5" fill="#FF9F0A"/><circle cx="17" cy="9" r="7.5" fill="#FF5A5F" opacity=".82"/></svg>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;margin-top:18px">
+              <button style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px;border:none;border-radius:18px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);cursor:pointer;font-family:inherit;color:var(--text-1)" style-active="transform:scale(.97)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M12 2 9 5M12 2l3 3M5 12l-2 9h18l-2-9M8 12h8"/></svg><span style="font-size:12px;font-weight:600">Freeze</span></button>
+              <button style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px;border:none;border-radius:18px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);cursor:pointer;font-family:inherit;color:var(--text-1)" style-active="transform:scale(.97)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg><span style="font-size:12px;font-weight:600">Details</span></button>
+              <button onClick="{{ goSettings }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;padding:14px;border:none;border-radius:18px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);cursor:pointer;font-family:inherit;color:var(--text-1)" style-active="transform:scale(.97)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 3 14a1.6 1.6 0 0 0-1.5-1H1a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 3 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 7 2.6h.1A1.6 1.6 0 0 0 9 1.1V1a2 2 0 1 1 4 0v.1A1.6 1.6 0 0 0 15 2.6a1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1A1.6 1.6 0 0 0 21.4 9H21a2 2 0 1 1 0 4Z" transform="scale(.85) translate(2 2)"/></svg><span style="font-size:12px;font-weight:600">Manage</span></button>
+            </div>
+            <div style="font-size:17px;font-weight:700;color:var(--text-1);margin:26px 0 6px;letter-spacing:-.01em">Card transactions</div>
+            <div style="display:flex;flex-direction:column">
+              <sc-for list="{{ transactions }}" as="tx" hint-placeholder-count="5">
+                <div style="display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--hairline)">
+                  <span style="width:46px;height:46px;border-radius:15px;background:{{ tx.color }};display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff">{{ tx.initials }}</span>
+                  <div style="flex:1;min-width:0"><div style="font-size:15px;font-weight:600;color:var(--text-1)">{{ tx.name }}</div><div style="font-size:13px;color:var(--text-2)">{{ tx.sub }} · {{ tx.time }}</div></div>
+                  <span style="font-size:15px;font-weight:700;color:{{ tx.amtColor }}">{{ tx.amt }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ PROFILE ============ -->
+        <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);overflow-y:auto" class="ob-scroll">
+            <div style="background:var(--brand-grad);border-radius:0 0 34px 34px;padding:62px 22px 30px;display:flex;flex-direction:column;align-items:center">
+              <div style="width:88px;height:88px;border-radius:50%;background:rgba(255,255,255,.22);border:3px solid rgba(255,255,255,.4);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#fff">AF</div>
+              <div style="margin-top:14px;font-size:21px;font-weight:700;color:#fff;letter-spacing:-.01em">Andrew Foster</div>
+              <div style="font-size:14px;color:rgba(255,255,255,.74)">andrew@obank.io</div>
+              <button style="margin-top:16px;padding:10px 22px;border:none;border-radius:999px;background:rgba(255,255,255,.2);color:#fff;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer" style-active="transform:scale(.96)">Edit profile</button>
+            </div>
+            <div style="padding:22px 22px 120px">
+              <div style="border-radius:20px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);overflow:hidden">
+                <div style="display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--hairline)"><span style="width:38px;height:38px;border-radius:11px;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">My cards</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                <div style="display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--hairline)"><span style="width:38px;height:38px;border-radius:11px;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 6v6c0 5 3.5 8 8 10 4.5-2 8-5 8-10V6Z"/><path d="m9 12 2 2 4-4"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Security &amp; PIN</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                <button onClick="{{ goSettings }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:16px;border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:left" style-active="opacity:.6"><span style="width:38px;height:38px;border-radius:11px;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.3l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2.2-1.3L13.9 2h-3.8l-.4 2.4a7 7 0 0 0-2.2 1.3l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12a7 7 0 0 0 .1 1.3l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 2.2 1.3l.4 2.4h3.8l.4-2.4a7 7 0 0 0 2.2-1.3l2.4 1 2-3.4-2-1.6A7 7 0 0 0 19 12Z"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Settings</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              </div>
+              <div style="margin-top:14px;border-radius:20px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);overflow:hidden">
+                <div style="display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--hairline)"><span style="width:38px;height:38px;border-radius:11px;background:var(--fill-1);color:var(--text-2);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Help &amp; support</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></div>
+                <div style="display:flex;align-items:center;gap:14px;padding:16px"><span style="width:38px;height:38px;border-radius:11px;background:rgba(255,90,95,.12);color:var(--red);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--red)">Log out</span></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ SETTINGS ============ -->
+        <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ true }}">
+          <div style="position:absolute;inset:0;background:var(--canvas);padding:62px 22px 26px;overflow-y:auto" class="ob-scroll">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px">
+              <button onClick="{{ goProfileBack }}" style="width:42px;height:42px;border:none;border-radius:14px;background:var(--fill-1);color:var(--text-1);display:flex;align-items:center;justify-content:center;cursor:pointer" style-active="transform:scale(.92)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+              <span style="font-size:19px;font-weight:700;color:var(--text-1);letter-spacing:-.01em">Settings</span>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Appearance</div>
+            <div style="border-radius:20px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);overflow:hidden;margin-bottom:22px">
+              <button onClick="{{ toggleTheme }}" style="width:100%;display:flex;align-items:center;gap:14px;padding:16px;border:none;background:transparent;cursor:pointer;font-family:inherit;text-align:left">
+                <span style="width:38px;height:38px;border-radius:11px;background:var(--accent-tint);color:var(--accent);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></span>
+                <div style="flex:1"><div style="font-size:15px;font-weight:600;color:var(--text-1)">Dark mode</div><div style="font-size:13px;color:var(--text-2)">{{ themeLabel }}</div></div>
+                <span style="width:48px;height:28px;border-radius:999px;background:{{ themeTrackBg }};position:relative;transition:background .2s var(--ease)"><span style="position:absolute;top:3px;left:{{ themeKnobX }};width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:left .2s var(--ease)"></span></span>
+              </button>
+            </div>
+            <div style="font-size:13px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px">Preferences</div>
+            <div style="border-radius:20px;background:var(--card);box-shadow:0 4px 14px rgba(20,22,45,.05);overflow:hidden">
+              <div style="display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--hairline)"><span style="width:38px;height:38px;border-radius:11px;background:var(--fill-1);color:var(--text-2);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Notifications</span><span style="width:48px;height:28px;border-radius:999px;background:var(--accent);position:relative"><span style="position:absolute;top:3px;left:23px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2)"></span></span></div>
+              <div style="display:flex;align-items:center;gap:14px;padding:16px;border-bottom:1px solid var(--hairline)"><span style="width:38px;height:38px;border-radius:11px;background:var(--fill-1);color:var(--text-2);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3ZM7 11a5 5 0 0 0 10 0M12 16v4"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Face ID login</span><span style="width:48px;height:28px;border-radius:999px;background:var(--accent);position:relative"><span style="position:absolute;top:3px;left:23px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2)"></span></span></div>
+              <div style="display:flex;align-items:center;gap:14px;padding:16px"><span style="width:38px;height:38px;border-radius:11px;background:var(--fill-1);color:var(--text-2);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg></span><span style="flex:1;font-size:15px;font-weight:600;color:var(--text-1)">Currency</span><span style="font-size:14px;color:var(--text-2)">USD $</span></div>
+            </div>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- BOTTOM NAV -->
+      <sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;left:0;right:0;bottom:0;z-index:50;padding:10px 22px calc(env(safe-area-inset-bottom) + 14px);background:var(--nav-bg);backdrop-filter:saturate(180%) blur(20px);border-top:1px solid var(--hairline);display:flex;align-items:flex-end;justify-content:space-between">
+          <button onClick="{{ navHome }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;border:none;background:transparent;cursor:pointer;color:{{ cHome }};font-family:inherit;transition:color .15s var(--ease)">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>
+            <span style="font-size:10px;font-weight:600">Home</span>
+          </button>
+          <button onClick="{{ navStats }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;border:none;background:transparent;cursor:pointer;color:{{ cStats }};font-family:inherit;transition:color .15s var(--ease)">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M7 21V9m5 12V4m5 17v-7"/></svg>
+            <span style="font-size:10px;font-weight:600">Stats</span>
+          </button>
+          <div style="flex:1;display:flex;justify-content:center">
+            <button onClick="{{ navScan }}" style="width:62px;height:62px;margin-top:-34px;border:none;border-radius:22px;background:var(--cta-grad);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 12px 24px var(--cta-shadow);transition:transform .15s var(--ease)" style-active="transform:scale(.93)">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V5a1 1 0 0 1 1-1h2M17 4h2a1 1 0 0 1 1 1v2M20 17v2a1 1 0 0 1-1 1h-2M7 20H5a1 1 0 0 1-1-1v-2M4 12h16"/></svg>
+            </button>
+          </div>
+          <button onClick="{{ navWallet }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;border:none;background:transparent;cursor:pointer;color:{{ cWallet }};font-family:inherit;transition:color .15s var(--ease)">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="17" cy="14.5" r="1.3" fill="currentColor"/></svg>
+            <span style="font-size:10px;font-weight:600">Wallet</span>
+          </button>
+          <button onClick="{{ navProfile }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;border:none;background:transparent;cursor:pointer;color:{{ cProfile }};font-family:inherit;transition:color .15s var(--ease)">
+            <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+            <span style="font-size:10px;font-weight:600">Profile</span>
+          </button>
+        </div>
+      </sc-if>
+
+      <div style="position:absolute;left:50%;bottom:9px;transform:translateX(-50%);width:128px;height:5px;border-radius:3px;background:var(--home-ind);z-index:70;pointer-events:none"></div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  state = {
+    screen: 'splash', theme: 'light', amount: '0', pin: '', otp: '',
+    pinTarget: 'success', payee: null, flow: null, balance: 9876.52
+  };
+
+  componentDidMount() {
+    this._t = setTimeout(() => {
+      if (this.state.screen === 'splash') this.setState({ screen: 'onboarding' });
+    }, 1700);
+  }
+  componentWillUnmount() { clearTimeout(this._t); clearTimeout(this._scan); }
+  componentDidUpdate(pp, ps) {
+    if (this.state.screen === 'scan' && ps.screen !== 'scan') {
+      this._scan = setTimeout(() => {
+        if (this.state.screen === 'scan')
+          this.setState({ payee: { name: 'Coffee Lab', initials: 'CL', color: '#A2845E' }, screen: 'pay_amount', amount: '25.00' });
+      }, 2100);
+    }
+  }
+  applyAndGo(screen) {
+    const amt = parseFloat(this.state.amount) || 0;
+    const sign = screen === 'topup_success' ? 1 : -1;
+    this.setState({ balance: Math.max(0, this.state.balance + sign * amt), screen });
+  }
+
+  go(screen, extra) {
+    const reset = {};
+    if (/_amount$/.test(screen) || screen === 'scan') reset.amount = '0';
+    if (/pin$/i.test(screen)) { reset.pin = ''; }
+    if (screen === 'otp') reset.otp = '';
+    this.setState({ screen, ...reset, ...(extra || {}) });
+  }
+
+  // ---- numeric entry (context aware) ----
+  field() {
+    const s = this.state.screen;
+    if (/_amount$/.test(s)) return 'amount';
+    if (/pin$/i.test(s)) return 'pin';
+    if (s === 'otp') return 'otp';
+    return null;
+  }
+  key(d) {
+    const f = this.field();
+    if (f === 'amount') {
+      let a = this.state.amount;
+      if (a === '0') a = d; else a = a + d;
+      if (a.replace('.', '').length <= 7) this.setState({ amount: a });
+    } else if (f === 'pin') {
+      if (this.state.pin.length >= 4) return;
+      const pin = this.state.pin + d;
+      this.setState({ pin });
+      if (pin.length === 4) setTimeout(() => this.applyAndGo(this.state.pinTarget), 420);
+    } else if (f === 'otp') {
+      if (this.state.otp.length >= 4) return;
+      this.setState({ otp: this.state.otp + d });
+    }
+  }
+  del() {
+    const f = this.field();
+    if (f === 'amount') { const a = this.state.amount.slice(0, -1) || '0'; this.setState({ amount: a }); }
+    else if (f === 'pin') this.setState({ pin: this.state.pin.slice(0, -1) });
+    else if (f === 'otp') this.setState({ otp: this.state.otp.slice(0, -1) });
+  }
+  dot() {
+    if (this.field() === 'amount' && !this.state.amount.includes('.')) this.setState({ amount: this.state.amount + '.' });
+  }
+
+  fmt(a) {
+    const [i, d] = String(a).split('.');
+    const gi = Number(i || 0).toLocaleString('en-US');
+    return d !== undefined ? gi + '.' + d : gi;
+  }
+  money(n) { return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  successAmt() { return '$' + this.fmt(this.state.amount); }
+
+  renderVals() {
+    const s = this.state.screen;
+    const dark = this.state.theme === 'dark';
+
+    const L = {
+      '--canvas': '#F3F4FA', '--card': '#FFFFFF', '--surface': '#FFFFFF',
+      '--text-1': '#15172B', '--text-2': '#6C7081', '--text-3': '#A9ADBC',
+      '--fill-1': '#EEF0F7', '--fill-2': '#E2E5EF', '--hairline': 'rgba(20,22,45,.07)',
+      '--field': '#F5F6FB', '--field-bd': 'rgba(20,22,45,.06)',
+      '--key-bg': '#FFFFFF', '--key-bg-press': '#ECEEF6',
+      '--nav-bg': 'rgba(255,255,255,.82)', '--home-ind': 'rgba(20,22,45,.18)',
+      '--accent-tint': '#ECE9FE'
+    };
+    const D = {
+      '--canvas': '#0D0D12', '--card': '#16161D', '--surface': '#1C1C24',
+      '--text-1': '#F4F5FA', '--text-2': '#9A9DAE', '--text-3': '#5E6173',
+      '--fill-1': '#22232C', '--fill-2': '#2C2D38', '--hairline': 'rgba(255,255,255,.08)',
+      '--field': '#1E1F27', '--field-bd': 'rgba(255,255,255,.08)',
+      '--key-bg': '#1C1C24', '--key-bg-press': '#2A2A34',
+      '--nav-bg': 'rgba(22,22,29,.82)', '--home-ind': 'rgba(255,255,255,.3)',
+      '--accent-tint': 'rgba(108,93,246,.18)'
+    };
+    const shared = {
+      '--accent': '#6C5DF6', '--accent-2': '#9170F9',
+      '--brand-grad': 'radial-gradient(130% 110% at 82% -12%, rgba(255,255,255,.20), transparent 52%), linear-gradient(157deg,#2A1E66 0%,#4733B4 38%,#6A52EC 70%,#8A72F4 100%)',
+      '--cta-grad': 'linear-gradient(135deg,#6357F2 0%,#3E45E6 100%)',
+      '--cta-shadow': 'rgba(58,64,210,.40)',
+      '--ease': 'cubic-bezier(0.32,0.72,0,1)',
+      '--green': '#23C387', '--red': '#FF5A5F', '--orange': '#FF9F0A',
+      '--gold': '#E6C684', '--gold-2': '#C99B4B',
+      '--gold-grad': 'linear-gradient(135deg,#F6E2AC 0%,#E0BE74 50%,#D6A24C 100%)',
+      '--metal-grad': 'linear-gradient(145deg,#2D2270 0%,#46389E 36%,#2A2060 64%,#191247 100%)'
+    };
+    const vars = Object.assign({}, shared, dark ? D : L);
+    const themeVars = Object.entries(vars).map(([k, v]) => `${k}:${v}`).join(';');
+
+    const authScreens = ['login', 'register', 'forgot', 'otp'];
+    const purpleStatus = ['splash', 'onboarding', 'welcome'].includes(s) || authScreens.includes(s);
+    const navScreens = ['home', 'stats', 'wallet', 'profile'];
+
+    // pin dots
+    const pinDots = [0, 1, 2, 3].map(i => i < this.state.pin.length ? 'var(--accent)' : 'transparent');
+    // otp boxes
+    const otpBoxes = [0, 1, 2, 3].map(i => ({
+      d: this.state.otp[i] || '',
+      bd: i === this.state.otp.length ? 'var(--accent)' : 'var(--field-bd)'
+    }));
+
+    // auth copy
+    const authMap = {
+      login: { title: 'Welcome back', sub: 'Sign in to continue to your wallet', btn: 'Sign in' },
+      register: { title: 'Join Obank', sub: 'Create your free account in seconds', btn: 'Create account' },
+      forgot: { title: 'Forgot password', sub: "Enter your email and we'll send a reset code", btn: 'Send code' },
+      otp: { title: 'Verification', sub: 'Enter the 4-digit code we sent to your email', btn: 'Verify' }
+    };
+    const ac = authMap[s] || authMap.login;
+
+    const accentNav = (t) => (navScreens.includes(s) && s === t) ? 'var(--accent)' : 'var(--text-3)';
+
+    // ---- data ----
+    const contactsBase = [
+      { name: 'Sophie Lane', initials: 'SL', color: '#FF8A5B' },
+      { name: 'Marcus Reed', initials: 'MR', color: '#5AC8FA' },
+      { name: 'Ava Chen', initials: 'AC', color: '#FF5A8A' },
+      { name: 'Liam Park', initials: 'LP', color: '#34C759' },
+      { name: 'Noah Diaz', initials: 'ND', color: '#AF85FF' }
+    ];
+    const pick = (c) => () => this.setState({ payee: c, screen: 'transfer_amount', amount: '0' });
+    const contacts = contactsBase.map(c => ({ ...c, onTap: pick(c) }));
+
+    const txColor = (p) => p ? 'var(--green)' : 'var(--text-1)';
+    const transactions = [
+      { name: 'Spotify', sub: 'Subscription', time: 'Today, 09:24', amt: '-$9.99', positive: false, initials: 'SP', color: '#1DB954' },
+      { name: 'Sophie Lane', sub: 'Received', time: 'Yesterday', amt: '+$120.00', positive: true, initials: 'SL', color: '#FF8A5B' },
+      { name: 'Apple Store', sub: 'Shopping', time: 'Mar 12', amt: '-$249.00', positive: false, initials: 'AP', color: '#1A1A1A' },
+      { name: 'Salary', sub: 'Acme Inc.', time: 'Mar 01', amt: '+$4,200.00', positive: true, initials: 'SA', color: '#34C759' },
+      { name: 'Uber', sub: 'Transport', time: 'Feb 27', amt: '-$18.40', positive: false, initials: 'UB', color: '#1A1A1A' }
+    ].map(t => ({ ...t, amtColor: txColor(t.positive) }));
+
+    const statsBars = [
+      { l: 'M', h: 46 }, { l: 'T', h: 82 }, { l: 'W', h: 128, active: true },
+      { l: 'T', h: 64 }, { l: 'F', h: 100 }, { l: 'S', h: 54 }, { l: 'S', h: 38 }
+    ].map(b => ({ l: b.l, barH: b.h + 'px', barBg: b.active ? 'var(--cta-grad)' : 'var(--fill-2)', lblColor: b.active ? 'var(--text-1)' : 'var(--text-3)' }));
+
+    const statsCats = [
+      { name: 'Shopping', amt: '$1,240', pct: '62%', color: '#6C5DF6' },
+      { name: 'Food & drink', amt: '$680', pct: '34%', color: '#FF9F0A' },
+      { name: 'Transport', amt: '$320', pct: '18%', color: '#23C387' },
+      { name: 'Bills & fees', amt: '$540', pct: '27%', color: '#FF5A8A' }
+    ];
+
+    const payee = this.state.payee || { name: '—', initials: '?', color: 'var(--accent)' };
+    const successMap = {
+      topup_success: { title: 'Top up successful', note: 'added to your Obank balance', to: 'Visa •••• 4829' },
+      transfer_success: { title: 'Payment sent', note: 'sent to ' + payee.name, to: payee.name },
+      withdraw_success: { title: 'Withdrawal complete', note: 'withdrawn to your bank account', to: 'Bank •••• 1102' },
+      pay_success: { title: 'Payment successful', note: 'paid to ' + payee.name, to: payee.name }
+    };
+    const sc = successMap[s] || successMap.topup_success;
+    const amtReady = (parseFloat(this.state.amount) || 0) > 0;
+
+    const vals = {
+      themeVars,
+      statusColor: purpleStatus ? '#FFFFFF' : 'var(--text-1)',
+      isSplash: s === 'splash',
+      isOnboard: s === 'onboarding',
+      isAuth: authScreens.includes(s),
+      isLogin: s === 'login', isRegister: s === 'register', isForgot: s === 'forgot', isOtp: s === 'otp',
+      showCredFields: s === 'login' || s === 'register',
+      isPinScreen: s === 'createpin' || /pin$/i.test(s) && s !== 'createpin' ? true : (s === 'createpin'),
+      authTitle: ac.title, authSub: ac.sub, authBtn: ac.btn,
+      authSwapPre: s === 'register' ? 'Already have an account?' : "Don't have an account?",
+      authSwapLink: s === 'register' ? 'Sign in' : 'Sign up',
+      isWelcome: s === 'welcome',
+
+      // pin screen
+      pinTitle: s === 'createpin' ? 'Create your PIN' : 'Enter your PIN',
+      pinSub: s === 'createpin' ? 'Set a 4-digit PIN to secure your wallet' : 'Confirm ' + this.successAmt() + ' with your PIN',
+      pinDots, otpBoxes,
+
+      // nav
+      showNav: navScreens.includes(s),
+      cHome: accentNav('home'), cStats: accentNav('stats'), cWallet: accentNav('wallet'), cProfile: accentNav('profile'),
+
+      // amounts
+      amountDisplay: this.fmt(this.state.amount),
+      balanceDisplay: this.money(this.state.balance),
+
+      // handlers
+      goLogin: () => this.go('login'),
+      goRegister: () => this.go('register'),
+      goForgot: () => this.go('forgot'),
+      goHome: () => this.go('home'),
+      goAuthBack: () => {
+        const back = { login: 'onboarding', register: 'onboarding', forgot: 'login', otp: 'forgot', createpin: 'otp' };
+        this.go(back[s] || 'onboarding');
+      },
+      authSwap: () => this.go(s === 'register' ? 'login' : 'register'),
+      authPrimary: () => {
+        if (s === 'login') this.go('home');
+        else if (s === 'register') this.go('otp');
+        else if (s === 'forgot') this.go('otp');
+        else if (s === 'otp') this.go('createpin', { flow: 'create', pinTarget: 'welcome' });
+      },
+
+      navHome: () => this.go('home'),
+      navStats: () => this.go('stats'),
+      navWallet: () => this.go('wallet'),
+      navProfile: () => this.go('profile'),
+      navScan: () => this.go('scan'),
+
+      key: (d) => this.key(d), del: () => this.del(), dot: () => this.dot(),
+
+      // theme
+      toggleTheme: () => this.setState({ theme: dark ? 'light' : 'dark' }),
+      themeIsDark: dark, themeIsLight: !dark,
+      themeLabel: dark ? 'On — easy on the eyes' : 'Off — bright theme',
+      themeTrackBg: dark ? 'var(--accent)' : 'var(--fill-2)',
+      themeKnobX: dark ? '23px' : '3px',
+
+      // data
+      contacts, transactions, statsBars, statsCats,
+      payeeName: payee.name, payeeInitials: payee.initials, payeeColor: payee.color,
+
+      // quick action handlers
+      actTopUp: () => this.go('topup_method'),
+      actTransfer: () => this.go('transfer_select'),
+      actWithdraw: () => this.go('withdraw_amount', { flow: 'withdraw' }),
+      actScan: () => this.go('scan'),
+      setAmt: (v) => () => this.setState({ amount: String(v) }),
+      amt50: () => this.setState({ amount: '50' }),
+      amt100: () => this.setState({ amount: '100' }),
+      amt200: () => this.setState({ amount: '200' }),
+
+      // continue handlers
+      topupContinue: () => { if (amtReady) this.applyAndGo('topup_success'); },
+      transferContinue: () => { if (amtReady) this.go('transfer_pin', { pinTarget: 'transfer_success' }); },
+      withdrawContinue: () => { if (amtReady) this.go('withdraw_pin', { pinTarget: 'withdraw_success' }); },
+      payContinue: () => { if (amtReady) this.go('pay_pin', { pinTarget: 'pay_success' }); },
+      amtOpacity: amtReady ? '1' : '.45',
+
+      // screen flags
+      isHome: s === 'home', isStats: s === 'stats', isWallet: s === 'wallet',
+      isProfile: s === 'profile', isSettings: s === 'settings',
+      isTopupMethod: s === 'topup_method',
+      isTopupAmount: s === 'topup_amount', isTransferSelect: s === 'transfer_select',
+      isTransferAmount: s === 'transfer_amount', isWithdrawAmount: s === 'withdraw_amount',
+      isScan: s === 'scan', isPayAmount: s === 'pay_amount',
+      isMoneySuccess: ['topup_success', 'transfer_success', 'withdraw_success', 'pay_success'].includes(s),
+      isAmountScreen: ['topup_amount', 'transfer_amount', 'withdraw_amount', 'pay_amount'].includes(s),
+
+      // success copy
+      successTitle: sc.title, successNote: sc.note, successTo: sc.to,
+      successAmount: '$' + this.fmt(this.state.amount),
+
+      // shared amount screen
+      amountTitle: { topup_amount: 'Top up', transfer_amount: 'Send money', withdraw_amount: 'Withdraw', pay_amount: 'Pay' }[s] || 'Amount',
+      amountContextLabel: { topup_amount: 'Visa •••• 4829', transfer_amount: payee.name, withdraw_amount: 'Bank •••• 1102', pay_amount: payee.name }[s] || '',
+      amountContextSub: { topup_amount: 'Top up from card', transfer_amount: '@' + (payee.name || '').toLowerCase().replace(/\s+/g, '') , withdraw_amount: 'Withdraw to account', pay_amount: 'Merchant payment' }[s] || '',
+      showPayeeChip: s === 'transfer_amount' || s === 'pay_amount',
+      showCardChip: s === 'topup_amount',
+      showBankChip: s === 'withdraw_amount',
+      amountBack: () => this.go({ topup_amount: 'topup_method', transfer_amount: 'transfer_select', withdraw_amount: 'home', pay_amount: 'home' }[s] || 'home'),
+      amountContinue: () => {
+        if (!amtReady) return;
+        if (s === 'topup_amount') this.applyAndGo('topup_success');
+        else if (s === 'transfer_amount') this.go('transfer_pin', { pinTarget: 'transfer_success' });
+        else if (s === 'withdraw_amount') this.go('withdraw_pin', { pinTarget: 'withdraw_success' });
+        else if (s === 'pay_amount') this.go('pay_pin', { pinTarget: 'pay_success' });
+      },
+
+      // nav handlers
+      goSettings: () => this.go('settings'),
+      goProfileBack: () => this.go('profile'),
+      backHome: () => this.go('home')
+    };
+    return vals;
+  }
+}
+</script>
+</body>
+</html>

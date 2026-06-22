@@ -4,193 +4,111 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>אפליקציות מובייל שבניתי | פורטפוליו</title>
-  <meta name="description" content="גלריית אפליקציות מובייל שבניתי — קביעת תורים לציפורניים, ברברשופ ומספרה. צפו בכל אפליקציה בתוך פריים טלפון." />
-
+  <meta name="description" content="גלריית אפליקציות מובייל שבניתי — קביעת תורים, ברברשופ ומספרות. צפו בכל אפליקציה בפריים טלפון." />
   <style>
     :root {
       --color-brand-accent: #007aff;
       --color-brand-accent-hover: #0066d6;
-      --color-bg-primary: #ffffff;
       --color-bg-secondary: #f2f2f7;
-      --color-bg-elevated: #ffffff;
       --color-bg-tertiary: #e9e9ef;
       --color-label-primary: #000000;
       --color-label-secondary: #3c3c43cc;
       --color-label-tertiary: #3c3c4399;
-      --color-separator: #c6c6c8;
-      --radius-card: 16px;
       --radius-pill: 9999px;
-      --shadow-card: 0 3px 10px rgba(0, 0, 0, 0.12);
-      --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.16);
-      --glass-bg: rgba(255, 255, 255, 0.72);
-      --glass-bg-heavy: rgba(255, 255, 255, 0.85);
-      --glass-border: rgba(255, 255, 255, 0.5);
-      --glass-blur: 20px;
-      --glass-saturation: 180%;
+      --shadow-elevated: 0 8px 24px rgba(0,0,0,0.16);
+      --glass-bg: rgba(255,255,255,0.72);
+      --glass-border: rgba(255,255,255,0.5);
       --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, "Heebo", "Assistant", system-ui, sans-serif;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      font-family: var(--font-system);
-      background: var(--color-bg-secondary);
-      color: var(--color-label-primary);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+    body { font-family: var(--font-system); background: var(--color-bg-secondary); color: var(--color-label-primary); -webkit-font-smoothing: antialiased; min-height: 100vh; }
     .glass {
       background: var(--glass-bg);
-      backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+      backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
       border: 1px solid var(--glass-border);
       box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.04), inset 0 1px 0 rgba(255,255,255,0.25);
     }
-    .topbar {
-      position: sticky; top: 0; z-index: 50;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px clamp(16px, 5vw, 40px);
-    }
-    .topbar .brand { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; }
+    .topbar { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 14px clamp(16px,5vw,40px); }
+    .topbar .brand { font-size: 17px; font-weight: 700; }
     .topbar .brand span { color: var(--color-brand-accent); }
-    .topbar .cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 18px; border-radius: var(--radius-pill);
-      background: transparent; color: var(--color-brand-accent);
-      border: 1px solid var(--color-brand-accent);
-      font-size: 14px; font-weight: 600; text-decoration: none;
-      transition: background .2s ease, color .2s ease, transform .1s ease;
-    }
+    .topbar .cta { display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px; border-radius: var(--radius-pill); background: transparent; color: var(--color-brand-accent); border: 1px solid var(--color-brand-accent); font-size: 14px; font-weight: 600; text-decoration: none; transition: background .2s, color .2s, transform .1s; }
     .topbar .cta:hover { background: var(--color-brand-accent); color: #fff; }
     .topbar .cta:active { transform: scale(.97); }
-    .hero {
-      position: relative; max-width: 1100px; margin: 0 auto;
-      padding: clamp(40px, 8vw, 80px) clamp(16px, 5vw, 40px) clamp(20px, 4vw, 36px);
-    }
-    .hero .eyebrow {
-      font-size: 11px; font-weight: 800; text-transform: uppercase;
-      letter-spacing: 0.18em; color: var(--color-brand-accent); margin-bottom: 14px;
-    }
-    .hero h1 { font-size: clamp(40px, 7vw, 72px); font-weight: 700; line-height: 1.05; letter-spacing: -0.02em; }
-    .hero h2 { margin-top: 14px; font-size: clamp(20px, 3.4vw, 32px); font-weight: 600; line-height: 1.25; color: var(--color-label-secondary); max-width: 720px; }
-    .hero .intro { margin-top: 22px; font-size: clamp(15px, 1.6vw, 17px); line-height: 1.65; color: var(--color-label-secondary); max-width: 680px; }
+    .hero { max-width: 1100px; margin: 0 auto; padding: clamp(40px,8vw,80px) clamp(16px,5vw,40px) clamp(20px,4vw,36px); }
+    .hero .eyebrow { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .18em; color: var(--color-brand-accent); margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(40px,7vw,72px); font-weight: 700; line-height: 1.05; letter-spacing: -.02em; }
+    .hero h2 { margin-top: 14px; font-size: clamp(20px,3.4vw,32px); font-weight: 600; line-height: 1.25; color: var(--color-label-secondary); max-width: 720px; }
+    .hero .intro { margin-top: 22px; font-size: clamp(15px,1.6vw,17px); line-height: 1.65; color: var(--color-label-secondary); max-width: 680px; }
     .hero .stats { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 14px; color: var(--color-label-tertiary); }
     .hero .stats strong { font-weight: 600; color: var(--color-label-secondary); }
 
-    .gallery { max-width: 1280px; margin: 0 auto; padding: 8px clamp(16px, 5vw, 40px) 80px; }
-    .grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 36px; justify-items: center; }
-    @media (min-width: 720px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (min-width: 1080px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    .gallery { max-width: 1280px; margin: 0 auto; padding: 8px clamp(16px,5vw,40px) 80px; }
+    .grid { display: grid; grid-template-columns: repeat(1,1fr); gap: 44px 24px; justify-items: center; }
+    @media (min-width: 720px)  { .grid { grid-template-columns: repeat(2,1fr); } }
+    @media (min-width: 1080px) { .grid { grid-template-columns: repeat(3,1fr); } }
 
-    /* Phone-framed preview card */
-    .card {
-      position: relative; cursor: pointer; width: 100%; max-width: 320px;
-      display: flex; flex-direction: column; align-items: center;
-      transition: transform .25s cubic-bezier(.2,.7,.3,1);
-    }
+    .card { position: relative; cursor: pointer; width: 100%; max-width: 300px; display: flex; flex-direction: column; align-items: center; transition: transform .25s cubic-bezier(.2,.7,.3,1); }
     .card:hover { transform: translateY(-8px); }
     .card:focus-visible { outline: none; }
-    .card:focus-visible .phone { outline: 3px solid var(--color-brand-accent); outline-offset: 6px; }
+    .card:focus-visible .stagewin { outline: 3px solid var(--color-brand-accent); outline-offset: 6px; }
 
-    .phone {
-      position: relative; width: 250px; aspect-ratio: 402 / 874;
-      border-radius: 44px; padding: 11px;
-      background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
-      box-shadow: var(--shadow-elevated), inset 0 0 0 2px rgba(255,255,255,0.06);
+    /* The preview window. Apps with their own frame render edge-to-edge here.
+       Apps without a frame get our .framed wrapper (see below). */
+    .stagewin {
+      position: relative; width: 250px; aspect-ratio: 250 / 540; border-radius: 30px; overflow: hidden;
+      background: var(--color-bg-tertiary); box-shadow: var(--shadow-elevated);
       transition: box-shadow .25s ease;
     }
-    .card:hover .phone { box-shadow: 0 20px 50px rgba(0,122,255,0.28), inset 0 0 0 2px rgba(255,255,255,0.08); }
-    .phone::before {
-      content: ""; position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
-      width: 84px; height: 22px; background: #0c0c0e; border-radius: 999px; z-index: 3;
-    }
-    .phone .screen {
-      position: relative; width: 100%; height: 100%; border-radius: 34px; overflow: hidden;
-      background: #fff;
-    }
-    .phone .screen iframe {
+    .card:hover .stagewin { box-shadow: 0 20px 50px rgba(0,122,255,0.25); }
+    .stagewin iframe {
       position: absolute; top: 0; left: 0; border: 0;
-      width: 402px; height: 874px;
+      width: 440px; height: 950px;            /* JS overrides height per scale */
       transform-origin: top left; pointer-events: none; background: #fff;
     }
-    .phone .screen::after { content: ""; position: absolute; inset: 0; z-index: 2; }
-    .phone .hint {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-      opacity: 0; background: rgba(0,122,255,0.16); backdrop-filter: blur(2px); transition: opacity .2s ease; z-index: 4;
-    }
+    .stagewin::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+    .stagewin .hint { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; background: rgba(0,122,255,0.16); backdrop-filter: blur(2px); transition: opacity .2s; z-index: 4; }
     .card:hover .hint { opacity: 1; }
-    .phone .hint span {
-      padding: 10px 18px; border-radius: var(--radius-pill); background: var(--color-brand-accent);
-      color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 6px 18px rgba(0,122,255,0.4);
-    }
+    .stagewin .hint span { padding: 10px 18px; border-radius: var(--radius-pill); background: var(--color-brand-accent); color: #fff; font-size: 13px; font-weight: 600; box-shadow: 0 6px 18px rgba(0,122,255,0.4); }
+
+    /* Our drawn iPhone frame — only for apps WITHOUT their own frame */
+    .stagewin.framed { background: linear-gradient(160deg,#2a2a2e,#0c0c0e); border-radius: 40px; padding: 10px; }
+    .stagewin.framed .inner { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #fff; }
+    .stagewin.framed::before { content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 80px; height: 20px; background: #0c0c0e; border-radius: 999px; z-index: 3; }
+    .stagewin.framed iframe { } /* positioned relative to .inner via JS */
 
     .card .meta { margin-top: 20px; text-align: center; padding: 0 8px; }
-    .card .meta .name { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+    .card .meta .name { font-size: 19px; font-weight: 700; letter-spacing: -.01em; }
     .card .meta .desc { margin-top: 7px; font-size: 14px; line-height: 1.5; color: var(--color-label-secondary); }
-    .card .meta .category {
-      margin-top: 10px; font-size: 12px; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.06em; color: var(--color-brand-accent);
-    }
+    .card .meta .category { margin-top: 10px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--color-brand-accent); }
 
-    /* Full-screen overlay with the live app inside a phone */
-    .overlay {
-      position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column;
-      background: rgba(20,20,25,0.55); backdrop-filter: blur(8px); animation: fadeIn .25s ease;
-    }
+    /* Full-screen overlay */
+    .overlay { position: fixed; inset: 0; z-index: 100; display: none; flex-direction: column; background: rgba(20,20,25,0.6); backdrop-filter: blur(8px); animation: fadeIn .25s ease; }
     .overlay.open { display: flex; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .overlay .bar {
-      display: flex; align-items: center; justify-content: space-between; gap: 12px;
-      padding: 12px clamp(14px, 4vw, 28px); flex-shrink: 0;
-    }
+    .overlay .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px clamp(14px,4vw,28px); flex-shrink: 0; }
     .overlay .bar .title { font-size: 15px; font-weight: 700; color: #fff; }
     .overlay .bar .actions { display: flex; gap: 10px; }
-    .overlay .bar button, .overlay .bar a {
-      display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: var(--radius-pill);
-      border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.12); color: #fff;
-      font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; text-decoration: none;
-      transition: background .15s ease, transform .1s ease;
-    }
+    .overlay .bar button, .overlay .bar a { display: inline-flex; align-items: center; gap: 7px; padding: 9px 16px; border-radius: var(--radius-pill); border: 1px solid rgba(255,255,255,0.25); background: rgba(255,255,255,0.12); color: #fff; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; text-decoration: none; transition: background .15s, transform .1s; }
     .overlay .bar button:hover, .overlay .bar a:hover { background: rgba(255,255,255,0.22); }
     .overlay .bar .close { background: var(--color-brand-accent); border-color: transparent; }
-    .overlay .bar .close:hover { background: var(--color-brand-accent-hover); }
-    .overlay .stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 10px 16px 28px; }
-    .overlay .big-phone {
-      position: relative; height: min(92%, 880px); aspect-ratio: 402 / 874;
-      border-radius: 52px; padding: 13px;
-      background: linear-gradient(160deg, #2a2a2e, #0c0c0e);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55), inset 0 0 0 2px rgba(255,255,255,0.07);
-    }
-    .overlay .big-phone::before {
-      content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-      width: 100px; height: 26px; background: #0c0c0e; border-radius: 999px; z-index: 3;
-    }
-    .overlay .big-phone .screen { width: 100%; height: 100%; border-radius: 40px; overflow: hidden; background: #fff; }
-    .overlay .big-phone iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .overlay .stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px 24px; }
 
-    /* On a real phone, drop the drawn frame — the device IS the frame.
-       The app fills the whole screen like a native app. */
-    @media (max-width: 700px) {
-      .overlay .stage { padding: 0; }
-      .overlay .big-phone {
-        height: 100%; width: 100%; aspect-ratio: auto;
-        border-radius: 0; padding: 0; background: #fff; box-shadow: none;
-      }
-      .overlay .big-phone::before { display: none; } /* hide the notch */
-      .overlay .big-phone .screen { border-radius: 0; }
-      .overlay .bar {
-        position: absolute; top: 0; left: 0; right: 0; z-index: 5;
-        background: linear-gradient(180deg, rgba(0,0,0,0.45), transparent);
-        padding: 10px 14px;
-      }
-      .overlay .bar .title { display: none; } /* maximize app space */
+    /* App fills the full screen — no drawn frame. Feels like the real app. */
+    .overlay .stage { padding: 0; }
+    .overlay .device { position: relative; width: 100%; height: 100%; background: #fff; overflow: hidden; }
+    .overlay .device .screen { width: 100%; height: 100%; overflow: hidden; background: #fff; }
+    .overlay .device iframe { width: 100%; height: 100%; border: 0; display: block; }
+    /* floating close bar over the app */
+    .overlay .bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 5;
+      background: linear-gradient(180deg, rgba(0,0,0,0.4), transparent);
+      pointer-events: none;
     }
-
+    .overlay .bar .actions { pointer-events: auto; }
+    .overlay .bar .title { display: none; }
     body.locked { overflow: hidden; }
-
-    .note {
-      max-width: 680px; margin: 0 auto; text-align: center;
-      color: var(--color-label-tertiary); font-size: 13px; padding: 0 20px 60px;
-    }
+    .note { max-width: 680px; margin: 0 auto; text-align: center; color: var(--color-label-tertiary); font-size: 13px; padding: 0 20px 60px; }
   </style>
 </head>
 <body>
@@ -202,8 +120,8 @@
   <section class="hero">
     <p class="eyebrow">MOBILE APPS</p>
     <h1>אפליקציות שבניתי.</h1>
-    <h2>אפליקציות מובייל לעסקים — מוצגות בתוך פריים טלפון, חיות ופועלות.</h2>
-    <p class="intro">אוסף אפליקציות מובייל שעיצבתי ובניתי — מערכות לקביעת תורים לעסקי יופי וטיפוח. לחצו על כל מכשיר כדי לפתוח את האפליקציה במסך מלא ולהתנסות בה בעצמכם.</p>
+    <h2>אפליקציות מובייל לעסקים — חיות ופועלות, בתוך פריים טלפון.</h2>
+    <p class="intro">אוסף אפליקציות מובייל שעיצבתי ובניתי. לחצו על כל מכשיר כדי לפתוח את האפליקציה במסך מלא ולהתנסות בה. מהטלפון — היא נפתחת כמו אפליקציה אמיתית.</p>
     <div class="stats">
       <strong id="stat-count">— אפליקציות</strong>
       <span aria-hidden="true">·</span>
@@ -213,158 +131,94 @@
     </div>
   </section>
 
-  <main class="gallery">
-    <div class="grid" id="grid"></div>
-  </main>
+  <main class="gallery"><div class="grid" id="grid"></div></main>
+  <p class="note">האפליקציות אינטראקטיביות לחלוטין — נסו לנווט ולקבוע תור בתוך הפריים.</p>
 
-  <p class="note">האפליקציות הן אינטראקטיביות לחלוטין — נסו לנווט, לבחור שירות ולקבוע תור בתוך הפריים.</p>
-
-  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="תצוגת אפליקציה מלאה">
+  <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="תצוגת אפליקציה">
     <div class="bar">
-      <div class="title" id="overlay-title"></div>
+      <div class="title" id="ov-title"></div>
       <div class="actions">
-        <a id="overlay-newtab" target="_blank" rel="noopener">לשונית חדשה</a>
-        <button class="close" id="overlay-close">סגור</button>
+        <a id="ov-newtab" target="_blank" rel="noopener">לשונית חדשה</a>
+        <button class="close" id="ov-close">סגור</button>
       </div>
     </div>
     <div class="stage">
-      <div class="big-phone">
-        <div class="screen"><iframe id="overlay-frame" title="תצוגת אפליקציה מלאה" allow="clipboard-write"></iframe></div>
-      </div>
+      <div class="device" id="ov-device"><div class="screen"><iframe id="ov-frame" title="תצוגת אפליקציה"></iframe></div></div>
     </div>
   </div>
 
   <script>
-    // Each app: folder + file (both encoded for Hebrew/space paths).
+    // hasOwnFrame: app already draws its own iPhone frame -> don't wrap it again.
     var APPS = [
-      {
-        folder: "אפליקציה לקביעת תורי ציפורניים",
-        file:   "אפליקציית ציפורניים.dc.html",
-        name:   "תורים לציפורניים",
-        category: "קביעת תורים",
-        desc:   "אפליקציה לקביעת תורי ציפורניים — בחירת עיצוב, שירות ותאריך."
-      },
-      {
-        folder: "Barbershop community design",
-        file:   "תֵּעַר Barbershop.dc.html",
-        name:   "תֵּעַר — ברברשופ",
-        category: "קביעת תורים",
-        desc:   "אפליקציה למספרת גברים — הזמנת תור אונליין ואישור מיידי לנייד."
-      },
-      {
-        folder: "Design specifications answered",
-        file:   "מספרת זיו.dc.html",
-        name:   "מספרת זיו",
-        category: "קביעת תורים",
-        desc:   "אפליקציית קביעת תורים למספרה עם רשימת המתנה והתראות וואטסאפ."
-      },
-      {
-        folder: "אפליקציה מהדפים המצורפים",
-        file:   "Nore Lorm.dc.html",
-        name:   "Nore Lorm",
-        category: "אפליקציית עסק",
-        desc:   "אפליקציית מובייל לעסק — דפי תוכן, גלריה ויצירת קשר בפריים טלפון."
-      },
-      {
-        folder: "אפליקציה מלאה מהדפים",
-        file:   "Gobar.dc.html",
-        name:   "Gobar — הזמנת ברבר",
-        category: "אפליקציה מלאה",
-        desc:   "אפליקציית ברבר מלאה — חיפוש ברברים, הזמנות, צ'אט, פרופיל ותשלום."
-      },
-      {
-        folder: "אפליקציה מלאה מהדפים",
-        file:   "Gobar-RTL-Herzliya.dc.html",
-        name:   "Gobar — גרסת RTL",
-        category: "אפליקציה מלאה",
-        desc:   "גרסת עברית (RTL) של אפליקציית הברבר Gobar, מותאמת להרצליה."
-      },
-      {
-        folder: "תספורות הרצליה",
-        file:   "Gobar-RTL-Herzliya.dc.html",
-        name:   "תספורות הרצליה",
-        category: "אפליקציה מלאה",
-        desc:   "אפליקציית הזמנת תורים למספרות בהרצליה — מבוססת Gobar בעברית."
-      }
+      { folder:"אפליקציה לקביעת תורי ציפורניים", file:"אפליקציית ציפורניים.dc.html", name:"תורים לציפורניים", category:"קביעת תורים", desc:"קביעת תורי ציפורניים — בחירת עיצוב, שירות ותאריך.", hasOwnFrame:true },
+      { folder:"Barbershop community design", file:"תֵּעַר Barbershop.dc.html", name:"תֵּעַר — ברברשופ", category:"קביעת תורים", desc:"מספרת גברים — הזמנת תור אונליין ואישור מיידי לנייד.", hasOwnFrame:false },
+      { folder:"Design specifications answered", file:"מספרת זיו.dc.html", name:"מספרת זיו", category:"קביעת תורים", desc:"קביעת תורים למספרה עם רשימת המתנה והתראות וואטסאפ.", hasOwnFrame:false },
+      { folder:"אפליקציה מהדפים המצורפים", file:"Nore Lorm.dc.html", name:"Nore Lorm", category:"אפליקציית עסק", desc:"אפליקציית סטודיו יופי — דפי תוכן, גלריה ויצירת קשר.", hasOwnFrame:true },
+      { folder:"אפליקציה מלאה מהדפים", file:"Gobar.dc.html", name:"Gobar — הזמנת ברבר", category:"אפליקציה מלאה", desc:"אפליקציית ברבר מלאה — חיפוש, הזמנות, צ'אט, פרופיל ותשלום.", hasOwnFrame:true },
+      { folder:"אפליקציה מלאה מהדפים", file:"Gobar-RTL-Herzliya.dc.html", name:"Gobar — גרסת RTL", category:"אפליקציה מלאה", desc:"גרסת עברית (RTL) של אפליקציית הברבר Gobar.", hasOwnFrame:true },
+      { folder:"תספורות הרצליה", file:"Gobar-RTL-Herzliya.dc.html", name:"תספורות הרצליה", category:"אפליקציה מלאה", desc:"הזמנת תורים למספרות בהרצליה — מבוסס Gobar בעברית.", hasOwnFrame:true },
+      { folder:"יצירת אפליקציה מלאה", file:"Obank.dc.html", name:"Obank — בנקאות", category:"אפליקציה מלאה", desc:"אפליקציית בנקאות דיגיטלית — יתרה, העברות ותנועות, מצב כהה/בהיר.", hasOwnFrame:true },
+      { folder:"אפליקציה לבניית אתרים ודפי נחיתה", file:"AppScreen.dc.html", name:"AppScreen — אפליקציית מוצר", category:"אפליקציית עסק", desc:"אפליקציית מובייל למוצר — מסכי תוכן וניווט.", hasOwnFrame:false }
     ];
 
-    function appUrl(app) {
-      return encodeURIComponent(app.folder).replace(/%2F/g, "/") + "/" + encodeURIComponent(app.file);
-    }
+    function appUrl(a){ return encodeURIComponent(a.folder).replace(/%2F/g,"/") + "/" + encodeURIComponent(a.file); }
 
     var grid = document.getElementById("grid");
     document.getElementById("stat-count").textContent = APPS.length + " אפליקציות";
 
-    // Scale the small preview iframe (402px wide) to fit the 250px-padded phone screen.
     var previews = [];
-
-    APPS.forEach(function (app) {
-      var url = appUrl(app);
+    APPS.forEach(function(a){
+      var url = appUrl(a);
       var card = document.createElement("div");
-      card.className = "card";
-      card.tabIndex = 0;
-      card.setAttribute("role", "button");
-      card.setAttribute("aria-label", "פתח את האפליקציה " + app.name);
-      card.innerHTML =
-        '<div class="phone"><div class="screen">' +
-          '<iframe src="' + url + '" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe>' +
-          '<div class="hint"><span>פתח אפליקציה</span></div>' +
-        '</div></div>' +
-        '<div class="meta">' +
-          '<div class="name">' + app.name + '</div>' +
-          '<div class="desc">' + app.desc + '</div>' +
-          '<div class="category">' + app.category + '</div>' +
-        '</div>';
-      var open = function () { openApp(app); };
+      card.className = "card"; card.tabIndex = 0; card.setAttribute("role","button");
+      card.setAttribute("aria-label","פתח את האפליקציה " + a.name);
+
+      var win = a.hasOwnFrame
+        ? '<div class="stagewin"><iframe src="'+url+'" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe><div class="hint"><span>פתח אפליקציה</span></div></div>'
+        : '<div class="stagewin framed"><div class="inner"><iframe src="'+url+'" loading="lazy" tabindex="-1" aria-hidden="true" scrolling="no"></iframe></div><div class="hint"><span>פתח אפליקציה</span></div></div>';
+
+      card.innerHTML = win +
+        '<div class="meta"><div class="name">'+a.name+'</div><div class="desc">'+a.desc+'</div><div class="category">'+a.category+'</div></div>';
+
+      var open = function(){ openApp(a); };
       card.addEventListener("click", open);
-      card.addEventListener("keydown", function (e) {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
-      });
+      card.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } });
       grid.appendChild(card);
-      previews.push(card.querySelector(".screen iframe"));
+      previews.push({ el: card.querySelector("iframe"), framed: !a.hasOwnFrame });
     });
 
-    // Scale previews: the screen is the phone width minus padding; iframe is 402px wide.
-    function scalePreviews() {
-      previews.forEach(function (ifr) {
-        var screen = ifr.parentElement;
-        var w = screen.clientWidth;
-        if (!w) return;
-        var scale = w / 402;
-        ifr.style.transform = "scale(" + scale + ")";
-        ifr.style.height = (screen.clientHeight / scale) + "px";
+    // Scale each preview so the app's 440px design width fits the window width.
+    var REF = 440;
+    function scalePreviews(){
+      previews.forEach(function(p){
+        var box = p.framed ? p.el.parentElement : p.el.parentElement; // .inner or .stagewin
+        var w = box.clientWidth;
+        if(!w) return;
+        var scale = w / REF;
+        p.el.style.transform = "scale(" + scale + ")";
+        p.el.style.width = REF + "px";
+        p.el.style.height = (box.clientHeight / scale) + "px";
       });
     }
     scalePreviews();
     window.addEventListener("resize", scalePreviews);
     window.addEventListener("load", scalePreviews);
 
-    // ---- Overlay ----
-    var overlay       = document.getElementById("overlay");
-    var overlayFrame  = document.getElementById("overlay-frame");
-    var overlayTitle  = document.getElementById("overlay-title");
-    var overlayNewTab = document.getElementById("overlay-newtab");
-    var overlayClose  = document.getElementById("overlay-close");
+    // Overlay
+    var overlay=document.getElementById("overlay"), ovFrame=document.getElementById("ov-frame"),
+        ovTitle=document.getElementById("ov-title"), ovNew=document.getElementById("ov-newtab"),
+        ovClose=document.getElementById("ov-close"), ovDevice=document.getElementById("ov-device");
 
-    function openApp(app) {
-      var url = appUrl(app);
-      overlayTitle.textContent = app.name;
-      overlayFrame.src = url;
-      overlayNewTab.href = url;
-      overlay.classList.add("open");
-      document.body.classList.add("locked");
-      overlayClose.focus();
+    function openApp(a){
+      var url=appUrl(a);
+      ovTitle.textContent=a.name; ovFrame.src=url; ovNew.href=url;
+      // app fills the full screen — no drawn frame
+      overlay.classList.add("open"); document.body.classList.add("locked"); ovClose.focus();
     }
-    function closeApp() {
-      overlay.classList.remove("open");
-      document.body.classList.remove("locked");
-      overlayFrame.src = "about:blank";
-    }
-    overlayClose.addEventListener("click", closeApp);
-    overlay.addEventListener("click", function (e) { if (e.target === overlay || e.target.classList.contains("stage")) closeApp(); });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && overlay.classList.contains("open")) closeApp();
-    });
+    function closeApp(){ overlay.classList.remove("open"); document.body.classList.remove("locked"); ovFrame.src="about:blank"; }
+    ovClose.addEventListener("click", closeApp);
+    overlay.addEventListener("click", function(e){ if(e.target===overlay||e.target.classList.contains("stage")) closeApp(); });
+    document.addEventListener("keydown", function(e){ if(e.key==="Escape"&&overlay.classList.contains("open")) closeApp(); });
   </script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%">
+  <button onClick="{{ k1 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">1</button>
+  <button onClick="{{ k2 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">2</button>
+  <button onClick="{{ k3 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">3</button>
+  <button onClick="{{ k4 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">4</button>
+  <button onClick="{{ k5 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">5</button>
+  <button onClick="{{ k6 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">6</button>
+  <button onClick="{{ k7 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">7</button>
+  <button onClick="{{ k8 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">8</button>
+  <button onClick="{{ k9 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">9</button>
+  <button onClick="{{ dot }}" style="appearance:none;border:none;background:transparent;color:var(--text-2);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease)" style-active="transform:scale(0.94)">{{ dotChar }}</button>
+  <button onClick="{{ k0 }}" style="appearance:none;border:none;background:var(--key-bg);color:var(--text-1);font-family:inherit;font-size:26px;font-weight:500;height:62px;border-radius:18px;cursor:pointer;transition:transform .12s var(--ease),background .12s var(--ease)" style-active="transform:scale(0.94);background:var(--key-bg-press)">0</button>
+  <button onClick="{{ del }}" style="appearance:none;border:none;background:transparent;color:var(--text-1);font-family:inherit;height:62px;border-radius:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .12s var(--ease)" style-active="transform:scale(0.94)">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 5H8L2 12l6 7h13a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1Z"/><path d="m17 9-5 6M12 9l5 6"/></svg>
+  </button>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:300,&quot;height&quot;:280},&quot;onKey&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;(d:string)=&gt;void&quot;},&quot;onDel&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;()=&gt;void&quot;},&quot;onDot&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;()=&gt;void&quot;},&quot;showDot&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;dotChar&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;.&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const k = this.props.onKey || (() => {});
+    return {
+      k1: () => k('1'), k2: () => k('2'), k3: () => k('3'),
+      k4: () => k('4'), k5: () => k('5'), k6: () => k('6'),
+      k7: () => k('7'), k8: () => k('8'), k9: () => k('9'),
+      k0: () => k('0'),
+      dot: this.props.onDot || (() => {}),
+      del: this.props.onDel || (() => {}),
+      dotChar: this.props.showDot ? (this.props.dotChar || '.') : ''
+    };
+  }
+}
+</script>
+</body>
+</html>

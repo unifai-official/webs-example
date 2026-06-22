@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיעורים פרטיים | ד״ר דנה כהן</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,"Heebo",sans-serif}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useCallback, useMemo, useRef } = React;
+
+const DAYS_HEB = ["ראשון","שני","שלישי","רביעי","חמישי","שישי","שבת"];
+const DAYS_SHORT = ["א׳","ב׳","ג׳","ד׳","ה׳","ו׳","ש׳"];
+const MONTHS_HEB = ["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+const SUBJECTS = ["מתמטיקה","פיזיקה","אנגלית","מדעי המחשב","כימיה"];
+const TIME_SLOTS = [];
+for (let h = 8; h <= 20; h++) { TIME_SLOTS.push(`${String(h).padStart(2,"0")}:00`); if (h < 20) TIME_SLOTS.push(`${String(h).padStart(2,"0")}:30`); }
+
+const TUTOR = {
+  name: "ד״ר דנה כהן", title: "מורה פרטית | מתמטיקה, פיזיקה ומדעי המחשב",
+  bio: "בעלת דוקטורט במתמטיקה שימושית מהטכניון עם למעלה מ-12 שנות ניסיון בהוראה פרטית. מתמחה בהכנה לבגרויות 5 יחידות ולפסיכומטרי. שיעורים מותאמים אישית לכל תלמיד עם דגש על הבנה עמוקה של החומר.",
+  phone: "054-1234567", email: "dana@tutoring.co.il",
+  price: "180 ₪", duration: "60 דקות", location: "אונליין / תל אביב",
+  stats: { students:240, rating:4.9, years:12, success:"97%" }
+};
+const ADMIN_PIN = "1234";
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+function fmtDate(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`; }
+function parseD(s) { const [y,m,d] = s.split("-").map(Number); return new Date(y,m-1,d); }
+function daysIn(y,m) { return new Date(y,m+1,0).getDate(); }
+function firstDay(y,m) { return new Date(y,m,1).getDay(); }
+
+/* ── Animate on scroll ── */
+function Reveal({ children, delay = 0, y = 20, style = {} }) {
+  const [v, setV] = useState(false);
+  const ref = useRef();
+  useEffect(() => {
+    const o = new IntersectionObserver(([e]) => { if (e.isIntersecting) { setV(true); o.disconnect(); }}, { threshold:.05 });
+    if (ref.current) o.observe(ref.current);
+    return () => o.disconnect();
+  }, []);
+  return <div ref={ref} style={{ ...style, opacity:v?1:0, transform:v?"translateY(0)":`translateY(${y}px)`, transition:`opacity .8s cubic-bezier(.25,.46,.45,.94) ${delay}s, transform .8s cubic-bezier(.25,.46,.45,.94) ${delay}s` }}>{children}</div>;
+}
+
+/* ── Toast ── */
+function Toast({ message, type, onClose }) {
+  useEffect(() => { const t = setTimeout(onClose, 3200); return () => clearTimeout(t); }, [onClose]);
+  const bg = type === "success" ? "rgba(52,199,89,.94)" : type === "error" ? "rgba(255,59,48,.94)" : "rgba(0,122,255,.94)";
+  return (
+    <div style={{
+      position:"fixed", top:16, left:"50%", transform:"translateX(-50%)", zIndex:9999,
+      background:bg, color:"#fff", padding:"12px 28px", borderRadius:100,
+      fontSize:14, fontWeight:600, fontFamily:"'Heebo',sans-serif",
+      backdropFilter:"blur(20px)", WebkitBackdropFilter:"blur(20px)",
+      boxShadow:`0 8px 32px ${type==="success"?"rgba(52,199,89,.3)":type==="error"?"rgba(255,59,48,.3)":"rgba(0,122,255,.3)"}`,
+      animation:"toastSlide .4s cubic-bezier(.25,.46,.45,.94)", maxWidth:"92vw", textAlign:"center"
+    }}>{message}</div>
+  );
+}
+
+/* ── Glass surface ── */
+function Glass({ children, style = {}, lift = false, onClick }) {
+  const [h, setH] = useState(false);
+  return (
+    <div onClick={onClick}
+      onMouseEnter={() => lift && setH(true)} onMouseLeave={() => lift && setH(false)}
+      style={{
+        background:"rgba(255,255,255,.68)", backdropFilter:"blur(24px)", WebkitBackdropFilter:"blur(24px)",
+        borderRadius:20, border:".5px solid rgba(255,255,255,.5)",
+        boxShadow: h ? "0 12px 44px rgba(0,0,0,.09), 0 0 0 .5px rgba(0,0,0,.03)" : "0 1px 12px rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.03)",
+        transform: h ? "translateY(-2px)" : "none",
+        transition:"all .45s cubic-bezier(.25,.46,.45,.94)",
+        cursor: onClick ? "pointer" : "default", ...style
+      }}>{children}</div>
+  );
+}
+
+/* ═══════════════════════════════════════
+   APP
+   ═══════════════════════════════════════ */
+function TutorSite() {
+  const [page, setPage] = useState("home");
+  const [bookings, setBookings] = useState([]);
+  const [availability, setAvailability] = useState({});
+  const [toast, setToast] = useState(null);
+  const [adminAuth, setAdminAuth] = useState(false);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try { const r = await window.storage.get("tutor-bk"); if (r) setBookings(JSON.parse(r.value)); } catch {}
+      try { const r = await window.storage.get("tutor-av"); if (r) setAvailability(JSON.parse(r.value)); } catch {}
+      setReady(true);
+    })();
+  }, []);
+
+  const saveBk = useCallback(async b => { setBookings(b); try { await window.storage.set("tutor-bk", JSON.stringify(b)); } catch {} }, []);
+  const saveAv = useCallback(async a => { setAvailability(a); try { await window.storage.set("tutor-av", JSON.stringify(a)); } catch {} }, []);
+  const notify = useCallback((m, t = "success") => setToast({ message:m, type:t }), []);
+
+  if (!ready) return (
+    <div dir="rtl" style={{ fontFamily:"'Heebo',sans-serif", display:"flex", alignItems:"center", justifyContent:"center", height:"100vh" }}>
+      <div style={{ width:24, height:24, border:"2.5px solid rgba(0,0,0,.06)", borderTopColor:"#007AFF", borderRadius:"50%", animation:"spin .65s linear infinite" }} />
+    </div>
+  );
+
+  return (
+    <div dir="rtl" style={{ fontFamily:"'Heebo',sans-serif", background:"#f5f5f7", minHeight:"100vh", color:"#1d1d1f", overflowX:"hidden" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+        *{box-sizing:border-box;margin:0;padding:0}
+        html{scroll-behavior:smooth}
+        input,select,textarea,button{font-family:'Heebo',sans-serif}
+        button:active{transform:scale(.97)!important}
+        ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:rgba(0,0,0,.1);border-radius:3px}
+
+        @keyframes toastSlide{from{opacity:0;transform:translateX(-50%) translateY(-14px) scale(.96)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes gentlePulse{0%,100%{opacity:.45;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+        @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+        @keyframes heroGlow{0%,100%{opacity:.5}50%{opacity:.8}}
+
+        .input-apple{
+          width:100%;padding:13px 16px;border-radius:12px;border:1.5px solid rgba(0,0,0,.07);
+          font-size:15px;outline:none;direction:rtl;background:rgba(255,255,255,.6);
+          backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+          transition:border .3s cubic-bezier(.25,.46,.45,.94),box-shadow .3s cubic-bezier(.25,.46,.45,.94);
+        }
+        .input-apple:focus{border-color:rgba(0,122,255,.5);box-shadow:0 0 0 3.5px rgba(0,122,255,.1)}
+        .input-apple::placeholder{color:rgba(0,0,0,.22)}
+
+        .btn-primary{
+          background:linear-gradient(180deg,#3da0ff 0%,#007AFF 100%);color:#fff;border:none;border-radius:14px;
+          padding:15px 32px;font-size:16px;font-weight:700;cursor:pointer;
+          box-shadow:0 4px 18px rgba(0,122,255,.28);transition:all .3s cubic-bezier(.25,.46,.45,.94);
+        }
+        .btn-primary:hover{box-shadow:0 6px 24px rgba(0,122,255,.38);transform:translateY(-1px)!important}
+        .btn-primary:disabled{background:rgba(0,122,255,.3);box-shadow:none;cursor:default}
+        .btn-primary:disabled:hover{transform:none!important}
+      `}</style>
+
+      {toast && <Toast {...toast} onClose={() => setToast(null)} />}
+
+      {/* ─── NAV ─── */}
+      <nav style={{
+        position:"sticky", top:0, zIndex:100,
+        background:"rgba(245,245,247,.65)", backdropFilter:"saturate(180%) blur(20px)", WebkitBackdropFilter:"saturate(180%) blur(20px)",
+        borderBottom:".5px solid rgba(0,0,0,.07)", padding:"0 20px"
+      }}>
+        <div style={{ maxWidth:900, margin:"0 auto", display:"flex", alignItems:"center", justifyContent:"space-between", height:50 }}>
+          <div onClick={() => setPage("home")} style={{ cursor:"pointer", fontSize:17, fontWeight:800, color:"#1d1d1f", letterSpacing:"-.02em", display:"flex", alignItems:"center", gap:6 }}>
+            <div style={{ width:8, height:8, borderRadius:"50%", background:"linear-gradient(135deg,#007AFF,#5856D6)" }} />
+            שיעורים פרטיים
+          </div>
+          <div style={{ display:"flex", gap:2, background:"rgba(0,0,0,.04)", borderRadius:10, padding:2.5 }}>
+            {[{id:"home",l:"ראשי"},{id:"book",l:"זימון"},{id:"admin",l:"ניהול"}].map(p => (
+              <button key={p.id} onClick={() => setPage(p.id)} style={{
+                background:page===p.id?"rgba(255,255,255,.88)":"transparent",
+                boxShadow:page===p.id?"0 .5px 3px rgba(0,0,0,.06)":"none",
+                color:page===p.id?"#1d1d1f":"#86868b",
+                border:"none",borderRadius:8,padding:"6px 16px",fontSize:13,fontWeight:600,cursor:"pointer",
+                transition:"all .3s cubic-bezier(.25,.46,.45,.94)"
+              }}>{p.l}</button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      <div style={{ animation:"fadeUp .5s cubic-bezier(.25,.46,.45,.94)" }}>
+        {page === "home" && <Home onBook={() => setPage("book")} />}
+        {page === "book" && <Booking availability={availability} bookings={bookings} onBook={b => { saveBk([...bookings,b]); notify("השיעור נקבע בהצלחה!"); setPage("home"); }} />}
+        {page === "admin" && <Admin auth={adminAuth} setAuth={setAdminAuth} bookings={bookings} saveBk={saveBk} availability={availability} saveAv={saveAv} notify={notify} />}
+      </div>
+
+      <footer style={{ textAlign:"center", padding:"52px 20px 28px", color:"#86868b", fontSize:12 }}>
+        <div style={{ fontWeight:700, fontSize:14, color:"#1d1d1f", marginBottom:3 }}>{TUTOR.name}</div>
+        <div style={{ marginBottom:2 }}>{TUTOR.phone} · {TUTOR.email}</div>
+        <div style={{ marginTop:10, opacity:.4 }}>© {new Date().getFullYear()} כל הזכויות שמורות</div>
+      </footer>
+    </div>
+  );
+}
+
+/* ═══════ HOME ═══════ */
+function Home({ onBook }) {
+  return (
+    <>
+      {/* HERO */}
+      <section style={{
+        background:"linear-gradient(170deg,#000 0%,#1d1d1f 55%,#2c2c2e 100%)",
+        padding:"76px 20px 60px", position:"relative", overflow:"hidden"
+      }}>
+        <div style={{ position:"absolute", top:"-25%", right:"-15%", width:420, height:420, borderRadius:"50%", background:"radial-gradient(circle,rgba(0,122,255,.12) 0%,transparent 65%)", filter:"blur(60px)", animation:"heroGlow 6s ease-in-out infinite" }} />
+        <div style={{ position:"absolute", bottom:"-30%", left:"-20%", width:480, height:480, borderRadius:"50%", background:"radial-gradient(circle,rgba(88,86,214,.08) 0%,transparent 65%)", filter:"blur(60px)" }} />
+
+        <div style={{ maxWidth:620, margin:"0 auto", textAlign:"center", position:"relative" }}>
+          <Reveal>
+            <div style={{
+              width:96, height:96, borderRadius:26, margin:"0 auto 28px",
+              background:"linear-gradient(135deg,rgba(255,255,255,.1),rgba(255,255,255,.03))",
+              border:".5px solid rgba(255,255,255,.12)",
+              display:"flex", alignItems:"center", justifyContent:"center", fontSize:42,
+              boxShadow:"0 8px 40px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1)"
+            }}>👩‍🏫</div>
+          </Reveal>
+          <Reveal delay={.06}>
+            <h1 style={{ fontSize:"clamp(32px,6vw,50px)", fontWeight:900, color:"#fff", marginBottom:10, lineHeight:1.12, letterSpacing:"-.04em" }}>
+              {TUTOR.name}
+            </h1>
+          </Reveal>
+          <Reveal delay={.1}>
+            <p style={{ color:"rgba(255,255,255,.48)", fontSize:17, marginBottom:34, fontWeight:400, letterSpacing:"-.01em" }}>
+              {TUTOR.title}
+            </p>
+          </Reveal>
+          <Reveal delay={.14}>
+            <button className="btn-primary" onClick={onBook} style={{ borderRadius:100, padding:"16px 44px", fontSize:17, letterSpacing:"-.01em" }}>
+              לקביעת שיעור פרטי
+            </button>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* STATS */}
+      <section style={{ maxWidth:580, margin:"-26px auto 0", padding:"0 16px", position:"relative", zIndex:2 }}>
+        <Reveal>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:8 }}>
+            {[
+              { v:TUTOR.stats.students, l:"תלמידים", ic:"🎓" },
+              { v:TUTOR.stats.rating, l:"דירוג", ic:"⭐" },
+              { v:TUTOR.stats.years, l:"שנות ניסיון", ic:"📚" },
+              { v:TUTOR.stats.success, l:"הצלחה", ic:"🏆" },
+            ].map((s,i) => (
+              <Glass key={i} lift style={{ padding:"16px 6px", textAlign:"center" }}>
+                <div style={{ fontSize:20, marginBottom:2 }}>{s.ic}</div>
+                <div style={{ fontSize:22, fontWeight:900, color:"#1d1d1f", letterSpacing:"-.04em", lineHeight:1.1 }}>{s.v}</div>
+                <div style={{ fontSize:10, color:"#86868b", marginTop:2, fontWeight:500, letterSpacing:".02em" }}>{s.l}</div>
+              </Glass>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* ABOUT */}
+      <section style={{ maxWidth:580, margin:"44px auto", padding:"0 20px" }}>
+        <Reveal><h2 style={{ fontSize:28, fontWeight:900, textAlign:"center", marginBottom:14, letterSpacing:"-.04em" }}>קצת עליי</h2></Reveal>
+        <Reveal delay={.04}>
+          <Glass style={{ padding:28 }}>
+            <p style={{ fontSize:16, lineHeight:1.9, color:"#424245", textAlign:"center" }}>{TUTOR.bio}</p>
+          </Glass>
+        </Reveal>
+      </section>
+
+      {/* SUBJECTS */}
+      <section style={{ maxWidth:580, margin:"0 auto 44px", padding:"0 20px" }}>
+        <Reveal><h2 style={{ fontSize:28, fontWeight:900, textAlign:"center", marginBottom:16, letterSpacing:"-.04em" }}>מקצועות</h2></Reveal>
+        <div style={{ display:"flex", flexWrap:"wrap", gap:8, justifyContent:"center" }}>
+          {SUBJECTS.map((s,i) => (
+            <Reveal key={s} delay={i*.035}>
+              <Glass lift style={{ padding:"11px 24px" }}>
+                <span style={{ fontSize:15, fontWeight:600 }}>{s}</span>
+              </Glass>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* INFO GRID */}
+      <section style={{ maxWidth:580, margin:"0 auto 44px", padding:"0 20px" }}>
+        <Reveal>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(2,1fr)", gap:8 }}>
+            {[
+              { ic:"💰", l:"מחיר", v:TUTOR.price },
+              { ic:"⏱", l:"משך שיעור", v:TUTOR.duration },
+              { ic:"📍", l:"מיקום", v:TUTOR.location },
+              { ic:"📞", l:"טלפון", v:TUTOR.phone },
+            ].map(c => (
+              <Glass key={c.l} lift style={{ padding:"20px 14px", textAlign:"center" }}>
+                <div style={{ fontSize:24, marginBottom:4 }}>{c.ic}</div>
+                <div style={{ fontSize:10, color:"#86868b", fontWeight:600, marginBottom:3, textTransform:"uppercase", letterSpacing:".6px" }}>{c.l}</div>
+                <div style={{ fontSize:15, fontWeight:700 }}>{c.v}</div>
+              </Glass>
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section style={{ maxWidth:580, margin:"0 auto 48px", padding:"0 20px" }}>
+        <Reveal><h2 style={{ fontSize:28, fontWeight:900, textAlign:"center", marginBottom:16, letterSpacing:"-.04em" }}>מה אומרים התלמידים</h2></Reveal>
+        <div style={{ display:"flex", flexDirection:"column", gap:10 }}>
+          {[
+            { n:"יעל מ.", t:"דנה הצליחה להעלות אותי מ-70 ל-95 במתמטיקה תוך 3 חודשים. מורה מדהימה!" },
+            { n:"עומר ש.", t:"ההסברים ברורים ומדויקים. הרגשתי שהיא באמת מבינה איפה אני מתקשה ומתאימה את הקצב." },
+            { n:"נועה ל.", t:"הכנה מצוינת לפסיכומטרי. קיבלתי 740 בזכותה!" },
+          ].map((r,i) => (
+            <Reveal key={i} delay={i*.05}>
+              <Glass lift style={{ padding:24 }}>
+                <div style={{ color:"#FF9500", fontSize:13, marginBottom:8, letterSpacing:3 }}>★★★★★</div>
+                <p style={{ fontSize:15, color:"#424245", lineHeight:1.75, marginBottom:10 }}>״{r.t}״</p>
+                <div style={{ fontSize:13, fontWeight:700, color:"#007AFF" }}>— {r.n}</div>
+              </Glass>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+/* ═══════ BOOKING ═══════ */
+function Booking({ availability, bookings, onBook }) {
+  const today = new Date();
+  const [yr, setYr] = useState(today.getFullYear());
+  const [mo, setMo] = useState(today.getMonth());
+  const [selDate, setSelDate] = useState(null);
+  const [selTime, setSelTime] = useState(null);
+  const [form, setForm] = useState({ name:"", phone:"", subject:SUBJECTS[0], notes:"" });
+  const [step, setStep] = useState(1);
+
+  const booked = useMemo(() => { const m = {}; bookings.forEach(b => { if (b.status !== "cancelled") m[`${b.date}_${b.time}`] = true; }); return m; }, [bookings]);
+  const getSlots = useCallback(ds => { const d = parseD(ds); const a = availability[d.getDay()]; if (!a?.enabled) return []; return (a.slots||[]).filter(s => !booked[`${ds}_${s}`]); }, [availability, booked]);
+  const isPast = d => { const x = new Date(yr,mo,d); const t = new Date(); t.setHours(0,0,0,0); return x < t; };
+  const hasSlots = d => !isPast(d) && getSlots(fmtDate(new Date(yr,mo,d))).length > 0;
+
+  const dim = daysIn(yr, mo); const fd = firstDay(yr, mo);
+  const cells = []; for (let i=0;i<fd;i++) cells.push(null); for (let i=1;i<=dim;i++) cells.push(i);
+  const goMo = dir => { if (dir<0) { if(mo===0){setMo(11);setYr(y=>y-1)}else setMo(m=>m-1) } else { if(mo===11){setMo(0);setYr(y=>y+1)}else setMo(m=>m+1) }};
+
+  const submit = () => { if (!form.name.trim()||!form.phone.trim()) return; onBook({ id:uid(), date:selDate, time:selTime, ...form, status:"confirmed", createdAt:new Date().toISOString() }); };
+
+  return (
+    <div style={{ maxWidth:480, margin:"0 auto", padding:"36px 20px" }}>
+      <Reveal>
+        <h2 style={{ fontSize:34, fontWeight:900, textAlign:"center", marginBottom:4, letterSpacing:"-.04em" }}>קביעת שיעור</h2>
+        <p style={{ textAlign:"center", color:"#86868b", fontSize:15, marginBottom:28 }}>בחרו תאריך ושעה פנויים</p>
+      </Reveal>
+
+      {/* Steps */}
+      <Reveal delay={.04}>
+        <div style={{ display:"flex", justifyContent:"center", alignItems:"center", marginBottom:28 }}>
+          {["תאריך","שעה","פרטים"].map((s,i) => (
+            <div key={s} style={{ display:"flex", alignItems:"center" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:5, opacity:step>=i+1?1:.35, transition:"opacity .5s" }}>
+                <div style={{
+                  width:26, height:26, borderRadius:"50%", display:"flex", alignItems:"center", justifyContent:"center",
+                  fontSize:11, fontWeight:700, color:"#fff",
+                  background: step>i+1 ? "#34C759" : step===i+1 ? "#007AFF" : "rgba(0,0,0,.1)",
+                  boxShadow: step===i+1 ? "0 2px 10px rgba(0,122,255,.32)" : "none",
+                  transition:"all .5s cubic-bezier(.25,.46,.45,.94)"
+                }}>{step>i+1?"✓":i+1}</div>
+                <span style={{ fontSize:13, fontWeight:step===i+1?700:500, color:step===i+1?"#1d1d1f":"#86868b" }}>{s}</span>
+              </div>
+              {i<2 && <div style={{ width:24, height:.5, background:"rgba(0,0,0,.1)", margin:"0 6px" }} />}
+            </div>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Step 1 */}
+      {step === 1 && (
+        <Reveal>
+          <Glass style={{ padding:22 }}>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:18 }}>
+              <button onClick={() => goMo(1)} style={{ background:"rgba(0,0,0,.04)", border:"none", borderRadius:10, width:34, height:34, cursor:"pointer", fontSize:15, color:"#86868b", display:"flex", alignItems:"center", justifyContent:"center" }}>›</button>
+              <h3 style={{ fontSize:17, fontWeight:700, letterSpacing:"-.02em" }}>{MONTHS_HEB[mo]} {yr}</h3>
+              <button onClick={() => goMo(-1)} style={{ background:"rgba(0,0,0,.04)", border:"none", borderRadius:10, width:34, height:34, cursor:"pointer", fontSize:15, color:"#86868b", display:"flex", alignItems:"center", justifyContent:"center" }}>‹</button>
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(7,1fr)", gap:2, marginBottom:4 }}>
+              {DAYS_SHORT.map(d => <div key={d} style={{ textAlign:"center", fontSize:11, fontWeight:600, color:"#86868b", padding:5 }}>{d}</div>)}
+            </div>
+            <div style={{ display:"grid", gridTemplateColumns:"repeat(7,1fr)", gap:3 }}>
+              {cells.map((day,i) => {
+                if (!day) return <div key={`e${i}`} />;
+                const avail = hasSlots(day), past = isPast(day);
+                const ds = fmtDate(new Date(yr,mo,day)), sel = selDate===ds;
+                const isToday = fmtDate(today)===ds;
+                return (
+                  <button key={i} disabled={!avail||past} onClick={() => { setSelDate(ds); setSelTime(null); setStep(2); }} style={{
+                    aspectRatio:"1", borderRadius:13, border:"none",
+                    background: sel ? "#007AFF" : isToday ? "rgba(0,122,255,.06)" : avail ? "rgba(0,0,0,.025)" : "transparent",
+                    color: sel ? "#fff" : past ? "rgba(0,0,0,.12)" : avail ? "#1d1d1f" : "rgba(0,0,0,.18)",
+                    fontWeight: avail||isToday ? 600 : 400, fontSize:14,
+                    cursor: avail ? "pointer" : "default", position:"relative",
+                    transition:"all .3s cubic-bezier(.25,.46,.45,.94)",
+                    boxShadow: sel ? "0 2px 10px rgba(0,122,255,.28)" : "none"
+                  }}>
+                    {day}
+                    {avail && !sel && <div style={{ position:"absolute", bottom:4, left:"50%", transform:"translateX(-50%)", width:4, height:4, borderRadius:"50%", background:"#34C759", animation:"gentlePulse 2.5s ease infinite", animationDelay:`${day%7*.15}s` }} />}
+                  </button>
+                );
+              })}
+            </div>
+            <div style={{ display:"flex", gap:14, justifyContent:"center", marginTop:16, fontSize:11, color:"#86868b" }}>
+              <span style={{ display:"flex", alignItems:"center", gap:4 }}><span style={{ width:5, height:5, borderRadius:"50%", background:"#34C759" }} />פנוי</span>
+              <span style={{ display:"flex", alignItems:"center", gap:4 }}><span style={{ width:5, height:5, borderRadius:"50%", background:"rgba(0,0,0,.12)" }} />לא זמין</span>
+            </div>
+          </Glass>
+        </Reveal>
+      )}
+
+      {/* Step 2 */}
+      {step === 2 && selDate && (
+        <Reveal>
+          <Glass style={{ padding:22 }}>
+            <button onClick={() => setStep(1)} style={{ background:"none", border:"none", color:"#007AFF", fontSize:13, fontWeight:600, cursor:"pointer", marginBottom:12 }}>← חזרה ללוח שנה</button>
+            <h3 style={{ fontSize:19, fontWeight:700, marginBottom:3, letterSpacing:"-.02em" }}>בחירת שעה</h3>
+            <p style={{ color:"#86868b", fontSize:14, marginBottom:18 }}>
+              {(() => { const d = parseD(selDate); return `יום ${DAYS_HEB[d.getDay()]}, ${d.getDate()} ב${MONTHS_HEB[d.getMonth()]}`; })()}
+            </p>
+            {(() => {
+              const sl = getSlots(selDate);
+              if (!sl.length) return <p style={{ color:"#86868b", textAlign:"center", padding:20 }}>אין שעות פנויות</p>;
+              return (
+                <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(76px,1fr))", gap:7 }}>
+                  {sl.map(s => (
+                    <button key={s} onClick={() => { setSelTime(s); setStep(3); }} style={{
+                      background: selTime===s ? "#007AFF" : "rgba(0,0,0,.025)", color: selTime===s ? "#fff" : "#1d1d1f",
+                      border: selTime===s ? "none" : ".5px solid rgba(0,0,0,.06)",
+                      borderRadius:12, padding:"13px 4px", fontSize:16, fontWeight:600, cursor:"pointer",
+                      transition:"all .3s cubic-bezier(.25,.46,.45,.94)",
+                      boxShadow: selTime===s ? "0 2px 10px rgba(0,122,255,.28)" : "none"
+                    }}>{s}</button>
+                  ))}
+                </div>
+              );
+            })()}
+          </Glass>
+        </Reveal>
+      )}
+
+      {/* Step 3 */}
+      {step === 3 && selDate && selTime && (
+        <Reveal>
+          <Glass style={{ padding:22 }}>
+            <button onClick={() => setStep(2)} style={{ background:"none", border:"none", color:"#007AFF", fontSize:13, fontWeight:600, cursor:"pointer", marginBottom:12 }}>← חזרה לבחירת שעה</button>
+            <h3 style={{ fontSize:19, fontWeight:700, marginBottom:3, letterSpacing:"-.02em" }}>פרטי התלמיד</h3>
+            <p style={{ color:"#86868b", fontSize:14, marginBottom:20 }}>
+              {(() => { const d = parseD(selDate); return `יום ${DAYS_HEB[d.getDay()]}, ${d.getDate()} ב${MONTHS_HEB[d.getMonth()]} · ${selTime}`; })()}
+            </p>
+            <div style={{ display:"flex", flexDirection:"column", gap:14 }}>
+              <div>
+                <label style={{ fontSize:13, fontWeight:600, color:"#424245", marginBottom:5, display:"block" }}>שם מלא *</label>
+                <input className="input-apple" value={form.name} onChange={e => setForm({...form, name:e.target.value})} placeholder="שם התלמיד/ה" />
+              </div>
+              <div>
+                <label style={{ fontSize:13, fontWeight:600, color:"#424245", marginBottom:5, display:"block" }}>טלפון *</label>
+                <input className="input-apple" type="tel" value={form.phone} onChange={e => setForm({...form, phone:e.target.value})} placeholder="050-0000000" />
+              </div>
+              <div>
+                <label style={{ fontSize:13, fontWeight:600, color:"#424245", marginBottom:5, display:"block" }}>מקצוע</label>
+                <select className="input-apple" value={form.subject} onChange={e => setForm({...form, subject:e.target.value})}>
+                  {SUBJECTS.map(s => <option key={s} value={s}>{s}</option>)}
+                </select>
+              </div>
+              <div>
+                <label style={{ fontSize:13, fontWeight:600, color:"#424245", marginBottom:5, display:"block" }}>הערות</label>
+                <textarea className="input-apple" style={{ minHeight:76, resize:"vertical" }} value={form.notes} onChange={e => setForm({...form, notes:e.target.value})} placeholder="נושאים, רמה, דרישות מיוחדות..." />
+              </div>
+              <div style={{ background:"rgba(0,0,0,.02)", borderRadius:13, padding:"13px 16px", display:"flex", justifyContent:"space-between", fontSize:14, border:".5px solid rgba(0,0,0,.04)" }}>
+                <span style={{ color:"#86868b" }}>עלות השיעור</span>
+                <span style={{ fontWeight:700 }}>{TUTOR.price} · {TUTOR.duration}</span>
+              </div>
+              <button className="btn-primary" onClick={submit} disabled={!form.name.trim()||!form.phone.trim()} style={{ width:"100%", marginTop:2 }}>
+                אישור וקביעת שיעור
+              </button>
+            </div>
+          </Glass>
+        </Reveal>
+      )}
+    </div>
+  );
+}
+
+/* ═══════ ADMIN ═══════ */
+function Admin({ auth, setAuth, bookings, saveBk, availability, saveAv, notify }) {
+  const [pin, setPin] = useState("");
+  const [tab, setTab] = useState("bookings");
+
+  if (!auth) return (
+    <div style={{ maxWidth:320, margin:"80px auto", padding:"0 20px", textAlign:"center" }}>
+      <Reveal>
+        <div style={{ width:68, height:68, borderRadius:20, margin:"0 auto 18px", background:"linear-gradient(135deg,#007AFF,#5856D6)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:30, boxShadow:"0 6px 24px rgba(0,122,255,.22)" }}>🔐</div>
+        <h2 style={{ fontSize:24, fontWeight:800, marginBottom:18, letterSpacing:"-.03em" }}>כניסת מנהל</h2>
+        <input type="password" value={pin} placeholder="קוד גישה" className="input-apple"
+          onChange={e => setPin(e.target.value)} onKeyDown={e => { if(e.key==="Enter"&&pin===ADMIN_PIN) setAuth(true); }}
+          style={{ textAlign:"center", letterSpacing:10, fontSize:20, marginBottom:10 }} />
+        <button className="btn-primary" onClick={() => { if(pin===ADMIN_PIN) setAuth(true); else notify("קוד שגוי","error"); }} style={{ width:"100%", borderRadius:14 }}>כניסה</button>
+      </Reveal>
+    </div>
+  );
+
+  const ct = bookings.filter(b => b.status==="confirmed" && b.date>=fmtDate(new Date())).length;
+
+  return (
+    <div style={{ maxWidth:680, margin:"0 auto", padding:"28px 20px" }}>
+      <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:22 }}>
+        <h2 style={{ fontSize:28, fontWeight:900, letterSpacing:"-.04em" }}>לוח בקרה</h2>
+        <button onClick={() => setAuth(false)} style={{ background:"rgba(0,0,0,.04)", border:"none", borderRadius:10, padding:"7px 16px", fontSize:12, color:"#86868b", cursor:"pointer", fontWeight:600 }}>התנתק</button>
+      </div>
+      <div style={{ display:"flex", gap:2, background:"rgba(0,0,0,.04)", borderRadius:11, padding:2.5, marginBottom:22 }}>
+        {[{id:"bookings",l:"שיעורים",b:ct},{id:"availability",l:"זמינות"}].map(t => (
+          <button key={t.id} onClick={() => setTab(t.id)} style={{
+            flex:1, background:tab===t.id?"rgba(255,255,255,.88)":"transparent",
+            boxShadow:tab===t.id?"0 .5px 4px rgba(0,0,0,.06)":"none",
+            color:tab===t.id?"#1d1d1f":"#86868b", border:"none", borderRadius:9,
+            padding:10, fontSize:14, fontWeight:600, cursor:"pointer",
+            transition:"all .3s cubic-bezier(.25,.46,.45,.94)"
+          }}>{t.l}{t.b>0&&<span style={{ background:"#007AFF", color:"#fff", borderRadius:7, padding:"1px 7px", fontSize:11, fontWeight:700, marginRight:5 }}>{t.b}</span>}</button>
+        ))}
+      </div>
+
+      {tab==="bookings" && <BkTab bookings={bookings} saveBk={saveBk} notify={notify} />}
+      {tab==="availability" && <AvTab availability={availability} saveAv={saveAv} notify={notify} />}
+    </div>
+  );
+}
+
+function BkTab({ bookings, saveBk, notify }) {
+  const td = fmtDate(new Date());
+  const sorted = [...bookings].sort((a,b) => a.date!==b.date?(a.date>b.date?1:-1):(a.time>b.time?1:-1));
+  const up = sorted.filter(b => b.status==="confirmed" && b.date>=td);
+  const hist = sorted.filter(b => b.status==="cancelled" || b.date<td);
+  const cancel = id => { saveBk(bookings.map(b => b.id===id?{...b,status:"cancelled"}:b)); notify("השיעור בוטל"); };
+  const del = id => { saveBk(bookings.filter(b => b.id!==id)); notify("הרשומה נמחקה"); };
+
+  const card = b => {
+    const d = parseD(b.date), cn = b.status==="cancelled";
+    return (
+      <Glass key={b.id} style={{ padding:18, opacity:cn?.5:1, transition:"opacity .3s" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-start", flexWrap:"wrap", gap:6 }}>
+          <div>
+            <div style={{ fontWeight:700, fontSize:15, marginBottom:2 }}>{b.name}</div>
+            <div style={{ fontSize:12, color:"#86868b" }}>יום {DAYS_HEB[d.getDay()]}, {d.getDate()} ב{MONTHS_HEB[d.getMonth()]} · {b.time}</div>
+            <div style={{ fontSize:12, color:"#86868b", marginTop:1 }}>{b.subject} · {b.phone}</div>
+            {b.notes && <div style={{ fontSize:12, color:"#aeaeb2", marginTop:3, fontStyle:"italic" }}>{b.notes}</div>}
+          </div>
+          <span style={{
+            background: cn ? "rgba(255,59,48,.08)" : "rgba(52,199,89,.08)",
+            color: cn ? "#FF3B30" : "#34C759",
+            padding:"3px 10px", borderRadius:100, fontSize:11, fontWeight:600
+          }}>{cn?"בוטל":"מאושר"}</span>
+        </div>
+        <div style={{ display:"flex", gap:5, marginTop:12 }}>
+          {!cn && <button onClick={() => cancel(b.id)} style={{ background:"rgba(255,149,0,.08)", color:"#FF9500", border:"none", borderRadius:8, padding:"5px 12px", fontSize:12, fontWeight:600, cursor:"pointer" }}>ביטול</button>}
+          <button onClick={() => del(b.id)} style={{ background:"rgba(255,59,48,.06)", color:"#FF3B30", border:"none", borderRadius:8, padding:"5px 12px", fontSize:12, fontWeight:600, cursor:"pointer" }}>מחיקה</button>
+          <a href={`https://wa.me/972${b.phone.replace(/\D/g,"").replace(/^0/,"")}`} target="_blank" rel="noreferrer" style={{ textDecoration:"none" }}>
+            <button style={{ background:"rgba(52,199,89,.06)", color:"#34C759", border:"none", borderRadius:8, padding:"5px 12px", fontSize:12, fontWeight:600, cursor:"pointer" }}>WhatsApp</button>
+          </a>
+        </div>
+      </Glass>
+    );
+  };
+
+  return (
+    <div>
+      <h3 style={{ fontSize:16, fontWeight:700, marginBottom:10 }}>שיעורים קרובים ({up.length})</h3>
+      {up.length === 0 ? (
+        <Glass style={{ padding:"36px 20px", textAlign:"center" }}>
+          <div style={{ fontSize:32, marginBottom:6 }}>📭</div>
+          <p style={{ color:"#86868b", fontSize:14 }}>אין שיעורים מתוכננים</p>
+        </Glass>
+      ) : (
+        <div style={{ display:"flex", flexDirection:"column", gap:8 }}>{up.map(card)}</div>
+      )}
+      {hist.length > 0 && (
+        <>
+          <h3 style={{ fontSize:16, fontWeight:700, marginTop:24, marginBottom:10 }}>היסטוריה ({hist.length})</h3>
+          <div style={{ display:"flex", flexDirection:"column", gap:8 }}>{hist.map(card)}</div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function AvTab({ availability, saveAv, notify }) {
+  const toggle = d => { const c = availability[d]||{enabled:false,slots:[]}; saveAv({...availability,[d]:{...c,enabled:!c.enabled}}); };
+  const toggleSlot = (d,s) => { const c = availability[d]||{enabled:true,slots:[]}; const sl = c.slots||[]; saveAv({...availability,[d]:{...c,slots:sl.includes(s)?sl.filter(x=>x!==s):[...sl,s].sort()}}); };
+  const allOn = d => { const c = availability[d]||{enabled:true,slots:[]}; saveAv({...availability,[d]:{...c,slots:[...TIME_SLOTS]}}); };
+  const allOff = d => { const c = availability[d]||{enabled:true,slots:[]}; saveAv({...availability,[d]:{...c,slots:[]}}); };
+
+  return (
+    <div>
+      <p style={{ color:"#86868b", fontSize:14, marginBottom:18, lineHeight:1.65 }}>
+        הגדירו שעות פנויות בכל יום. התלמידים יראו רק את השעות שנבחרו.
+      </p>
+      <div style={{ display:"flex", flexDirection:"column", gap:8 }}>
+        {[0,1,2,3,4,5,6].map(di => {
+          const dd = availability[di]||{enabled:false,slots:[]};
+          return (
+            <Glass key={di} style={{ padding:18, opacity:dd.enabled?1:.5, transition:"opacity .4s" }}>
+              <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:dd.enabled?12:0, transition:"margin .3s" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:10 }}>
+                  {/* Apple toggle */}
+                  <button onClick={() => toggle(di)} aria-label={`Toggle ${DAYS_HEB[di]}`} style={{
+                    width:46, height:27, borderRadius:14, border:"none",
+                    background: dd.enabled ? "#34C759" : "rgba(0,0,0,.1)",
+                    cursor:"pointer", position:"relative",
+                    transition:"background .35s cubic-bezier(.25,.46,.45,.94)",
+                    boxShadow:"inset 0 0 0 .5px rgba(0,0,0,.04)"
+                  }}>
+                    <div style={{
+                      width:23, height:23, borderRadius:12, background:"#fff",
+                      position:"absolute", top:2,
+                      right: dd.enabled ? 2 : "auto", left: dd.enabled ? "auto" : 2,
+                      transition:"all .35s cubic-bezier(.25,.46,.45,.94)",
+                      boxShadow:"0 2px 6px rgba(0,0,0,.15), 0 0 0 .5px rgba(0,0,0,.04)"
+                    }} />
+                  </button>
+                  <span style={{ fontWeight:700, fontSize:15 }}>יום {DAYS_HEB[di]}</span>
+                  {dd.enabled && dd.slots?.length > 0 && <span style={{ fontSize:12, color:"#86868b" }}>{dd.slots.length} שעות</span>}
+                </div>
+                {dd.enabled && (
+                  <div style={{ display:"flex", gap:4 }}>
+                    <button onClick={() => allOn(di)} style={{ background:"rgba(0,122,255,.06)", color:"#007AFF", border:"none", borderRadius:7, padding:"3px 8px", fontSize:11, fontWeight:600, cursor:"pointer" }}>הכל</button>
+                    <button onClick={() => allOff(di)} style={{ background:"rgba(255,59,48,.06)", color:"#FF3B30", border:"none", borderRadius:7, padding:"3px 8px", fontSize:11, fontWeight:600, cursor:"pointer" }}>נקה</button>
+                  </div>
+                )}
+              </div>
+              {dd.enabled && (
+                <div style={{ display:"flex", flexWrap:"wrap", gap:4 }}>
+                  {TIME_SLOTS.map(s => {
+                    const on = (dd.slots||[]).includes(s);
+                    return (
+                      <button key={s} onClick={() => toggleSlot(di,s)} style={{
+                        background: on ? "#007AFF" : "rgba(0,0,0,.025)",
+                        color: on ? "#fff" : "#86868b",
+                        border: on ? "none" : ".5px solid rgba(0,0,0,.05)",
+                        borderRadius:8, padding:"6px 9px", minWidth:50,
+                        fontSize:12, fontWeight:on?600:400, cursor:"pointer",
+                        transition:"all .25s cubic-bezier(.25,.46,.45,.94)",
+                        boxShadow: on ? "0 1px 5px rgba(0,122,255,.22)" : "none"
+                      }}>{s}</button>
+                    );
+                  })}
+                </div>
+              )}
+            </Glass>
+          );
+        })}
+      </div>
+      <button className="btn-primary" onClick={() => notify("הזמינות נשמרה")} style={{ width:"100%", marginTop:18, borderRadius:14 }}>שמירת שינויים</button>
+    </div>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(TutorSite));
+
+</script>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @keyframes monoFloat { 0%{transform:translate(-50%,-50%) translateY(0)} 100%{transform:translate(-50%,-50%) translateY(-26px)} }
+  @keyframes monoPulse { 0%,100%{opacity:.35} 50%{opacity:1} }
+  @keyframes monoFadeUp { 0%{transform:translateY(14px)} 100%{transform:translateY(0)} }
+  @keyframes monoSpin { to { transform: rotate(360deg) } }
+  @keyframes monoRise { 0%{transform:translateY(28px) scale(.95)} 100%{transform:translateY(0) scale(1)} }
+  @keyframes monoStageIn { 0%{transform:translateY(8px)} 100%{transform:translateY(0)} }
+  @keyframes monoBlink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  @keyframes monoSweep { 0%{transform:translateX(-120%)} 100%{transform:translateX(320%)} }
+  html, body { margin:0; background:#FAFAFA; }
+  body { -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+  ::selection { background: rgba(97,85,245,.18); }
+  textarea::placeholder, input::placeholder { color: rgba(0,0,0,0.32); }
+</style>
+</helmet>
+
+<div style="position:relative; min-height:100vh; overflow-x:hidden; background:#FAFAFA; color:rgba(0,0,0,0.85); font-family:-apple-system,BlinkMacFont,'SF Pro Text','SF Pro Display','Inter Tight','Segoe UI',system-ui,sans-serif;">
+
+<!-- ========================= LANDING ========================= -->
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div data-screen-label="Landing">
+
+  <sc-if value="{{ showOrbs }}" hint-placeholder-val="{{ true }}">
+  <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0;">
+    <div style="position:absolute; left:11%; top:24%; width:140px; height:140px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 32% 30%, #FFFFFF 0%, #6155F5 35%, #6155F5 60%, rgba(0,0,0,0.25) 100%); box-shadow:inset -8px -16px 30px rgba(0,0,0,0.18), inset 6px 8px 20px rgba(255,255,255,0.45), 0 24px 60px rgba(97,85,245,0.33); animation:monoFloat 9s cubic-bezier(0.32,0.72,0,1) 0s infinite alternate;"></div>
+    <div style="position:absolute; left:89%; top:20%; width:104px; height:104px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 32% 30%, #FFFFFF 0%, #32ADE6 35%, #32ADE6 60%, rgba(0,0,0,0.25) 100%); box-shadow:inset -8px -16px 30px rgba(0,0,0,0.18), inset 6px 8px 20px rgba(255,255,255,0.45), 0 24px 60px rgba(50,173,230,0.33); animation:monoFloat 10s cubic-bezier(0.32,0.72,0,1) 1.2s infinite alternate;"></div>
+    <div style="position:absolute; left:7%; top:74%; width:84px; height:84px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 32% 30%, #FFFFFF 0%, #34C759 35%, #34C759 60%, rgba(0,0,0,0.25) 100%); box-shadow:inset -8px -16px 30px rgba(0,0,0,0.18), inset 6px 8px 20px rgba(255,255,255,0.45), 0 24px 60px rgba(52,199,89,0.3); animation:monoFloat 11s cubic-bezier(0.32,0.72,0,1) 2.4s infinite alternate; filter:blur(1px);"></div>
+    <div style="position:absolute; left:93%; top:78%; width:120px; height:120px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 32% 30%, #FFFFFF 0%, #AF52DE 35%, #AF52DE 60%, rgba(0,0,0,0.25) 100%); box-shadow:inset -8px -16px 30px rgba(0,0,0,0.18), inset 6px 8px 20px rgba(255,255,255,0.45), 0 24px 60px rgba(175,82,222,0.3); animation:monoFloat 9.5s cubic-bezier(0.32,0.72,0,1) 0.6s infinite alternate;"></div>
+    <div style="position:absolute; left:24%; top:9%; width:60px; height:60px; transform:translate(-50%,-50%); border-radius:50%; background:radial-gradient(circle at 32% 30%, #FFFFFF 0%, #FF9500 35%, #FF9500 60%, rgba(0,0,0,0.25) 100%); box-shadow:inset -8px -16px 30px rgba(0,0,0,0.18), inset 6px 8px 20px rgba(255,255,255,0.45), 0 24px 60px rgba(255,149,0,0.28); animation:monoFloat 8.5s cubic-bezier(0.32,0.72,0,1) 1.8s infinite alternate; filter:blur(1.5px);"></div>
+  </div>
+  </sc-if>
+
+  <nav style="position:fixed; top:14px; left:50%; transform:translateX(-50%); z-index:100; display:flex; align-items:center; gap:16px; padding:8px 8px 8px 18px; border-radius:999px; background:rgba(255,255,255,0.62); -webkit-backdrop-filter:saturate(180%) blur(28px); backdrop-filter:saturate(180%) blur(28px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.6), inset 0 1px 0 rgba(255,255,255,0.85), 0 0 0 0.5px rgba(0,0,0,0.06), 0 12px 30px rgba(0,0,0,0.08);">
+    <div style="display:flex; align-items:center; gap:8px;">
+      <img src="assets/logo.svg" width="22" height="22" alt="" />
+      <span style="font:600 15px/1 system-ui; letter-spacing:-0.01em;">Mono</span>
+    </div>
+    <span style="width:0.5px; height:18px; background:rgba(0,0,0,0.12);"></span>
+    <div style="display:flex; gap:2px;">
+      <a style="flex:none; white-space:nowrap; padding:6px 12px; border-radius:999px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.85); text-decoration:none;">How it works</a>
+      <a style="flex:none; white-space:nowrap; padding:6px 12px; border-radius:999px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.85); text-decoration:none;">Platforms</a>
+      <a style="flex:none; white-space:nowrap; padding:6px 12px; border-radius:999px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.85); text-decoration:none;">Pricing</a>
+    </div>
+    <button onClick="{{ focusComposer }}" style="flex:none; white-space:nowrap; display:inline-flex; align-items:center; gap:6px; height:32px; padding:0 16px; border:none; border-radius:999px; background:#6155F5; color:#fff; font:600 13px/1 system-ui; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), 0 6px 18px rgba(97,85,245,0.35);">Start building</button>
+  </nav>
+
+  <section style="position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; padding:150px 24px 0;">
+    <div style="display:inline-flex; align-items:center; gap:8px; padding:6px 14px; border-radius:999px; background:rgba(255,255,255,0.7); -webkit-backdrop-filter:saturate(180%) blur(14px); backdrop-filter:saturate(180%) blur(14px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.8), 0 0 0 0.5px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.06); font:500 12px/1 system-ui; color:rgba(0,0,0,0.5); margin-bottom:34px;">
+      <span style="width:6px; height:6px; border-radius:999px; background:#6155F5;"></span>
+      One prompt · Five platforms · Identical
+    </div>
+
+    <h1 style="margin:0; font:700 clamp(52px,8.5vw,108px)/0.95 -apple-system,'SF Pro Display','Inter Tight',system-ui,sans-serif; letter-spacing:-0.04em; max-width:14ch; background:linear-gradient(180deg,#0A0A0B 0%,#3A3A44 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">Describe it once. Ship it everywhere.</h1>
+
+    <p style="margin:26px auto 0; max-width:620px; font:400 19px/1.5 system-ui; color:rgba(0,0,0,0.5);">Mono turns a single prompt into a landing page, a web app, and native iPhone, iPad, Android and Watch apps — one design system, pixel-identical on every screen.</p>
+
+    <div ref="{{ composerRef }}" style="margin:40px auto 0; width:min(700px,94vw); text-align:left; border-radius:22px; padding:14px; background:rgba(255,255,255,0.65); -webkit-backdrop-filter:saturate(180%) blur(28px); backdrop-filter:saturate(180%) blur(28px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.6), inset 0 1px 0 rgba(255,255,255,0.85), 0 0 0 0.5px rgba(0,0,0,0.06), 0 24px 60px rgba(0,0,0,0.12);">
+      <div style="display:flex; align-items:center; gap:8px; padding:4px 6px 10px;">
+        <span style="color:#6155F5; display:flex;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 12l1-2.5L8.5 8.5 6 7.5 5 5 4 7.5 1.5 8.5 4 9.5 5 12zm14 0 1-2.5 2.5-1-2.5-1L19 5l-1 2.5-2.5 1 2.5 1L19 12zm-7 10 1.5-4 4-1.5-4-1.5L12 11l-1.5 4-4 1.5 4 1.5L12 22z"></path></svg></span>
+        <span style="font:600 13px/1 system-ui; color:rgba(0,0,0,0.5);">Describe the product you want to build</span>
+      </div>
+      <textarea ref="{{ inputRef }}" value="{{ prompt }}" onChange="{{ setPrompt }}" rows="3" placeholder="A calm meditation app called Tide with daily guided sessions and a soft teal theme…" style="width:100%; resize:none; border:none; outline:none; background:#fff; border-radius:14px; padding:14px 16px; font:400 16px/1.5 system-ui; color:rgba(0,0,0,0.85); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.04); box-sizing:border-box;"></textarea>
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; flex-wrap:wrap;">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <sc-for list="{{ chips }}" as="c" hint-placeholder-count="6">
+            <button onClick="{{ c.set }}" style="border:none; cursor:pointer; padding:7px 12px; border-radius:999px; background:rgba(120,120,128,0.12); font:500 12px/1 system-ui; color:rgba(0,0,0,0.6);" style-hover="background:rgba(120,120,128,0.2)">{{ c.label }}</button>
+          </sc-for>
+        </div>
+        <button onClick="{{ startBuild }}" style="display:inline-flex; align-items:center; gap:7px; height:42px; padding:0 20px; border:none; border-radius:12px; background:#6155F5; color:#fff; font:600 15px/1 system-ui; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), 0 8px 24px rgba(97,85,245,0.4);">Generate
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15"></path><path d="m13 5 7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top:18px; font:500 12px/1 system-ui; color:rgba(0,0,0,0.35); display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;">
+      <span>Website</span><span style="opacity:.4;">·</span><span>iPad</span><span style="opacity:.4;">·</span><span>iPhone</span><span style="opacity:.4;">·</span><span>Android</span><span style="opacity:.4;">·</span><span>Watch</span><span style="opacity:.4;">·</span><span style="color:#6155F5;">all identical</span>
+    </div>
+  </section>
+
+  <section style="position:relative; z-index:2; display:flex; justify-content:center; padding:64px 24px 70px;">
+    <div style="width:min(1000px,94vw); border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.08), 0 30px 80px rgba(0,0,0,0.16), 0 60px 160px rgba(97,85,245,0.14);">
+      <div style="display:flex; align-items:center; gap:8px; padding:11px 14px; background:#F2F2F2; border-bottom:0.5px solid rgba(0,0,0,0.08);">
+        <span style="width:12px; height:12px; border-radius:999px; background:#FF5F57;"></span>
+        <span style="width:12px; height:12px; border-radius:999px; background:#FEBC2E;"></span>
+        <span style="width:12px; height:12px; border-radius:999px; background:#28C840;"></span>
+        <div style="flex:1; display:flex; justify-content:center;">
+          <div style="display:flex; align-items:center; gap:6px; padding:4px 14px; border-radius:999px; background:#fff; font:500 12px/1 system-ui; color:rgba(0,0,0,0.5); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.1);">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor" style="color:rgba(0,0,0,0.35);"><path d="M17 11V8a5 5 0 1 0-10 0v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zm-8-3a3 3 0 1 1 6 0v3H9z"></path></svg>
+            mono.app/studio
+          </div>
+        </div>
+      </div>
+      <div style="display:flex; min-height:380px; background:#FAFAFA;">
+        <aside style="width:220px; padding:16px; background:#F7F7F8; border-right:0.5px solid rgba(0,0,0,0.07); display:flex; flex-direction:column; gap:6px;">
+          <div style="font:700 10px/1 system-ui; letter-spacing:0.06em; text-transform:uppercase; color:rgba(0,0,0,0.3); padding:4px 8px 8px;">Project</div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; background:rgba(97,85,245,0.1); font:600 13px/1 system-ui; color:#6155F5;"><span style="width:7px; height:7px; border-radius:999px; background:#6155F5;"></span>Prompt</div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.6);"><span style="width:7px; height:7px; border-radius:999px; background:rgba(0,0,0,0.18);"></span>Design system</div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.6);"><span style="width:7px; height:7px; border-radius:999px; background:rgba(0,0,0,0.18);"></span>Website</div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.6);"><span style="width:7px; height:7px; border-radius:999px; background:rgba(0,0,0,0.18);"></span>iPhone</div>
+          <div style="display:flex; align-items:center; gap:10px; padding:8px 10px; border-radius:8px; font:500 13px/1 system-ui; color:rgba(0,0,0,0.6);"><span style="width:7px; height:7px; border-radius:999px; background:rgba(0,0,0,0.18);"></span>Android</div>
+        </aside>
+        <div style="flex:1; padding:28px 32px; display:flex; flex-direction:column; gap:18px;">
+          <div style="font:700 10px/1 system-ui; letter-spacing:0.06em; text-transform:uppercase; color:rgba(0,0,0,0.3);">Live preview · synced</div>
+          <div style="display:grid; grid-template-columns:1.4fr 0.8fr 0.8fr; gap:16px;">
+            <div style="border-radius:12px; background:#fff; aspect-ratio:16/11; padding:14px; box-shadow:0 0 0 0.5px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06);">
+              <div style="width:38%; height:7px; border-radius:4px; background:#6155F5;"></div>
+              <div style="width:70%; height:14px; border-radius:4px; background:rgba(0,0,0,0.78); margin-top:14px;"></div>
+              <div style="width:52%; height:14px; border-radius:4px; background:rgba(0,0,0,0.78); margin-top:6px;"></div>
+              <div style="width:90px; height:24px; border-radius:8px; background:#6155F5; margin-top:16px;"></div>
+            </div>
+            <div style="border-radius:14px; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06); aspect-ratio:9/18; padding:10px;">
+              <div style="width:50%; height:6px; border-radius:3px; background:#6155F5;"></div>
+              <div style="width:80%; height:9px; border-radius:3px; background:rgba(0,0,0,0.78); margin-top:10px;"></div>
+              <div style="width:100%; height:42px; border-radius:10px; background:#6155F5; margin-top:12px;"></div>
+              <div style="width:100%; height:7px; border-radius:3px; background:rgba(0,0,0,0.1); margin-top:12px;"></div>
+              <div style="width:80%; height:7px; border-radius:3px; background:rgba(0,0,0,0.1); margin-top:7px;"></div>
+            </div>
+            <div style="border-radius:14px; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.06); aspect-ratio:9/18; padding:10px;">
+              <div style="width:50%; height:6px; border-radius:3px; background:#6155F5;"></div>
+              <div style="width:80%; height:9px; border-radius:3px; background:rgba(0,0,0,0.78); margin-top:10px;"></div>
+              <div style="width:100%; height:42px; border-radius:10px; background:#6155F5; margin-top:12px;"></div>
+              <div style="width:100%; height:7px; border-radius:3px; background:rgba(0,0,0,0.1); margin-top:12px;"></div>
+              <div style="width:80%; height:7px; border-radius:3px; background:rgba(0,0,0,0.1); margin-top:7px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer style="position:relative; z-index:2; padding:30px 24px 56px; text-align:center; font:400 13px/1.5 system-ui; color:rgba(0,0,0,0.4);">
+    <div style="display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:8px;">
+      <img src="assets/logo.svg" width="18" height="18" alt="" /><span style="font:600 13px/1 system-ui; color:rgba(0,0,0,0.6);">Mono</span>
+    </div>
+    One source of truth. Every platform, in sync.
+  </footer>
+</div>
+</sc-if>
+
+<!-- ========================= GENERATING ========================= -->
+<sc-if value="{{ isGenerating }}">
+<div data-screen-label="Generating" style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:48px 24px; background:#FAFAFA;">
+  <div style="width:min(940px,96vw); animation:{{ stageAnim }};">
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;">
+      <img src="assets/logo.svg" width="22" height="22" alt="" />
+      <span style="font:700 11px/1 system-ui; letter-spacing:0.07em; text-transform:uppercase; color:rgba(0,0,0,0.4);">Mono is building</span>
+    </div>
+
+    <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px;">
+      <span style="font:700 13px/1 system-ui; color:rgba(0,0,0,0.78);">{{ currentStep }}</span>
+      <span style="font:700 26px/1 -apple-system,'SF Pro Display',system-ui,sans-serif; letter-spacing:-0.02em; color:#6155F5;">{{ progressLabel }}</span>
+    </div>
+    <div style="height:8px; border-radius:999px; background:rgba(0,0,0,0.07); overflow:hidden;">
+      <div style="height:100%; border-radius:999px; background:linear-gradient(90deg,#6155F5,#9747FF); width:{{ progressPct }}; transition:width 0.18s linear;"></div>
+    </div>
+
+    <!-- split: code stream + live preview -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:22px;">
+      <!-- code editor -->
+      <div style="border-radius:16px; overflow:hidden; background:#0E0E12; box-shadow:0 0 0 0.5px rgba(0,0,0,0.2), 0 18px 44px rgba(0,0,0,0.22); min-height:280px;">
+        <div style="display:flex; align-items:center; gap:7px; padding:10px 13px; background:#17171D; border-bottom:0.5px solid rgba(255,255,255,0.06);">
+          <span style="width:10px; height:10px; border-radius:999px; background:#FF5F57;"></span>
+          <span style="width:10px; height:10px; border-radius:999px; background:#FEBC2E;"></span>
+          <span style="width:10px; height:10px; border-radius:999px; background:#28C840;"></span>
+          <span style="margin-left:8px; font:500 11px/1 ui-monospace,'SF Mono',Menlo,monospace; color:rgba(255,255,255,0.4);">App.shared.jsx</span>
+        </div>
+        <div style="padding:16px 18px; font:500 13px/1.7 ui-monospace,'SF Mono',Menlo,monospace; color:rgba(255,255,255,0.82);">
+          <sc-for list="{{ codeVisible }}" as="ln" hint-placeholder-count="5">
+            <div style="white-space:pre; color:{{ ln.color }};">{{ ln.text }}</div>
+          </sc-for>
+          <sc-if value="{{ building }}"><div style="white-space:pre; color:#9747FF;"><span style="display:inline-block; width:8px; height:15px; background:#9747FF; vertical-align:-2px; animation:monoBlink 1s step-end infinite;"></span></div></sc-if>
+        </div>
+      </div>
+
+      <!-- live preview filling in -->
+      <div style="border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.08), 0 18px 44px rgba(0,0,0,0.14); min-height:280px; --acc:{{ accent }};">
+        <div style="display:flex; align-items:center; gap:7px; padding:10px 13px; background:#EDEDEF; border-bottom:0.5px solid rgba(0,0,0,0.07);">
+          <span style="display:inline-flex; align-items:center; gap:6px; padding:3px 12px; border-radius:999px; background:#fff; font:500 11px/1 system-ui; color:rgba(0,0,0,0.45); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.1);">{{ domain }}</span>
+          <span style="margin-left:auto; font:600 10px/1 system-ui; color:#34C759; display:inline-flex; align-items:center; gap:5px;"><span style="width:6px; height:6px; border-radius:999px; background:#34C759;"></span>live</span>
+        </div>
+        <div style="padding:22px 22px 26px; min-height:220px;">
+          <sc-if value="{{ pvHero }}"><div style="animation:monoFadeUp .4s cubic-bezier(.32,.72,0,1) both;">
+            <div style="font:700 9px/1 system-ui; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc);">{{ prod.eyebrow }}</div>
+            <div style="font:700 30px/1.0 -apple-system,'SF Pro Display','Inter Tight',system-ui,sans-serif; letter-spacing:-0.03em; color:rgba(0,0,0,0.88); margin-top:10px;">{{ prod.heroTitle }}</div>
+          </div></sc-if>
+          <sc-if value="{{ pvHero }}"><div style="height:7px; width:60%; border-radius:4px; background:rgba(0,0,0,0.08); margin-top:14px;"></div></sc-if>
+          <sc-if value="{{ pvCard }}"><div style="margin-top:18px; border-radius:14px; padding:14px; background:var(--acc); box-shadow:0 10px 24px rgba(0,0,0,0.12); animation:monoFadeUp .4s cubic-bezier(.32,.72,0,1) both;">
+            <div style="font:600 9px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,255,255,0.8);">{{ prod.featLabel }}</div>
+            <div style="font:700 16px/1.15 system-ui; color:#fff; margin-top:7px;">{{ prod.featTitle }}</div>
+            <div style="font:400 11px/1 system-ui; color:rgba(255,255,255,0.85); margin-top:4px;">{{ prod.featMeta }}</div>
+          </div></sc-if>
+          <sc-if value="{{ pvTabs }}"><div style="display:flex; gap:8px; margin-top:16px; animation:monoFadeUp .4s cubic-bezier(.32,.72,0,1) both;">
+            <span style="flex:1; height:30px; border-radius:8px; background:var(--acc); opacity:0.14;"></span>
+            <span style="flex:1; height:30px; border-radius:8px; background:rgba(0,0,0,0.05);"></span>
+            <span style="flex:1; height:30px; border-radius:8px; background:rgba(0,0,0,0.05);"></span>
+          </div></sc-if>
+        </div>
+      </div>
+    </div>
+
+    <!-- platform chips -->
+    <div style="display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;">
+      <sc-for list="{{ plats }}" as="p" hint-placeholder-count="4">
+        <div style="flex:1; min-width:120px; display:flex; align-items:center; gap:8px; padding:11px 14px; border-radius:12px; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.05);">
+          <span style="width:18px; height:18px; border-radius:999px; display:flex; align-items:center; justify-content:center; background:{{ p.dotBg }};">
+            <sc-if value="{{ p.done }}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-12"></path></svg></sc-if>
+            <sc-if value="{{ p.busy }}"><span style="width:12px; height:12px; border-radius:999px; border:2px solid rgba(97,85,245,0.25); border-top-color:#6155F5; animation:monoSpin 0.7s linear infinite;"></span></sc-if>
+          </span>
+          <span style="font:600 12px/1 system-ui; color:{{ p.labelColor }};">{{ p.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ========================= RESULT ========================= -->
+<sc-if value="{{ isResult }}">
+<div data-screen-label="Result" style="--acc:{{ accent }}; min-height:100vh; background:#F5F5F7; padding:0 0 90px; animation:{{ stageAnim }};">
+
+  <div style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:14px 24px; background:rgba(255,255,255,0.7); -webkit-backdrop-filter:saturate(180%) blur(28px); backdrop-filter:saturate(180%) blur(28px); box-shadow:0 0.5px 0 rgba(0,0,0,0.08);">
+    <div style="display:flex; align-items:center; gap:12px; min-width:0;">
+      <img src="assets/logo.svg" width="22" height="22" alt="" />
+      <span style="font:600 14px/1 system-ui;">Mono</span>
+      <span style="width:0.5px; height:18px; background:rgba(0,0,0,0.12);"></span>
+      <span style="display:inline-flex; align-items:center; gap:6px; font:500 13px/1 system-ui; color:#34C759;"><span style="width:7px; height:7px; border-radius:999px; background:#34C759;"></span>Built · 5 platforms in sync</span>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <button onClick="{{ editPrompt }}" style="height:34px; padding:0 16px; border:none; border-radius:999px; background:#fff; font:600 13px/1 system-ui; color:rgba(0,0,0,0.85); cursor:pointer; box-shadow:0 0 0 0.5px rgba(0,0,0,0.12), 0 1px 1px rgba(0,0,0,0.04);">Edit prompt</button>
+      <button style="height:34px; padding:0 18px; border:none; border-radius:999px; background:#6155F5; color:#fff; font:600 13px/1 system-ui; cursor:pointer; box-shadow:inset 0 1px 0 rgba(255,255,255,0.3), 0 6px 18px rgba(97,85,245,0.35);">Publish</button>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding:44px 24px 8px;">
+    <h2 style="margin:0; font:700 clamp(34px,4.5vw,52px)/1.05 -apple-system,'SF Pro Display','Inter Tight',system-ui,sans-serif; letter-spacing:-0.03em; color:rgba(0,0,0,0.88);">{{ name }} is live</h2>
+    <p style="margin:14px auto 0; max-width:560px; font:400 17px/1.5 system-ui; color:rgba(0,0,0,0.5);">Same design system across every platform. Edit it live below — or tap inside the phones to navigate. They stay in sync.</p>
+  </div>
+
+  <!-- LIVE EDIT TOOLBAR -->
+  <div style="display:flex; justify-content:center; padding:22px 24px 0;">
+    <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:center; padding:12px 16px; border-radius:18px; background:rgba(255,255,255,0.72); -webkit-backdrop-filter:saturate(180%) blur(24px); backdrop-filter:saturate(180%) blur(24px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.7), 0 0 0 0.5px rgba(0,0,0,0.06), 0 12px 30px rgba(0,0,0,0.1);">
+      <span style="font:700 10px/1 system-ui; letter-spacing:0.06em; text-transform:uppercase; color:rgba(0,0,0,0.4);">Live edit</span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font:500 12px/1 system-ui; color:rgba(0,0,0,0.5);">Name</span>
+        <input value="{{ editName }}" onChange="{{ setEditName }}" placeholder="{{ prod.name }}" style="width:140px; height:32px; border:none; outline:none; border-radius:9px; padding:0 12px; background:#fff; font:600 13px/1 system-ui; color:rgba(0,0,0,0.85); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.12);" />
+      </div>
+      <span style="width:0.5px; height:22px; background:rgba(0,0,0,0.12);"></span>
+      <div style="display:flex; align-items:center; gap:8px;">
+        <span style="font:500 12px/1 system-ui; color:rgba(0,0,0,0.5);">Accent</span>
+        <div style="display:flex; gap:7px;">
+          <sc-for list="{{ swatches }}" as="s" hint-placeholder-count="6">
+            <button onClick="{{ s.set }}" title="{{ s.color }}" style="width:24px; height:24px; border-radius:999px; cursor:pointer; border:none; background:{{ s.color }}; box-shadow:{{ s.ring }};" style-hover="transform:scale(1.12)"></button>
+          </sc-for>
+        </div>
+      </div>
+      <span style="width:0.5px; height:22px; background:rgba(0,0,0,0.12);"></span>
+      <button onClick="{{ resetEdit }}" style="height:30px; padding:0 13px; border:none; border-radius:999px; background:rgba(120,120,128,0.12); font:600 12px/1 system-ui; color:rgba(0,0,0,0.6); cursor:pointer;">Reset</button>
+    </div>
+  </div>
+
+  <!-- DEVICE WALL -->
+  <div style="display:flex; gap:40px; align-items:flex-start; justify-content:center; flex-wrap:wrap; padding:46px 24px 0;">
+
+    <!-- WEBSITE -->
+    <div style="flex:none; animation:{{ rise1 }};">
+      <div style="display:flex; align-items:center; gap:7px; margin:0 0 14px 4px; font:600 11px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(0,0,0,0.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="15" rx="2"></rect><path d="M3 9h18"></path></svg>Website</div>
+      <div style="width:520px; max-width:88vw; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.1), 0 24px 60px rgba(0,0,0,0.16);">
+        <div style="display:flex; align-items:center; gap:7px; padding:10px 13px; background:#EDEDEF; border-bottom:0.5px solid rgba(0,0,0,0.07);">
+          <span style="width:11px; height:11px; border-radius:999px; background:#FF5F57;"></span>
+          <span style="width:11px; height:11px; border-radius:999px; background:#FEBC2E;"></span>
+          <span style="width:11px; height:11px; border-radius:999px; background:#28C840;"></span>
+          <div style="flex:1; display:flex; justify-content:center;"><div style="padding:3px 14px; border-radius:999px; background:#fff; font:500 11px/1 system-ui; color:rgba(0,0,0,0.45); box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.1);">{{ domain }}</div></div>
+        </div>
+        <div style="background:#F6FAFB; padding:18px 26px 30px;">
+          <div style="display:flex; align-items:center; justify-content:space-between;">
+            <div style="display:flex; align-items:center; gap:8px;"><span style="width:22px; height:22px; border-radius:999px; background:var(--acc); display:flex; align-items:center; justify-content:center;"><span style="width:9px; height:9px; border-radius:999px; background:#fff;"></span></span><span style="font:700 15px/1 system-ui; color:rgba(0,0,0,0.85);">{{ name }}</span></div>
+            <div style="display:flex; align-items:center; gap:16px;"><span style="font:500 12px/1 system-ui; color:rgba(0,0,0,0.55);">{{ prod.nav1 }}</span><span style="font:500 12px/1 system-ui; color:rgba(0,0,0,0.55);">{{ prod.nav2 }}</span><span style="padding:7px 14px; border-radius:999px; background:var(--acc); color:#fff; font:600 12px/1 system-ui;">{{ prod.navCta }}</span></div>
+          </div>
+          <div style="text-align:center; padding:40px 0 28px;">
+            <div style="font:700 10px/1 system-ui; letter-spacing:0.08em; text-transform:uppercase; color:var(--acc); margin-bottom:14px;">{{ prod.eyebrow }}</div>
+            <div style="font:700 46px/1.0 -apple-system,'SF Pro Display','Inter Tight',system-ui,sans-serif; letter-spacing:-0.03em; color:rgba(0,0,0,0.88);">{{ prod.heroTitle }}</div>
+            <div style="margin:16px auto 0; max-width:320px; font:400 14px/1.5 system-ui; color:rgba(0,0,0,0.5);">{{ prod.heroSub }}</div>
+            <div style="display:flex; gap:10px; justify-content:center; margin-top:22px;">
+              <span style="padding:11px 22px; border-radius:12px; background:var(--acc); color:#fff; font:600 14px/1 system-ui; box-shadow:0 8px 20px rgba(0,0,0,0.12);">{{ prod.ctaPrimary }}</span>
+              <span style="padding:11px 20px; border-radius:12px; background:#fff; color:rgba(0,0,0,0.8); font:600 14px/1 system-ui; box-shadow:0 0 0 0.5px rgba(0,0,0,0.12);">{{ prod.ctaSecondary }}</span>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:14px; padding:14px; border-radius:16px; background:#fff; box-shadow:0 0 0 0.5px rgba(0,0,0,0.05), 0 12px 30px rgba(0,0,0,0.08);">
+            <span style="width:46px; height:46px; flex:none; border-radius:999px; background:var(--acc); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.15);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"></path></svg></span>
+            <div style="flex:1;"><div style="font:700 14px/1.2 system-ui; color:rgba(0,0,0,0.85);">{{ prod.featTitle }}</div><div style="font:400 12px/1.3 system-ui; color:rgba(0,0,0,0.45); margin-top:2px;">{{ prod.featMeta }}</div></div>
+            <div style="font:600 12px/1 system-ui; color:var(--acc);">{{ prod.featCta }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iPAD -->
+    <div style="flex:none; animation:{{ rise2 }};">
+      <div style="display:flex; align-items:center; gap:7px; margin:0 0 14px 4px; font:600 11px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(0,0,0,0.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect></svg>iPad</div>
+      <div style="width:520px; max-width:88vw; border-radius:26px; padding:11px; background:#0A0A0B; box-shadow:0 0 0 0.5px rgba(0,0,0,0.3), 0 24px 60px rgba(0,0,0,0.26);">
+        <div style="border-radius:16px; overflow:hidden; background:#F6FAFB; height:360px; display:flex;">
+          <div style="width:158px; flex:none; background:rgba(255,255,255,0.7); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); border-right:0.5px solid rgba(0,0,0,0.07); padding:16px 12px; display:flex; flex-direction:column; gap:4px;">
+            <div style="display:flex; align-items:center; gap:8px; padding:0 6px 14px;"><span style="width:18px; height:18px; border-radius:999px; background:var(--acc); display:flex; align-items:center; justify-content:center;"><span style="width:7px; height:7px; border-radius:999px; background:#fff;"></span></span><span style="font:700 14px/1 system-ui; color:rgba(0,0,0,0.85);">{{ name }}</span></div>
+            <div style="display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:9px; background:var(--acc); color:#fff; font:600 12px/1 system-ui;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M11.3 2.6 3.4 9.1A2 2 0 0 0 2.7 10.7V20a1.6 1.6 0 0 0 1.6 1.6H8.4A1 1 0 0 0 9.4 20.6v-4.7a1 1 0 0 1 1-1h3.2a1 1 0 0 1 1 1V20.6a1 1 0 0 0 1 1H19.7A1.6 1.6 0 0 0 21.3 20v-9.3a2 2 0 0 0-.7-1.6L12.7 2.6a1.2 1.2 0 0 0-1.4 0z"></path></svg>{{ prod.tab1 }}</div>
+            <div style="display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:9px; color:rgba(0,0,0,0.6); font:500 12px/1 system-ui;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M4 5h16v3H4zM4 10.5h16v3H4zM4 16h16v3H4z"></path></svg>{{ prod.tab2 }}</div>
+            <div style="display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:9px; color:rgba(0,0,0,0.6); font:500 12px/1 system-ui;"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"></circle><path d="M4 21a8 8 0 0 1 16 0z"></path></svg>{{ prod.tab3 }}</div>
+          </div>
+          <div style="flex:1; padding:20px 22px; overflow:hidden;">
+            <div style="font:500 12px/1 system-ui; color:rgba(0,0,0,0.45);">{{ prod.greeting }}</div>
+            <div style="font:700 24px/1.1 -apple-system,'SF Pro Display','Inter Tight',system-ui,sans-serif; letter-spacing:-0.02em; color:rgba(0,0,0,0.88); margin-top:3px;">{{ prod.screenTitle }}</div>
+            <div style="margin-top:14px; border-radius:16px; padding:16px; background:var(--acc); box-shadow:0 12px 28px rgba(0,0,0,0.16);">
+              <div style="font:600 9px/1 system-ui; letter-spacing:0.06em; text-transform:uppercase; color:rgba(255,255,255,0.8);">{{ prod.featLabel }}</div>
+              <div style="font:700 18px/1.15 system-ui; color:#fff; margin-top:7px;">{{ prod.featTitle }}</div>
+              <div style="font:400 12px/1 system-ui; color:rgba(255,255,255,0.85); margin-top:4px;">{{ prod.featMeta }}</div>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:14px;">
+              <div style="flex:1; display:flex; align-items:center; gap:10px;"><span style="width:32px; height:32px; flex:none; border-radius:10px; background:rgba(0,0,0,0.05); display:flex; align-items:center; justify-content:center; color:var(--acc);"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"></path></svg></span><span><span style="display:block; font:600 12px/1.2 system-ui; color:rgba(0,0,0,0.85);">{{ it0.title }}</span><span style="display:block; font:400 10px/1.2 system-ui; color:rgba(0,0,0,0.42); margin-top:2px;">{{ it0.meta }}</span></span></div>
+              <div style="flex:1; display:flex; align-items:center; gap:10px;"><span style="width:32px; height:32px; flex:none; border-radius:10px; background:rgba(0,0,0,0.05); display:flex; align-items:center; justify-content:center; color:var(--acc);"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M7 4v16l13-8z"></path></svg></span><span><span style="display:block; font:600 12px/1.2 system-ui; color:rgba(0,0,0,0.85);">{{ it1.title }}</span><span style="display:block; font:400 10px/1.2 system-ui; color:rgba(0,0,0,0.42); margin-top:2px;">{{ it1.meta }}</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- iPHONE -->
+    <div style="flex:none; animation:{{ rise3 }};">
+      <div style="display:flex; align-items:center; gap:7px; margin:0 0 14px 4px; font:600 11px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(0,0,0,0.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"></rect><path d="M11 18h2"></path></svg>iPhone</div>
+      <div style="width:248px; border-radius:46px; padding:11px; background:#0A0A0B; box-shadow:0 0 0 0.5px rgba(0,0,0,0.3), 0 24px 60px rgba(0,0,0,0.28);">
+        <div style="position:relative; border-radius:36px; overflow:hidden; background:#F6FAFB; height:512px; display:flex; flex-direction:column;">
+          <div style="position:absolute; top:9px; left:50%; transform:translateX(-50%); width:84px; height:24px; border-radius:999px; background:#0A0A0B; z-index:10;"></div>
+          <div style="flex:none; display:flex; align-items:center; justify-content:space-between; padding:13px 22px 6px; font:700 11px/1 system-ui; color:rgba(0,0,0,0.85);"><span>9:41</span><span style="display:flex; gap:4px; align-items:center;"><svg width="15" height="11" viewBox="0 0 18 12" fill="rgba(0,0,0,0.8)"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4" width="3" height="8" rx="1"></rect><rect x="10" y="1" width="3" height="11" rx="1"></rect></svg><svg width="16" height="11" viewBox="0 0 20 14" fill="rgba(0,0,0,0.8)"><path d="M10 3C6.5 3 3.6 4.3 1.5 6.3l1.6 1.6C4.9 6.2 7.3 5 10 5s5.1 1.2 6.9 2.9l1.6-1.6C16.4 4.3 13.5 3 10 3z"></path></svg><span style="width:22px; height:11px; border-radius:3px; border:1px solid rgba(0,0,0,0.4); position:relative;"><span style="position:absolute; inset:1.5px; right:5px; background:rgba(0,0,0,0.8); border-radius:1px;"></span></span></span></div>
+          <div style="flex:1; min-height:0;">
+            <dc-import name="AppScreen" prod="{{ prod }}" accent="{{ accent }}" screen="{{ appScreen }}" on-nav="{{ navApp }}" hint-size="226px,460px"></dc-import>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ANDROID -->
+    <div style="flex:none; animation:{{ rise4 }};">
+      <div style="display:flex; align-items:center; gap:7px; margin:0 0 14px 4px; font:600 11px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(0,0,0,0.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"></rect></svg>Android</div>
+      <div style="width:248px; border-radius:34px; padding:8px; background:#0A0A0B; box-shadow:0 0 0 0.5px rgba(0,0,0,0.3), 0 24px 60px rgba(0,0,0,0.28);">
+        <div style="position:relative; border-radius:28px; overflow:hidden; background:#F6FAFB; height:512px; display:flex; flex-direction:column;">
+          <div style="flex:none; position:relative; display:flex; align-items:center; justify-content:space-between; padding:11px 18px 6px; font:600 11px/1 system-ui; color:rgba(0,0,0,0.85);">
+            <span>9:41</span>
+            <span style="position:absolute; top:11px; left:50%; transform:translateX(-50%); width:9px; height:9px; border-radius:999px; background:#0A0A0B;"></span>
+            <span style="display:flex; gap:5px; align-items:center;"><svg width="14" height="11" viewBox="0 0 18 12" fill="rgba(0,0,0,0.8)"><rect x="0" y="7" width="3" height="5" rx="1"></rect><rect x="5" y="4" width="3" height="8" rx="1"></rect><rect x="10" y="1" width="3" height="11" rx="1"></rect></svg><svg width="15" height="11" viewBox="0 0 20 14" fill="rgba(0,0,0,0.8)"><path d="M10 3C6.5 3 3.6 4.3 1.5 6.3l1.6 1.6C4.9 6.2 7.3 5 10 5s5.1 1.2 6.9 2.9l1.6-1.6C16.4 4.3 13.5 3 10 3z"></path></svg><span style="width:20px; height:11px; border-radius:2px; background:rgba(0,0,0,0.8);"></span></span>
+          </div>
+          <div style="flex:1; min-height:0;">
+            <dc-import name="AppScreen" prod="{{ prod }}" accent="{{ accent }}" screen="{{ appScreen }}" on-nav="{{ navApp }}" hint-size="232px,466px"></dc-import>
+          </div>
+          <span style="position:absolute; bottom:3px; left:50%; transform:translateX(-50%); width:90px; height:3px; border-radius:999px; background:rgba(0,0,0,0.3); z-index:20;"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- APPLE WATCH -->
+    <div style="flex:none; animation:{{ rise5 }};">
+      <div style="display:flex; align-items:center; gap:7px; margin:0 0 14px 4px; font:600 11px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(0,0,0,0.4);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="6" width="10" height="12" rx="3"></rect><path d="M9 6l1-3h4l1 3M9 18l1 3h4l1-3"></path></svg>Watch</div>
+      <div style="width:168px; border-radius:42px; padding:8px; background:#0A0A0B; box-shadow:0 0 0 0.5px rgba(0,0,0,0.3), 0 24px 60px rgba(0,0,0,0.28);">
+        <div style="border-radius:36px; overflow:hidden; background:#000; height:200px; padding:16px 16px 0; box-sizing:border-box;">
+          <div style="display:flex; align-items:center; justify-content:space-between;"><span style="font:700 12px/1 system-ui; color:var(--acc);">9:41</span><span style="font:600 10px/1 system-ui; color:rgba(255,255,255,0.5);">{{ name }}</span></div>
+          <div style="margin-top:14px; font:600 9px/1 system-ui; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,255,255,0.45);">{{ prod.watchMeta }}</div>
+          <div style="font:700 16px/1.15 -apple-system,'SF Pro Display',system-ui,sans-serif; letter-spacing:-0.01em; color:#fff; margin-top:5px;">{{ prod.watchTitle }}</div>
+          <div style="display:flex; align-items:center; gap:12px; margin-top:16px;">
+            <span style="width:46px; height:46px; border-radius:999px; background:var(--acc); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 16px rgba(0,0,0,0.4);"><svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M7 4v16l13-8z"></path></svg></span>
+            <div style="flex:1; height:6px; border-radius:999px; background:rgba(255,255,255,0.15); overflow:hidden;"><span style="display:block; width:42%; height:100%; border-radius:999px; background:var(--acc);"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- sync note -->
+  <div style="display:flex; justify-content:center; margin-top:48px;">
+    <div style="display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:center; padding:14px 22px; border-radius:999px; background:rgba(255,255,255,0.7); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.7), 0 0 0 0.5px rgba(0,0,0,0.06), 0 10px 28px rgba(0,0,0,0.08); font:500 14px/1 system-ui; color:rgba(0,0,0,0.6);">
+      <span style="display:inline-flex; align-items:center; gap:7px;"><span style="width:8px; height:8px; border-radius:999px; background:var(--acc);"></span>Same components</span>
+      <span style="width:0.5px; height:16px; background:rgba(0,0,0,0.12);"></span>
+      <span style="display:inline-flex; align-items:center; gap:7px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 12.5 5 5 10-12"></path></svg>Tap a phone — both move together</span>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:30px;">
+    <button onClick="{{ startOver }}" style="height:40px; padding:0 22px; border:none; border-radius:999px; background:#fff; font:600 14px/1 system-ui; color:rgba(0,0,0,0.85); cursor:pointer; box-shadow:0 0 0 0.5px rgba(0,0,0,0.12), 0 2px 6px rgba(0,0,0,0.05);">Build another</button>
+  </div>
+
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1320, &quot;height&quot;: 920 },
+  &quot;demoProduct&quot;: {
+    &quot;editor&quot;: &quot;enum&quot;,
+    &quot;default&quot;: &quot;Auto&quot;,
+    &quot;tsType&quot;: &quot;string&quot;,
+    &quot;options&quot;: [&quot;Auto&quot;, &quot;Meditation&quot;, &quot;Coffee&quot;, &quot;Budget&quot;, &quot;Fitness&quot;, &quot;Food&quot;, &quot;Music&quot;]
+  },
+  &quot;showOrbs&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot; },
+  &quot;reduceMotion&quot;: { &quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot; }
+}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { screen: 'landing', prompt: '', progress: 0, appScreen: 'home', editName: '', editAccent: null };
+    this.inputRef = React.createRef();
+    this.composerRef = React.createRef();
+    this._timer = null;
+    this.steps = [
+      'Understanding your prompt',
+      'Designing the shared system',
+      'Generating the website',
+      'Compiling the native apps',
+      'Wiring the Watch & iPad',
+      'Syncing all platforms',
+    ];
+    this.PRODUCTS = {
+      meditation: { accent:'#30B0C7', name:'Tide', domain:'tide.app', navCta:'Get Tide', nav1:'Sessions', nav2:'Pricing', eyebrow:'Mindfulness, daily', heroTitle:'Find your calm.', heroSub:'Short guided sessions that fit into any part of your day.', ctaPrimary:'Start free', ctaSecondary:'Watch', greeting:'Good evening', screenTitle:'Today', featLabel:'Featured', featTitle:'Evening Unwind', featMeta:'12 min · Sleep', featCta:'Play', libraryTitle:'Sessions', items:[{title:'Morning Focus',meta:'8 min'},{title:'Deep Breathing',meta:'5 min'},{title:'Body Scan',meta:'15 min'},{title:'Walking Calm',meta:'10 min'}], detailDesc:'A slow, guided wind-down to release the day and ease into rest. Soft narration over ambient tones.', stat1l:'Minutes', stat1v:'12', stat2l:'Calm', stat2v:'+18%', profileInitial:'A', profileName:'Alex Rivera', profileSub:'7-day streak · Member', watchTitle:'Evening Unwind', watchMeta:'12 min · Sleep', tab1:'Home', tab2:'Sessions', tab3:'Profile', code:['<Hero','  title="Find your calm."','  accent="#30B0C7" />','<SessionCard','  title="Evening Unwind"','  duration={12} />','<TabBar items={3} />'] },
+      coffee: { accent:'#A2845E', name:'Roast', domain:'roastery.co', navCta:'Order', nav1:'Shop', nav2:'Subscriptions', eyebrow:'Small-batch, daily', heroTitle:'Brewed with care.', heroSub:'Single-origin beans roasted fresh and shipped to your door.', ctaPrimary:'Shop beans', ctaSecondary:'Our story', greeting:'Good morning', screenTitle:'Shop', featLabel:'This week', featTitle:'Ethiopia Yirgacheffe', featMeta:'Whole bean · 250g', featCta:'Add', libraryTitle:'Shop', items:[{title:'House Blend',meta:'$18'},{title:'Cold Brew Kit',meta:'$24'},{title:'Decaf Sumatra',meta:'$19'},{title:'Espresso Roast',meta:'$21'}], detailDesc:'Bright and floral with notes of jasmine and citrus. Roasted to order and shipped within 24 hours.', stat1l:'Per bag', stat1v:'$22', stat2l:'Roast', stat2v:'Light', profileInitial:'M', profileName:'Maya Cohen', profileSub:'Gold member · 14 orders', watchTitle:'Order ready', watchMeta:'Pickup 4:30', tab1:'Shop', tab2:'Browse', tab3:'Profile', code:['<Hero','  title="Brewed with care."','  accent="#A2845E" />','<ProductCard','  name="Yirgacheffe"','  price={22} />','<TabBar items={3} />'] },
+      budget: { accent:'#6155F5', name:'Ledger', domain:'ledger.app', navCta:'Get Ledger', nav1:'Features', nav2:'Pricing', eyebrow:'Money, clearly', heroTitle:'Spend with clarity.', heroSub:'Track spending and get weekly insights that keep you on plan.', ctaPrimary:'Start free', ctaSecondary:'See how', greeting:'Good evening', screenTitle:'Overview', featLabel:'This month', featTitle:'October Budget', featMeta:'$2,400 · On track', featCta:'View', libraryTitle:'Budgets', items:[{title:'Groceries',meta:'$320'},{title:'Transport',meta:'$140'},{title:'Dining',meta:'$210'},{title:'Subscriptions',meta:'$60'}], detailDesc:'You are pacing 12% under budget this month. Groceries and transport are your largest categories.', stat1l:'Spent', stat1v:'$1,980', stat2l:'Left', stat2v:'$420', profileInitial:'J', profileName:'Jordan Lee', profileSub:'Plus plan · 3 accounts', watchTitle:'Budget left', watchMeta:'October', tab1:'Home', tab2:'Budgets', tab3:'Profile', code:['<Hero','  title="Spend with clarity."','  accent="#6155F5" />','<BudgetRing','  spent={1980}','  total={2400} />','<TabBar items={3} />'] },
+      fitness: { accent:'#FF375F', name:'Pulse', domain:'pulse.fit', navCta:'Get Pulse', nav1:'Workouts', nav2:'Pricing', eyebrow:'Move, daily', heroTitle:'Train with intent.', heroSub:'Adaptive workouts that meet you where you are and push you forward.', ctaPrimary:'Start free', ctaSecondary:'Watch', greeting:'Good morning', screenTitle:'Today', featLabel:'Recommended', featTitle:'Full Body HIIT', featMeta:'28 min · Strength', featCta:'Start', libraryTitle:'Workouts', items:[{title:'Upper Body',meta:'22 min'},{title:'Core & Abs',meta:'15 min'},{title:'Mobility Flow',meta:'18 min'},{title:'Sprint Intervals',meta:'25 min'}], detailDesc:'A high-intensity full-body circuit. Twelve movements, three rounds, short rests to keep your heart rate up.', stat1l:'Minutes', stat1v:'28', stat2l:'Calories', stat2v:'~320', profileInitial:'S', profileName:'Sam Park', profileSub:'12-day streak · Pro', watchTitle:'Full Body HIIT', watchMeta:'28 min', tab1:'Today', tab2:'Workouts', tab3:'Profile', code:['<Hero','  title="Train with intent."','  accent="#FF375F" />','<WorkoutCard','  title="Full Body HIIT"','  minutes={28} />','<TabBar items={3} />'] },
+      food: { accent:'#FF9500', name:'Fork', domain:'fork.app', navCta:'Get Fork', nav1:'Restaurants', nav2:'Pricing', eyebrow:'Fresh, fast', heroTitle:'Dinner, delivered.', heroSub:'Your neighborhood favorites, brought to your door in minutes.', ctaPrimary:'Order now', ctaSecondary:'How it works', greeting:'Good evening', screenTitle:'Nearby', featLabel:'Featured', featTitle:'Sora Ramen House', featMeta:'25 min · $$ · Ramen', featCta:'Order', libraryTitle:'Restaurants', items:[{title:'Green Bowl',meta:'20 min · Salads'},{title:'Nonna\u2019s Pizza',meta:'30 min · Italian'},{title:'Taco Norte',meta:'18 min · Mexican'},{title:'Sushi Lab',meta:'35 min · Japanese'}], detailDesc:'Rich tonkotsu broth simmered 18 hours, house noodles, and seasonal toppings. A neighborhood favorite.', stat1l:'Delivery', stat1v:'25 min', stat2l:'Rating', stat2v:'4.8', profileInitial:'T', profileName:'Taylor Brooks', profileSub:'Fork+ · 42 orders', watchTitle:'On the way', watchMeta:'8 min away', tab1:'Nearby', tab2:'Browse', tab3:'Profile', code:['<Hero','  title="Dinner, delivered."','  accent="#FF9500" />','<RestaurantCard','  name="Sora Ramen"','  eta={25} />','<TabBar items={3} />'] },
+      music: { accent:'#AF52DE', name:'Wave', domain:'wave.fm', navCta:'Get Wave', nav1:'Browse', nav2:'Pricing', eyebrow:'Sound, everywhere', heroTitle:'Press play on more.', heroSub:'Millions of songs and podcasts, tuned to your taste, ad-free.', ctaPrimary:'Start free', ctaSecondary:'Watch', greeting:'Good evening', screenTitle:'Listen now', featLabel:'New release', featTitle:'Midnight Signals', featMeta:'Album · 11 tracks', featCta:'Play', libraryTitle:'Browse', items:[{title:'Focus Flow',meta:'Playlist'},{title:'The Daily',meta:'Podcast'},{title:'Late Night Jazz',meta:'Playlist'},{title:'Indie Discovery',meta:'Playlist'}], detailDesc:'The new record from an emerging artist — eleven tracks of late-night electronic textures and warm vocals.', stat1l:'Tracks', stat1v:'11', stat2l:'Length', stat2v:'44 min', profileInitial:'R', profileName:'Riley Stone', profileSub:'Premium · 320 saved', watchTitle:'Midnight Signals', watchMeta:'Now playing', tab1:'Listen', tab2:'Browse', tab3:'Profile', code:['<Hero','  title="Press play on more."','  accent="#AF52DE" />','<AlbumCard','  title="Midnight Signals"','  tracks={11} />','<TabBar items={3} />'] },
+    };
+  }
+
+  componentWillUnmount() { if (this._timer) clearInterval(this._timer); }
+
+  setPrompt = (e) => this.setState({ prompt: e.target.value });
+  setEx = (t) => () => { this.setState({ prompt: t }); if (this.inputRef.current) this.inputRef.current.focus(); };
+  focusComposer = () => { if (this.inputRef.current) this.inputRef.current.focus(); };
+  setEditName = (e) => this.setState({ editName: e.target.value });
+  setAccent = (c) => () => this.setState({ editAccent: c });
+  resetEdit = () => this.setState({ editName: '', editAccent: null });
+  navApp = (s) => this.setState({ appScreen: s });
+
+  detectKey() {
+    const forced = this.props.demoProduct;
+    if (forced && forced !== 'Auto') {
+      const m = { Meditation:'meditation', Coffee:'coffee', Budget:'budget', Fitness:'fitness', Food:'food', Music:'music' };
+      if (m[forced]) return m[forced];
+    }
+    const p = (this.state.prompt || '').toLowerCase();
+    if (/fitness|workout|gym|train|exercise|\brun\b|yoga|health/.test(p)) return 'fitness';
+    if (/food|deliver|restaurant|meal|\beat\b|dinner|recipe|kitchen|grocer/.test(p)) return 'food';
+    if (/music|podcast|song|audio|playlist|listen|radio|stream/.test(p)) return 'music';
+    if (/coffee|roast|espresso|caf|bean|latte|brew/.test(p)) return 'coffee';
+    if (/budget|spend|money|financ|expense|bank|saving|invoice/.test(p)) return 'budget';
+    return 'meditation';
+  }
+
+  startBuild = () => {
+    const reduce = !!this.props.reduceMotion;
+    let p = (this.state.prompt || '').trim();
+    if (!p) p = 'A calm meditation app called Tide with daily guided sessions and a soft teal theme.';
+    this.setState({ prompt: p, screen: 'generating', progress: 0, appScreen: 'home', editName: '', editAccent: null });
+    if (this._timer) clearInterval(this._timer);
+    const duration = reduce ? 1100 : 5200;
+    const hold = 480;
+    const start = Date.now();
+    this._timer = setInterval(() => {
+      const elapsed = Date.now() - start;
+      const pct = Math.min(100, (elapsed / duration) * 100);
+      if (elapsed >= duration + hold) {
+        clearInterval(this._timer); this._timer = null;
+        this.setState({ progress: 100, screen: 'result' });
+      } else {
+        this.setState({ progress: pct });
+      }
+    }, 60);
+  };
+
+  editPrompt = () => { if (this._timer) { clearInterval(this._timer); this._timer = null; } this.setState({ screen: 'landing', progress: 0 }); };
+  startOver = () => { if (this._timer) { clearInterval(this._timer); this._timer = null; } this.setState({ screen: 'landing', prompt: '', progress: 0, editName: '', editAccent: null }); };
+
+  renderVals() {
+    const screen = this.state.screen;
+    const progress = this.state.progress;
+    const reduce = !!this.props.reduceMotion;
+    const base = this.PRODUCTS[this.detectKey()];
+
+    const nameOverride = (this.state.editName || '').trim();
+    const name = nameOverride || base.name;
+    const accent = this.state.editAccent || base.accent;
+    const slug = nameOverride ? (nameOverride.toLowerCase().replace(/[^a-z0-9]+/g, '').slice(0, 16) || 'app') + '.app' : base.domain;
+    const prod = Object.assign({}, base, { name: name, domain: slug, accent: accent });
+
+    // generating: steps + chips + code + preview
+    const n = this.steps.length;
+    const curIdx = Math.min(n - 1, Math.floor(progress / (100 / n)));
+    const platState = (doneAt, busyAt) => progress >= doneAt ? 'done' : (progress >= busyAt ? 'busy' : 'pending');
+    const mkPlat = (nm, st) => ({ name: nm, done: st === 'done', busy: st === 'busy', dotBg: st === 'done' ? '#34C759' : (st === 'busy' ? 'rgba(97,85,245,0.14)' : 'rgba(0,0,0,0.08)'), labelColor: st === 'pending' ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.85)' });
+    const plats = [ mkPlat('Website', platState(45, 12)), mkPlat('iPhone', platState(66, 45)), mkPlat('Android', platState(86, 66)), mkPlat('Watch', platState(98, 86)) ];
+
+    const code = base.code;
+    const cn = Math.max(0, Math.min(code.length, Math.round((progress / 100) * code.length + 0.49)));
+    const codeVisible = code.slice(0, cn).map((t) => ({ text: t, color: /title=|accent=/.test(t) ? 'rgba(255,255,255,0.62)' : (/^</.test(t) ? '#9C7BFF' : 'rgba(255,255,255,0.82)') }));
+
+    const ease = 'cubic-bezier(.32,.72,0,1)';
+    const rise = (d) => reduce ? 'none' : ('monoRise .7s ' + ease + ' ' + d + 'ms both');
+
+    return {
+      isLanding: screen === 'landing',
+      isGenerating: screen === 'generating',
+      isResult: screen === 'result',
+      building: screen === 'generating' && progress < 100,
+      showOrbs: this.props.showOrbs ?? true,
+      prompt: this.state.prompt,
+      setPrompt: this.setPrompt,
+      inputRef: this.inputRef,
+      composerRef: this.composerRef,
+      focusComposer: this.focusComposer,
+      chips: [
+        { label: 'Meditation app', set: this.setEx('A calm meditation app called Tide with daily guided sessions and a soft teal theme.') },
+        { label: 'Coffee roastery', set: this.setEx('A specialty coffee roastery brand with a shop, subscriptions, and a warm minimal look.') },
+        { label: 'Budgeting app', set: this.setEx('A friendly budgeting app that tracks spending with weekly insights and a clean indigo theme.') },
+        { label: 'Fitness app', set: this.setEx('A fitness app with adaptive workouts, streaks, and a bold energetic look.') },
+        { label: 'Food delivery', set: this.setEx('A food delivery app for local restaurants with fast delivery and a warm orange theme.') },
+        { label: 'Music app', set: this.setEx('A music and podcast streaming app with playlists tuned to your taste and a purple theme.') },
+      ],
+      startBuild: this.startBuild,
+      editPrompt: this.editPrompt,
+      startOver: this.startOver,
+      currentStep: this.steps[curIdx],
+      progressLabel: Math.round(progress) + '%',
+      progressPct: Math.round(progress) + '%',
+      plats,
+      codeVisible,
+      pvHero: progress > 18,
+      pvCard: progress > 46,
+      pvTabs: progress > 72,
+      // result
+      prod, accent, name,
+      domain: prod.domain,
+      it0: base.items[0] || {},
+      it1: base.items[1] || {},
+      appScreen: this.state.appScreen,
+      navApp: this.navApp,
+      editName: this.state.editName,
+      setEditName: this.setEditName,
+      resetEdit: this.resetEdit,
+      swatches: ['#30B0C7','#6155F5','#34C759','#FF9500','#AF52DE','#FF375F'].map((c) => ({ color: c, set: this.setAccent(c), ring: accent === c ? '0 0 0 2px #fff, 0 0 0 4px ' + c : 'inset 0 0 0 0.5px rgba(0,0,0,0.12)' })),
+      stageAnim: reduce ? 'none' : ('monoStageIn .45s ' + ease + ' both'),
+      rise1: rise(0), rise2: rise(80), rise3: rise(160), rise4: rise(240), rise5: rise(320),
+    };
+  }
+}
+</script>
+</body>
+</html>

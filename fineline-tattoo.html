@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>פיין ליין — קעקועים</title>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.26.4/babel.min.js"></script>
+<style>*{margin:0;padding:0;box-sizing:border-box} body{font-family:-apple-system,system-ui,"Heebo",sans-serif}</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useCallback } = React;
+
+
+const BRAND = {
+  name: "FINE LINE",
+  nameHe: "פיין ליין",
+  tagline: "קעקועים שנולדו מדיוק",
+  sub: "סטודיו בוטיק לאמנות קעקוע עדינה ומותאמת אישית",
+  phone: "052-8887766",
+  phoneFull: "+972528887766",
+  email: "hello@fineline.co.il",
+  address: "שדרות רוטשילד 42, תל אביב",
+  ig: "@fineline.tlv",
+};
+
+const SERVICES = [
+  { title: "קעקוע מינימליסטי", desc: "קווים דקים, צורות נקיות ועיצובים עדינים שמדברים בשקט", icon: "◯", price: "מ-₪350" },
+  { title: "פלורל ובוטני", desc: "פרחים, עלים ומוטיבים מהטבע בסגנון אורגני ועדין", icon: "❋", price: "מ-₪600" },
+  { title: "ריאליזם עדין", desc: "דיוקנאות ופרטים ריאליסטיים עם נגיעה אמנותית רכה", icon: "◉", price: "מ-₪900" },
+  { title: "כיתוב ולטרינג", desc: "אותיות מעוצבות, משפטים ומילים בטיפוגרפיה ייחודית", icon: "Aa", price: "מ-₪300" },
+  { title: "גיאומטרי", desc: "צורות הנדסיות, דפוסים מתמטיים וסימטריה מדויקת", icon: "⬡", price: "מ-₪500" },
+  { title: "כיסוי ותיקון", desc: "שדרוג או כיסוי של קעקועים ישנים ברגישות ומקצועיות", icon: "↻", price: "בהתאמה" },
+];
+
+const WORKS = Array.from({ length: 8 }, (_, i) => ({
+  id: i,
+  hue: [210, 250, 190, 340, 30, 170, 280, 150][i],
+  sat: [12, 8, 10, 6, 14, 9, 7, 11][i],
+  label: ["מינימליסטי", "גיאומטרי", "פלורל", "כיתוב", "ריאליזם", "בוטני", "אבסטרקטי", "קעקוע עדין"][i],
+}));
+
+const REVIEWS = [
+  { name: "שירה ל.", role: "מעצבת גרפית", text: "הסטודיו הכי נקי ומקצועי שהייתי בו. התהליך היה רגוע ונעים, והתוצאה — מושלמת. פשוט אומנות.", stars: 5 },
+  { name: "תומר ג.", role: "מפתח תוכנה", text: "ביקשתי משהו מינימליסטי ודק. הוא הביא את זה לרמה שלא חשבתי שאפשרית. אמנות עדינה ברמה אחרת.", stars: 5 },
+  { name: "נעמה ק.", role: "אדריכלית", text: "היחס האישי, הסבלנות והדיוק — מרגישים שכל קו נעשה עם כוונה. כבר מתכננת את הבא.", stars: 5 },
+  { name: "עידו מ.", role: "צלם", text: "אחרי חודשים של התלבטות מצאתי את המקום המדויק. המקצועיות והאסתטיקה פה ברמה אחרת לגמרי.", stars: 5 },
+];
+
+const FAQS = [
+  { q: "איך מתחילים?", a: "שולחים הודעה בוואטסאפ או ממלאים טופס. קובעים פגישת ייעוץ חינם שבה מדברים על הרעיון, מיקום, גודל ועיצוב." },
+  { q: "כמה זמן ההחלמה?", a: "בין שבועיים לארבעה שבועות. בפגישה תקבלו הנחיות מפורטות לטיפול נכון כדי שהתוצאה תהיה מושלמת." },
+  { q: "האם זה כואב?", a: "תלוי במיקום ובאדם. רוב הלקוחות שלנו מתארים תחושה נסבלת לחלוטין. קעקועים עדינים נוטים להיות פחות כואבים." },
+  { q: "מה לגבי היגיינה?", a: "כל הציוד חד-פעמי, עובדים לפי תקני משרד הבריאות, סטריליזציה מלאה ותנאי סביבה קליניים." },
+  { q: "אפשר לראות עיצוב מראש?", a: "בוודאי. לאחר פגישת הייעוץ ניצור סקיצה דיגיטלית. נעבוד יחד על השינויים עד שתהיו מרוצים לגמרי." },
+];
+
+/* ─── Hooks ─── */
+function useFade(threshold = 0.12) {
+  const ref = useRef(null);
+  const [vis, setVis] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setVis(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return [ref, vis];
+}
+
+/* ─── Animated element wrapper ─── */
+function Reveal({ children, delay = 0, y = 32, style = {} }) {
+  const [ref, vis] = useFade();
+  return (
+    <div ref={ref} style={{
+      opacity: vis ? 1 : 0,
+      transform: vis ? "translateY(0)" : `translateY(${y}px)`,
+      transition: `opacity 0.9s cubic-bezier(0.25,1,0.5,1) ${delay}s, transform 0.9s cubic-bezier(0.25,1,0.5,1) ${delay}s`,
+      ...style,
+    }}>
+      {children}
+    </div>
+  );
+}
+
+/* ─── Nav ─── */
+function Nav({ onScroll }) {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => {
+    const h = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", h, { passive: true });
+    return () => window.removeEventListener("scroll", h);
+  }, []);
+  const links = [
+    { id: "services", label: "שירותים" },
+    { id: "portfolio", label: "עבודות" },
+    { id: "about", label: "אודות" },
+    { id: "reviews", label: "המלצות" },
+    { id: "faq", label: "שאלות" },
+    { id: "contact", label: "צור קשר" },
+  ];
+  const go = id => { onScroll(id); setMenuOpen(false); };
+  return (
+    <header style={{
+      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+      background: scrolled ? "rgba(251,251,253,0.82)" : "transparent",
+      backdropFilter: scrolled ? "saturate(180%) blur(20px)" : "none",
+      WebkitBackdropFilter: scrolled ? "saturate(180%) blur(20px)" : "none",
+      borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid transparent",
+      transition: "all 0.5s cubic-bezier(0.25,1,0.5,1)",
+    }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", height: 52, padding: "0 24px" }}>
+        <div onClick={() => go("hero")} style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: 17, color: "#1d1d1f", cursor: "pointer", letterSpacing: -0.3 }}>
+          FINE LINE<span style={{ color: "#86868b", fontWeight: 400 }}> studio</span>
+        </div>
+        <nav className="dsk-nav" style={{ display: "flex", gap: 28, alignItems: "center" }}>
+          {links.map(l => (
+            <button key={l.id} onClick={() => go(l.id)} style={{
+              background: "none", border: "none", fontFamily: "'Assistant', sans-serif", fontSize: 13,
+              color: "#1d1d1f", cursor: "pointer", padding: 0, transition: "color 0.3s",
+            }} onMouseEnter={e => e.target.style.color = "#0071e3"} onMouseLeave={e => e.target.style.color = "#1d1d1f"}>
+              {l.label}
+            </button>
+          ))}
+          <button onClick={() => go("contact")} style={{
+            background: "#0071e3", color: "#fff", border: "none", padding: "7px 18px",
+            borderRadius: 980, fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600,
+            cursor: "pointer", transition: "all 0.3s",
+          }} onMouseEnter={e => e.target.style.background = "#0077ed"} onMouseLeave={e => e.target.style.background = "#0071e3"}>
+            קביעת תור
+          </button>
+        </nav>
+        <button className="mob-burger" onClick={() => setMenuOpen(!menuOpen)} aria-label="תפריט" style={{
+          display: "none", background: "none", border: "none", fontSize: 22, color: "#1d1d1f", cursor: "pointer",
+        }}>{menuOpen ? "✕" : "☰"}</button>
+      </div>
+      {menuOpen && (
+        <div style={{
+          background: "rgba(251,251,253,0.97)", backdropFilter: "blur(20px)", padding: "12px 0 20px",
+          borderTop: "1px solid rgba(0,0,0,0.06)", animation: "slideDown 0.35s cubic-bezier(0.25,1,0.5,1)",
+        }}>
+          {links.map(l => (
+            <button key={l.id} onClick={() => go(l.id)} style={{
+              display: "block", width: "100%", textAlign: "right", padding: "14px 24px",
+              background: "none", border: "none", fontFamily: "'Assistant', sans-serif",
+              fontSize: 17, color: "#1d1d1f", cursor: "pointer",
+            }}>{l.label}</button>
+          ))}
+        </div>
+      )}
+    </header>
+  );
+}
+
+/* ─── Hero ─── */
+function Hero({ onScroll }) {
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { requestAnimationFrame(() => setLoaded(true)); }, []);
+  const ease = "cubic-bezier(0.25,1,0.5,1)";
+  return (
+    <section id="hero" style={{
+      minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
+      background: "linear-gradient(180deg, #fbfbfd 0%, #f5f5f7 100%)",
+      position: "relative", overflow: "hidden", padding: "120px 24px 80px",
+    }}>
+      {/* Soft floating orbs */}
+      <div style={{ position: "absolute", width: "45vw", height: "45vw", borderRadius: "50%", background: "radial-gradient(circle, rgba(0,113,227,0.045) 0%, transparent 70%)", top: "-10%", right: "-10%", animation: "floatA 20s ease-in-out infinite" }} />
+      <div style={{ position: "absolute", width: "35vw", height: "35vw", borderRadius: "50%", background: "radial-gradient(circle, rgba(88,86,214,0.035) 0%, transparent 70%)", bottom: "5%", left: "-5%", animation: "floatB 25s ease-in-out infinite" }} />
+      <div style={{ position: "absolute", width: "20vw", height: "20vw", borderRadius: "50%", background: "radial-gradient(circle, rgba(52,199,89,0.03) 0%, transparent 70%)", top: "30%", left: "20%", animation: "floatA 18s ease-in-out infinite reverse" }} />
+
+      <div style={{ textAlign: "center", maxWidth: 720, position: "relative", zIndex: 1 }}>
+        <div style={{
+          fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3",
+          letterSpacing: 2, marginBottom: 20, textTransform: "uppercase",
+          opacity: loaded ? 1 : 0, transition: `opacity 0.8s ${ease} 0.2s`,
+        }}>FINE LINE STUDIO — תל אביב</div>
+
+        <h1 style={{
+          fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(38px, 7vw, 72px)",
+          fontWeight: 700, color: "#1d1d1f", lineHeight: 1.08, letterSpacing: "-0.03em",
+          margin: "0 0 24px", opacity: loaded ? 1 : 0,
+          transform: loaded ? "translateY(0) scale(1)" : "translateY(24px) scale(0.98)",
+          transition: `all 1s ${ease} 0.35s`,
+        }}>
+          אמנות על העור,<br />
+          <span style={{ background: "linear-gradient(135deg, #0071e3, #5856d6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+            בכל קו ובכל פרט
+          </span>
+        </h1>
+
+        <p style={{
+          fontFamily: "'Assistant', sans-serif", fontSize: "clamp(17px, 2.5vw, 21px)",
+          color: "#86868b", lineHeight: 1.65, maxWidth: 520, margin: "0 auto 40px",
+          opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(18px)",
+          transition: `all 0.9s ${ease} 0.55s`,
+        }}>
+          {BRAND.sub}
+        </p>
+
+        <div style={{
+          display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap",
+          opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(14px)",
+          transition: `all 0.9s ${ease} 0.7s`,
+        }}>
+          <button onClick={() => onScroll("contact")} style={{
+            background: "#0071e3", color: "#fff", border: "none", padding: "14px 32px",
+            borderRadius: 980, fontFamily: "'Assistant', sans-serif", fontSize: 16, fontWeight: 600,
+            cursor: "pointer", transition: "all 0.4s cubic-bezier(0.25,1,0.5,1)",
+          }} onMouseEnter={e => { e.target.style.background = "#0077ed"; e.target.style.transform = "scale(1.04)"; }}
+             onMouseLeave={e => { e.target.style.background = "#0071e3"; e.target.style.transform = "scale(1)"; }}>
+            קביעת ייעוץ חינם
+          </button>
+          <button onClick={() => onScroll("portfolio")} style={{
+            background: "transparent", color: "#0071e3", border: "none", padding: "14px 32px",
+            borderRadius: 980, fontFamily: "'Assistant', sans-serif", fontSize: 16, fontWeight: 600,
+            cursor: "pointer", transition: "all 0.4s cubic-bezier(0.25,1,0.5,1)",
+          }} onMouseEnter={e => { e.target.style.background = "rgba(0,113,227,0.06)"; }}
+             onMouseLeave={e => { e.target.style.background = "transparent"; }}>
+            צפו בעבודות ⟵
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Services ─── */
+function Services() {
+  const [hov, setHov] = useState(null);
+  return (
+    <section id="services" style={{ padding: "100px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 60 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>מה אנחנו עושים</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>כל סגנון. כל סיפור.</h2>
+          </div>
+        </Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))", gap: 18 }}>
+          {SERVICES.map((s, i) => (
+            <Reveal key={i} delay={i * 0.07}>
+              <div
+                onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}
+                style={{
+                  padding: "36px 32px", borderRadius: 20,
+                  background: hov === i ? "rgba(0,113,227,0.04)" : "#f5f5f7",
+                  border: `1px solid ${hov === i ? "rgba(0,113,227,0.12)" : "transparent"}`,
+                  transition: "all 0.5s cubic-bezier(0.25,1,0.5,1)",
+                  transform: hov === i ? "translateY(-4px)" : "translateY(0)",
+                  cursor: "default",
+                }}>
+                <div style={{
+                  fontSize: 28, marginBottom: 16, width: 52, height: 52, display: "flex", alignItems: "center", justifyContent: "center",
+                  borderRadius: 14, background: hov === i ? "rgba(0,113,227,0.08)" : "rgba(0,0,0,0.03)",
+                  transition: "all 0.5s cubic-bezier(0.25,1,0.5,1)",
+                  color: hov === i ? "#0071e3" : "#86868b",
+                  fontFamily: "'DM Sans', sans-serif", fontWeight: 600,
+                }}>{s.icon}</div>
+                <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 19, fontWeight: 600, color: "#1d1d1f", marginBottom: 8 }}>{s.title}</h3>
+                <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 15, color: "#86868b", lineHeight: 1.65, marginBottom: 16 }}>{s.desc}</p>
+                <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 14, fontWeight: 600, color: "#0071e3" }}>{s.price}</span>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Portfolio ─── */
+function Portfolio() {
+  const [hov, setHov] = useState(null);
+  return (
+    <section id="portfolio" style={{ padding: "100px 24px", background: "#f5f5f7" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 60 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>גלריה</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>העבודות האחרונות</h2>
+          </div>
+        </Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))", gap: 14 }}>
+          {WORKS.map((w, i) => (
+            <Reveal key={w.id} delay={i * 0.06}>
+              <div
+                onMouseEnter={() => setHov(w.id)} onMouseLeave={() => setHov(null)}
+                style={{
+                  aspectRatio: i % 3 === 1 ? "4/5" : "1/1",
+                  borderRadius: 20, overflow: "hidden", position: "relative", cursor: "pointer",
+                  background: `linear-gradient(${135 + i * 20}deg, hsl(${w.hue}, ${w.sat}%, 88%) 0%, hsl(${w.hue + 20}, ${w.sat + 4}%, 94%) 100%)`,
+                  transition: "all 0.6s cubic-bezier(0.25,1,0.5,1)",
+                  transform: hov === w.id ? "scale(0.97)" : "scale(1)",
+                  boxShadow: hov === w.id ? "0 20px 60px rgba(0,0,0,0.08)" : "0 2px 12px rgba(0,0,0,0.03)",
+                }}>
+                {/* Replace with actual tattoo photos */}
+                <div style={{
+                  position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center",
+                  background: hov === w.id ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0)",
+                  backdropFilter: hov === w.id ? "blur(2px)" : "blur(0px)",
+                  transition: "all 0.5s cubic-bezier(0.25,1,0.5,1)",
+                }}>
+                  <div style={{
+                    opacity: hov === w.id ? 1 : 0,
+                    transform: hov === w.id ? "translateY(0)" : "translateY(8px)",
+                    transition: "all 0.4s cubic-bezier(0.25,1,0.5,1)",
+                  }}>
+                    <div style={{
+                      background: "rgba(255,255,255,0.9)", backdropFilter: "blur(10px)",
+                      padding: "10px 22px", borderRadius: 980,
+                      fontFamily: "'Assistant', sans-serif", fontSize: 14, fontWeight: 600, color: "#1d1d1f",
+                    }}>{w.label}</div>
+                  </div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── About ─── */
+function About() {
+  return (
+    <section id="about" style={{ padding: "100px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 50 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>הסיפור שלנו</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>אומנות בגישה אישית</h2>
+          </div>
+        </Reveal>
+
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 48, alignItems: "center" }}>
+          <Reveal delay={0.1}>
+            <div style={{
+              aspectRatio: "4/5", borderRadius: 24,
+              background: "linear-gradient(160deg, hsl(210,12%,90%) 0%, hsl(230,8%,95%) 100%)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}>
+              {/* Replace with artist photo */}
+              <span style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 48, color: "rgba(0,0,0,0.08)", fontWeight: 700 }}>FL</span>
+            </div>
+          </Reveal>
+          <Reveal delay={0.2}>
+            <div>
+              <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 17, color: "#1d1d1f", lineHeight: 1.75, marginBottom: 24 }}>
+                עם למעלה מ-10 שנות ניסיון, אנחנו מאמינים שקעקוע הוא הרבה יותר מציור על העור — זו שפה אישית, זיכרון שנשאר, אמנות שחיה איתכם.
+              </p>
+              <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 17, color: "#86868b", lineHeight: 1.75, marginBottom: 32 }}>
+                כל עבודה מתחילה בשיחה. אנחנו מקשיבים לסיפור, מבינים את החזון ויוצרים עיצוב ייחודי שמותאם בדיוק לכם — לגוף, לאישיות ולסיפור.
+              </p>
+              <div style={{ display: "flex", gap: 32, flexWrap: "wrap" }}>
+                {[
+                  { n: "10+", l: "שנות ניסיון" },
+                  { n: "2,500+", l: "עבודות" },
+                  { n: "100%", l: "ציוד סטרילי" },
+                ].map((s, i) => (
+                  <div key={i}>
+                    <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 28, fontWeight: 700, color: "#1d1d1f" }}>{s.n}</div>
+                    <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, color: "#86868b", marginTop: 2 }}>{s.l}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Reviews ─── */
+function Reviews() {
+  const [hov, setHov] = useState(null);
+  return (
+    <section id="reviews" style={{ padding: "100px 24px", background: "#f5f5f7" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 60 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>מה אומרים עלינו</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>חוויות של לקוחות</h2>
+          </div>
+        </Reveal>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))", gap: 18 }}>
+          {REVIEWS.map((r, i) => (
+            <Reveal key={i} delay={i * 0.08}>
+              <div
+                onMouseEnter={() => setHov(i)} onMouseLeave={() => setHov(null)}
+                style={{
+                  background: "#fff", borderRadius: 20, padding: "32px 28px",
+                  border: "1px solid rgba(0,0,0,0.04)",
+                  transition: "all 0.5s cubic-bezier(0.25,1,0.5,1)",
+                  transform: hov === i ? "translateY(-6px)" : "translateY(0)",
+                  boxShadow: hov === i ? "0 20px 60px rgba(0,0,0,0.06)" : "0 2px 8px rgba(0,0,0,0.02)",
+                }}>
+                <div style={{ color: "#f5a623", fontSize: 14, marginBottom: 16, letterSpacing: 2 }}>{"★".repeat(r.stars)}</div>
+                <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 15, color: "#1d1d1f", lineHeight: 1.7, marginBottom: 20, direction: "rtl" }}>
+                  "{r.text}"
+                </p>
+                <div>
+                  <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 15, fontWeight: 600, color: "#1d1d1f" }}>{r.name}</div>
+                  <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, color: "#86868b", marginTop: 2 }}>{r.role}</div>
+                </div>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ─── FAQ ─── */
+function Faq() {
+  const [open, setOpen] = useState(null);
+  return (
+    <section id="faq" style={{ padding: "100px 24px", background: "#fff" }}>
+      <div style={{ maxWidth: 680, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 50 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>שאלות נפוצות</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>יש שאלה?</h2>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <div>
+            {FAQS.map((f, i) => (
+              <div key={i} style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+                <button onClick={() => setOpen(open === i ? null : i)} style={{
+                  display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center",
+                  padding: "22px 0", background: "none", border: "none", cursor: "pointer", textAlign: "right",
+                }}>
+                  <span style={{ fontFamily: "'Assistant', sans-serif", fontSize: 17, fontWeight: 600, color: "#1d1d1f", flex: 1 }}>{f.q}</span>
+                  <span style={{
+                    fontSize: 22, color: "#0071e3", marginRight: 14,
+                    transition: "transform 0.4s cubic-bezier(0.25,1,0.5,1)",
+                    transform: open === i ? "rotate(45deg)" : "rotate(0)",
+                    display: "inline-block", lineHeight: 1,
+                  }}>+</span>
+                </button>
+                <div style={{
+                  maxHeight: open === i ? 180 : 0, overflow: "hidden",
+                  transition: "max-height 0.5s cubic-bezier(0.25,1,0.5,1)",
+                }}>
+                  <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 15, color: "#86868b", lineHeight: 1.75, paddingBottom: 20 }}>{f.a}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Contact ─── */
+function Contact() {
+  const [form, setForm] = useState({ name: "", phone: "", msg: "" });
+  const [sent, setSent] = useState(false);
+  const [focused, setFocused] = useState(null);
+  const upd = (k, v) => setForm(p => ({ ...p, [k]: v }));
+
+  const inputBox = (field, label, placeholder, type = "text") => (
+    <div style={{ position: "relative" }}>
+      <label style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#86868b", display: "block", marginBottom: 8 }}>{label}</label>
+      <input type={type} value={form[field]} onChange={e => upd(field, e.target.value)}
+        onFocus={() => setFocused(field)} onBlur={() => setFocused(null)}
+        placeholder={placeholder}
+        style={{
+          width: "100%", padding: "14px 18px", borderRadius: 12,
+          background: "#f5f5f7", border: `2px solid ${focused === field ? "#0071e3" : "transparent"}`,
+          fontFamily: "'Assistant', sans-serif", fontSize: 16, color: "#1d1d1f", outline: "none",
+          transition: "all 0.35s cubic-bezier(0.25,1,0.5,1)", boxSizing: "border-box",
+        }} />
+    </div>
+  );
+
+  if (sent) {
+    return (
+      <section id="contact" style={{ padding: "100px 24px", background: "#f5f5f7" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", maxWidth: 480, margin: "0 auto" }}>
+            <div style={{
+              width: 72, height: 72, borderRadius: "50%", background: "rgba(52,199,89,0.1)",
+              display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 24px",
+              fontSize: 32, color: "#34c759",
+            }}>✓</div>
+            <h3 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 28, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>הבקשה נשלחה!</h3>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 17, color: "#86868b", lineHeight: 1.6 }}>תודה {form.name}, ניצור איתך קשר בהקדם לקביעת פגישת ייעוץ.</p>
+          </div>
+        </Reveal>
+      </section>
+    );
+  }
+
+  return (
+    <section id="contact" style={{ padding: "100px 24px", background: "#f5f5f7" }}>
+      <div style={{ maxWidth: 520, margin: "0 auto" }}>
+        <Reveal>
+          <div style={{ textAlign: "center", marginBottom: 50 }}>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#0071e3", letterSpacing: 2, marginBottom: 10 }}>בואו נתחיל</p>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(28px, 4vw, 44px)", fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.02em" }}>קביעת תור</h2>
+          </div>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <div style={{ background: "#fff", borderRadius: 24, padding: "40px 32px", boxShadow: "0 2px 20px rgba(0,0,0,0.04)" }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20, marginBottom: 28 }}>
+              {inputBox("name", "שם מלא", "איך קוראים לכם?")}
+              {inputBox("phone", "טלפון", "052-0000000", "tel")}
+              <div>
+                <label style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#86868b", display: "block", marginBottom: 8 }}>ספרו לנו על הרעיון</label>
+                <textarea value={form.msg} onChange={e => upd("msg", e.target.value)}
+                  onFocus={() => setFocused("msg")} onBlur={() => setFocused(null)}
+                  rows={4} placeholder="תארו את הקעקוע שחלמתם עליו..."
+                  style={{
+                    width: "100%", padding: "14px 18px", borderRadius: 12,
+                    background: "#f5f5f7", border: `2px solid ${focused === "msg" ? "#0071e3" : "transparent"}`,
+                    fontFamily: "'Assistant', sans-serif", fontSize: 16, color: "#1d1d1f", outline: "none",
+                    resize: "vertical", transition: "all 0.35s cubic-bezier(0.25,1,0.5,1)", boxSizing: "border-box",
+                  }} />
+              </div>
+            </div>
+            <button onClick={() => { if (form.name && form.phone) setSent(true); }} style={{
+              width: "100%", padding: "16px",
+              background: (form.name && form.phone) ? "#0071e3" : "#d2d2d7",
+              color: "#fff", border: "none", borderRadius: 14,
+              fontFamily: "'Assistant', sans-serif", fontSize: 17, fontWeight: 600,
+              cursor: (form.name && form.phone) ? "pointer" : "default",
+              transition: "all 0.4s cubic-bezier(0.25,1,0.5,1)",
+            }} onMouseEnter={e => { if (form.name && form.phone) e.target.style.background = "#0077ed"; }}
+               onMouseLeave={e => { if (form.name && form.phone) e.target.style.background = "#0071e3"; }}>
+              שליחת בקשה
+            </button>
+            <div style={{ textAlign: "center", marginTop: 20 }}>
+              <span style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, color: "#86868b" }}>או שלחו הודעה ישירה ב</span>
+              <a href={`https://wa.me/${BRAND.phoneFull}?text=שלום, אשמח לקבוע פגישת ייעוץ`} target="_blank" rel="noopener noreferrer"
+                style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, fontWeight: 600, color: "#25D366", marginRight: 4, textDecoration: "none" }}>
+                וואטסאפ ←
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ─── Footer ─── */
+function Footer() {
+  return (
+    <footer style={{ padding: "48px 24px 28px", background: "#f5f5f7", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 32, marginBottom: 36 }}>
+          <div>
+            <div style={{ fontFamily: "'DM Sans', sans-serif", fontSize: 16, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>FINE LINE</div>
+            <p style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, color: "#86868b", lineHeight: 1.6 }}>סטודיו בוטיק לקעקועים עדינים ומותאמים אישית בתל אביב.</p>
+          </div>
+          <div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#1d1d1f", marginBottom: 12 }}>צור קשר</div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, color: "#86868b", lineHeight: 2 }}>
+              <div><a href={`tel:${BRAND.phoneFull}`} style={{ color: "#86868b", textDecoration: "none" }}>{BRAND.phone}</a></div>
+              <div>{BRAND.email}</div>
+              <div>{BRAND.address}</div>
+            </div>
+          </div>
+          <div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#1d1d1f", marginBottom: 12 }}>שעות פעילות</div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, color: "#86868b", lineHeight: 2 }}>
+              <div>ראשון — חמישי: 10:00–20:00</div>
+              <div>שישי: 10:00–14:00</div>
+              <div>שבת: בתיאום מראש</div>
+            </div>
+          </div>
+          <div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 13, fontWeight: 600, color: "#1d1d1f", marginBottom: 12 }}>עקבו אחרינו</div>
+            <div style={{ fontFamily: "'Assistant', sans-serif", fontSize: 14, color: "#86868b", lineHeight: 2 }}>
+              <div>Instagram: {BRAND.ig}</div>
+              <div>TikTok: @fineline.tlv</div>
+            </div>
+          </div>
+        </div>
+        <div style={{ borderTop: "1px solid rgba(0,0,0,0.06)", paddingTop: 20, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 8 }}>
+          <span style={{ fontFamily: "'Assistant', sans-serif", fontSize: 12, color: "#86868b" }}>© {new Date().getFullYear()} Fine Line Studio. כל הזכויות שמורות.</span>
+          <span style={{ fontFamily: "'Assistant', sans-serif", fontSize: 12, color: "#86868b" }}>מדיניות פרטיות · הצהרת נגישות</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ─── WhatsApp FAB ─── */
+function Whatsapp() {
+  const [show, setShow] = useState(false);
+  const [hov, setHov] = useState(false);
+  useEffect(() => { const t = setTimeout(() => setShow(true), 2500); return () => clearTimeout(t); }, []);
+  if (!show) return null;
+  return (
+    <a href={`https://wa.me/${BRAND.phoneFull}?text=שלום, אשמח לשמוע פרטים נוספים`} target="_blank" rel="noopener noreferrer"
+      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}
+      aria-label="שלחו הודעה בוואטסאפ"
+      style={{
+        position: "fixed", bottom: 24, left: 24, zIndex: 999,
+        width: 54, height: 54, borderRadius: "50%",
+        background: "#25D366", display: "flex", alignItems: "center", justifyContent: "center",
+        boxShadow: hov ? "0 8px 28px rgba(37,211,102,0.4)" : "0 4px 16px rgba(37,211,102,0.25)",
+        transition: "all 0.4s cubic-bezier(0.25,1,0.5,1)",
+        transform: hov ? "scale(1.08)" : "scale(1)",
+        animation: "waPop 0.6s cubic-bezier(0.25,1,0.5,1)",
+        textDecoration: "none",
+      }}>
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    </a>
+  );
+}
+
+/* ─── App ─── */
+function App() {
+  const scrollTo = useCallback(id => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
+  return (
+    <div dir="rtl" lang="he" style={{ background: "#fbfbfd", minHeight: "100vh" }}>
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { overflow-x: hidden; }
+        ::selection { background: rgba(0,113,227,0.15); }
+        input::placeholder, textarea::placeholder { color: #aaa !important; }
+        @media (max-width: 768px) {
+          .dsk-nav { display: none !important; }
+          .mob-burger { display: block !important; }
+        }
+        @media (min-width: 769px) {
+          .mob-burger { display: none !important; }
+        }
+        @keyframes floatA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,20px)} }
+        @keyframes floatB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(15px,-15px)} }
+        @keyframes waPop { 0%{opacity:0;transform:scale(0.5)} 100%{opacity:1;transform:scale(1)} }
+        @keyframes slideDown { 0%{opacity:0;transform:translateY(-8px)} 100%{opacity:1;transform:translateY(0)} }
+      `}</style>
+      <Nav onScroll={scrollTo} />
+      <Hero onScroll={scrollTo} />
+      <Services />
+      <Portfolio />
+      <About />
+      <Reviews />
+      <Faq />
+      <Contact />
+      <Footer />
+      <Whatsapp />
+    </div>
+  );
+}
+
+
+ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+</script>
+</body>
+</html>

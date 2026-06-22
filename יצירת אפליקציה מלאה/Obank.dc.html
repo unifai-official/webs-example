@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --font-sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Inter Tight","Segoe UI",system-ui,sans-serif;
+    --c-canvas:#F2F2F7; --c-surface:#FFFFFF; --c-surface2:#F5F5F7;
+    --c-text:rgba(0,0,0,0.92); --c-text2:rgba(60,60,67,0.6); --c-text3:rgba(60,60,67,0.32);
+    --c-sep:rgba(60,60,67,0.10); --c-fill:rgba(120,120,128,0.12); --c-fill2:rgba(120,120,128,0.20);
+    --c-accent:#007AFF; --c-accent2:#5856D6; --c-green:#34C759; --c-red:#FF3B30; --c-orange:#FF9500;
+    --c-hero1:#5E5CE6; --c-hero2:#0A84FF;
+    --shadow-card:0 1px 3px rgba(0,0,0,0.06),0 0 0 .5px rgba(0,0,0,0.04);
+    --shadow-pop:0 8px 30px rgba(0,0,0,0.16),0 0 0 .5px rgba(0,0,0,0.05);
+  }
+  [data-theme="dark"]{
+    --c-canvas:#000000; --c-surface:#1C1C1E; --c-surface2:#2C2C2E;
+    --c-text:rgba(255,255,255,0.96); --c-text2:rgba(235,235,245,0.6); --c-text3:rgba(235,235,245,0.3);
+    --c-sep:rgba(84,84,88,0.55); --c-fill:rgba(120,120,128,0.32); --c-fill2:rgba(120,120,128,0.44);
+    --c-accent:#0A84FF; --c-accent2:#7D7AFF; --c-green:#30D158; --c-red:#FF453A; --c-orange:#FF9F0A;
+    --c-hero1:#7D7AFF; --c-hero2:#0A84FF;
+    --shadow-card:0 1px 3px rgba(0,0,0,0.4),0 0 0 .5px rgba(255,255,255,0.06);
+    --shadow-pop:0 12px 36px rgba(0,0,0,0.5),0 0 0 .5px rgba(255,255,255,0.08);
+  }
+  *{box-sizing:border-box;}
+  .ob-scr{height:100%;display:flex;flex-direction:column;background:var(--c-canvas);color:var(--c-text);}
+  .ob-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+  .ob-scroll::-webkit-scrollbar{display:none;}
+  .ob-btn{height:54px;border-radius:16px;border:none;width:100%;font:600 17px/1 var(--font-sans);display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:#fff;background:var(--c-accent);transition:filter .15s,transform .12s,opacity .15s;letter-spacing:-0.2px;}
+  .ob-btn:active{transform:scale(.985);filter:brightness(.94);}
+  .ob-btn:disabled{opacity:.4;cursor:default;}
+  .ob-btn2{background:var(--c-fill);color:var(--c-accent);}
+  .ob-field{width:100%;height:54px;border-radius:14px;border:none;background:var(--c-fill);padding:0 16px;font:400 17px var(--font-sans);color:var(--c-text);outline:none;}
+  .ob-field::placeholder{color:var(--c-text3);}
+  .ob-card{background:var(--c-surface);border-radius:20px;box-shadow:var(--shadow-card);}
+  .tap{cursor:pointer;transition:filter .15s,transform .1s,background .15s;}
+  .tap:active{transform:scale(.97);}
+  .ctl{height:36px;padding:0 14px;border-radius:999px;border:none;background:rgba(255,255,255,0.7);-webkit-backdrop-filter:blur(12px) saturate(180%);backdrop-filter:blur(12px) saturate(180%);box-shadow:0 2px 10px rgba(0,0,0,0.1),inset 0 0 0 .5px rgba(0,0,0,0.06);font:600 13px var(--font-sans);color:#1c1c1e;cursor:pointer;display:flex;align-items:center;gap:6px;letter-spacing:-0.1px;}
+  @keyframes obspin{to{transform:rotate(360deg);}}
+  @keyframes obpop{0%{transform:scale(.4);opacity:0;}60%{transform:scale(1.08);}100%{transform:scale(1);opacity:1;}}
+  @keyframes obup{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
+  @keyframes obfade{from{opacity:0;}to{opacity:1;}}
+  @keyframes obpulse{0%,100%{opacity:.5;}50%{opacity:1;}}
+</style>
+</helmet>
+<div data-theme="{{ theme }}" style="min-height:100vh;width:100%;background:radial-gradient(120% 90% at 50% -10%, #e9e7f5 0%, #e4e2dd 55%, #dedcd6 100%);display:flex;align-items:center;justify-content:center;padding:28px;font-family:var(--font-sans);">
+  <div style="position:fixed;top:18px;right:18px;z-index:100;display:flex;gap:8px;">
+    <button class="ctl" onClick="{{ toggleLang }}">{{ langLabel }}</button>
+    <button class="ctl" onClick="{{ toggleTheme }}">{{ themeLabel }}</button>
+  </div>
+
+  <x-import component="IOSDevice" from="./ios-frame.jsx" dark="{{ dark }}" hint-size="402px,874px">
+    <div class="ob-scr" dir="{{ dir }}">
+      <div class="ob-scroll" id="ob-scroll">
+
+        <!-- ============ SPLASH ============ -->
+        <sc-if value="{{ r_splash }}" hint-placeholder-val="{{ true }}">
+          <div style="height:100%;min-height:780px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;background:linear-gradient(160deg,var(--c-hero1),var(--c-hero2));animation:obfade .4s ease;">
+            <div style="width:96px;height:96px;border-radius:28px;background:rgba(255,255,255,0.16);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;box-shadow:0 20px 50px rgba(0,0,0,0.25),inset 0 1px 0 rgba(255,255,255,0.4);animation:obpop .6s var(--ease-out,ease) both;">
+              <div style="width:54px;height:54px;border-radius:50%;background:#fff;position:relative;overflow:hidden;">
+                <div style="position:absolute;inset:0;background:#0A0A0B;clip-path:inset(0 0 50% 0);"></div>
+                <div style="position:absolute;top:0;left:25%;width:50%;height:50%;border-radius:50%;background:#0A0A0B;"></div>
+                <div style="position:absolute;bottom:0;left:25%;width:50%;height:50%;border-radius:50%;background:#fff;"></div>
+                <div style="position:absolute;top:21%;left:42%;width:16%;height:16%;border-radius:50%;background:#fff;"></div>
+                <div style="position:absolute;bottom:21%;left:42%;width:16%;height:16%;border-radius:50%;background:#0A0A0B;"></div>
+              </div>
+            </div>
+            <div style="font:800 40px var(--font-sans);color:#fff;letter-spacing:-1px;">Obank</div>
+            <div style="position:absolute;bottom:60px;width:26px;height:26px;border:3px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:obspin .8s linear infinite;"></div>
+          </div>
+        </sc-if>
+
+        <!-- ============ ONBOARDING ============ -->
+        <sc-if value="{{ r_onboarding }}" hint-placeholder-val="{{ true }}">
+          <div style="height:100%;min-height:780px;display:flex;flex-direction:column;padding:64px 28px 40px;">
+            <div style="display:flex;justify-content:flex-end;">
+              <button class="tap" onClick="{{ onbSkip }}" style="border:none;background:none;color:var(--c-text2);font:500 15px var(--font-sans);padding:8px;">{{ t.skip }}</button>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;">
+              <div style="width:230px;height:230px;border-radius:50%;background:radial-gradient(circle at 35% 30%, var(--c-hero1), var(--c-hero2));position:relative;box-shadow:0 30px 70px rgba(94,92,230,0.35);display:flex;align-items:center;justify-content:center;animation:obpop .5s ease both;">
+                <div style="font-size:90px;color:#fff;line-height:1;">{{ onbSlide.glyph }}</div>
+                <div style="position:absolute;top:-6px;right:-6px;width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,0.2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);"></div>
+                <div style="position:absolute;bottom:6px;left:-14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.16);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);"></div>
+              </div>
+              <div style="text-align:center;display:flex;flex-direction:column;gap:14px;max-width:320px;animation:obup .4s ease both;">
+                <div style="font:700 28px var(--font-sans);letter-spacing:-0.5px;text-wrap:balance;">{{ onbSlide.title }}</div>
+                <div style="font:400 16px/1.45 var(--font-sans);color:var(--c-text2);text-wrap:pretty;">{{ onbSlide.desc }}</div>
+              </div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:8px;margin-bottom:32px;">
+              <sc-for list="{{ onbDots }}" as="d" hint-placeholder-count="3">
+                <div style="height:7px;border-radius:999px;transition:all .3s var(--ease-glass,ease);width:{{ d.w }};background:{{ d.bg }};"></div>
+              </sc-for>
+            </div>
+            <button class="ob-btn" onClick="{{ onbNext }}">{{ onbCta }}</button>
+            <button class="tap" onClick="{{ goSignin }}" style="border:none;background:none;color:var(--c-text2);font:400 15px var(--font-sans);padding:14px;margin-top:2px;">{{ t.haveAccount }} <span style="color:var(--c-accent);font-weight:600;">{{ t.signIn }}</span></button>
+          </div>
+        </sc-if>
+
+        <!-- ============ SIGN IN ============ -->
+        <sc-if value="{{ r_signin }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:96px 28px 32px;">
+            <div style="font:800 32px var(--font-sans);letter-spacing:-0.8px;">{{ t.welcomeBack }}</div>
+            <div style="font:400 16px var(--font-sans);color:var(--c-text2);margin-top:8px;">{{ t.signInSub }}</div>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:36px;">
+              <input class="ob-field" type="email" placeholder="{{ t.email }}" value="{{ email }}" onInput="{{ setEmail }}">
+              <div style="position:relative;">
+                <input class="ob-field" type="{{ pwType }}" placeholder="{{ t.password }}" value="{{ password }}" onInput="{{ setPassword }}" style="padding-inline-end:52px;">
+                <button class="tap" onClick="{{ toggleShowPw }}" style="position:absolute;inset-inline-end:8px;top:0;height:54px;width:44px;border:none;background:none;color:var(--c-text2);display:flex;align-items:center;justify-content:center;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                </button>
+              </div>
+            </div>
+            <button class="tap" onClick="{{ goForgot }}" style="align-self:flex-end;border:none;background:none;color:var(--c-accent);font:600 14px var(--font-sans);padding:14px 2px;">{{ t.forgotQ }}</button>
+            <button class="ob-btn" onClick="{{ doSignIn }}" style="margin-top:10px;">{{ t.signIn }}</button>
+            <div style="display:flex;align-items:center;gap:12px;margin:26px 0;">
+              <div style="flex:1;height:.5px;background:var(--c-sep);"></div>
+              <span style="font:400 13px var(--font-sans);color:var(--c-text3);">{{ t.or }}</span>
+              <div style="flex:1;height:.5px;background:var(--c-sep);"></div>
+            </div>
+            <button class="ob-btn ob-btn2" onClick="{{ doSignIn }}" style="background:var(--c-fill);color:var(--c-text);"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 1c.1 1.2-.4 2.4-1.1 3.3-.8.9-2 1.6-3.2 1.5-.1-1.2.5-2.4 1.2-3.2C14 1.7 15.3 1.1 16.4 1zm3.6 16.3c-.6 1.4-.9 2-1.7 3.2-1.1 1.7-2.6 3.7-4.5 3.7-1.7 0-2.1-1.1-4.4-1.1-2.2 0-2.7 1.1-4.3 1.1-1.9 0-3.4-1.9-4.5-3.5C-.6 18.3-1 13.7 1 11c1-1.4 2.6-2.3 4.1-2.3 1.6 0 2.6 1.1 4 1.1 1.3 0 2.1-1.1 4-1.1 1.3 0 2.7.7 3.7 2-3.2 1.8-2.7 6.4 1.2 6.6z"/></svg>{{ t.continueApple }}</button>
+            <div style="flex:1;"></div>
+            <div style="text-align:center;font:400 15px var(--font-sans);color:var(--c-text2);padding-top:20px;">{{ t.noAccount }} <span class="tap" onClick="{{ goSignup }}" style="color:var(--c-accent);font-weight:600;">{{ t.signUp }}</span></div>
+          </div>
+        </sc-if>
+
+        <!-- ============ SIGN UP ============ -->
+        <sc-if value="{{ r_signup }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:96px 28px 32px;">
+            <div style="font:800 32px var(--font-sans);letter-spacing:-0.8px;">{{ t.comeJoin }}</div>
+            <div style="font:400 16px var(--font-sans);color:var(--c-text2);margin-top:8px;">{{ t.signUpSub }}</div>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:36px;">
+              <input class="ob-field" type="email" placeholder="{{ t.email }}" value="{{ email }}" onInput="{{ setEmail }}">
+              <div style="position:relative;">
+                <input class="ob-field" type="{{ pwType }}" placeholder="{{ t.password }}" value="{{ password }}" onInput="{{ setPassword }}" style="padding-inline-end:52px;">
+                <button class="tap" onClick="{{ toggleShowPw }}" style="position:absolute;inset-inline-end:8px;top:0;height:54px;width:44px;border:none;background:none;color:var(--c-text2);display:flex;align-items:center;justify-content:center;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.8"/></svg>
+                </button>
+              </div>
+            </div>
+            <button class="tap" onClick="{{ toggleAgree }}" style="display:flex;align-items:center;gap:10px;border:none;background:none;padding:18px 2px;text-align:start;">
+              <div style="width:24px;height:24px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:2px solid {{ agreeBorder }};background:{{ agreeBg }};transition:all .15s;">
+                <sc-if value="{{ agree }}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M2 7.5l3.5 3.5L12 3" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></sc-if>
+              </div>
+              <span style="font:400 14px/1.35 var(--font-sans);color:var(--c-text2);">{{ t.agree }}</span>
+            </button>
+            <button class="ob-btn" onClick="{{ doSignUp }}" disabled="{{ signupDisabled }}">{{ t.signUp }}</button>
+            <div style="flex:1;"></div>
+            <div style="text-align:center;font:400 15px var(--font-sans);color:var(--c-text2);padding-top:20px;">{{ t.haveAccount }} <span class="tap" onClick="{{ goSignin }}" style="color:var(--c-accent);font-weight:600;">{{ t.signIn }}</span></div>
+          </div>
+        </sc-if>
+
+        <!-- ============ FORGOT PASSWORD ============ -->
+        <sc-if value="{{ r_forgot }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:64px 28px 32px;">
+            <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+              <svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div style="font:800 30px var(--font-sans);letter-spacing:-0.6px;">{{ t.forgotTitle }}</div>
+            <div style="font:400 16px/1.45 var(--font-sans);color:var(--c-text2);margin-top:10px;">{{ t.forgotSub }}</div>
+            <input class="ob-field" type="email" placeholder="{{ t.email }}" value="{{ email }}" onInput="{{ setEmail }}" style="margin-top:32px;">
+            <button class="ob-btn" onClick="{{ doForgot }}" style="margin-top:20px;">{{ t.cont }}</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ OTP ============ -->
+        <sc-if value="{{ r_otp }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:64px 28px 32px;">
+            <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+              <svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div style="font:800 30px var(--font-sans);letter-spacing:-0.6px;">{{ t.otpTitle }}</div>
+            <div style="font:400 16px/1.45 var(--font-sans);color:var(--c-text2);margin-top:10px;">{{ t.otpSub }} <span style="color:var(--c-text);font-weight:600;">{{ otpEmail }}</span></div>
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:40px;direction:ltr;">
+              <sc-for list="{{ otpCells }}" as="c" hint-placeholder-count="4">
+                <div style="{{ c.style }}">{{ c.char }}</div>
+              </sc-for>
+            </div>
+            <div style="text-align:center;margin-top:28px;font:400 15px var(--font-sans);color:var(--c-text2);">
+              <sc-if value="{{ canResend }}" hint-placeholder-val="{{ true }}"><span class="tap" onClick="{{ otpResend }}" style="color:var(--c-accent);font-weight:600;">{{ t.resend }}</span></sc-if>
+              <sc-if value="{{ resendCounting }}" hint-placeholder-val="{{ true }}"><span>{{ resendText }}</span></sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ CREATE / ENTER PIN ============ -->
+        <sc-if value="{{ r_pinscreen }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;align-items:center;padding:88px 28px 24px;">
+            <div style="width:60px;height:60px;border-radius:18px;background:var(--c-fill);display:flex;align-items:center;justify-content:center;margin-bottom:24px;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="3" stroke="var(--c-accent)" stroke-width="1.9"/><path d="M8 10V7a4 4 0 018 0v3" stroke="var(--c-accent)" stroke-width="1.9"/></svg>
+            </div>
+            <div style="font:700 24px var(--font-sans);letter-spacing:-0.4px;text-align:center;">{{ pinTitle }}</div>
+            <div style="font:400 15px var(--font-sans);color:var(--c-text2);margin-top:8px;text-align:center;">{{ pinSub }}</div>
+            <div style="display:flex;gap:18px;margin-top:38px;direction:ltr;">
+              <sc-for list="{{ pinDots }}" as="d" hint-placeholder-count="4">
+                <div style="width:16px;height:16px;border-radius:50%;transition:all .15s;background:{{ d.bg }};box-shadow:inset 0 0 0 1.7px {{ d.ring }};"></div>
+              </sc-for>
+            </div>
+            <div style="height:22px;margin-top:18px;font:500 14px var(--font-sans);color:var(--c-red);">{{ pinErrText }}</div>
+          </div>
+        </sc-if>
+
+        <!-- ============ HOME ============ -->
+        <sc-if value="{{ r_home }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:56px 20px 28px;animation:obfade .25s ease;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;">
+              <div>
+                <div style="font:400 14px var(--font-sans);color:var(--c-text2);">{{ greeting }}</div>
+                <div style="font:700 24px var(--font-sans);letter-spacing:-0.5px;margin-top:2px;">Obank</div>
+              </div>
+              <div style="display:flex;gap:10px;align-items:center;">
+                <button class="tap" onClick="{{ goNotif }}" style="width:42px;height:42px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;position:relative;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke="var(--c-text)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 01-3.4 0" stroke="var(--c-text)" stroke-width="1.8" stroke-linecap="round"/></svg>
+                  <div style="position:absolute;top:9px;right:10px;width:8px;height:8px;border-radius:50%;background:var(--c-red);box-shadow:0 0 0 2px var(--c-fill);"></div>
+                </button>
+                <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#FF9500,#FF2D55);display:flex;align-items:center;justify-content:center;color:#fff;font:600 16px var(--font-sans);">{{ userIni }}</div>
+              </div>
+            </div>
+
+            <div style="border-radius:26px;padding:22px;background:linear-gradient(150deg,var(--c-hero1),var(--c-hero2));color:#fff;box-shadow:0 16px 36px rgba(94,92,230,0.32);position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-40px;inset-inline-end:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.10);"></div>
+              <div style="position:absolute;bottom:-60px;inset-inline-start:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.07);"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;position:relative;">
+                <span style="font:500 14px var(--font-sans);color:rgba(255,255,255,0.85);">{{ t.totalBalance }}</span>
+                <button class="tap" onClick="{{ toggleBalance }}" style="border:none;background:rgba(255,255,255,0.18);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke="#fff" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.8"/></svg>
+                </button>
+              </div>
+              <div style="font:700 38px var(--font-sans);letter-spacing:-1px;margin-top:8px;position:relative;direction:ltr;text-align:start;">{{ balanceText }}</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:6px;position:relative;">
+                <span style="font:500 13px var(--font-sans);background:rgba(255,255,255,0.2);padding:3px 9px;border-radius:999px;">↑ 2.4%</span>
+                <span style="font:400 13px var(--font-sans);color:rgba(255,255,255,0.8);">{{ t.thisMonth }}</span>
+              </div>
+            </div>
+
+            <div style="display:flex;justify-content:space-between;margin-top:22px;">
+              <sc-for list="{{ actions }}" as="a" hint-placeholder-count="4">
+                <button class="tap" onClick="{{ a.onPress }}" style="border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:8px;flex:1;">
+                  <div style="width:56px;height:56px;border-radius:18px;background:{{ a.color }};display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(0,0,0,0.14);" dangerouslySetInnerHTML="{{ a.icon }}"></div>
+                  <span style="font:500 12px var(--font-sans);color:var(--c-text);">{{ a.label }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:30px;margin-bottom:14px;">
+              <span style="font:700 19px var(--font-sans);letter-spacing:-0.3px;">{{ t.quickSend }}</span>
+            </div>
+            <div style="display:flex;gap:16px;overflow-x:auto;padding-bottom:4px;">
+              <button class="tap" onClick="{{ goTransferStart }}" style="border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:7px;flex-shrink:0;">
+                <div style="width:54px;height:54px;border-radius:50%;border:2px dashed var(--c-text3);display:flex;align-items:center;justify-content:center;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="var(--c-text2)" stroke-width="2.2" stroke-linecap="round"/></svg>
+                </div>
+                <span style="font:400 12px var(--font-sans);color:var(--c-text2);">{{ t.add }}</span>
+              </button>
+              <sc-for list="{{ recipientsD }}" as="r" hint-placeholder-count="5">
+                <button class="tap" onClick="{{ r.onPress }}" style="border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:7px;flex-shrink:0;">
+                  <div style="width:54px;height:54px;border-radius:50%;background:{{ r.color }};display:flex;align-items:center;justify-content:center;color:#fff;font:600 18px var(--font-sans);">{{ r.ini }}</div>
+                  <span style="font:400 12px var(--font-sans);color:var(--c-text);max-width:60px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ r.first }}</span>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-top:28px;margin-bottom:6px;">
+              <span style="font:700 19px var(--font-sans);letter-spacing:-0.3px;">{{ t.recent }}</span>
+              <button class="tap" onClick="{{ goNotif }}" style="border:none;background:none;color:var(--c-accent);font:600 14px var(--font-sans);">{{ t.seeAll }}</button>
+            </div>
+            <div class="ob-card" style="overflow:hidden;">
+              <sc-for list="{{ transactionsD }}" as="x" hint-placeholder-count="6">
+                <button class="tap" onClick="{{ goTxDetail }}" style="width:100%;border:none;background:none;display:flex;align-items:center;gap:13px;padding:13px 16px;border-bottom:.5px solid var(--c-sep);">
+                  <div style="width:42px;height:42px;border-radius:50%;background:{{ x.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0;" dangerouslySetInnerHTML="{{ x.icon }}"></div>
+                  <div style="flex:1;text-align:start;min-width:0;">
+                    <div style="font:600 15px var(--font-sans);color:var(--c-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ x.name }}</div>
+                    <div style="font:400 13px var(--font-sans);color:var(--c-text2);margin-top:1px;">{{ x.sub }}</div>
+                  </div>
+                  <div style="font:600 15px var(--font-sans);color:{{ x.amtColor }};direction:ltr;white-space:nowrap;">{{ x.amt }}</div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ STATISTICS ============ -->
+        <sc-if value="{{ r_stats }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:56px 20px 28px;animation:obfade .25s ease;">
+            <div style="font:800 32px var(--font-sans);letter-spacing:-0.8px;margin-bottom:18px;">{{ t.statsTitle }}</div>
+            <div style="display:flex;gap:4px;background:var(--c-fill);border-radius:12px;padding:4px;margin-bottom:20px;">
+              <sc-for list="{{ periods }}" as="p" hint-placeholder-count="3">
+                <button class="tap" onClick="{{ p.onPress }}" style="flex:1;border:none;border-radius:9px;padding:9px 0;font:600 14px var(--font-sans);background:{{ p.bg }};color:{{ p.color }};box-shadow:{{ p.sh }};">{{ p.label }}</button>
+              </sc-for>
+            </div>
+
+            <div class="ob-card" style="padding:20px;">
+              <div style="display:flex;gap:10px;margin-bottom:20px;">
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;"><div style="width:9px;height:9px;border-radius:50%;background:var(--c-green);"></div><span style="font:400 12px var(--font-sans);color:var(--c-text2);">{{ t.income }}</span></div>
+                  <div style="font:700 19px var(--font-sans);margin-top:3px;direction:ltr;text-align:start;">{{ statIncomeText }}</div>
+                </div>
+                <div style="flex:1;">
+                  <div style="display:flex;align-items:center;gap:6px;"><div style="width:9px;height:9px;border-radius:50%;background:var(--c-text3);"></div><span style="font:400 12px var(--font-sans);color:var(--c-text2);">{{ t.expense }}</span></div>
+                  <div style="font:700 19px var(--font-sans);margin-top:3px;direction:ltr;text-align:start;">{{ statExpenseText }}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:8px;height:170px;direction:ltr;">
+                <sc-for list="{{ barsD }}" as="b" hint-placeholder-count="6">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;">
+                    <div style="display:flex;gap:3px;align-items:flex-end;height:100%;">
+                      <div style="width:9px;border-radius:5px;background:var(--c-accent);height:{{ b.incHpx }};transition:height .4s var(--ease-glass,ease);"></div>
+                      <div style="width:9px;border-radius:5px;background:var(--c-fill2);height:{{ b.expHpx }};"></div>
+                    </div>
+                    <span style="font:400 11px var(--font-sans);color:var(--c-text2);">{{ b.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="font:700 19px var(--font-sans);letter-spacing:-0.3px;margin:26px 0 12px;">{{ t.topCats }}</div>
+            <div class="ob-card" style="padding:6px 16px;">
+              <sc-for list="{{ categoriesD }}" as="c" hint-placeholder-count="4">
+                <div style="padding:13px 0;border-bottom:.5px solid var(--c-sep);">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                    <span style="font:600 15px var(--font-sans);">{{ c.name }}</span>
+                    <span style="font:600 15px var(--font-sans);direction:ltr;">{{ c.amt }}</span>
+                  </div>
+                  <div style="height:7px;border-radius:999px;background:var(--c-fill);overflow:hidden;">
+                    <div style="height:100%;border-radius:999px;background:{{ c.color }};width:{{ c.width }};transition:width .5s var(--ease-glass,ease);"></div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ WALLET ============ -->
+        <sc-if value="{{ r_wallet }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:56px 20px 28px;animation:obfade .25s ease;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;">
+              <div style="font:800 32px var(--font-sans);letter-spacing:-0.8px;">{{ t.walletTitle }}</div>
+              <button class="tap" onClick="{{ goAddCard }}" style="width:42px;height:42px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="var(--c-accent)" stroke-width="2.4" stroke-linecap="round"/></svg>
+              </button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:14px;">
+              <sc-for list="{{ cardsD }}" as="c" hint-placeholder-count="2">
+                <button class="tap" onClick="{{ c.onPress }}" style="border:none;text-align:start;border-radius:20px;padding:20px;background:{{ c.tint }};color:#fff;box-shadow:0 12px 28px rgba(0,0,0,0.22);position:relative;overflow:hidden;">
+                  <div style="position:absolute;top:-30px;inset-inline-end:-20px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;position:relative;">
+                    <div style="width:42px;height:30px;border-radius:6px;background:linear-gradient(135deg,#FBD38D,#D69E2E);"></div>
+                    <span style="font:700 17px var(--font-sans);font-style:italic;letter-spacing:0.5px;">{{ c.scheme }}</span>
+                  </div>
+                  <div style="font:500 19px var(--font-mono,monospace);letter-spacing:2px;margin-top:26px;direction:ltr;">••••  ••••  ••••  {{ c.last4 }}</div>
+                  <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:16px;position:relative;">
+                    <div>
+                      <div style="font:400 9px var(--font-sans);color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">{{ t.holderName }}</div>
+                      <div style="font:600 14px var(--font-sans);margin-top:2px;">{{ c.holder }}</div>
+                    </div>
+                    <div style="text-align:end;">
+                      <div style="font:400 9px var(--font-sans);color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">{{ t.expiry }}</div>
+                      <div style="font:600 14px var(--font-sans);margin-top:2px;direction:ltr;">{{ c.exp }}</div>
+                    </div>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+
+            <div style="display:flex;align-items:center;justify-content:space-between;margin:28px 0 12px;">
+              <span style="font:700 19px var(--font-sans);letter-spacing:-0.3px;">{{ t.myAccounts }}</span>
+              <button class="tap" onClick="{{ goAddBank }}" style="border:none;background:none;color:var(--c-accent);font:600 14px var(--font-sans);">{{ t.add }}</button>
+            </div>
+            <div class="ob-card" style="overflow:hidden;">
+              <sc-for list="{{ banksD }}" as="b" hint-placeholder-count="2">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                  <div style="width:42px;height:42px;border-radius:12px;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 9l9-5 9 5M4 9v10h16V9M9 19v-6h6v6" stroke="var(--c-text2)" stroke-width="1.7" stroke-linejoin="round"/></svg>
+                  </div>
+                  <div style="flex:1;text-align:start;">
+                    <div style="font:600 15px var(--font-sans);">{{ b.name }}</div>
+                    <div style="font:400 13px var(--font-sans);color:var(--c-text2);direction:ltr;text-align:start;">•••• {{ b.last4 }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ PROFILE ============ -->
+        <sc-if value="{{ r_profile }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:56px 20px 28px;animation:obfade .25s ease;">
+            <div style="font:800 32px var(--font-sans);letter-spacing:-0.8px;margin-bottom:20px;">{{ t.profileTitle }}</div>
+            <div class="ob-card" style="padding:22px;display:flex;align-items:center;gap:16px;margin-bottom:22px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#FF9500,#FF2D55);display:flex;align-items:center;justify-content:center;color:#fff;font:600 24px var(--font-sans);">{{ userIni }}</div>
+              <div style="flex:1;min-width:0;">
+                <div style="font:700 20px var(--font-sans);">{{ userName }}</div>
+                <div style="font:400 14px var(--font-sans);color:var(--c-text2);direction:ltr;text-align:start;">{{ userEmail }}</div>
+              </div>
+              <button class="tap" onClick="{{ goEditProfile }}" style="border:none;background:var(--c-fill);height:36px;padding:0 14px;border-radius:999px;color:var(--c-accent);font:600 13px var(--font-sans);">{{ t.editProfile }}</button>
+            </div>
+
+            <div class="ob-card" style="overflow:hidden;margin-bottom:16px;">
+              <button class="tap" onClick="{{ goSettings }}" style="width:100%;border:none;background:none;display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                <div style="width:30px;height:30px;border-radius:8px;background:#8E8E93;display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="#fff" stroke-width="1.8"/><path d="M19 12a7 7 0 00-.1-1l2-1.5-2-3.5-2.4 1a7 7 0 00-1.7-1l-.3-2.5h-4l-.3 2.5a7 7 0 00-1.7 1l-2.4-1-2 3.5 2 1.5a7 7 0 000 2l-2 1.5 2 3.5 2.4-1a7 7 0 001.7 1l.3 2.5h4l.3-2.5a7 7 0 001.7-1l2.4 1 2-3.5-2-1.5a7 7 0 00.1-1z" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></div>
+                <span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.settings }}</span>
+                <svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="tap" onClick="{{ goSecurity }}" style="width:100%;border:none;background:none;display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                <div style="width:30px;height:30px;border-radius:8px;background:var(--c-green);display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+                <span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.security }}</span>
+                <svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <button class="tap" onClick="{{ goWalletTab }}" style="width:100%;border:none;background:none;display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                <div style="width:30px;height:30px;border-radius:8px;background:var(--c-accent);display:flex;align-items:center;justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="3" stroke="#fff" stroke-width="1.8"/><path d="M3 10h18" stroke="#fff" stroke-width="1.8"/></svg></div>
+                <span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.myCards }}</span>
+                <svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;">
+                <div style="width:30px;height:30px;border-radius:8px;background:#5E5CE6;display:flex;align-items:center;justify-content:center;"><svg width="17" height="17" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.7"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18" stroke="#fff" stroke-width="1.5"/></svg></div>
+                <span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.darkMode }}</span>
+                <button class="tap" onClick="{{ toggleTheme }}" style="width:46px;height:28px;border-radius:999px;border:none;background:{{ darkSwBg }};position:relative;transition:background .2s;">
+                  <div style="position:absolute;top:2px;inset-inline-start:{{ darkSwX }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);transition:inset-inline-start .2s;"></div>
+                </button>
+              </div>
+            </div>
+
+            <button class="ob-btn" onClick="{{ logout }}" style="background:var(--c-fill);color:var(--c-red);">{{ t.logout }}</button>
+            <div style="text-align:center;font:400 12px var(--font-sans);color:var(--c-text3);margin-top:16px;">Obank · v1.0</div>
+          </div>
+        </sc-if>
+
+        <!-- ============ NOTIFICATIONS ============ -->
+        <sc-if value="{{ r_notifications }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;">
+            <div style="padding:56px 20px 14px;display:flex;align-items:center;gap:14px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 24px var(--font-sans);letter-spacing:-0.4px;">{{ t.notifsTitle }}</div>
+            </div>
+            <div style="padding:6px 20px 28px;">
+              <div class="ob-card" style="overflow:hidden;">
+                <sc-for list="{{ notifsD }}" as="n" hint-placeholder-count="3">
+                  <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                    <div style="width:42px;height:42px;border-radius:50%;background:{{ n.color }};display:flex;align-items:center;justify-content:center;flex-shrink:0;" dangerouslySetInnerHTML="{{ n.icon }}"></div>
+                    <div style="flex:1;text-align:start;">
+                      <div style="font:500 15px/1.3 var(--font-sans);">{{ n.name }}</div>
+                      <div style="font:400 13px var(--font-sans);color:var(--c-text2);margin-top:2px;">{{ n.sub }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ TRANSACTION DETAIL ============ -->
+        <sc-if value="{{ r_txdetail }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:56px 24px 28px;">
+            <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;margin-bottom:18px;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:12px;margin:10px 0 28px;">
+              <div style="width:64px;height:64px;border-radius:50%;background:#FF2D55;display:flex;align-items:center;justify-content:center;"><svg viewBox="0 0 24 24" width="30" height="30" fill="none"><path d="M7 7h10l-3-3M17 17H7l3 3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div style="font:600 16px var(--font-sans);color:var(--c-text2);">Dana Levi · {{ t.transfer }}</div>
+              <div style="font:700 38px var(--font-sans);letter-spacing:-1px;direction:ltr;">− $240.00</div>
+              <div style="font:500 13px var(--font-sans);color:var(--c-green);background:rgba(52,199,89,0.14);padding:5px 12px;border-radius:999px;">{{ statusCompleted }}</div>
+            </div>
+            <div class="ob-card" style="padding:4px 16px;">
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.from }}</span><span style="font:500 15px var(--font-sans);">{{ t.balance }}</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.to }}</span><span style="font:500 15px var(--font-sans);">Dana Levi</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.fee }}</span><span style="font:500 15px var(--font-sans);direction:ltr;">$0.00</span></div>
+              <div style="display:flex;justify-content:space-between;padding:14px 0;"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">ID</span><span style="font:500 13px var(--font-mono,monospace);color:var(--c-text2);">TXN-8F2A91C</span></div>
+            </div>
+            <button class="ob-btn ob-btn2" style="margin-top:20px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M8 8l4-4 4 4M5 16v3a1 1 0 001 1h12a1 1 0 001-1v-3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ t.shareReceipt }}</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ EDIT PROFILE ============ -->
+        <sc-if value="{{ r_editprofile }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:56px 24px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 22px var(--font-sans);letter-spacing:-0.4px;">{{ t.editProfile }}</div>
+            </div>
+            <div style="display:flex;justify-content:center;margin-bottom:24px;">
+              <div style="position:relative;">
+                <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#FF9500,#FF2D55);display:flex;align-items:center;justify-content:center;color:#fff;font:600 32px var(--font-sans);">{{ userIni }}</div>
+                <div style="position:absolute;bottom:0;inset-inline-end:0;width:30px;height:30px;border-radius:50%;background:var(--c-accent);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px var(--c-canvas);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 20h4l10-10-4-4L4 16v4zM14 6l4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;">{{ t.name }}</label>
+              <input class="ob-field" value="{{ userName }}">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;margin-top:8px;">{{ t.email }}</label>
+              <input class="ob-field" value="{{ userEmail }}" style="direction:ltr;">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;margin-top:8px;">{{ t.phone }}</label>
+              <input class="ob-field" value="{{ userPhone }}" style="direction:ltr;">
+            </div>
+            <div style="flex:1;"></div>
+            <button class="ob-btn" onClick="{{ back }}" style="margin-top:24px;">{{ t.saveChanges }}</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ SETTINGS ============ -->
+        <sc-if value="{{ r_settings }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;padding:56px 20px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 24px var(--font-sans);letter-spacing:-0.4px;">{{ t.settings }}</div>
+            </div>
+            <div style="font:600 13px var(--font-sans);color:var(--c-text2);text-transform:uppercase;letter-spacing:0.4px;padding:6px 12px;">{{ t.account }}</div>
+            <div class="ob-card" style="overflow:hidden;margin-bottom:18px;">
+              <button class="tap" onClick="{{ goEditProfile }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:14px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.editProfile }}</span><svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="tap" onClick="{{ goWalletTab }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:14px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.myCards }}</span><svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="tap" onClick="{{ goSecurity }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:14px 16px;"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.security }}</span><svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+            <div style="font:600 13px var(--font-sans);color:var(--c-text2);text-transform:uppercase;letter-spacing:0.4px;padding:6px 12px;">{{ t.preferences }}</div>
+            <div class="ob-card" style="overflow:hidden;">
+              <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.darkMode }}</span>
+                <button class="tap" onClick="{{ toggleTheme }}" style="width:46px;height:28px;border-radius:999px;border:none;background:{{ darkSwBg }};position:relative;"><div style="position:absolute;top:2px;inset-inline-start:{{ darkSwX }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);transition:inset-inline-start .2s;"></div></button>
+              </div>
+              <div style="display:flex;align-items:center;padding:14px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.notifications }}</span>
+                <button class="tap" onClick="{{ toggleNotif }}" style="width:46px;height:28px;border-radius:999px;border:none;background:{{ notifBg }};position:relative;"><div style="position:absolute;top:2px;inset-inline-start:{{ notifX }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);transition:inset-inline-start .2s;"></div></button>
+              </div>
+              <button class="tap" onClick="{{ toggleLang }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:14px 16px;"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.language }}</span><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ langName }}</span></button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ SECURITY ============ -->
+        <sc-if value="{{ r_security }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;padding:56px 20px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 24px var(--font-sans);letter-spacing:-0.4px;">{{ t.security }}</div>
+            </div>
+            <div class="ob-card" style="overflow:hidden;margin-bottom:18px;">
+              <div style="display:flex;align-items:center;padding:15px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.faceId }}</span>
+                <button class="tap" onClick="{{ toggleFace }}" style="width:46px;height:28px;border-radius:999px;border:none;background:{{ faceBg }};position:relative;"><div style="position:absolute;top:2px;inset-inline-start:{{ faceX }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);transition:inset-inline-start .2s;"></div></button>
+              </div>
+              <div style="display:flex;align-items:center;padding:15px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.appLock }}</span>
+                <button class="tap" onClick="{{ toggleAppLock }}" style="width:46px;height:28px;border-radius:999px;border:none;background:{{ lockBg }};position:relative;"><div style="position:absolute;top:2px;inset-inline-start:{{ lockX }};width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.3);transition:inset-inline-start .2s;"></div></button>
+              </div>
+              <button class="tap" onClick="{{ goChangePin }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:15px 16px;"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.changePin }}</span><svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            </div>
+            <button class="ob-btn ob-btn2" onClick="{{ openEnterPin }}">{{ t.testLock }}</button>
+            <div style="display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:14px;background:var(--c-fill);border-radius:14px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px;"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="var(--c-green)" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="var(--c-green)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span style="font:400 13px/1.4 var(--font-sans);color:var(--c-text2);">{{ securityNote }}</span>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ CARD DETAIL ============ -->
+        <sc-if value="{{ r_carddetail }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;padding:56px 24px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:22px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 22px var(--font-sans);letter-spacing:-0.4px;">{{ t.cardDetail }}</div>
+            </div>
+            <div style="border-radius:20px;padding:22px;background:{{ currentCard.tint }};color:#fff;box-shadow:0 14px 32px rgba(0,0,0,0.25);position:relative;overflow:hidden;">
+              <div style="position:absolute;top:-30px;inset-inline-end:-20px;width:130px;height:130px;border-radius:50%;background:rgba(255,255,255,0.08);"></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;position:relative;"><div style="width:46px;height:32px;border-radius:6px;background:linear-gradient(135deg,#FBD38D,#D69E2E);"></div><span style="font:700 18px var(--font-sans);font-style:italic;">{{ currentCard.scheme }}</span></div>
+              <div style="font:500 21px var(--font-mono,monospace);letter-spacing:2px;margin-top:28px;direction:ltr;">••••  ••••  ••••  {{ currentCard.last4 }}</div>
+              <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-top:18px;position:relative;"><div><div style="font:400 9px var(--font-sans);color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">{{ t.holderName }}</div><div style="font:600 15px var(--font-sans);margin-top:2px;">{{ currentCard.holder }}</div></div><div style="text-align:end;"><div style="font:400 9px var(--font-sans);color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:1px;">{{ t.expiry }}</div><div style="font:600 15px var(--font-sans);margin-top:2px;direction:ltr;">{{ currentCard.exp }}</div></div></div>
+            </div>
+            <div class="ob-card" style="padding:18px 20px;margin-top:18px;display:flex;align-items:center;justify-content:space-between;">
+              <span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.balance }}</span>
+              <span style="font:700 22px var(--font-sans);direction:ltr;">{{ currentCard.balText }}</span>
+            </div>
+            <div class="ob-card" style="overflow:hidden;margin-top:16px;">
+              <button class="tap" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:15px 16px;border-bottom:.5px solid var(--c-sep);"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);">{{ t.setDefault }}</span><svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <button class="tap" onClick="{{ back }}" style="width:100%;border:none;background:none;display:flex;align-items:center;padding:15px 16px;"><span style="flex:1;text-align:start;font:500 16px var(--font-sans);color:var(--c-red);">{{ t.removeCard }}</span></button>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- ============ ADD CARD ============ -->
+        <sc-if value="{{ r_addcard }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:56px 24px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 22px var(--font-sans);letter-spacing:-0.4px;">{{ t.addCard }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;">{{ t.cardNumber }}</label>
+              <input class="ob-field" placeholder="0000 0000 0000 0000" style="direction:ltr;text-align:start;">
+              <div style="display:flex;gap:12px;margin-top:8px;">
+                <div style="flex:1;display:flex;flex-direction:column;gap:8px;"><label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;">{{ t.expiry }}</label><input class="ob-field" placeholder="MM/YY" style="direction:ltr;text-align:start;"></div>
+                <div style="flex:1;display:flex;flex-direction:column;gap:8px;"><label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;">{{ t.cvv }}</label><input class="ob-field" placeholder="•••" style="direction:ltr;text-align:start;"></div>
+              </div>
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;margin-top:8px;">{{ t.nameOnCard }}</label>
+              <input class="ob-field" placeholder="{{ userName }}">
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;margin-top:18px;padding:14px;background:var(--c-fill);border-radius:14px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex-shrink:0;margin-top:1px;"><rect x="4" y="10" width="16" height="11" rx="3" stroke="var(--c-green)" stroke-width="1.8"/><path d="M8 10V7a4 4 0 018 0v3" stroke="var(--c-green)" stroke-width="1.8"/></svg>
+              <span style="font:400 13px/1.4 var(--font-sans);color:var(--c-text2);">{{ t.secured }}</span>
+            </div>
+            <div style="flex:1;"></div>
+            <button class="ob-btn" onClick="{{ back }}" style="margin-top:24px;">{{ t.addCard }}</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ ADD BANK ============ -->
+        <sc-if value="{{ r_addbank }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;padding:56px 24px 28px;">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+              <button class="tap" onClick="{{ back }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 22px var(--font-sans);letter-spacing:-0.4px;">{{ t.addBank }}</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;">{{ t.bankName }}</label>
+              <input class="ob-field" placeholder="{{ bankPh }}">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;margin-top:8px;">{{ t.accountNumber }}</label>
+              <input class="ob-field" placeholder="IL00 0000 0000 0000" style="direction:ltr;text-align:start;">
+              <label style="font:500 13px var(--font-sans);color:var(--c-text2);padding-inline-start:4px;margin-top:8px;">{{ t.holderName }}</label>
+              <input class="ob-field" placeholder="{{ userName }}">
+            </div>
+            <div style="flex:1;"></div>
+            <button class="ob-btn" onClick="{{ back }}" style="margin-top:24px;">{{ t.addBank }}</button>
+          </div>
+        </sc-if>
+
+        <!-- ============ MONEY FLOW ============ -->
+        <sc-if value="{{ r_flow }}" hint-placeholder-val="{{ true }}">
+          <div style="min-height:100%;display:flex;flex-direction:column;">
+            <div style="padding:56px 20px 8px;display:flex;align-items:center;gap:14px;flex-shrink:0;">
+              <button class="tap" onClick="{{ flowBack }}" style="width:40px;height:40px;border-radius:50%;border:none;background:var(--c-fill);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="11" height="18" viewBox="0 0 12 20" fill="none" style="transform:scaleX({{ chevDir }});"><path d="M10 2L2 10l8 8" stroke="var(--c-text)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+              <div style="font:700 24px var(--font-sans);letter-spacing:-0.4px;">{{ flowTitle }}</div>
+            </div>
+
+            <!-- TARGET -->
+            <sc-if value="{{ flowStepTarget }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;padding:14px 20px 28px;">
+                <sc-if value="{{ flowIsPay }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:24px;padding-top:30px;">
+                    <div style="font:400 16px var(--font-sans);color:var(--c-text2);text-align:center;">{{ t.scanHint }}</div>
+                    <div style="width:240px;height:240px;border-radius:28px;background:var(--c-fill);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                      <div style="position:absolute;top:18px;inset-inline-start:18px;width:34px;height:34px;border-top:3px solid var(--c-accent);border-inline-start:3px solid var(--c-accent);border-radius:6px 0 0 0;"></div>
+                      <div style="position:absolute;top:18px;inset-inline-end:18px;width:34px;height:34px;border-top:3px solid var(--c-accent);border-inline-end:3px solid var(--c-accent);border-radius:0 6px 0 0;"></div>
+                      <div style="position:absolute;bottom:18px;inset-inline-start:18px;width:34px;height:34px;border-bottom:3px solid var(--c-accent);border-inline-start:3px solid var(--c-accent);border-radius:0 0 0 6px;"></div>
+                      <div style="position:absolute;bottom:18px;inset-inline-end:18px;width:34px;height:34px;border-bottom:3px solid var(--c-accent);border-inline-end:3px solid var(--c-accent);border-radius:0 0 6px 0;"></div>
+                      <svg width="90" height="90" viewBox="0 0 24 24" fill="none" style="opacity:0.3;"><path d="M4 4h6v6H4V4zM14 4h6v6h-6V4zM4 14h6v6H4v-6zM14 14h2v2h-2v-2zM18 14h2v2h-2v-2zM14 18h2v2h-2v-2zM18 18h2v2h-2v-2z" fill="var(--c-text)"/></svg>
+                    </div>
+                    <button class="ob-btn" onClick="{{ payScan }}">{{ t.simScan }}</button>
+                    <button class="tap" style="border:none;background:none;color:var(--c-accent);font:600 15px var(--font-sans);">{{ t.uploadQr }}</button>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ flowHasList }}" hint-placeholder-val="{{ true }}">
+                  <div style="font:600 16px var(--font-sans);color:var(--c-text2);margin-bottom:14px;">{{ flowTargetTitle }}</div>
+                  <div class="ob-card" style="overflow:hidden;">
+                    <sc-for list="{{ flowTargets }}" as="g" hint-placeholder-count="4">
+                      <button class="tap" onClick="{{ g.onPress }}" style="width:100%;border:none;background:none;display:flex;align-items:center;gap:13px;padding:14px 16px;border-bottom:.5px solid var(--c-sep);">
+                        <div style="width:44px;height:44px;border-radius:12px;background:{{ g.color }};display:flex;align-items:center;justify-content:center;color:#fff;font:600 16px var(--font-sans);flex-shrink:0;">{{ g.ini }}</div>
+                        <div style="flex:1;text-align:start;"><div style="font:600 16px var(--font-sans);">{{ g.name }}</div><div style="font:400 13px var(--font-sans);color:var(--c-text2);direction:ltr;text-align:start;">{{ g.sub }}</div></div>
+                        <svg width="8" height="13" viewBox="0 0 8 14" style="transform:scaleX({{ chevDir }});"><path d="M1 1l6 6-6 6" stroke="var(--c-text3)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                      </button>
+                    </sc-for>
+                  </div>
+                  <button class="ob-btn ob-btn2" style="margin-top:18px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>{{ flowAddLabel }}</button>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <!-- AMOUNT -->
+            <sc-if value="{{ flowStepAmount }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;display:flex;flex-direction:column;padding:0 24px;">
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+                  <div style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ flowToLabel }}</div>
+                  <div style="font:700 56px var(--font-sans);letter-spacing:-1.5px;direction:ltr;color:{{ amtColor }};">{{ amountText }}</div>
+                  <div style="font:400 14px var(--font-sans);color:var(--c-text2);">{{ t.available }} {{ balanceText }}</div>
+                  <div style="height:20px;font:500 13px var(--font-sans);color:var(--c-red);">{{ amtErrText }}</div>
+                  <div style="display:flex;gap:10px;margin-top:6px;">
+                    <button class="tap" onClick="{{ q50 }}" style="border:none;background:var(--c-fill);padding:9px 18px;border-radius:999px;font:600 15px var(--font-sans);color:var(--c-text);">$50</button>
+                    <button class="tap" onClick="{{ q100 }}" style="border:none;background:var(--c-fill);padding:9px 18px;border-radius:999px;font:600 15px var(--font-sans);color:var(--c-text);">$100</button>
+                    <button class="tap" onClick="{{ q200 }}" style="border:none;background:var(--c-fill);padding:9px 18px;border-radius:999px;font:600 15px var(--font-sans);color:var(--c-text);">$200</button>
+                  </div>
+                </div>
+                <button class="ob-btn" onClick="{{ flowAmountNext }}" disabled="{{ amtDisabled }}" style="margin-bottom:8px;">{{ t.cont }}</button>
+              </div>
+            </sc-if>
+
+            <!-- SUMMARY -->
+            <sc-if value="{{ flowStepSummary }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;display:flex;flex-direction:column;padding:14px 24px 28px;">
+                <div style="text-align:center;margin:20px 0 28px;">
+                  <div style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.amount }}</div>
+                  <div style="font:700 46px var(--font-sans);letter-spacing:-1.2px;direction:ltr;margin-top:4px;">{{ flowAmtText }}</div>
+                </div>
+                <div class="ob-card" style="padding:4px 18px;">
+                  <div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.from }}</span><span style="font:500 15px var(--font-sans);">{{ sumFrom }}</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.to }}</span><span style="font:500 15px var(--font-sans);">{{ sumTo }}</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:.5px solid var(--c-sep);"><span style="font:400 15px var(--font-sans);color:var(--c-text2);">{{ t.fee }}</span><span style="font:500 15px var(--font-sans);direction:ltr;">{{ flowFeeText }}</span></div>
+                  <div style="display:flex;justify-content:space-between;padding:15px 0;"><span style="font:600 16px var(--font-sans);">{{ t.total }}</span><span style="font:700 17px var(--font-sans);direction:ltr;">{{ flowTotalText }}</span></div>
+                </div>
+                <div style="flex:1;"></div>
+                <button class="ob-btn" onClick="{{ flowSummaryNext }}">{{ flowConfirmLabel }}</button>
+              </div>
+            </sc-if>
+
+            <!-- PIN -->
+            <sc-if value="{{ flowStepPin }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+                <div style="width:60px;height:60px;border-radius:18px;background:var(--c-fill);display:flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="11" rx="3" stroke="var(--c-accent)" stroke-width="1.9"/><path d="M8 10V7a4 4 0 018 0v3" stroke="var(--c-accent)" stroke-width="1.9"/></svg></div>
+                <div style="font:700 22px var(--font-sans);">{{ t.enterTitle }}</div>
+                <div style="display:flex;gap:18px;margin-top:14px;direction:ltr;">
+                  <sc-for list="{{ flowPinDots }}" as="d" hint-placeholder-count="4"><div style="width:16px;height:16px;border-radius:50%;background:{{ d.bg }};box-shadow:inset 0 0 0 1.7px {{ d.ring }};transition:all .15s;"></div></sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <!-- RESULT -->
+            <sc-if value="{{ flowStepResult }}" hint-placeholder-val="{{ true }}">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 28px;">
+                <sc-if value="{{ flowProcessing }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:20px;">
+                    <div style="width:48px;height:48px;border:4px solid var(--c-fill2);border-top-color:var(--c-accent);border-radius:50%;animation:obspin .8s linear infinite;"></div>
+                    <div style="font:500 17px var(--font-sans);color:var(--c-text2);">{{ t.processing }}</div>
+                  </div>
+                </sc-if>
+                <sc-if value="{{ flowDoneState }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;flex-direction:column;align-items:center;gap:14px;width:100%;">
+                    <div style="width:96px;height:96px;border-radius:50%;background:var(--c-green);display:flex;align-items:center;justify-content:center;animation:obpop .5s ease both;box-shadow:0 12px 30px rgba(52,199,89,0.4);"><svg width="46" height="46" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                    <div style="font:700 24px var(--font-sans);margin-top:8px;">{{ t.successTitle }}</div>
+                    <div style="font:700 38px var(--font-sans);letter-spacing:-1px;direction:ltr;">{{ flowAmtText }}</div>
+                    <div style="font:400 15px var(--font-sans);color:var(--c-text2);text-align:center;">{{ t.successSub }}</div>
+                    <div style="width:100%;display:flex;flex-direction:column;gap:10px;margin-top:24px;">
+                      <button class="ob-btn" onClick="{{ flowDone }}">{{ t.backHome }}</button>
+                      <button class="ob-btn ob-btn2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M8 8l4-4 4 4M5 16v3a1 1 0 001 1h12a1 1 0 001-1v-3" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg>{{ t.shareReceipt }}</button>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+      </div>
+
+      <!-- ============ SHARED NUMPAD ============ -->
+      <sc-if value="{{ showNumpad }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:8px 22px calc(28px + env(safe-area-inset-bottom));background:var(--c-canvas);">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;direction:ltr;">
+            <sc-for list="{{ padKeys }}" as="k" hint-placeholder-count="12">
+              <button class="tap" onClick="{{ k.onPress }}" style="height:56px;border:none;background:{{ k.bg }};border-radius:16px;display:flex;align-items:center;justify-content:center;font:400 28px var(--font-sans);color:var(--c-text);">
+                <sc-if value="{{ k.isNum }}" hint-placeholder-val="{{ true }}"><span>{{ k.label }}</span></sc-if>
+                <sc-if value="{{ k.isDel }}" hint-placeholder-val="{{ true }}"><svg width="28" height="22" viewBox="0 0 28 22" fill="none"><path d="M9 2h15a2 2 0 012 2v14a2 2 0 01-2 2H9l-7-9 7-9z" stroke="var(--c-text2)" stroke-width="1.7" stroke-linejoin="round"/><path d="M13 7l7 8M20 7l-7 8" stroke="var(--c-text2)" stroke-width="1.7" stroke-linecap="round"/></svg></sc-if>
+                <sc-if value="{{ k.isBio }}" hint-placeholder-val="{{ true }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M3 8V6a3 3 0 013-3h2M16 3h2a3 3 0 013 3v2M21 16v2a3 3 0 01-3 3h-2M8 21H6a3 3 0 01-3-3v-2" stroke="var(--c-accent)" stroke-width="1.7" stroke-linecap="round"/><path d="M9 10v1M15 10v1M12 9v4M9 15c1 1 5 1 6 0" stroke="var(--c-accent)" stroke-width="1.6" stroke-linecap="round"/></svg></sc-if>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- ============ TAB BAR ============ -->
+      <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+        <div style="position:relative;padding:8px 14px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:flex-end;justify-content:space-around;background:var(--c-surface);box-shadow:0 -.5px 0 var(--c-sep);">
+          <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="5">
+            <sc-if value="{{ tb.isFab }}" hint-placeholder-val="{{ true }}">
+              <button class="tap" onClick="{{ tb.onPress }}" style="width:56px;height:56px;border-radius:20px;border:none;background:linear-gradient(160deg,var(--c-hero1),var(--c-hero2));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(94,92,230,0.4);margin-top:-22px;">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/></svg>
+              </button>
+            </sc-if>
+            <sc-if value="{{ tb.isTab }}" hint-placeholder-val="{{ true }}">
+              <button class="tap" onClick="{{ tb.onPress }}" style="flex:1;max-width:80px;border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;color:{{ tb.color }};">
+                <div style="width:26px;height:26px;" dangerouslySetInnerHTML="{{ tb.icon }}"></div>
+                <span style="font:500 10px var(--font-sans);">{{ tb.label }}</span>
+              </button>
+            </sc-if>
+          </sc-for>
+        </div>
+      </sc-if>
+
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:920},&quot;startAuthenticated&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;defaultLanguage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;he&quot;,&quot;en&quot;],&quot;default&quot;:&quot;he&quot;,&quot;tsType&quot;:&quot;'he' | 'en'&quot;},&quot;defaultTheme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;],&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light' | 'dark'&quot;}}">
+class Component extends DCLogic {
+  state = {
+    theme: this.props.defaultTheme || 'light', lang: this.props.defaultLanguage || 'he',
+    route: this.props.startAuthenticated ? 'home' : 'splash', history: [], tab: 'home',
+    authed: !!this.props.startAuthenticated, balanceHidden: false,
+    onbIndex: 0,
+    email: '', password: '', showPw: false, agree: false,
+    otp: '', otpPurpose: 'signup', resend: 30,
+    createBuf: '', createFirst: '', createStage: 'enter',
+    enterPin: '', pinError: '',
+    flowType: null, flowStep: 'target', flowTarget: null,
+    amtCents: 0, flowPin: '', flowStatus: 'success', processing: false,
+    statPeriod: 'month',
+    faceId: true, appLock: true, notif: true,
+    currentCard: null,
+  };
+
+  balanceCents = 987652;
+
+  recipients = [
+    {id:'r1', he:'דנה לוי', en:'Dana Levi', ini:'DL', color:'#FF2D55'},
+    {id:'r2', he:'יואב בר', en:'Yoav Bar', ini:'YB', color:'#0A84FF'},
+    {id:'r3', he:'נועה גל', en:'Noa Gal', ini:'NG', color:'#FF9500'},
+    {id:'r4', he:'איתי שגב', en:'Itai Segev', ini:'IS', color:'#34C759'},
+    {id:'r5', he:'תמר רון', en:'Tamar Ron', ini:'TR', color:'#AF52DE'},
+  ];
+  transactions = [
+    {id:'t1', he:'דנה לוי', en:'Dana Levi', subHe:'העברה · היום', subEn:'Transfer · Today', cents:-24000, color:'#FF2D55', g:'transfer'},
+    {id:'t2', he:'הטענה · PayPal', en:'Top up · PayPal', subHe:'הטענה · אתמול', subEn:'Top up · Yesterday', cents:50000, color:'#0A84FF', g:'topup'},
+    {id:'t3', he:'Apple Store', en:'Apple Store', subHe:'תשלום · 21 ביוני', subEn:'Payment · Jun 21', cents:-129900, color:'#1C1C1E', g:'pay'},
+    {id:'t4', he:'יואב בר', en:'Yoav Bar', subHe:'התקבל · 20 ביוני', subEn:'Received · Jun 20', cents:18000, color:'#0A84FF', g:'transfer'},
+    {id:'t5', he:'Spotify', en:'Spotify', subHe:'מנוי · 19 ביוני', subEn:'Subscription · Jun 19', cents:-1990, color:'#34C759', g:'pay'},
+    {id:'t6', he:'משיכה · לאומי', en:'Withdraw · Leumi', subHe:'משיכה · 18 ביוני', subEn:'Withdraw · Jun 18', cents:-100000, color:'#FF9500', g:'withdraw'},
+  ];
+  methods = [
+    {id:'m1', he:'PayPal', en:'PayPal', sub:'maya@obank.com', color:'#0A84FF', k:'paypal'},
+    {id:'m2', he:'Google Pay', en:'Google Pay', sub:'•••• 4821', color:'#34C759', k:'gpay'},
+    {id:'m3', he:'כרטיס אשראי', en:'Credit card', sub:'VISA •••• 4242', color:'#5856D6', k:'card'},
+    {id:'m4', he:'העברה בנקאית', en:'Bank transfer', sub:'Leumi •••• 9920', color:'#FF9500', k:'bank'},
+  ];
+  cards = [
+    {id:'c1', scheme:'VISA', last4:'4242', exp:'08/27', he:'מאיה כהן', en:'Maya Cohen', tint:'linear-gradient(135deg,#1c1c1e,#3a3a3c)', bal:987652, def:true},
+    {id:'c2', scheme:'Mastercard', last4:'8830', exp:'11/26', he:'מאיה כהן', en:'Maya Cohen', tint:'linear-gradient(135deg,#5E5CE6,#0A84FF)', bal:120000, def:false},
+  ];
+  banks = [
+    {id:'b1', he:'בנק לאומי', en:'Bank Leumi', last4:'9920', he2:'מאיה כהן', en2:'Maya Cohen'},
+    {id:'b2', he:'בנק הפועלים', en:'Bank Hapoalim', last4:'1184', he2:'מאיה כהן', en2:'Maya Cohen'},
+  ];
+  categories = [
+    {he:'קניות', en:'Shopping', cents:142900, color:'#FF2D55', pct:38},
+    {he:'מסעדות', en:'Dining', cents:38400, color:'#FF9500', pct:24},
+    {he:'העברות', en:'Transfers', cents:42000, color:'#0A84FF', pct:26},
+    {he:'מנויים', en:'Subscriptions', cents:5980, color:'#34C759', pct:12},
+  ];
+  bars = [
+    {he:'ינו', en:'Jan', inc:42, exp:30}, {he:'פבר', en:'Feb', inc:55, exp:38},
+    {he:'מרץ', en:'Mar', inc:48, exp:52}, {he:'אפר', en:'Apr', inc:70, exp:44},
+    {he:'מאי', en:'May', inc:62, exp:58}, {he:'יוני', en:'Jun', inc:88, exp:46},
+  ];
+  notifs = [
+    {id:'n1', he:'התקבלה העברה מיואב בר', en:'You received a transfer from Yoav Bar', subHe:'לפני שעה', subEn:'1h ago', color:'#34C759', g:'transfer'},
+    {id:'n2', he:'ההטענה מ-PayPal הושלמה', en:'Your PayPal top up is complete', subHe:'אתמול', subEn:'Yesterday', color:'#0A84FF', g:'topup'},
+    {id:'n3', he:'תשלום ל-Apple Store בוצע', en:'Payment to Apple Store completed', subHe:'21 ביוני', subEn:'Jun 21', color:'#1C1C1E', g:'pay'},
+  ];
+
+  STR = {
+    he: {skip:'דילוג', cont:'המשך', confirm:'אישור', done:'סיום', cancel:'ביטול', save:'שמירה', retry:'נסי שוב', seeAll:'הצג הכל', add:'הוספה', remove:'הסרה', or:'או',
+      welcomeBack:'ברוכה שובך!', signInSub:'התחברי כדי להמשיך.', email:'אימייל', password:'סיסמה', forgotQ:'שכחת סיסמה?', signIn:'התחברות', noAccount:'אין לך חשבון?', signUp:'הרשמה', comeJoin:'הצטרפי ל-Obank!', signUpSub:'פתחי חשבון בדקה אחת.', agree:'אני מסכימה לתנאי השימוש ולמדיניות הפרטיות', haveAccount:'כבר יש לך חשבון?', continueApple:'המשך עם Apple', forgotTitle:'שחזור סיסמה', forgotSub:'הזיני את כתובת האימייל ונשלח אלייך קוד אימות.',
+      otpTitle:'אימות אימייל', otpSub:'הזיני את הקוד בן 4 הספרות שנשלח אל', resend:'שליחת קוד מחדש', resendIn:'שליחה חוזרת בעוד',
+      createTitle:'יצירת קוד אישי', createSub:'הקוד יאבטח את הכניסה ואת הפעולות.', confirmTitle:'אישור הקוד', confirmSub:'הזיני שוב את הקוד שבחרת.', mismatch:'הקודים אינם תואמים. נסי שוב.', enterTitle:'הזיני את הקוד', enterSub:'הזיני קוד כדי לפתוח את Obank.', wrongPin:'קוד שגוי. נסי שוב.',
+      hello:'שלום', totalBalance:'יתרה כוללת', quickSend:'העברה מהירה', recent:'פעילות אחרונה', noTx:'אין עדיין תנועות',
+      topUp:'הטענה', transfer:'העברה', withdraw:'משיכה', scan:'סריקה', pay:'תשלום',
+      tabHome:'בית', tabStats:'נתונים', tabWallet:'ארנק', tabProfile:'פרופיל',
+      notifsTitle:'התראות',
+      chooseMethod:'בחרי אמצעי תשלום', sendTo:'העברה אל', withdrawTo:'משיכה אל', scanTitle:'סרקי כדי לשלם', scanHint:'מקמי את קוד ה-QR בתוך המסגרת', simScan:'סימולציית סריקה', uploadQr:'העלאת קוד QR', addRecipient:'הוספת נמען חדש', addDest:'הוספת יעד',
+      setAmount:'הזיני סכום', available:'זמין', insufficient:'הסכום חורג מהיתרה הזמינה', amount:'סכום', fee:'עמלה', total:'סך הכל', from:'מאת', to:'אל', confirmPay:'אישור ותשלום',
+      successTitle:'הפעולה הושלמה', successSub:'הכסף הועבר בהצלחה.', failTitle:'הפעולה נכשלה', failSub:'משהו השתבש ולא בוצע חיוב.', tryAgain:'נסי שוב', contactSupport:'פנייה לתמיכה', processing:'מעבד…', backHome:'חזרה לבית', shareReceipt:'שיתוף קבלה',
+      statsTitle:'סטטיסטיקה', income:'הכנסות', expense:'הוצאות', week:'שבוע', month:'חודש', year:'שנה', topCats:'קטגוריות מובילות', thisMonth:'החודש', net:'מאזן',
+      walletTitle:'הארנק שלי', myCards:'כרטיסים', addCard:'הוספת כרטיס', myAccounts:'חשבונות בנק', addBank:'הוספת חשבון', cardNumber:'מספר כרטיס', expiry:'תוקף', cvv:'CVV', nameOnCard:'שם בעל הכרטיס', bankName:'שם הבנק', accountNumber:'IBAN / מספר חשבון', holderName:'שם בעל החשבון', setDefault:'הגדרה כברירת מחדל', removeCard:'הסרת כרטיס', cardDetail:'פרטי כרטיס', balance:'יתרה', default:'ברירת מחדל', secured:'מאובטח · אסימון בלבד',
+      profileTitle:'פרופיל', editProfile:'עריכת פרופיל', settings:'הגדרות', security:'אבטחה', referral:'הזמנת חברים', language:'שפה', notifications:'התראות', logout:'התנתקות', name:'שם מלא', phone:'טלפון', faceId:'Face ID לאישור', changePin:'שינוי קוד אישי', appLock:'נעילת אפליקציה', memberSince:'חבר/ה מאז', saveChanges:'שמירת שינויים', darkMode:'מצב כהה', account:'חשבון', preferences:'העדפות', testLock:'בדיקת נעילה',
+    },
+    en: {skip:'Skip', cont:'Continue', confirm:'Confirm', done:'Done', cancel:'Cancel', save:'Save', retry:'Try again', seeAll:'See all', add:'Add', remove:'Remove', or:'or',
+      welcomeBack:'Welcome Back!', signInSub:'Sign in to continue.', email:'Email', password:'Password', forgotQ:'Forgot Password?', signIn:'Sign in', noAccount:"Don't have an account?", signUp:'Sign up', comeJoin:'Come join Obank!', signUpSub:'Create your account in a minute.', agree:'I agree to the Terms & Privacy Policy', haveAccount:'Already have an account?', continueApple:'Continue with Apple', forgotTitle:'Forgot password', forgotSub:"Enter your email and we'll send a code.",
+      otpTitle:'Verify your email', otpSub:'Enter the 4-digit code sent to', resend:'Resend code', resendIn:'Resend in',
+      createTitle:'Create your PIN', createSub:'This PIN secures sign-in and payments.', confirmTitle:'Confirm your PIN', confirmSub:'Enter the PIN again.', mismatch:"PINs don't match. Try again.", enterTitle:'Enter your PIN', enterSub:'Enter your PIN to unlock Obank.', wrongPin:'Wrong PIN. Try again.',
+      hello:'Hello', totalBalance:'Total balance', quickSend:'Quick send', recent:'Recent activity', noTx:'No transactions yet',
+      topUp:'Top up', transfer:'Transfer', withdraw:'Withdraw', scan:'Scan', pay:'Pay',
+      tabHome:'Home', tabStats:'Stats', tabWallet:'Wallet', tabProfile:'Profile',
+      notifsTitle:'Notifications',
+      chooseMethod:'Choose a payment method', sendTo:'Send to', withdrawTo:'Withdraw to', scanTitle:'Scan to pay', scanHint:'Place the QR code inside the frame', simScan:'Simulate scan', uploadQr:'Upload QR code', addRecipient:'Add new recipient', addDest:'Add destination',
+      setAmount:'Enter amount', available:'Available', insufficient:'Amount exceeds available balance', amount:'Amount', fee:'Fee', total:'Total', from:'From', to:'To', confirmPay:'Confirm & pay',
+      successTitle:'Payment successful', successSub:'Your money was sent.', failTitle:'Payment failed', failSub:'Something went wrong. No money was moved.', tryAgain:'Try again', contactSupport:'Contact support', processing:'Processing…', backHome:'Back to home', shareReceipt:'Share receipt',
+      statsTitle:'Statistics', income:'Income', expense:'Expense', week:'Week', month:'Month', year:'Year', topCats:'Top categories', thisMonth:'This month', net:'Net',
+      walletTitle:'My Wallet', myCards:'Cards', addCard:'Add card', myAccounts:'Bank accounts', addBank:'Add account', cardNumber:'Card number', expiry:'Expiry', cvv:'CVV', nameOnCard:'Name on card', bankName:'Bank name', accountNumber:'IBAN / Account', holderName:'Account holder', setDefault:'Set as default', removeCard:'Remove card', cardDetail:'Card details', balance:'Balance', default:'Default', secured:'Secured · token only',
+      profileTitle:'Profile', editProfile:'Edit profile', settings:'Settings', security:'Security', referral:'Invite friends', language:'Language', notifications:'Notifications', logout:'Log out', name:'Full name', phone:'Phone', faceId:'Face ID to confirm', changePin:'Change PIN', appLock:'App lock', memberSince:'Member since', saveChanges:'Save changes', darkMode:'Dark mode', account:'Account', preferences:'Preferences', testLock:'Test app lock',
+    }
+  };
+
+  componentDidMount(){
+    this._splashT = setTimeout(()=>{ if(this.state.route==='splash') this.go('onboarding'); }, 1900);
+  }
+  componentWillUnmount(){ clearTimeout(this._splashT); clearInterval(this._resendT); }
+
+  L(o){ return this.state.lang==='he' ? o.he : o.en; }
+  fmt(c){ const v=Math.abs(c)/100; return '$'+v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+  // ---- navigation ----
+  go=(r)=>{ this.setState(s=>({route:r, history:[...s.history, s.route]})); this._scrollTop(); };
+  back=()=>{ this.setState(s=>{ const h=[...s.history]; const prev=h.pop()||'home'; return {route:prev, history:h}; }); this._scrollTop(); };
+  setTab=(tab)=>{ const map={home:'home',stats:'stats',wallet:'wallet',profile:'profile'}; this.setState({tab, route:map[tab], history:[]}); this._scrollTop(); };
+  _scrollTop(){ setTimeout(()=>{ const e=document.getElementById('ob-scroll'); if(e) e.scrollTop=0; },20); }
+
+  toggleTheme=()=>this.setState(s=>({theme:s.theme==='light'?'dark':'light'}));
+  toggleLang=()=>this.setState(s=>({lang:s.lang==='he'?'en':'he'}));
+  toggleBalance=()=>this.setState(s=>({balanceHidden:!s.balanceHidden}));
+
+  // ---- onboarding ----
+  onbNext=()=>{ this.setState(s=>{ if(s.onbIndex>=2) return {route:'signup', history:[...s.history,'onboarding']}; return {onbIndex:s.onbIndex+1}; }); };
+  onbSkip=()=>this.go('signin');
+  goSignin=()=>this.go('signin');
+  goSignup=()=>this.go('signup');
+  goForgot=()=>this.go('forgot');
+
+  // ---- auth inputs ----
+  setEmail=(e)=>this.setState({email:e.target.value});
+  setPassword=(e)=>this.setState({password:e.target.value});
+  toggleShowPw=()=>this.setState(s=>({showPw:!s.showPw}));
+  toggleAgree=()=>this.setState(s=>({agree:!s.agree}));
+
+  doSignIn=()=>{ this.setState({authed:true, route:'home', tab:'home', history:[]}); };
+  doSignUp=()=>{ if(!this.state.agree) return; this.setState({otpPurpose:'signup', otp:''}); this.go('otp'); this.startResend(); };
+  doForgot=()=>{ this.setState({otpPurpose:'forgot', otp:''}); this.go('otp'); this.startResend(); };
+
+  startResend(){ clearInterval(this._resendT); this.setState({resend:30}); this._resendT=setInterval(()=>{ this.setState(s=>{ if(s.resend<=1){ clearInterval(this._resendT); return {resend:0}; } return {resend:s.resend-1}; }); },1000); };
+  otpResend=()=>this.startResend();
+
+  // ---- shared numpad routing ----
+  numKey=(d)=>{
+    const r=this.state.route;
+    if(r==='otp') return this.pushOtp(d);
+    if(r==='pinscreen') return this.pushPin(d);
+    if(r==='flow'){ if(this.state.flowStep==='amount') return this.pushAmount(d); if(this.state.flowStep==='pin') return this.pushFlowPin(d); }
+  };
+  delKey=()=>{
+    const r=this.state.route;
+    if(r==='otp') return this.setState(s=>({otp:s.otp.slice(0,-1)}));
+    if(r==='pinscreen') return this.setState(s=>({createBuf:s.createBuf.slice(0,-1), enterPin:s.enterPin.slice(0,-1), pinError:''}));
+    if(r==='flow'){ if(this.state.flowStep==='amount') return this.setState(s=>({amtCents:Math.floor(s.amtCents/10)})); if(this.state.flowStep==='pin') return this.setState(s=>({flowPin:s.flowPin.slice(0,-1)})); }
+  };
+  bioKey=()=>{
+    const r=this.state.route;
+    if(r==='pinscreen'){ this.finishPinSuccess(); }
+    else if(r==='flow' && this.state.flowStep==='pin'){ this.processFlow(); }
+  };
+
+  pushOtp(d){ if(this.state.otp.length>=4) return; const otp=this.state.otp+d; this.setState({otp}); if(otp.length===4){ setTimeout(()=>{ if(this.state.otpPurpose==='signup'){ this.setState({createStage:'enter',createBuf:'',createFirst:''}); this.go('pinscreen'); } else { this.go('signin'); } },180); } }
+
+  pushPin(d){
+    if(this.state.pinMode==='enter'){
+      if(this.state.enterPin.length>=4) return;
+      const p=this.state.enterPin+d; this.setState({enterPin:p, pinError:''});
+      if(p.length===4) setTimeout(()=>this.finishPinSuccess(),180);
+      return;
+    }
+    // create / confirm — capture stage + first at call time
+    if(this.state.createBuf.length>=4) return;
+    const buf=this.state.createBuf+d;
+    const stage=this.state.createStage;
+    const first=this.state.createFirst;
+    this.setState({createBuf:buf, pinError:''});
+    if(buf.length<4) return;
+    setTimeout(()=>{
+      if(stage==='enter'){
+        this.setState({createFirst:buf, createBuf:'', createStage:'confirm'});
+      } else if(buf===first){
+        this.finishPinSuccess();
+      } else {
+        this.setState({createBuf:'', createFirst:'', createStage:'enter', pinError:this.L({he:this.STR.he.mismatch, en:this.STR.en.mismatch})});
+      }
+    },180);
+  }
+  finishPinSuccess=()=>{ this.setState({authed:true, route:'home', tab:'home', history:[], createBuf:'', enterPin:''}); this._scrollTop(); };
+
+  openEnterPin=()=>{ this.setState({pinMode:'enter', enterPin:'', pinError:''}); this.go('pinscreen'); };
+
+  // ---- money flow ----
+  startFlow=(type)=>{ this.setState({flowType:type, flowStep:'target', flowTarget:null, amtCents:0, flowPin:'', flowStatus:'success', processing:false, route:'flow', history:[...this.state.history,this.state.route]}); this._scrollTop(); };
+  selectTarget=(obj)=>{ this.setState({flowTarget:obj, flowStep:'amount', amtCents:0}); this._scrollTop(); };
+  pushAmount(d){ this.setState(s=>({amtCents:Math.min(s.amtCents*10+Number(d), 99999999)})); }
+  amountQuick=(c)=>this.setState({amtCents:c});
+  flowAmountNext=()=>{ if(this.state.amtCents<=0) return; if(this.feeOf()+this.state.amtCents>this.balanceCents && this.outflow()) return; this.setState({flowStep:'summary'}); this._scrollTop(); };
+  flowSummaryNext=()=>{ if(this.state.flowType==='topup'){ this.processFlow(); } else { this.setState({flowStep:'pin', flowPin:''}); this._scrollTop(); } };
+  pushFlowPin(d){ if(this.state.flowPin.length>=4) return; const p=this.state.flowPin+d; this.setState({flowPin:p}); if(p.length===4) setTimeout(()=>this.processFlow(),160); }
+  processFlow=()=>{ this.setState({flowStep:'result', processing:true}); setTimeout(()=>{ this.setState({processing:false, flowStatus:'success'}); },1500); this._scrollTop(); };
+  flowRetry=()=>{ this.setState({flowStep:'amount', flowPin:''}); this._scrollTop(); };
+  flowDone=()=>{ this.setState({route:'home', tab:'home', history:[], flowType:null}); this._scrollTop(); };
+
+  outflow(){ return this.state.flowType==='transfer'||this.state.flowType==='withdraw'||this.state.flowType==='pay'; }
+  feeOf(){ return this.state.flowType==='withdraw'?150:0; }
+
+  setStatPeriod=(p)=>this.setState({statPeriod:p});
+  logout=()=>{ this.setState({authed:false, route:'signin', history:[], email:'', password:''}); this._scrollTop(); };
+  openCard=(c)=>{ this.setState({currentCard:c}); this.go('carddetail'); };
+  sendToRecipient=(x)=>{ this.setState({flowType:'transfer', flowTarget:{he:x.he,en:x.en}, flowStep:'amount', amtCents:0, flowPin:'', flowStatus:'success', route:'flow', history:[...this.state.history,this.state.route]}); this._scrollTop(); };
+  payScan=()=>{ this.setState({flowTarget:{name:'Coffee Bar'}, flowStep:'amount', amtCents:0}); this._scrollTop(); };
+  goNotif=()=>this.go('notifications');
+  goTxDetail=()=>this.go('txdetail');
+  goTransferStart=()=>this.startFlow('transfer');
+  goAddCard=()=>this.go('addcard');
+  goAddBank=()=>this.go('addbank');
+  goEditProfile=()=>this.go('editprofile');
+  goSettings=()=>this.go('settings');
+  goSecurity=()=>this.go('security');
+  goWalletTab=()=>this.setTab('wallet');
+  goChangePin=()=>{ this.setState({pinMode:'create', createStage:'enter', createBuf:'', createFirst:'', pinError:''}); this.go('pinscreen'); };
+  flowBack=()=>{ const st=this.state.flowStep; if(st==='target') return this.back(); if(st==='result') return this.flowDone(); const prev={amount:'target',summary:'amount',pin:'summary'}; this.setState({flowStep:prev[st]}); this._scrollTop(); };
+  toggleFace=()=>this.setState(s=>({faceId:!s.faceId}));
+  toggleAppLock=()=>this.setState(s=>({appLock:!s.appLock}));
+  toggleNotif=()=>this.setState(s=>({notif:!s.notif}));
+
+  // ---- icons ----
+  _icon(name,active){
+    const col = active? 'var(--c-accent)':'var(--c-text3)';
+    const I={
+      home:`<svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M3 11l9-7 9 7v8a2 2 0 01-2 2h-4v-6h-6v6H5a2 2 0 01-2-2v-8z" stroke="${col}" stroke-width="1.8" stroke-linejoin="round" fill="${active?col:'none'}" fill-opacity="${active?0.12:0}"/></svg>`,
+      stats:`<svg viewBox="0 0 24 24" width="26" height="26" fill="none"><path d="M5 20V10M12 20V4M19 20v-7" stroke="${col}" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+      wallet:`<svg viewBox="0 0 24 24" width="26" height="26" fill="none"><rect x="3" y="6" width="18" height="13" rx="3" stroke="${col}" stroke-width="1.8" fill="${active?col:'none'}" fill-opacity="${active?0.12:0}"/><path d="M3 10h18M16 14h2" stroke="${col}" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+      profile:`<svg viewBox="0 0 24 24" width="26" height="26" fill="none"><circle cx="12" cy="8" r="4" stroke="${col}" stroke-width="1.8" fill="${active?col:'none'}" fill-opacity="${active?0.12:0}"/><path d="M4 20c0-4 3.6-6 8-6s8 2 8 6" stroke="${col}" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+    };
+    return I[name];
+  }
+  actionIcon(name){
+    const m={
+      topup:'<path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/>',
+      transfer:'<path d="M7 7h10l-3-3M17 17H7l3 3" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>',
+      withdraw:'<path d="M12 19V5M5 12l7 7 7-7" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
+      scan:'<path d="M4 8V5a1 1 0 011-1h3M16 4h3a1 1 0 011 1v3M20 16v3a1 1 0 01-1 1h-3M8 20H5a1 1 0 01-1-1v-3M4 12h16" stroke="#fff" stroke-width="2" stroke-linecap="round"/>',
+    };
+    return `<svg viewBox="0 0 24 24" width="24" height="24" fill="none">${m[name]}</svg>`;
+  }
+
+  renderVals(){
+    const s=this.state, t=this.STR[s.lang], isHe=s.lang==='he';
+    const dir = isHe?'rtl':'ltr';
+    const dark = s.theme==='dark';
+    const onbData = [
+      {glyph:'🛡', he:'תנועות מאובטחות מקצה לקצה', en:'Transactions ensured safe and secure', dHe:'אבטחה ברמה בנקאית על כל תשלום, העברה והטענה.', dEn:'Bank-grade security on every payment, transfer and top up.'},
+      {glyph:'⚡', he:'העברת כסף בנגיעה אחת', en:'Send money in a single tap', dHe:'שלמי לחברים, חלקי חשבונות והעבירי כסף מיידית.', dEn:'Pay friends, split bills and move money instantly.'},
+      {glyph:'📊', he:'תמיד לדעת לאן הכסף הולך', en:'See where your money goes', dHe:'תצוגה נקייה של ההכנסות וההוצאות שלך.', dEn:'Clean insight into your income and spending.'},
+    ];
+    const cur = onbData[s.onbIndex];
+    const onbSlide = {glyph:cur.glyph, title:isHe?cur.he:cur.en, desc:isHe?cur.dHe:cur.dEn};
+    const onbDots = onbData.map((_,i)=>({w: i===s.onbIndex?'22px':'7px', bg: i===s.onbIndex?'var(--c-accent)':'var(--c-fill2)'}));
+
+    // OTP cells
+    const otpCells=[0,1,2,3].map(i=>{
+      const active=i===s.otp.length, filled=i<s.otp.length;
+      return {char:s.otp[i]||'', style:`width:58px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font:600 28px var(--font-sans);color:var(--c-text);background:var(--c-fill);box-shadow:${active?'inset 0 0 0 2px var(--c-accent)':(filled?'inset 0 0 0 1.5px var(--c-text3)':'none')};transition:box-shadow .15s;`};
+    });
+
+    // PIN
+    const pinMode=s.pinMode==='enter'?'enter':'create';
+    const pinCount = pinMode==='enter'? s.enterPin.length : s.createBuf.length;
+    const pinDots=[0,1,2,3].map(i=>({ bg: i<pinCount?'var(--c-accent)':'transparent', ring: i<pinCount?'var(--c-accent)':'var(--c-text3)' }));
+    let pinTitle, pinSub;
+    if(pinMode==='enter'){ pinTitle=t.enterTitle; pinSub=t.enterSub; }
+    else if(s.createStage==='enter'){ pinTitle=t.createTitle; pinSub=t.createSub; }
+    else { pinTitle=t.confirmTitle; pinSub=t.confirmSub; }
+
+    // numpad
+    const padCfg=[{n:'1'},{n:'2'},{n:'3'},{n:'4'},{n:'5'},{n:'6'},{n:'7'},{n:'8'},{n:'9'}];
+    const showBio = (s.route==='pinscreen' && pinMode==='enter') || (s.route==='flow' && s.flowStep==='pin');
+    const padKeys = padCfg.map(k=>({isNum:true,label:k.n,bg:'var(--c-fill)',onPress:()=>this.numKey(k.n)}));
+    padKeys.push(showBio?{isBio:true,bg:'transparent',onPress:this.bioKey}:{isNum:false,bg:'transparent',onPress:()=>{}});
+    padKeys.push({isNum:true,label:'0',bg:'var(--c-fill)',onPress:()=>this.numKey('0')});
+    padKeys.push({isDel:true,bg:'transparent',onPress:this.delKey});
+
+    // money flow
+    const ft=s.flowType;
+    const flowTitle = ft==='topup'?t.topUp : ft==='transfer'?t.transfer : ft==='withdraw'?t.withdraw : ft==='pay'?t.pay : '';
+    const amountText = this.fmt(s.amtCents);
+    const fee=this.feeOf(); const totalC=s.amtCents+(this.outflow()?fee:0);
+    const exceeds = this.outflow() && (s.amtCents+fee)>this.balanceCents;
+    let toName='', fromName='';
+    if(ft==='topup'){ fromName=s.flowTarget?this.L(s.flowTarget):''; toName=t.balance; }
+    else if(ft==='transfer'){ fromName=t.balance; toName=s.flowTarget?this.L(s.flowTarget):''; }
+    else if(ft==='withdraw'){ fromName=t.balance; toName=s.flowTarget?this.L(s.flowTarget):''; }
+    else if(ft==='pay'){ fromName=t.balance; toName=s.flowTarget?(s.flowTarget.name||this.L(s.flowTarget)):''; }
+    const flowPinDots=[0,1,2,3].map(i=>({bg:i<s.flowPin.length?'var(--c-accent)':'transparent', ring:i<s.flowPin.length?'var(--c-accent)':'var(--c-text3)'}));
+
+    const tabsConf=[
+      {key:'home', icon:this._icon('home', s.tab==='home'&&s.route==='home'), label:t.tabHome, active:s.tab==='home'&&s.route==='home'},
+      {key:'stats', icon:this._icon('stats', s.route==='stats'), label:t.tabStats, active:s.route==='stats'},
+      {fab:true},
+      {key:'wallet', icon:this._icon('wallet', s.route==='wallet'), label:t.tabWallet, active:s.route==='wallet'},
+      {key:'profile', icon:this._icon('profile', s.route==='profile'), label:t.tabProfile, active:s.route==='profile'},
+    ];
+    const tabs=tabsConf.map(c=> c.fab? {isFab:true,onPress:()=>this.startFlow('pay')} : {isTab:true, icon:{__html:c.icon}, label:c.label, color:c.active?'var(--c-accent)':'var(--c-text3)', onPress:()=>this.setTab(c.key)});
+
+    // ---- data for main screens ----
+    const balanceText = s.balanceHidden ? '•  •  •  •  •' : this.fmt(this.balanceCents);
+    const greeting = (isHe?'שלום, ':'Hello, ') + this.L({he:'מאיה',en:'Maya'});
+    const transactionsD = this.transactions.map(x=>({ id:x.id, name:this.L(x), sub:isHe?x.subHe:x.subEn, color:x.color, icon:{__html:this.actionIcon(x.g==='pay'?'scan':x.g)}, inc:x.cents>0, amtColor:x.cents>0?'var(--c-green)':'var(--c-text)', amt:(x.cents>0?'+ ':'− ')+this.fmt(x.cents) }));
+    const recipientsD = this.recipients.map(x=>({ id:x.id, first:this.L(x).split(' ')[0], ini:x.ini, color:x.color, onPress:()=>this.sendToRecipient(x) }));
+    const catTotal = this.categories.reduce((a,c)=>a+c.cents,0);
+    const categoriesD = this.categories.map(c=>({ name:this.L(c), amt:this.fmt(c.cents), color:c.color, width:c.pct+'%' }));
+    const barsD = this.bars.map(b=>({ label:this.L(b), incHpx:(b.inc*1.7)+'px', expHpx:(b.exp*1.7)+'px' }));
+    const incTotal=this.transactions.filter(x=>x.cents>0).reduce((a,c)=>a+c.cents,0);
+    const expTotal=this.transactions.filter(x=>x.cents<0).reduce((a,c)=>a+c.cents,0);
+    const cardsD = this.cards.map(c=>({ id:c.id, scheme:c.scheme, last4:c.last4, exp:c.exp, holder:this.L({he:c.he,en:c.en}), tint:c.tint, balText:this.fmt(c.bal), isDefault:c.def, onPress:()=>this.openCard(c) }));
+    const banksD = this.banks.map(b=>({ id:b.id, name:this.L(b), holder:this.L({he:b.he2,en:b.en2}), last4:b.last4 }));
+    const notifsD = this.notifs.map(n=>({ name:this.L(n), sub:isHe?n.subHe:n.subEn, color:n.color, icon:{__html:this.actionIcon(n.g==='pay'?'scan':n.g)} }));
+    const cc = s.currentCard || this.cards[0];
+    const currentCard = { scheme:cc.scheme, last4:cc.last4, exp:cc.exp, holder:this.L({he:cc.he,en:cc.en}), tint:cc.tint, balText:this.fmt(cc.bal), isDefault:cc.def };
+    // flow targets
+    let flowTargets=[], flowTargetTitle='';
+    if(ft==='topup'){ flowTargetTitle=t.chooseMethod; flowTargets=this.methods.map(m=>({ name:this.L(m), sub:m.sub, color:m.color, ini:this.L(m).charAt(0), onPress:()=>this.selectTarget({he:m.he,en:m.en}) })); }
+    else if(ft==='transfer'){ flowTargetTitle=t.sendTo; flowTargets=this.recipients.map(r=>({ name:this.L(r), sub:'Obank', ini:r.ini, color:r.color, onPress:()=>this.selectTarget({he:r.he,en:r.en}) })); }
+    else if(ft==='withdraw'){ flowTargetTitle=t.withdrawTo; flowTargets=this.banks.map(b=>({ name:this.L(b)+' •••• '+b.last4, sub:this.L({he:b.he2,en:b.en2}), color:'#FF9500', ini:'⌂', onPress:()=>this.selectTarget({he:this.L(b)+' •••• '+b.last4, en:this.L(b)+' •••• '+b.last4}) })); }
+    const flowIsPay = ft==='pay';
+    const actions=[
+      {k:'topup', label:t.topUp, color:'#0A84FF', icon:{__html:this.actionIcon('topup')}, onPress:()=>this.startFlow('topup')},
+      {k:'transfer', label:t.transfer, color:'#5E5CE6', icon:{__html:this.actionIcon('transfer')}, onPress:()=>this.startFlow('transfer')},
+      {k:'withdraw', label:t.withdraw, color:'#FF9500', icon:{__html:this.actionIcon('withdraw')}, onPress:()=>this.startFlow('withdraw')},
+      {k:'scan', label:t.scan, color:'#34C759', icon:{__html:this.actionIcon('scan')}, onPress:()=>this.startFlow('pay')},
+    ];
+
+    return {
+      theme:s.theme, dark, lang:s.lang, dir, isHe, t,
+      balanceText, balanceHidden:s.balanceHidden, greeting,
+      transactionsD, recipientsD, categoriesD, barsD, cardsD, banksD, notifsD, currentCard, actions,
+      statIncomeText:this.fmt(incTotal), statExpenseText:this.fmt(expTotal), statNetText:this.fmt(incTotal+expTotal),
+      statPeriod:s.statPeriod, setStatPeriod:this.setStatPeriod,
+      statWeek:s.statPeriod==='week', statMonth:s.statPeriod==='month', statYear:s.statPeriod==='year',
+      periods:[{key:'week',label:t.week},{key:'month',label:t.month},{key:'year',label:t.year}].map(p=>({label:p.label, onPress:()=>this.setStatPeriod(p.key), bg:s.statPeriod===p.key?'var(--c-surface)':'transparent', color:s.statPeriod===p.key?'var(--c-text)':'var(--c-text2)', sh:s.statPeriod===p.key?'var(--shadow-card)':'none'})),
+      flowTargets, flowTargetTitle, flowIsPay, payScan:this.payScan,
+      faceId:s.faceId, appLock:s.appLock, notif:s.notif,
+      toggleFace:this.toggleFace, toggleAppLock:this.toggleAppLock, toggleNotif:this.toggleNotif,
+      logout:this.logout, openEnterPin:this.openEnterPin, go:this.go,
+      faceBg:s.faceId?'var(--c-green)':'var(--c-fill2)', faceX:s.faceId?'18px':'2px',
+      lockBg:s.appLock?'var(--c-green)':'var(--c-fill2)', lockX:s.appLock?'18px':'2px',
+      notifBg:s.notif?'var(--c-green)':'var(--c-fill2)', notifX:s.notif?'18px':'2px',
+      userName:this.L({he:'מאיה כהן',en:'Maya Cohen'}), userEmail:'maya@obank.com', userPhone:'+972 54-000-0000', userIni:'MC',
+      themeLabel: dark? '☀︎' : '☾', langLabel: isHe?'EN':'עב',
+      chevDir: isHe? -1 : 1,
+      // routes
+      r_splash:s.route==='splash', r_onboarding:s.route==='onboarding', r_signin:s.route==='signin', r_signup:s.route==='signup',
+      r_forgot:s.route==='forgot', r_otp:s.route==='otp', r_pinscreen:s.route==='pinscreen',
+      r_home:s.route==='home', r_stats:s.route==='stats', r_wallet:s.route==='wallet', r_profile:s.route==='profile',
+      r_notifications:s.route==='notifications', r_txdetail:s.route==='txdetail', r_editprofile:s.route==='editprofile',
+      r_settings:s.route==='settings', r_security:s.route==='security', r_carddetail:s.route==='carddetail',
+      r_addcard:s.route==='addcard', r_addbank:s.route==='addbank', r_recipients:s.route==='recipients', r_flow:s.route==='flow',
+      showTabs: s.authed && ['home','stats','wallet','profile'].includes(s.route),
+      showNumpad: s.route==='otp' || s.route==='pinscreen' || (s.route==='flow' && (s.flowStep==='amount'||s.flowStep==='pin')),
+      tabs, padKeys,
+      // onboarding
+      onbSlide, onbDots, onbCta: s.onbIndex>=2 ? (isHe?'בואו נתחיל':'Get Started') : t.cont,
+      onbNext:this.onbNext, onbSkip:this.onbSkip, goSignin:this.goSignin, goSignup:this.goSignup, goForgot:this.goForgot,
+      // auth
+      email:s.email, password:s.password, pwType:s.showPw?'text':'password', agree:s.agree,
+      agreeBorder: s.agree?'var(--c-accent)':'var(--c-text3)', agreeBg: s.agree?'var(--c-accent)':'transparent',
+      signupDisabled: !s.agree,
+      setEmail:this.setEmail, setPassword:this.setPassword, toggleShowPw:this.toggleShowPw, toggleAgree:this.toggleAgree,
+      doSignIn:this.doSignIn, doSignUp:this.doSignUp, doForgot:this.doForgot,
+      // otp
+      otpCells, otpEmail: s.email|| 'maya@obank.com',
+      resendCounting: s.resend>0, canResend: s.resend===0,
+      resendText: `${t.resendIn} 0:${String(s.resend).padStart(2,'0')}`, otpResend:this.otpResend,
+      // pin
+      pinDots, pinTitle, pinSub, pinErrText:s.pinError,
+      // controls
+      toggleTheme:this.toggleTheme, toggleLang:this.toggleLang, back:this.back, toggleBalance:this.toggleBalance,
+      // flow exposed (used by main screens appended later)
+      flowTitle, amountText, amtZero:s.amtCents<=0, amtExceeds:exceeds,
+      flowFeeText:this.fmt(fee), flowTotalText:this.fmt(totalC), flowAmtText:this.fmt(s.amtCents),
+      sumFrom:fromName, sumTo:toName, flowPinDots,
+      flowStepTarget:s.flowStep==='target', flowStepAmount:s.flowStep==='amount', flowStepSummary:s.flowStep==='summary',
+      flowStepPin:s.flowStep==='pin', flowStepResult:s.flowStep==='result',
+      flowProcessing:s.processing, flowSuccess:s.flowStatus==='success',
+      startFlow:this.startFlow, selectTarget:this.selectTarget, amountQuick:this.amountQuick,
+      flowAmountNext:this.flowAmountNext, flowSummaryNext:this.flowSummaryNext, flowRetry:this.flowRetry, flowDone:this.flowDone,
+      // nav handlers
+      goNotif:this.goNotif, goTxDetail:this.goTxDetail, goTransferStart:this.goTransferStart, goAddCard:this.goAddCard,
+      goAddBank:this.goAddBank, goEditProfile:this.goEditProfile, goSettings:this.goSettings, goSecurity:this.goSecurity,
+      goWalletTab:this.goWalletTab, goChangePin:this.goChangePin, flowBack:this.flowBack,
+      // computed strings
+      darkSwBg: dark?'var(--c-green)':'var(--c-fill2)', darkSwX: dark?'18px':'2px',
+      langName: isHe?'עברית':'English',
+      statusCompleted: isHe?'הושלם':'Completed',
+      securityNote: isHe?'הכרטיסים נשמרים כאסימון מאובטח בלבד — מספר הכרטיס המלא לעולם אינו נשמר בשרתים שלנו.':'Cards are stored as a secure token only — full card numbers are never kept on our servers.',
+      bankPh: isHe?'בנק לאומי':'Bank Leumi',
+      flowHasList: !flowIsPay,
+      flowAddLabel: ft==='transfer'?t.addRecipient:t.addDest,
+      flowToLabel: ft==='topup' ? ((isHe?'מ-':'From ')+fromName) : ((isHe?'אל ':'To ')+toName),
+      amtColor: s.amtCents<=0?'var(--c-text3)':'var(--c-text)',
+      amtErrText: exceeds?t.insufficient:'',
+      amtDisabled: s.amtCents<=0 || exceeds,
+      q50:()=>this.amountQuick(5000), q100:()=>this.amountQuick(10000), q200:()=>this.amountQuick(20000),
+      flowConfirmLabel: ft==='pay'?t.confirmPay:t.confirm,
+      flowDoneState: s.flowStep==='result' && !s.processing,
+    };
+  }
+}
+</script>
+</body>
+</html>
