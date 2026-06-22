@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:#e7e5df;font-family:Heebo,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh}
+  .gb-scroll::-webkit-scrollbar{display:none}
+  .gb-scroll{-ms-overflow-style:none;scrollbar-width:none}
+  @keyframes gbFade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @keyframes gbToast{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes gbSheet{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div dir="rtl" lang="he" style="width:375px;height:812px;background:#fff;border-radius:46px;overflow:hidden;position:relative;box-shadow:0 30px 80px rgba(40,30,80,.35);border:1px solid rgba(0,0,0,.06)">
+
+  <!-- status bar -->
+  <div style="position:absolute;top:0;left:0;right:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;z-index:60;font-weight:600;font-size:14px;color:{{ statusColor }};pointer-events:none">
+    <span>19:27</span>
+    <span style="display:flex;gap:6px;align-items:center">
+      <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.5" y="5" width="3" height="6" rx="1"/><rect x="9" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1" opacity=".5"/><rect x="2.5" y="2.5" width="14" height="7" rx="1.5" fill="currentColor"/><rect x="21" y="4" width="2" height="4" rx="1" fill="currentColor"/></svg>
+    </span>
+  </div>
+
+  <div class="gb-scroll" ref="{{ setRoot }}" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden">
+
+    <!-- ============ SPLASH ============ -->
+    <sc-if value="{{ show.splash }}" hint-placeholder-val="{{ true }}">
+      <div onClick="{{ nav.onboard }}" style="height:812px;background:#16141c;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;cursor:pointer">
+        <svg width="86" height="86" viewBox="0 0 86 86" fill="none">
+          <rect x="36" y="8" width="14" height="9" rx="2" stroke="#fff" stroke-width="2.4"/>
+          <path d="M22 17 C8 36 18 56 43 56 C68 56 78 36 64 17" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          <path d="M26 22 L57 50 M60 22 L29 50" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/>
+          <circle cx="32" cy="51" r="7" stroke="#fff" stroke-width="2.6"/>
+          <circle cx="54" cy="51" r="7" stroke="#fff" stroke-width="2.6"/>
+        </svg>
+        <div style="color:#fff;font-weight:700;font-size:20px;letter-spacing:.3px">תספורות הרצליה</div>
+      </div>
+    </sc-if>
+
+    <!-- ============ ONBOARD ============ -->
+    <sc-if value="{{ show.onboard }}" hint-placeholder-val="{{ true }}">
+      <div style="height:812px;background:#eceef2;position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+        <img src="https://picsum.photos/seed/onbhero/320/560" alt="" style="position:absolute;top:0;left:0;width:100%;height:560px;object-fit:cover;filter:grayscale(1)">
+        <div style="position:relative;margin:0;background:#c2a14d;border-radius:30px 30px 46px 46px;padding:34px 26px 40px;display:flex;flex-direction:column;gap:14px">
+          <div style="color:#fff;font-weight:700;font-size:26px;animation:gbFade .4s">{{ onb.title }}</div>
+          <div style="color:rgba(255,255,255,.9);font-size:14px;line-height:1.5">{{ onb.body }}</div>
+          <div style="display:flex;gap:7px;margin:6px 0 4px">
+            <sc-for list="{{ onb.dots }}" as="d" hint-placeholder-count="3">
+              <span style="height:7px;border-radius:4px;background:{{ d.bg }};width:{{ d.w }}"></span>
+            </sc-for>
+          </div>
+          <button onClick="{{ onb.next }}" style="border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;cursor:pointer">בוא נתחיל</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ LOGIN ============ -->
+    <sc-if value="{{ show.login }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="position:relative;height:340px;background:#c2a14d;overflow:hidden">
+          <img src="https://picsum.photos/seed/portrait/320/360" alt="" style="width:100%;height:100%;object-fit:cover;filter:grayscale(1);mix-blend-mode:luminosity;opacity:.95">
+        </div>
+        <div style="margin-top:-34px;background:#fff;border-radius:30px 30px 0 0;padding:30px 26px;flex:1">
+          <div style="font-weight:700;font-size:26px;color:#16141c">ברוך שובך 👋</div>
+          <div style="color:#8b8a9e;font-size:14px;line-height:1.5;margin-top:6px">הזן את פרטי ההתחברות כדי לגשת לחשבון שלך</div>
+          <div style="font-weight:500;font-size:14px;color:#23233a;margin:22px 0 8px">שם משתמש</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px">
+            <span style="color:#16141c">✉</span><span style="color:#aaa9b8;font-size:14px">yoav.shimoni@gmail.com</span>
+          </div>
+          <div style="font-weight:500;font-size:14px;color:#23233a;margin:18px 0 8px">סיסמה</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px">
+            <span style="color:#16141c">🔑</span><span style="flex:1;color:#23233a;letter-spacing:3px">••••••••</span><span style="color:#c4c3d0">👁</span>
+          </div>
+          <div onClick="{{ nav.forgot }}" style="text-align:right;color:#16141c;font-weight:600;font-size:13px;margin-top:14px;cursor:pointer">שכחת סיסמה?</div>
+          <button onClick="{{ nav.home }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:16px;cursor:pointer">התחברות</button>
+          <div style="text-align:center;color:#8b8a9e;font-size:13px;margin-top:18px">אין לך חשבון? <span onClick="{{ nav.register }}" style="color:#16141c;font-weight:700;cursor:pointer">הרשמה</span></div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ REGISTER ============ -->
+    <sc-if value="{{ show.register }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:60px 26px 30px">
+        <div style="font-weight:700;font-size:26px;color:#16141c">הרשמה</div>
+        <div style="color:#8b8a9e;font-size:14px;line-height:1.5;margin-top:6px">מלא את פרטיך כדי להשלים את תהליך ההרשמה</div>
+        <div style="font-weight:500;font-size:14px;margin:20px 0 8px">שם</div>
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">👤</span><span>יואב שמעוני</span></div>
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">אימייל</div>
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">✉</span><span>yoav.shimoni@gmail.com</span></div>
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">מספר טלפון</div>
+        <div style="display:flex;gap:10px">
+          <div style="display:flex;align-items:center;gap:6px;border:1px solid #e7e7ee;border-radius:13px;padding:0 12px;height:52px;color:#8b8a9e">+62 ▾</div>
+          <div style="flex:1;display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="flex:1">052-000-0000</span><span style="color:#bdbcc9">✓</span></div>
+        </div>
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">צור סיסמה</div>
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">🔑</span><span style="flex:1;letter-spacing:3px">••••••••</span><span style="color:#c4c3d0">👁</span></div>
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">אימות סיסמה</div>
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">🔑</span><span style="flex:1;letter-spacing:3px">••••••••</span><span style="color:#c4c3d0">👁</span></div>
+        <button onClick="{{ nav.auth }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">הרשמה</button>
+        <div style="text-align:center;color:#8b8a9e;font-size:13px;margin-top:16px">כבר יש לך חשבון? <span onClick="{{ nav.login }}" style="color:#16141c;font-weight:700;cursor:pointer">התחברות</span></div>
+      </div>
+    </sc-if>
+
+    <!-- ============ FORGOT ============ -->
+    <sc-if value="{{ show.forgot }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:120px 26px 30px">
+        <div style="font-weight:700;font-size:26px;color:#16141c">שכחת סיסמה?</div>
+        <div style="color:#8b8a9e;font-size:14px;line-height:1.5;margin-top:6px">הזן את האימייל לאיפוס הסיסמה</div>
+        <div style="font-weight:500;font-size:14px;margin:28px 0 8px">אימייל</div>
+        <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">✉</span><span>yoav.shimoni@gmail.com</span></div>
+        <button onClick="{{ nav.auth }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">שליחה</button>
+      </div>
+    </sc-if>
+
+    <!-- ============ AUTH / OTP ============ -->
+    <sc-if value="{{ show.auth }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="padding:110px 26px 0;flex:1">
+          <div style="font-weight:700;font-size:26px;color:#16141c">אימות</div>
+          <div style="color:#8b8a9e;font-size:14px;line-height:1.5;margin-top:6px">הזן את קוד האימות ששלחנו לאימייל שלך</div>
+          <div style="display:flex;gap:14px;margin-top:30px">
+            <sc-for list="{{ otpBoxes }}" as="o" hint-placeholder-count="4">
+              <div style="flex:1;height:72px;border-radius:14px;border:1.5px solid {{ o.border }};background:{{ o.bg }};display:flex;align-items:center;justify-content:center;font-weight:700;font-size:22px;color:#16141c">{{ o.char }}</div>
+            </sc-for>
+          </div>
+          <button onClick="{{ nav.home }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:26px;cursor:pointer">שליחה</button>
+          <div style="text-align:center;color:#16141c;font-weight:700;font-size:14px;margin-top:24px">לא קיבלת קוד?</div>
+        </div>
+        <div style="background:#2c2c30;padding:10px 6px 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px">
+          <sc-for list="{{ keypad }}" as="k" hint-placeholder-count="12">
+            <button onClick="{{ k.press }}" style="border:none;background:{{ k.bg }};border-radius:7px;height:46px;color:#fff;font-family:inherit;font-weight:500;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer">
+              <span style="font-size:22px">{{ k.num }}</span>
+              <span style="font-size:8px;letter-spacing:1px;color:#bbb">{{ k.sub }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ HOME ============ -->
+    <sc-if value="{{ show.home }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:52px 20px 110px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div>
+            <div style="font-size:12px;color:#8b8a9e">📍 הרצליה</div>
+            <div style="font-weight:700;font-size:19px;color:#23233a;margin-top:2px">יואב שמעוני</div>
+          </div>
+          <img onClick="{{ nav.profile }}" src="https://i.pravatar.cc/120?img=68" alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover;cursor:pointer">
+        </div>
+
+        <!-- promo / active banner -->
+        <sc-if value="{{ hasBooking }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ nav.booking }}" style="margin-top:16px;background:#16141c;border-radius:18px;padding:18px;color:#fff;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start">
+              <div style="font-weight:700;font-size:18px;line-height:1.25;max-width:200px">וארסיטי ברברשופ הרצליה</div>
+              <span style="font-size:11px;display:flex;align-items:center;gap:4px;opacity:.9">🗺 מפה</span>
+            </div>
+            <div style="font-size:12px;opacity:.85;margin-top:4px">📍 בן גוריון 12, הרצליה (10 ק"מ)</div>
+            <div style="height:1px;background:rgba(255,255,255,.2);margin:14px 0"></div>
+            <div style="display:flex;justify-content:space-between">
+              <div><div style="font-size:10px;opacity:.7">מועד התור</div><div style="font-size:13px;font-weight:600;margin-top:3px">📅 15 בינואר, 08:00</div></div>
+              <div style="text-align:right"><div style="font-size:10px;opacity:.7">זמן משוער</div><div style="font-size:13px;font-weight:600;margin-top:3px">~50 דקות</div></div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ noBooking }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:16px;background:#c2a14d;border-radius:18px;padding:20px;color:#fff;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;min-height:150px;justify-content:center">
+            <div style="font-weight:700;font-size:16px">תספורות הרצליה</div>
+            <button onClick="{{ nav.detail }}" style="align-self:flex-start;border:none;background:#16141c;color:#fff;font-family:inherit;font-weight:600;font-size:14px;padding:11px 22px;border-radius:12px;cursor:pointer">הזמן עכשיו</button>
+            <img src="https://picsum.photos/seed/portrait/320/360" alt="" style="position:absolute;right:-10px;top:0;height:100%;width:160px;object-fit:cover;filter:grayscale(1);mix-blend-mode:luminosity;opacity:.85">
+          </div>
+        </sc-if>
+
+        <div style="display:flex;gap:10px;margin-top:18px">
+          <input value="{{ query }}" onChange="{{ setQuery }}" placeholder="🔍  חיפוש ספר, תספורת..." style="flex:1;background:#f3f1ea;border:none;border-radius:13px;padding:0 16px;height:50px;color:#23233a;font-size:13px;font-family:inherit;outline:none">
+          <button onClick="{{ openFilter }}" style="width:50px;height:50px;border:none;background:#16141c;color:#fff;border-radius:13px;font-size:18px;cursor:pointer">⚙</button>
+        </div>
+
+        <div style="font-weight:700;font-size:17px;margin:22px 0 12px">מספרות קרובות</div>
+        <sc-for list="{{ nearest }}" as="b" hint-placeholder-count="3">
+          <div onClick="{{ b.open }}" style="display:flex;gap:12px;margin-bottom:16px;cursor:pointer">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ b.img }}" alt="" style="width:70px;height:70px;border-radius:12px;object-fit:cover;background:#ddd">
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px;line-height:1.3;color:#23233a">{{ b.name }}</div>
+              <div style="font-size:12px;color:#9a99ad;margin-top:5px">📍 {{ b.loc }}</div>
+              <div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ {{ b.rating }}</div>
+            </div>
+          </div>
+        </sc-for>
+        <button onClick="{{ nav.explore }}" style="display:block;margin:4px auto 0;border:1px solid #e7e1d2;background:#fff;color:#16141c;font-family:inherit;font-weight:600;font-size:13px;padding:11px 24px;border-radius:13px;cursor:pointer">הצג הכל ↗</button>
+
+        <div style="font-weight:700;font-size:17px;margin:26px 0 12px">המומלצים ביותר</div>
+        <div onClick="{{ nav.detail }}" style="border-radius:16px;overflow:hidden;position:relative;cursor:pointer">
+          <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:100%;height:160px;object-fit:cover;background:#ccc">
+          <div style="position:absolute;right:12px;bottom:12px;background:#16141c;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:12px">הזמנה 📅</div>
+        </div>
+        <div style="font-weight:600;font-size:15px;margin-top:10px">מספרת סוקולוב — עיצוב וגזיזה</div>
+        <div style="font-size:12px;color:#9a99ad;margin-top:4px">📍 מרכז הרצליה (1 ק"מ)</div>
+        <div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ 5.0</div>
+
+        <div style="margin-top:18px">
+          <sc-for list="{{ recommendedRest }}" as="b" hint-placeholder-count="3">
+            <div onClick="{{ b.open }}" style="display:flex;gap:12px;margin-bottom:16px;cursor:pointer">
+              <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ b.img }}" alt="" style="width:70px;height:70px;border-radius:12px;object-fit:cover;background:#ddd">
+              <div style="flex:1">
+                <div style="font-weight:600;font-size:14px;line-height:1.3">{{ b.name }}</div>
+                <div style="font-size:12px;color:#9a99ad;margin-top:5px">📍 {{ b.loc }}</div>
+                <div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ {{ b.rating }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <button onClick="{{ nav.explore }}" style="display:block;margin:4px auto 0;border:1px solid #e7e1d2;background:#fff;color:#16141c;font-family:inherit;font-weight:600;font-size:13px;padding:11px 24px;border-radius:13px;cursor:pointer">הצג הכל ↗</button>
+
+        <div style="font-weight:700;font-size:17px;margin:26px 0 12px">מצא ספר בקרבתך</div>
+        <div onClick="{{ nav.findbarber }}" style="border-radius:16px;overflow:hidden;position:relative;height:170px;cursor:pointer;background:linear-gradient(135deg,#e9 efe5,#dfe8df)">
+          <div style="position:absolute;inset:0;background:linear-gradient(120deg,#e8efe4,#d6e6f0)"></div>
+          <div style="position:absolute;left:30%;top:20%;width:36px;height:36px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:62%;top:38%;width:36px;height:36px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:18%;top:60%;width:36px;height:36px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:46%;top:48%;width:14px;height:14px;background:#2a6fff;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 4px rgba(42,111,255,.25)"></div>
+          <div style="position:absolute;right:14px;bottom:14px;background:#16141c;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:12px">מצא עכשיו 🔍</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ EXPLORE ============ -->
+    <sc-if value="{{ show.explore }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:54px 20px 30px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px"><span onClick="{{ nav.home }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">גלה ספרים</span></div>
+        <div onClick="{{ nav.detail }}" style="border-radius:16px;overflow:hidden;position:relative;cursor:pointer">
+          <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:100%;height:180px;object-fit:cover;background:#ccc">
+          <div style="position:absolute;right:12px;bottom:12px;background:#16141c;color:#fff;font-size:13px;font-weight:600;padding:9px 16px;border-radius:12px">הזמנה 📅</div>
+        </div>
+        <div style="font-weight:600;font-size:15px;margin-top:10px">מספרת סוקולוב — עיצוב וגזיזה</div>
+        <div style="font-size:12px;color:#9a99ad;margin-top:4px">📍 מרכז הרצליה (1 ק"מ) &nbsp; ⭐ 5.0</div>
+        <div style="display:flex;gap:10px;margin:18px 0 16px">
+          <input value="{{ query }}" onChange="{{ setQuery }}" placeholder="🔍  חיפוש ספר, תספורת..." style="flex:1;background:#f3f1ea;border:none;border-radius:13px;padding:0 16px;height:50px;color:#23233a;font-size:13px;font-family:inherit;outline:none">
+          <button onClick="{{ openFilter }}" style="width:50px;height:50px;border:none;background:#16141c;color:#fff;border-radius:13px;font-size:18px;cursor:pointer">⚙</button>
+        </div>
+        <div style="display:flex;gap:18px;margin-bottom:18px;font-size:14px;font-weight:500;overflow-x:auto" class="gb-scroll">
+          <span style="color:#16141c;font-weight:600;border:1px solid #e7e1d2;padding:8px 16px;border-radius:11px;white-space:nowrap">כל השירותים</span>
+          <span style="color:#9a99ad;padding:8px 4px;white-space:nowrap">תספורת בסיסית</span>
+          <span style="color:#9a99ad;padding:8px 4px;white-space:nowrap">צביעה</span>
+          <span style="color:#9a99ad;padding:8px 4px;white-space:nowrap">טיפוח</span>
+        </div>
+        <sc-for list="{{ barbers }}" as="b" hint-placeholder-count="6">
+          <div onClick="{{ b.open }}" style="display:flex;gap:12px;margin-bottom:16px;cursor:pointer">
+            <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ b.img }}" alt="" style="width:78px;height:78px;border-radius:12px;object-fit:cover;background:#ddd">
+            <div style="flex:1">
+              <div style="font-weight:600;font-size:14px;line-height:1.3">{{ b.name }}</div>
+              <div style="font-size:12px;color:#9a99ad;margin-top:6px">📍 {{ b.loc }}</div>
+              <div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ {{ b.rating }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- ============ FIND BARBER (map) ============ -->
+    <sc-if value="{{ show.findbarber }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#dde6e0;position:relative">
+        <div style="display:flex;align-items:center;gap:16px;padding:54px 20px 14px;background:#fff"><span onClick="{{ nav.home }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">מצא ספר בקרבתך</span></div>
+        <div style="position:relative;height:480px;background:linear-gradient(120deg,#e3ece0,#d3e3ef);overflow:hidden">
+          <div style="position:absolute;left:24px;top:18px;right:24px;display:flex;gap:10px;align-items:flex-start">
+            <div onClick="{{ toggleSearch }}" style="flex:1;display:flex;align-items:center;gap:10px;background:#fff;border-radius:13px;padding:0 14px;height:48px;color:#9a99ad;font-size:13px;box-shadow:0 6px 18px rgba(0,0,0,.08)">🔍 חיפוש מיקום</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="width:44px;height:44px;background:#fff;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#16141c;box-shadow:0 6px 18px rgba(0,0,0,.08)">➤</div>
+              <div style="width:44px;height:44px;background:#fff;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#16141c;box-shadow:0 6px 18px rgba(0,0,0,.08)">◎</div>
+            </div>
+          </div>
+          <div style="position:absolute;left:14%;top:24%;width:42px;height:42px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:46%;top:34%;width:42px;height:42px;background:#16141c;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:72%;top:52%;width:42px;height:42px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:18%;top:62%;width:42px;height:42px;background:#c2a14d;border-radius:50% 50% 50% 4px;display:flex;align-items:center;justify-content:center;color:#fff;transform:rotate(45deg)"><span style="transform:rotate(-45deg)">✂</span></div>
+          <div style="position:absolute;left:42%;top:56%;width:16px;height:16px;background:#2a6fff;border:3px solid #fff;border-radius:50%;box-shadow:0 0 0 6px rgba(42,111,255,.2)"></div>
+        </div>
+
+        <!-- default sheet -->
+        <sc-if value="{{ findDefault }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff;border-radius:24px 24px 0 0;margin-top:-24px;position:relative;padding:22px 20px 30px">
+            <div style="font-weight:600;font-size:15px">📍 מרכז הרצליה</div>
+            <div style="font-size:13px;color:#9a99ad;margin-top:6px">סוקולוב 24, הרצליה</div>
+            <div style="height:1px;background:#eee;margin:18px 0"></div>
+            <div onClick="{{ nav.detail }}" style="display:flex;gap:12px;cursor:pointer">
+              <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:64px;height:64px;border-radius:12px;object-fit:cover;background:#ddd">
+              <div><div style="font-weight:600;font-size:14px">מספרת סוקולוב...</div><div style="font-size:12px;color:#9a99ad;margin-top:6px">📍 סוקולוב (1 ק"מ)</div><div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ 5.0 (24)</div></div>
+            </div>
+          </div>
+        </sc-if>
+        <!-- search sheet -->
+        <sc-if value="{{ findSearch }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fff;border-radius:24px 24px 0 0;margin-top:-24px;position:relative;padding:22px 20px 30px">
+            <div style="font-weight:700;font-size:16px">חיפושים אחרונים</div>
+            <div style="background:#f4f0e6;border:1px solid #e7e1d2;border-radius:13px;padding:13px 14px;margin-top:14px">
+              <div style="font-weight:600;font-size:14px">📍 מרכז הרצליה</div>
+              <div style="font-size:12px;color:#9a99ad;margin-top:4px">סוקולוב 24, הרצליה</div>
+            </div>
+            <sc-for list="{{ recentSearch }}" as="r" hint-placeholder-count="2">
+              <div style="margin-top:16px"><div style="font-weight:600;font-size:14px">📍 {{ r.name }}</div><div style="font-size:12px;color:#9a99ad;margin-top:4px">{{ r.addr }}</div></div>
+            </sc-for>
+            <button onClick="{{ setLocation }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:15px;font-family:inherit;height:54px;border-radius:15px;margin-top:22px;cursor:pointer">קבע מיקום ⊕</button>
+          </div>
+        </sc-if>
+
+        <!-- toast -->
+        <sc-if value="{{ showToast }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;left:16px;right:16px;bottom:24px;background:#fff;border-radius:14px;padding:16px;display:flex;align-items:flex-start;gap:12px;box-shadow:0 12px 40px rgba(0,0,0,.18);animation:gbToast .3s">
+            <span style="width:26px;height:26px;background:#16b981;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none">✓</span>
+            <div style="flex:1"><div style="font-weight:700;font-size:14px">בוצע</div><div style="font-size:12px;color:#9a99ad;margin-top:2px">המיקום שונה בהצלחה</div></div>
+            <span onClick="{{ closeToast }}" style="color:#bbb;cursor:pointer">✕</span>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- ============ DETAIL BARBER ============ -->
+    <sc-if value="{{ show.detail }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:54px 20px 110px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><span onClick="{{ nav.home }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">פרטי הספר</span></div>
+        <div style="border-radius:16px;overflow:hidden;position:relative">
+          <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:100%;height:170px;object-fit:cover;background:#ccc">
+          <div style="position:absolute;right:0;top:0;background:#16b981;color:#fff;font-size:13px;font-weight:600;padding:7px 16px;border-radius:0 0 0 12px">פתוח</div>
+        </div>
+        <div style="font-weight:700;font-size:16px;margin-top:14px">מספרת סוקולוב — עיצוב וגזיזה</div>
+        <div style="font-size:12px;color:#9a99ad;margin-top:6px">📍 מרכז הרצליה (1 ק"מ)</div>
+        <div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ 5.0 (24)</div>
+        <div style="display:flex;justify-content:space-between;margin:18px 0;text-align:center;font-size:11px;color:#16141c">
+          <div onClick="{{ nav.findbarber }}" style="display:flex;flex-direction:column;gap:6px;cursor:pointer"><span style="font-size:20px">🗺</span>מפה</div>
+          <div onClick="{{ nav.chatroom }}" style="display:flex;flex-direction:column;gap:6px;cursor:pointer"><span style="font-size:20px">💬</span>צ׳אט</div>
+          <div style="display:flex;flex-direction:column;gap:6px;cursor:pointer"><span style="font-size:20px">↗</span>שיתוף</div>
+          <div onClick="{{ toggleFav }}" style="display:flex;flex-direction:column;gap:6px;cursor:pointer"><span style="font-size:20px;color:{{ favColor }}">♥</span>מועדף</div>
+        </div>
+        <div style="display:flex;gap:8px;background:#f4f0e6;border-radius:13px;padding:6px;overflow-x:auto" class="gb-scroll">
+          <span onClick="{{ dtab.about }}" style="flex:none;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;background:{{ dt.aboutBg }};color:{{ dt.aboutFg }};border:{{ dt.aboutBorder }}">🧖 אודות</span>
+          <span onClick="{{ dtab.service }}" style="flex:none;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;background:{{ dt.serviceBg }};color:{{ dt.serviceFg }};border:{{ dt.serviceBorder }}">✂ שירותים</span>
+          <span onClick="{{ dtab.schedule }}" style="flex:none;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;background:{{ dt.scheduleBg }};color:{{ dt.scheduleFg }};border:{{ dt.scheduleBorder }}">📅 לוח זמנים</span>
+          <span onClick="{{ dtab.review }}" style="flex:none;padding:9px 16px;border-radius:9px;font-size:13px;font-weight:600;background:{{ dt.reviewBg }};color:{{ dt.reviewFg }};border:{{ dt.reviewBorder }}">★ ביקורת</span>
+        </div>
+
+        <!-- אודות -->
+        <sc-if value="{{ dShow.about }}" hint-placeholder-val="{{ true }}">
+          <div style="margin-top:18px">
+            <div style="font-size:14px;line-height:1.6;color:#4a4a5e">במספרת סוקולוב, צוות הספרים המיומן שלנו הופך כל תספורת ליצירת אמנות ומעצב את השיער שלך בדיוק כמו שרצית, <span style="color:#16141c;text-decoration:underline">קרא עוד...</span></div>
+            <div style="font-weight:700;font-size:15px;margin:18px 0 10px">שעות פתיחה</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:8px"><span style="color:#9a99ad">ראשון – חמישי</span><span style="font-weight:600">09:00 – 20:00</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9a99ad">שישי – שבת</span><span style="font-weight:600">09:00 – 21:00</span></div>
+            <div style="font-weight:700;font-size:15px;margin:18px 0 12px">הצוות שלנו</div>
+            <sc-for list="{{ team }}" as="t" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ t.img }}" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover;background:#ddd;filter:grayscale(1)">
+                <div style="flex:1"><div style="font-weight:600;font-size:14px">{{ t.name }}</div><div style="font-size:12px;color:#9a99ad">{{ t.role }}</div></div>
+                <div style="font-size:12px;color:#9a99ad">⭐ {{ t.rating }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <!-- שירותים -->
+        <sc-if value="{{ dShow.service }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <div style="font-weight:700;font-size:15px;margin-bottom:14px">השירותים שלנו</div>
+            <sc-for list="{{ services }}" as="s" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ s.img }}" alt="" style="width:48px;height:48px;border-radius:12px;object-fit:cover;background:#ddd">
+                <div style="flex:1"><div style="font-weight:600;font-size:14px">{{ s.name }}</div><div style="font-size:12px;color:#9a99ad">{{ s.desc }}</div></div>
+                <div style="font-weight:700;font-size:15px">{{ s.price }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <!-- לוח זמנים -->
+        <sc-if value="{{ dShow.schedule }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <div style="font-weight:700;font-size:15px">📅 28 באוג׳ 2023 ▾</div>
+            <div style="font-size:13px;color:#9a99ad;margin:14px 0 4px">ציר זמן</div>
+            <sc-for list="{{ scheduleRows }}" as="r" hint-placeholder-count="6">
+              <div style="display:flex;align-items:center;gap:12px;min-height:54px;border-top:1px solid #eee">
+                <span style="font-size:12px;color:#9a99ad;width:62px;flex:none">{{ r.time }}</span>
+                <sc-if value="{{ r.chip }}" hint-placeholder-val="{{ false }}">
+                  <div style="background:{{ r.chip.color }};border-radius:11px;padding:7px 12px;display:flex;align-items:center;gap:8px;color:#fff">
+                    <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ r.chip.img }}" alt="" style="width:24px;height:24px;border-radius:50%;object-fit:cover">
+                    <div><div style="font-weight:600;font-size:12px">{{ r.chip.name }}</div><div style="font-size:10px;opacity:.9">{{ r.chip.service }}</div></div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <!-- ביקורת -->
+        <sc-if value="{{ dShow.review }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:18px">
+            <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex;gap:12px;margin-bottom:18px">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ r.img }}" alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover;background:#ddd;filter:grayscale(1)">
+                <div style="flex:1">
+                  <div style="font-weight:600;font-size:14px">{{ r.name }}</div>
+                  <div style="font-size:12px;margin:3px 0"><span style="color:#ffb300">{{ r.full }}</span><span style="color:#dcdce4">{{ r.empty }}</span> <span style="color:#9a99ad">({{ r.score }})</span></div>
+                  <div style="font-size:12px;color:#6a6a7e;line-height:1.5">{{ r.text }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <button onClick="{{ nav.book }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:18px;cursor:pointer">הזמן עכשיו</button>
+      </div>
+    </sc-if>
+
+    <!-- ============ BOOK APPOINTMENT ============ -->
+    <sc-if value="{{ show.book }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:54px 20px 30px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px"><span onClick="{{ nav.detail }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">הזמנת תור</span></div>
+        <div style="font-weight:700;font-size:16px;margin-bottom:12px">בחר תאריך</div>
+        <div style="background:#f4f0e6;border-radius:13px;display:flex;align-items:center;justify-content:space-between;padding:12px 18px;font-weight:600;font-size:15px;color:#16141c"><span>›</span><span>ינואר 2023</span><span>‹</span></div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;font-size:12px;color:#9a99ad;margin:14px 0 6px"><span>א׳</span><span>ב׳</span><span>ג׳</span><span>ד׳</span><span>ה׳</span><span>ו׳</span><span>ש׳</span></div>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);text-align:center;gap:10px 0;font-size:13px;font-weight:500">
+          <sc-for list="{{ calendar }}" as="d" hint-placeholder-count="35">
+            <span style="height:30px;display:flex;align-items:center;justify-content:center"><span style="width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:{{ d.bg }};color:{{ d.fg }}">{{ d.n }}</span></span>
+          </sc-for>
+        </div>
+        <div style="font-weight:700;font-size:16px;margin:20px 0 12px">בחר שירות</div>
+        <div style="display:flex;gap:16px;overflow-x:auto" class="gb-scroll">
+          <sc-for list="{{ serviceChips }}" as="s" hint-placeholder-count="4">
+            <div style="flex:none;text-align:center;width:74px">
+              <div style="width:64px;height:64px;border-radius:50%;margin:0 auto;position:relative;overflow:hidden;background:#ddd;outline:{{ s.ring }}">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ s.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
+                <sc-if value="{{ s.sel }}" hint-placeholder-val="{{ false }}"><div style="position:absolute;inset:0;background:rgba(58,49,104,.55);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px">✓</div></sc-if>
+              </div>
+              <div style="font-size:12px;font-weight:600;margin-top:6px">{{ s.name }}</div>
+              <div style="font-size:11px;color:#9a99ad">{{ s.price }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="font-weight:700;font-size:16px;margin:20px 0 12px">שעות פנויות</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+          <sc-for list="{{ timeSlots }}" as="t" hint-placeholder-count="12">
+            <div style="text-align:center;font-size:13px;font-weight:600;padding:11px 0;border-radius:10px;border:1px solid {{ t.border }};background:{{ t.bg }};color:{{ t.fg }}">{{ t.label }}</div>
+          </sc-for>
+        </div>
+        <div style="font-weight:700;font-size:16px;margin:22px 0 12px">סיכום תשלום</div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px"><span>תספורת בסיסית</span><span style="font-weight:600">₪80</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:12px"><span>עיסוי נוסף</span><span style="font-weight:600">₪50</span></div>
+        <div style="border-top:1px dashed #e7e1d2;margin:6px 0 12px"></div>
+        <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span>עלות שירות</span><span>₪110</span></div>
+        <button onClick="{{ nav.appointment }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">אישור הזמנה 📅</button>
+      </div>
+    </sc-if>
+
+    <!-- ============ APPOINTMENT / PAYMENT ============ -->
+    <sc-if value="{{ show.appointment }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c">
+        <div style="padding:54px 20px 0;color:#fff">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px"><span onClick="{{ nav.book }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">התור שלך</span></div>
+          <div style="background:rgba(255,255,255,.12);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center">
+            <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:60px;height:60px;border-radius:12px;object-fit:cover">
+            <div><div style="font-weight:700;font-size:14px">מספרת סוקולוב...</div><div style="font-size:12px;opacity:.85;margin-top:4px">📍 מרכז הרצליה (1 ק"מ)</div><div style="font-size:12px;opacity:.85;margin-top:2px">⭐ 5.0 (24)</div></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;margin-top:18px;padding:24px 20px 30px">
+          <div style="font-weight:700;font-size:15px">📅 Date &amp; time</div>
+          <div style="color:#7a7990;font-size:14px;margin-top:6px">יום א׳, 15 בינואר – 08:00</div>
+          <div style="font-weight:700;font-size:15px;margin-top:18px">✂ השירותים</div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:14px"><img src="https://picsum.photos/seed/s1/120/120" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover"><div style="flex:1"><div style="font-weight:600;font-size:14px">תספורת בסיסית</div><div style="font-size:12px;color:#9a99ad">תספורת בסיסית &amp; vitamint</div></div><div style="font-weight:700">₪80</div></div>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px"><img src="https://picsum.photos/seed/s5/120/120" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover"><div style="flex:1"><div style="font-weight:600;font-size:14px">עיסוי</div><div style="font-size:12px;color:#9a99ad">עיסוי נוסף</div></div><div style="font-weight:700">₪50</div></div>
+          <div style="font-weight:700;font-size:15px;margin:20px 0 10px">הזן קופון</div>
+          <div style="display:flex;gap:0;border:1px solid #e7e7ee;border-radius:12px;overflow:hidden">
+            <div style="flex:1;display:flex;align-items:center;gap:8px;padding:0 14px;font-size:14px"><span style="color:#16141c">🏷</span>DISC20PERCEN</div>
+            <button style="border:none;background:#16141c;color:#fff;font-family:inherit;font-weight:600;padding:0 22px;cursor:pointer">החל</button>
+          </div>
+          <div style="font-size:11px;color:#16b981;margin-top:6px">הקופון פעיל</div>
+          <div style="font-weight:700;font-size:15px;margin:18px 0 10px">סיכום תשלום</div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>תספורת בסיסית</span><span style="font-weight:600">₪80</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>עיסוי נוסף</span><span style="font-weight:600">₪50</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>הנחת קופון</span><span style="font-weight:600">- ₪20</span></div>
+          <div style="border-top:1px dashed #e7e1d2;margin:4px 0 12px"></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span>סה"כ לתשלום</span><span>₪110</span></div>
+          <button onClick="{{ doPay }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:20px;cursor:pointer">שלם עכשיו 👛</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ INVOICE ============ -->
+    <sc-if value="{{ show.invoice }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;color:#fff;flex:1;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:16px"><span onClick="{{ nav.home }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">חשבונית</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;text-align:center;padding:30px 0">
+            <svg width="92" height="92" viewBox="0 0 92 92"><path d="M46 4 L56 14 L70 12 L74 26 L88 32 L82 46 L88 60 L74 66 L70 80 L56 78 L46 88 L36 78 L22 80 L18 66 L4 60 L10 46 L4 32 L18 26 L22 12 L36 14 Z" fill="#fff"/><path d="M34 47 L43 56 L60 36" stroke="#16141c" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div style="font-weight:700;font-size:20px">ההזמנה בוצעה</div>
+            <div style="font-size:13px;opacity:.85;line-height:1.5">Immediately check the booking menu<br>for detailed information</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;padding:24px 20px 30px">
+          <div style="display:flex;justify-content:space-between"><div style="font-weight:700;font-size:15px">מספרת סוקולוב...</div><div style="font-size:13px;color:#9a99ad">יום א׳, 15 בינו׳</div></div>
+          <div style="font-size:13px;color:#bdbcc9;margin-top:4px">תספורת בסיסית , עיסוי</div>
+          <div style="font-weight:700;font-size:15px;margin:16px 0 10px">סיכום תשלום</div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>תספורת בסיסית</span><span style="font-weight:600">₪80</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>עיסוי נוסף</span><span style="font-weight:600">₪50</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>הנחת קופון</span><span style="font-weight:600">- ₪20</span></div>
+          <div style="border-top:1px dashed #e7e1d2;margin:4px 0 12px"></div>
+          <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span>סה"כ לתשלום</span><span>₪110</span></div>
+          <div style="display:flex;gap:12px;margin-top:20px">
+            <button onClick="{{ nav.home }}" style="flex:1;border:none;background:#16141c;color:#fff;font-weight:600;font-size:15px;font-family:inherit;height:54px;border-radius:15px;cursor:pointer">חזרה</button>
+            <button style="flex:1;border:1px solid #16141c;background:#fff;color:#16141c;font-weight:600;font-size:15px;font-family:inherit;height:54px;border-radius:15px;cursor:pointer">הורדה ⤓</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ BOOKING (status) ============ -->
+    <sc-if value="{{ show.booking }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding-bottom:110px">
+        <div style="background:#16141c;padding:52px 20px 18px;display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#fff;font-weight:600;font-size:18px">הזמנות</span>
+          <span style="color:#fff;font-weight:600;display:flex;align-items:center;gap:6px;font-size:14px">⊗ תספורות הרצליה</span>
+        </div>
+        <div style="padding:18px 20px 0">
+          <div style="display:flex;background:#f4f0e6;border-radius:30px;padding:5px">
+            <span onClick="{{ btab.active }}" style="flex:1;text-align:center;padding:10px;border-radius:24px;font-weight:600;font-size:14px;background:{{ btb.activeBg }};color:{{ btb.activeFg }};box-shadow:{{ btb.activeShadow }}">תור פעיל</span>
+            <span onClick="{{ btab.history }}" style="flex:1;text-align:center;padding:10px;border-radius:24px;font-weight:600;font-size:14px;background:{{ btb.historyBg }};color:{{ btb.historyFg }};box-shadow:{{ btb.historyShadow }}">היסטוריה</span>
+          </div>
+        </div>
+
+        <!-- ACTIVE -->
+        <sc-if value="{{ bShow.active }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:20px">
+            <div style="display:flex;justify-content:space-between;padding:0 6px">
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <span style="font-size:18px;color:{{ s.iconColor }}">{{ s.icon }}</span>
+              </sc-for>
+            </div>
+            <div style="position:relative;height:14px;margin:10px 8px">
+              <div style="position:absolute;top:5px;left:0;right:0;height:4px;background:#ececf2;border-radius:3px"></div>
+              <div style="position:absolute;top:5px;left:0;height:4px;background:#c2a14d;border-radius:3px;width:{{ progressPct }}"></div>
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <span style="position:absolute;top:0;left:{{ s.dotLeft }};transform:translateX(-50%);width:14px;height:14px;border-radius:50%;background:{{ s.dotBg }};border:{{ s.dotBorder }}"></span>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:6px">
+              <sc-for list="{{ stages }}" as="s" hint-placeholder-count="4">
+                <span onClick="{{ s.click }}" style="background:#16141c;color:#fff;font-size:11px;font-weight:500;padding:6px 11px;border-radius:14px;cursor:pointer;opacity:{{ s.pillOpacity }}">{{ s.label }}</span>
+              </sc-for>
+            </div>
+
+            <div style="border:1px solid #eee;border-radius:16px;padding:16px;margin-top:22px;box-shadow:0 6px 20px rgba(0,0,0,.05)">
+              <div style="display:flex;gap:12px">
+                <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:56px;height:56px;border-radius:12px;object-fit:cover">
+                <div style="flex:1"><div style="font-weight:700;font-size:14px">מספרת סוקולוב...</div><div style="font-size:12px;color:#9a99ad;margin-top:4px">📍 מרכז הרצליה (1 ק"מ)</div><div style="font-size:12px;color:#9a99ad;margin-top:2px">⭐ 5.0 (24)</div></div>
+              </div>
+              <div style="border-top:1px solid #eee;margin:14px 0;"></div>
+              <div style="display:flex;align-items:center;gap:18px">
+                <div onClick="{{ nav.findbarber }}" style="text-align:center;font-size:11px;color:#16141c;cursor:pointer"><div style="font-size:18px">🗺</div>מפה</div>
+                <div onClick="{{ nav.chatroom }}" style="text-align:center;font-size:11px;color:#16141c;cursor:pointer"><div style="font-size:18px">💬</div>צ׳אט</div>
+                <button style="margin-left:auto;border:none;background:#16141c;color:#fff;font-family:inherit;font-weight:600;font-size:13px;padding:10px 22px;border-radius:11px;cursor:pointer">ביטול</button>
+              </div>
+            </div>
+
+            <!-- status note -->
+            <sc-if value="{{ stShow.note }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#f4f0e6;border-radius:13px;padding:14px 16px;margin-top:16px;display:flex;justify-content:space-between;font-weight:700;font-size:14px;color:#16141c"><span>{{ stNote.label }}</span><span>{{ stNote.value }}</span></div>
+            </sc-if>
+
+            <!-- finished hero -->
+            <sc-if value="{{ stShow.finished }}" hint-placeholder-val="{{ false }}">
+              <div style="text-align:center;padding:30px 10px 10px">
+                <svg width="84" height="84" viewBox="0 0 92 92"><path d="M46 4 L56 14 L70 12 L74 26 L88 32 L82 46 L88 60 L74 66 L70 80 L56 78 L46 88 L36 78 L22 80 L18 66 L4 60 L10 46 L4 32 L18 26 L22 12 L36 14 Z" fill="#16141c"/><path d="M34 47 L43 56 L60 36" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                <div style="font-weight:700;font-size:18px;color:#16141c;margin-top:18px">השירות הסתיים</div>
+                <div style="font-size:13px;color:#9a99ad;margin-top:8px;line-height:1.5">טקסט לדוגמה שמופיע כאן לצורך המחשה בלבד.</div>
+                <button onClick="{{ nav.rating }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:15px;font-family:inherit;height:56px;border-radius:16px;margin-top:34px;cursor:pointer">דירוג &amp; review 🙌</button>
+              </div>
+            </sc-if>
+
+            <!-- details (non finished) -->
+            <sc-if value="{{ stShow.details }}" hint-placeholder-val="{{ true }}">
+              <div style="margin-top:18px">
+                <div style="font-weight:700;font-size:15px">📅 Date &amp; time</div>
+                <div style="color:#7a7990;font-size:14px;margin-top:6px">יום א׳, 15 בינואר – 08:00</div>
+                <div style="font-weight:700;font-size:15px;margin-top:16px">✂ השירותים שנבחרו</div>
+                <div style="display:flex;align-items:center;gap:12px;margin-top:12px"><img src="https://picsum.photos/seed/s1/120/120" alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover"><div><div style="font-weight:600;font-size:14px">תספורת בסיסית</div><div style="font-size:12px;color:#9a99ad">תספורת בסיסית &amp; vitamint</div></div></div>
+                <div style="display:flex;align-items:center;gap:12px;margin-top:10px"><img src="https://picsum.photos/seed/s5/120/120" alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover"><div><div style="font-weight:600;font-size:14px">עיסוי</div><div style="font-size:12px;color:#9a99ad">עיסוי נוסף</div></div></div>
+                <div style="font-weight:700;font-size:15px;margin-top:16px">👤 ספר ראשי</div>
+                <div style="display:flex;align-items:center;gap:12px;margin-top:12px"><img src="https://i.pravatar.cc/120?img=13" alt="" style="width:42px;height:42px;border-radius:50%;object-fit:cover;filter:grayscale(1)"><div><div style="font-weight:600;font-size:14px">איתי כהן</div><div style="font-size:12px;color:#9a99ad">מומחה תספורות</div></div></div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <!-- HISTORY -->
+        <sc-if value="{{ bShow.history }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:20px">
+            <sc-for list="{{ barbers }}" as="b" hint-placeholder-count="4">
+              <div onClick="{{ b.openHistory }}" style="display:flex;gap:12px;margin-bottom:18px;cursor:pointer">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ b.img }}" alt="" style="width:74px;height:74px;border-radius:12px;object-fit:cover;background:#ddd">
+                <div style="flex:1"><div style="font-weight:600;font-size:14px;line-height:1.3">{{ b.name }}</div><div style="font-size:12px;color:#9a99ad;margin-top:6px">📍 {{ b.loc }}</div><div style="font-size:12px;color:#9a99ad;margin-top:3px">⭐ {{ b.rating }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- ============ HISTORY DETAIL ============ -->
+    <sc-if value="{{ show.historydetail }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding:54px 20px 30px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:16px"><span onClick="{{ nav.booking }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">פרטי הספר</span></div>
+        <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:120px;height:120px;border-radius:16px;object-fit:cover;display:block;margin:0 auto;background:#ccc">
+        <div style="text-align:center;font-weight:700;font-size:16px;margin-top:14px">מספרת סוקולוב — עיצוב וגזיזה</div>
+        <div style="text-align:center;font-size:12px;color:#9a99ad;margin-top:6px">📍 מרכז הרצליה (1 ק"מ) &nbsp; ⭐ 5.0</div>
+        <div style="border-top:1px solid #eee;margin:18px 0"></div>
+        <div style="font-weight:700;font-size:15px">📅 Date &amp; time</div>
+        <div style="color:#7a7990;font-size:14px;margin-top:6px">יום א׳, 15 בינואר – 08:00</div>
+        <div style="font-weight:700;font-size:15px;margin-top:18px">✂ השירותים שנבחרו</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:14px"><img src="https://picsum.photos/seed/s1/120/120" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover"><div style="flex:1"><div style="font-weight:600;font-size:14px">תספורת בסיסית</div><div style="font-size:12px;color:#9a99ad">תספורת בסיסית &amp; vitamint</div></div><div style="font-weight:700">₪80</div></div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:12px"><img src="https://picsum.photos/seed/s5/120/120" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover"><div style="flex:1"><div style="font-weight:600;font-size:14px">עיסוי</div><div style="font-size:12px;color:#9a99ad">עיסוי נוסף</div></div><div style="font-weight:700">₪50</div></div>
+        <div style="font-weight:700;font-size:15px;margin-top:18px">👤 ספר ראשי</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-top:12px"><img src="https://i.pravatar.cc/120?img=13" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover;filter:grayscale(1)"><div><div style="font-weight:600;font-size:14px">איתי כהן</div><div style="font-size:12px;color:#9a99ad">מומחה תספורות</div></div></div>
+        <div style="font-weight:700;font-size:15px;margin:18px 0 10px">סיכום תשלום</div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>תספורת בסיסית</span><span style="font-weight:600">₪80</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>עיסוי נוסף</span><span style="font-weight:600">₪50</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px"><span>הנחת קופון</span><span style="font-weight:600">- ₪20</span></div>
+        <div style="border-top:1px dashed #e7e1d2;margin:4px 0 12px"></div>
+        <div style="display:flex;justify-content:space-between;font-size:15px;font-weight:700"><span>סה"כ לתשלום</span><span>₪110</span></div>
+        <button onClick="{{ nav.rating }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">דירוג &amp; review 🙌</button>
+      </div>
+    </sc-if>
+
+    <!-- ============ RATING ============ -->
+    <sc-if value="{{ show.rating }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;color:#fff">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px"><span onClick="{{ nav.booking }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">דירוג &amp; review</span></div>
+          <div style="background:rgba(255,255,255,.12);border-radius:16px;padding:14px;display:flex;gap:12px;align-items:center;margin-bottom:8px">
+            <img src="https://picsum.photos/seed/master/320/240" alt="" style="width:56px;height:56px;border-radius:12px;object-fit:cover">
+            <div><div style="font-weight:700;font-size:14px">The Barber House &amp;...</div><div style="font-size:12px;opacity:.85;margin-top:4px">📍 מרכז הרצליה (1 ק"מ)</div><div style="font-size:12px;opacity:.85;margin-top:2px">⭐ 5.0 (24)</div></div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;margin-top:14px;padding:24px 20px 30px;flex:1">
+          <div style="font-weight:700;font-size:15px">דירוג</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:12px">
+            <sc-for list="{{ ratingStars }}" as="s" hint-placeholder-count="5">
+              <span onClick="{{ s.set }}" style="font-size:34px;cursor:pointer;color:{{ s.color }}">★</span>
+            </sc-for>
+            <span style="color:#9a99ad;font-size:14px;margin-left:6px">({{ ratingValue }})</span>
+          </div>
+          <div style="font-weight:700;font-size:15px;margin:20px 0 10px">ביקורת</div>
+          <div style="border:1px solid #e7e7ee;border-radius:13px;padding:14px;min-height:120px"><span style="display:inline-flex;align-items:center;gap:6px;border:1px solid #d9d3c3;border-radius:20px;padding:5px 12px;font-size:13px">כללי טוב <span style="color:#bbb">✕</span></span></div>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;font-size:13px">
+            <span style="background:#f4f0e6;border-radius:18px;padding:7px 14px;font-weight:500">כללי טוב</span>
+            <span style="background:#f4f0e6;border-radius:18px;padding:7px 14px;font-weight:500">שירות טוב</span>
+            <span style="color:#9a99ad;padding:7px 4px">משביע רצון</span>
+            <span style="color:#9a99ad;padding:7px 4px">נוח</span>
+            <span style="color:#9a99ad;padding:7px 4px">מומלץ</span>
+            <span style="color:#9a99ad;padding:7px 4px">משתלם</span>
+            <span style="color:#9a99ad;padding:7px 4px">תוצאה מושלמת</span>
+            <span style="color:#9a99ad;padding:7px 4px">הערכת זמן מדויקת</span>
+          </div>
+          <button onClick="{{ nav.booking }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:26px;cursor:pointer">שליחה</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ CHAT LIST ============ -->
+    <sc-if value="{{ show.chatlist }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;padding-bottom:110px">
+        <div style="background:#16141c;padding:52px 20px 18px;display:flex;justify-content:space-between;align-items:center">
+          <span style="color:#fff;font-weight:600;font-size:18px">צ׳אט</span><span style="color:#fff;font-weight:600;display:flex;align-items:center;gap:6px;font-size:14px">⊗ תספורות הרצליה</span>
+        </div>
+        <div style="padding:18px 20px 0">
+          <div style="display:flex;background:#f4f0e6;border-radius:30px;padding:5px">
+            <span onClick="{{ ctab.active }}" style="flex:1;text-align:center;padding:10px;border-radius:24px;font-weight:600;font-size:14px;background:{{ ctb.activeBg }};color:{{ ctb.activeFg }};box-shadow:{{ ctb.activeShadow }}">צ׳אט פעיל</span>
+            <span onClick="{{ ctab.finished }}" style="flex:1;text-align:center;padding:10px;border-radius:24px;font-weight:600;font-size:14px;background:{{ ctb.finishedBg }};color:{{ ctb.finishedFg }};box-shadow:{{ ctb.finishedShadow }}">הסתיים</span>
+          </div>
+        </div>
+
+        <sc-if value="{{ cShow.active }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:16px 20px 0">
+            <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
+              <div style="width:54px;height:54px;border-radius:50%;background:#16141c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px;flex:none">+</div>
+              <sc-for list="{{ storyAvatars }}" as="a" hint-placeholder-count="4">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ a.img }}" alt="" style="width:54px;height:54px;border-radius:50%;object-fit:cover;filter:grayscale(1)">
+              </sc-for>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;background:#f3f1ea;border-radius:13px;padding:0 14px;height:48px;color:#9a99ad;font-size:13px;margin-bottom:8px">🔍 חיפוש שיחה</div>
+            <sc-for list="{{ chatsActive }}" as="c" hint-placeholder-count="6">
+              <div onClick="{{ nav.chatroom }}" style="display:flex;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #f2f2f6;cursor:pointer">
+                <div style="position:relative;flex:none"><img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ c.img }}" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;filter:grayscale(1)"><span style="position:absolute;right:1px;top:1px;width:11px;height:11px;border-radius:50%;border:2px solid #fff;background:{{ c.dot }}"></span></div>
+                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">{{ c.name }}</div><div style="font-size:12px;color:#9a99ad;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.msg }}</div></div>
+                <div style="text-align:right;flex:none"><div style="font-size:11px;color:#9a99ad">{{ c.time }}</div><div style="margin-top:6px;font-size:11px;color:{{ c.badgeColor }}">{{ c.badge }}</div></div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ cShow.finished }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:16px 20px 0">
+            <div style="display:flex;align-items:center;gap:10px;background:#f3f1ea;border-radius:13px;padding:0 14px;height:48px;color:#9a99ad;font-size:13px;margin-bottom:8px">🔍 חיפוש שיחה</div>
+            <sc-for list="{{ chatsFinished }}" as="c" hint-placeholder-count="5">
+              <div style="display:flex;gap:12px;align-items:center;padding:12px 0">
+                <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ c.img }}" alt="" style="width:46px;height:46px;border-radius:50%;object-fit:cover;filter:grayscale(1);flex:none">
+                <div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">{{ c.name }}</div><div style="font-size:12px;color:#9a99ad;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">טקסט לדוגמה להמחשה...</div></div>
+                <button onClick="{{ nav.chatroom }}" style="border:1px solid #16141c;background:#fff;color:#16141c;font-family:inherit;font-weight:600;font-size:13px;padding:9px 16px;border-radius:11px;cursor:pointer">שוחח שוב</button>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- ============ CHAT ROOM ============ -->
+    <sc-if value="{{ show.chatroom }}" hint-placeholder-val="{{ true }}">
+      <div style="height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="padding:50px 20px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f4">
+          <span onClick="{{ nav.chatlist }}" style="font-size:20px;cursor:pointer">→</span>
+          <img src="https://i.pravatar.cc/120?img=13" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover;filter:grayscale(1)">
+          <div style="flex:1"><div style="font-weight:700;font-size:15px">The Barber House...</div><div style="font-size:12px;color:#16b981">● מחובר</div></div>
+          <button style="border:none;background:#e8485f;color:#fff;font-family:inherit;font-weight:600;font-size:13px;padding:8px 18px;border-radius:11px;cursor:pointer">End</button>
+        </div>
+        <div class="gb-scroll" style="flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:16px">
+          <div style="text-align:center"><span style="background:#16141c;color:#fff;font-size:12px;padding:5px 16px;border-radius:14px">היום</span></div>
+          <div style="align-self:flex-end;max-width:78%;background:#f1f1f5;border-radius:16px 16px 4px 16px;padding:12px 14px;font-size:13px;line-height:1.5">בוקר טוב, אשמח להזמין תספורת אחר הצהריים<div style="text-align:right;font-size:10px;color:#9a99ad;margin-top:6px">08.45 ✓✓</div></div>
+          <div style="display:flex;gap:8px;align-items:flex-end"><img src="https://i.pravatar.cc/120?img=13" alt="" style="width:30px;height:30px;border-radius:50%;object-fit:cover;filter:grayscale(1)"><div style="max-width:74%;background:#16141c;color:#fff;border-radius:16px 16px 16px 4px;padding:12px 14px;font-size:13px;line-height:1.5"><div style="font-weight:700;font-size:12px;margin-bottom:4px">מנהל המספרה</div>בשמחה, יש לנו מקום פנוי אחר הצהריים<div style="font-size:10px;opacity:.7;margin-top:6px">09.15</div></div></div>
+          <div style="display:flex;gap:8px;align-items:flex-end"><img src="https://i.pravatar.cc/120?img=13" alt="" style="width:30px;height:30px;border-radius:50%;object-fit:cover;filter:grayscale(1)"><div style="max-width:74%;background:#16141c;color:#fff;border-radius:16px 16px 16px 4px;padding:12px 14px;font-size:13px;line-height:1.5"><div style="font-weight:700;font-size:12px;margin-bottom:4px">מנהל המספרה</div>אנא הזמן דרך מסך ההזמנות באפליקציה<div style="font-size:10px;opacity:.7;margin-top:6px">09.17</div></div></div>
+          <div style="align-self:flex-end;max-width:78%;background:#f4f0e6;border-radius:16px 16px 4px 16px;padding:12px 14px;font-size:13px;line-height:1.5">מצוין, תודה על המידע<div style="text-align:right;font-size:10px;color:#9a99ad;margin-top:6px">09.20 ✓✓</div></div>
+        </div>
+        <div style="padding:12px 20px 24px;display:flex;gap:10px;align-items:center;border-top:1px solid #f0f0f4">
+          <div style="flex:1;display:flex;align-items:center;gap:8px;background:#f3f3f7;border-radius:24px;padding:0 16px;height:48px;color:#9a99ad;font-size:13px"><span style="flex:1">הקלד הודעה</span><span>📎</span></div>
+          <button style="width:48px;height:48px;border:none;background:#16141c;color:#fff;border-radius:50%;font-size:18px;cursor:pointer">➤</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ PROFILE ============ -->
+    <sc-if value="{{ show.profile }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c;padding-bottom:110px">
+        <div style="padding:52px 20px 30px;color:#fff;position:relative">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><span style="font-weight:600;font-size:18px">פרופיל</span><span style="font-weight:600;display:flex;align-items:center;gap:6px;font-size:14px">⊗ תספורות הרצליה</span></div>
+          <div style="display:flex;gap:14px;align-items:center;margin-top:18px">
+            <img src="https://i.pravatar.cc/120?img=68" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover">
+            <div style="flex:1">
+              <span style="background:#c2a14d;color:#fff;font-size:11px;font-weight:600;padding:3px 10px;border-radius:12px">🏅 פלטינום</span>
+              <div style="font-weight:700;font-size:18px;margin-top:6px">יואב שמעוני</div>
+            </div>
+            <span onClick="{{ nav.account }}" style="font-size:16px;cursor:pointer">✎</span>
+          </div>
+          <div style="font-size:13px;opacity:.9;margin-top:14px">✉ yoav.shimoni@gmail.com</div>
+          <div style="font-size:13px;opacity:.9;margin-top:6px">📍 הרצליה, ישראל</div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;padding:22px 20px 30px;min-height:380px">
+          <div style="color:#9a99ad;font-size:13px;margin-bottom:6px">הגדרות</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6"><span style="font-weight:600;font-size:15px">התראות</span><span onClick="{{ toggleNotif }}" style="width:46px;height:26px;border-radius:14px;background:{{ notifBg }};position:relative;cursor:pointer;display:inline-block"><span style="position:absolute;top:3px;left:{{ notifLeft }};width:20px;height:20px;border-radius:50%;background:#fff;transition:left .2s"></span></span></div>
+          <div onClick="{{ nav.account }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px">חשבון</span><span style="color:#9a99ad">‹</span></div>
+          <div onClick="{{ nav.security }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px">אבטחה</span><span style="color:#9a99ad">‹</span></div>
+          <div onClick="{{ nav.help }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px">עזרה</span><span style="color:#9a99ad">‹</span></div>
+          <div onClick="{{ nav.about }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px">אודות</span><span style="color:#9a99ad">‹</span></div>
+          <div onClick="{{ nav.member }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px">דרגת חבר</span><span style="color:#9a99ad">‹</span></div>
+          <div onClick="{{ nav.join }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #f2f2f6;cursor:pointer"><span style="font-weight:600;font-size:15px;color:#16141c">רישום העסק שלך 🏪</span><span style="color:#9a99ad">‹</span></div>
+          <button onClick="{{ nav.login }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">התנתקות</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ ACCOUNT ============ -->
+    <sc-if value="{{ show.account }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;flex:1">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">חשבון</span></div>
+          <img src="https://i.pravatar.cc/120?img=68" alt="" style="width:100px;height:100px;border-radius:50%;object-fit:cover;display:block;margin:0 auto">
+          <div style="text-align:center;margin-top:12px"><span style="background:#c2a14d;color:#fff;font-size:11px;font-weight:600;padding:4px 12px;border-radius:12px">🏅 פלטינום</span></div>
+          <div style="text-align:center;font-weight:700;font-size:18px;color:#16141c;margin-top:10px">יואב שמעוני</div>
+          <div style="font-weight:500;font-size:14px;margin:24px 0 8px">אימייל</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">✉</span><span>yoav.shimoni@gmail.com</span></div>
+          <div style="font-weight:500;font-size:14px;margin:16px 0 8px">סיסמה</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">🔑</span><span style="flex:1;letter-spacing:3px">••••••••</span><span style="color:#c4c3d0">👁</span></div>
+        </div>
+        <div style="padding:0 20px 26px"><button onClick="{{ nav.profile }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;cursor:pointer">שמירה</button></div>
+      </div>
+    </sc-if>
+
+    <!-- ============ SECURITY ============ -->
+    <sc-if value="{{ show.security }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;flex:1">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:30px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">אבטחה</span></div>
+          <div style="font-weight:500;font-size:14px;margin:0 0 8px">סיסמה</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">🔑</span><span style="flex:1;letter-spacing:3px">••••••••</span><span style="color:#c4c3d0">👁</span></div>
+          <div style="font-weight:500;font-size:14px;margin:18px 0 8px">סיסמה חדשה</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">🔑</span><span style="flex:1;color:#aaa9b8">הזן סיסמה חדשה</span><span style="color:#c4c3d0">👁</span></div>
+        </div>
+        <div style="padding:0 20px 26px"><button onClick="{{ nav.profile }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;cursor:pointer">שמירה</button></div>
+      </div>
+    </sc-if>
+
+    <!-- ============ HELP ============ -->
+    <sc-if value="{{ show.help }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#fff;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;flex:1">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:14px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">עזרה</span></div>
+          <div style="text-align:center;font-size:42px;margin:10px 0">💬</div>
+          <div style="text-align:center;font-weight:700;font-size:20px;color:#16141c">How we can help<br>you today ?</div>
+          <div style="text-align:center;font-size:13px;color:#9a99ad;margin-top:10px;line-height:1.5">מלא את פרטיך ותאר את הצורך שלך או כל דבר שנוכל לעזור בו</div>
+          <div style="font-weight:500;font-size:14px;margin:22px 0 8px">שם</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">👤</span><span>יואב שמעוני</span></div>
+          <div style="font-weight:500;font-size:14px;margin:16px 0 8px">אימייל</div>
+          <div style="display:flex;align-items:center;gap:10px;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px"><span style="color:#16141c">✉</span><span>yoav.shimoni@gmail.com</span></div>
+          <div style="font-weight:500;font-size:14px;margin:16px 0 8px">תיאור</div>
+          <div style="border:1px solid #e7e7ee;border-radius:13px;padding:14px;min-height:90px;color:#aaa9b8;font-size:14px">הזן תיאור כאן</div>
+        </div>
+        <div style="padding:16px 20px 26px"><button onClick="{{ nav.profile }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;cursor:pointer">שליחה</button></div>
+      </div>
+    </sc-if>
+
+    <!-- ============ MEMBER LEVEL ============ -->
+    <sc-if value="{{ show.member }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 24px;color:#fff">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">דרגת חבר</span></div>
+          <div style="font-weight:700;font-size:18px">הדרגה שלך היא <span style="color:#c2a14d">פלטינום</span> כעת 🎉</div>
+          <div style="background:rgba(255,255,255,.1);border-radius:16px;padding:18px 16px;margin-top:16px">
+            <div style="display:flex;justify-content:space-between;padding:0 4px;font-size:18px"><span>✦</span><span>🏅</span><span>🥇</span><span>👑</span></div>
+            <div style="position:relative;height:14px;margin:12px 6px">
+              <div style="position:absolute;top:5px;left:0;right:0;height:4px;background:rgba(255,255,255,.25);border-radius:3px"></div>
+              <div style="position:absolute;top:5px;left:0;height:4px;background:#c2a14d;border-radius:3px;width:66%"></div>
+              <span style="position:absolute;top:0;left:0;width:14px;height:14px;border-radius:50%;background:#c2a14d"></span>
+              <span style="position:absolute;top:0;left:33%;width:14px;height:14px;border-radius:50%;background:#c2a14d"></span>
+              <span style="position:absolute;top:0;left:66%;width:14px;height:14px;border-radius:50%;background:#fff;border:3px solid #c2a14d"></span>
+              <span style="position:absolute;top:0;right:0;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.4)"></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-top:6px">
+              <span style="background:#c2a14d;color:#fff;font-size:11px;padding:5px 12px;border-radius:14px">כסף</span>
+              <span style="background:#c2a14d;color:#fff;font-size:11px;padding:5px 12px;border-radius:14px">זהב</span>
+              <span style="background:#c2a14d;color:#fff;font-size:11px;padding:5px 12px;border-radius:14px">פלטינום</span>
+              <span style="background:#c2a14d;color:#fff;font-size:11px;padding:5px 12px;border-radius:14px">יהלום</span>
+            </div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;padding:22px 20px 30px;flex:1">
+          <div style="color:#9a99ad;font-size:13px;margin-bottom:8px">רשימת דרגות</div>
+          <sc-for list="{{ levels }}" as="l" hint-placeholder-count="4">
+            <div style="display:flex;gap:12px;margin-bottom:16px"><span style="font-size:22px;flex:none">{{ l.icon }}</span><div><div style="font-weight:700;font-size:15px">{{ l.name }}</div><div style="font-size:12px;color:#9a99ad;line-height:1.5">טקסט לדוגמה שמופיע כאן לצורך המחשה בלבד.</div></div></div>
+          </sc-for>
+          <button onClick="{{ nav.profile }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:10px;cursor:pointer">חוגגים 🎉</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ ABOUT ============ -->
+    <sc-if value="{{ show.about }}" hint-placeholder-val="{{ true }}">
+      <div style="min-height:812px;background:#16141c;display:flex;flex-direction:column">
+        <div style="padding:54px 20px 0;color:#fff;flex:1;display:flex;flex-direction:column">
+          <div style="display:flex;align-items:center;gap:16px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">אודות</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px">
+            <svg width="78" height="78" viewBox="0 0 86 86" fill="none"><rect x="36" y="8" width="14" height="9" rx="2" stroke="#fff" stroke-width="2.4"/><path d="M22 17 C8 36 18 56 43 56 C68 56 78 36 64 17" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M26 22 L57 50 M60 22 L29 50" stroke="#fff" stroke-width="2.6" stroke-linecap="round"/><circle cx="32" cy="51" r="7" stroke="#fff" stroke-width="2.6"/><circle cx="54" cy="51" r="7" stroke="#fff" stroke-width="2.6"/></svg>
+            <div style="font-weight:700;font-size:18px">תספורות הרצליה</div>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:26px 26px 0 0;padding:24px 20px 30px">
+          <div style="font-weight:700;font-size:15px">אודות תספורות הרצליה</div>
+          <div style="font-size:13px;color:#6a6a7e;line-height:1.6;margin-top:10px">"<b>תספורות הרצליה</b>: הפתרון הטוב ביותר להזמנת תורים אונליין". רוצה חוויית תספורת נוחה ויעילה יותר? תספורות הרצליה הוא הפתרון בשבילך — אפליקציה להזמנת ספרים שמאפשרת לחפש, לבחור ולהזמין שירותי תספורת בקלות ובמהירות.</div>
+          <div style="color:#9a99ad;font-size:13px;margin-top:18px">דרג את האפליקציה</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #f2f2f6"><span style="font-weight:600;font-size:14px;color:#16141c">דרג את האפליקציה</span><span style="color:#9a99ad">‹</span></div>
+          <button onClick="{{ nav.profile }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:20px;cursor:pointer">חזרה</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- ============ JOIN / REGISTER BUSINESS ============ -->
+    <sc-if value="{{ show.join }}" hint-placeholder-val="{{ false }}">
+      <div style="min-height:812px;background:#fff;padding:54px 20px 40px">
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:6px"><span onClick="{{ nav.profile }}" style="font-size:20px;cursor:pointer">→</span><span style="font-weight:600;font-size:17px">רישום העסק שלך</span></div>
+        <div style="color:#9a99ad;font-size:13px;line-height:1.5;margin-bottom:20px">הוסף את המספרה שלך לתספורות הרצליה. מלא את הפרטים כדי שלקוחות ימצאו ויזמינו אצלך. שדות עם * הם חובה.</div>
+
+        <div style="font-weight:500;font-size:14px;margin:0 0 8px">שם העסק *</div>
+        <input value="{{ form.name }}" onChange="{{ form.setName }}" placeholder="לדוגמה: מספרת סוקולוב" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">שם הבעלים</div>
+        <input value="{{ form.owner }}" onChange="{{ form.setOwner }}" placeholder="e.g. יואב שמעוני" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">אימייל *</div>
+        <input value="{{ form.email }}" onChange="{{ form.setEmail }}" type="email" placeholder="barber@email.com" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">מספר טלפון *</div>
+        <input value="{{ form.phone }}" onChange="{{ form.setPhone }}" placeholder="052-000-0000" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">כתובת / מיקום *</div>
+        <input value="{{ form.address }}" onChange="{{ form.setAddress }}" placeholder="סוקולוב 24, הרצליה" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 10px">Category *</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px">
+          <sc-for list="{{ catChips }}" as="c" hint-placeholder-count="5">
+            <span onClick="{{ c.pick }}" style="font-size:13px;font-weight:600;padding:8px 16px;border-radius:11px;border:1px solid {{ c.border }};background:{{ c.bg }};color:{{ c.fg }};cursor:pointer">{{ c.label }}</span>
+          </sc-for>
+        </div>
+
+        <div style="font-weight:500;font-size:14px;margin:18px 0 8px">שעות פתיחה</div>
+        <input value="{{ form.hours }}" onChange="{{ form.setHours }}" placeholder="09:00 – 21:00" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">מחיר התחלתי</div>
+        <input value="{{ form.price }}" onChange="{{ form.setPrice }}" placeholder="₪80" style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:0 14px;height:52px;font-family:inherit;font-size:14px;outline:none">
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 8px">תיאור</div>
+        <textarea value="{{ form.desc }}" onChange="{{ form.setDesc }}" placeholder="ספר ללקוחות על המספרה שלך..." style="width:100%;border:1px solid #e7e7ee;border-radius:13px;padding:14px;min-height:84px;font-family:inherit;font-size:14px;outline:none;resize:none"></textarea>
+
+        <div style="font-weight:500;font-size:14px;margin:16px 0 10px">בחר תמונת שער *</div>
+        <div style="display:flex;gap:12px">
+          <sc-for list="{{ photoPicks }}" as="p" hint-placeholder-count="4">
+            <div onClick="{{ p.pick }}" style="width:66px;height:66px;border-radius:13px;overflow:hidden;outline:{{ p.ring }};outline-offset:-1px;cursor:pointer;background:#ddd">
+              <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" data-src="{{ p.img }}" alt="" style="width:100%;height:100%;object-fit:cover">
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ formError }}" hint-placeholder-val="{{ false }}">
+          <div style="color:#e8485f;font-size:12.5px;margin-top:16px">נא למלא את כל שדות החובה המסומנים ב-*.</div>
+        </sc-if>
+
+        <button onClick="{{ submitBiz }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">Submit &amp; join תספורות הרצליה 🏪</button>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <!-- ============ FILTER SHEET ============ -->
+  <sc-if value="{{ showFilter }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeFilter }}" style="position:absolute;inset:0;background:rgba(40,30,80,.35);z-index:70"></div>
+    <div style="position:absolute;left:0;right:0;bottom:0;background:#fff;border-radius:24px 24px 0 0;padding:22px 20px 30px;z-index:71;animation:gbSheet .3s">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><div style="display:flex;align-items:center;gap:12px"><span style="width:36px;height:36px;background:#c2a14d;color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center">?</span><span style="font-weight:700;font-size:17px">Filter</span></div><span onClick="{{ closeFilter }}" style="color:#bbb;cursor:pointer;font-size:18px">✕</span></div>
+      <div style="font-weight:700;font-size:15px;margin-bottom:12px">קטגוריה</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;font-size:13px">
+        <span style="border:1px solid #16141c;color:#16141c;border-radius:11px;padding:8px 16px;font-weight:600">תספורת בסיסית</span>
+        <span style="color:#9a99ad;padding:8px 8px">צביעה</span>
+        <span style="color:#9a99ad;padding:8px 8px">טיפוח</span>
+        <span style="color:#9a99ad;padding:8px 8px">עיסוי</span>
+        <span style="color:#9a99ad;padding:8px 8px">תספורת ילדים</span>
+      </div>
+      <div style="font-weight:700;font-size:15px;margin:18px 0 10px">דירוג ספר</div>
+      <div style="font-size:24px;color:#c2a14d">★★★★<span style="color:#dcdce4">★</span> <span style="font-size:14px;color:#9a99ad">(4.0)</span></div>
+      <div style="height:5px;background:#ececf2;border-radius:3px;margin-top:14px;position:relative"><div style="position:absolute;left:0;top:0;height:5px;width:62%;background:#16141c;border-radius:3px"></div><span style="position:absolute;left:62%;top:-5px;width:15px;height:15px;background:#16141c;border-radius:50%;transform:translateX(-50%)"></span></div>
+      <div style="font-weight:700;font-size:15px;margin:18px 0 10px">מרחק</div>
+      <div style="display:flex;gap:14px;align-items:flex-end">
+        <div style="flex:1"><div style="font-size:11px;color:#9a99ad;margin-bottom:6px">הקרוב ביותר</div><div style="display:flex;align-items:center;gap:6px"><span style="border:1px solid #16141c;border-radius:10px;padding:11px 16px;font-weight:600;color:#16141c">0.1</span><span style="font-size:13px;color:#9a99ad">ק"מ</span></div></div>
+        <span style="padding-bottom:12px;color:#9a99ad">—</span>
+        <div style="flex:1"><div style="font-size:11px;color:#9a99ad;margin-bottom:6px">הרחוק ביותר</div><div style="display:flex;align-items:center;gap:6px"><span style="border:1px solid #16141c;border-radius:10px;padding:11px 16px;font-weight:600;color:#16141c">10</span><span style="font-size:13px;color:#9a99ad">ק"מ</span></div></div>
+      </div>
+      <button onClick="{{ closeFilter }}" style="width:100%;border:none;background:#16141c;color:#fff;font-weight:600;font-size:16px;font-family:inherit;height:56px;border-radius:16px;margin-top:22px;cursor:pointer">החל</button>
+    </div>
+  </sc-if>
+
+  <!-- ============ BOTTOM NAV ============ -->
+  <sc-if value="{{ showTabBar }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #f0f0f4;display:flex;justify-content:space-around;padding:12px 0 22px;z-index:55">
+      <div onClick="{{ nav.home }}" style="text-align:center;font-size:11px;cursor:pointer;color:{{ tab.homeColor }}"><div style="font-size:20px">⌂</div>בית</div>
+      <div onClick="{{ nav.booking }}" style="text-align:center;font-size:11px;cursor:pointer;color:{{ tab.bookingColor }}"><div style="font-size:20px">📅</div>הזמנות</div>
+      <div onClick="{{ nav.chatlist }}" style="text-align:center;font-size:11px;cursor:pointer;color:{{ tab.chatColor }}"><div style="font-size:20px">💬</div>צ׳אט</div>
+      <div onClick="{{ nav.profile }}" style="text-align:center;font-size:11px;cursor:pointer;color:{{ tab.profileColor }}"><div style="font-size:20px">👤</div>פרופיל</div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:375,&quot;height&quot;:812},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;splash&quot;,&quot;onboard&quot;,&quot;login&quot;,&quot;home&quot;,&quot;detail&quot;,&quot;book&quot;,&quot;appointment&quot;,&quot;invoice&quot;,&quot;booking&quot;,&quot;chatlist&quot;,&quot;chatroom&quot;,&quot;profile&quot;,&quot;member&quot;],&quot;default&quot;:&quot;splash&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;brandPurple&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#16141c&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;accentOrange&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#c2a14d&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: this.props.startScreen || 'splash',
+    onbIdx: 0,
+    detailTab: 'about',
+    bookingTab: 'active',
+    bookingStatus: 'booked',
+    chatTab: 'active',
+    findMode: 'default',
+    hasBooking: false,
+    fav: false,
+    notif: true,
+    otp: ['6','9','',''],
+    rating: 4,
+    showFilter: false,
+    showToast: false,
+    query: '',
+    customBarbers: [],
+    formError: false,
+    form: { name:'', owner:'', email:'', phone:'', address:'', category:'', desc:'', hours:'', price:'', photoSeed:'' },
+  };
+
+  componentDidMount() { this._hyd(); }
+  componentDidUpdate() { this._hyd(); }
+  _hyd() {
+    const root = this._root; if (!root) return;
+    root.querySelectorAll('img[data-src]').forEach(img => {
+      const s = img.getAttribute('data-src');
+      if (s && s.indexOf('{{') === -1 && img.getAttribute('src') !== s) img.setAttribute('src', s);
+    });
+  }
+
+  renderVals() {
+    const S = this.state;
+    const INK = this.props.brandPurple || '#16141c';
+    const ACC = this.props.accentOrange || '#c2a14d';
+    const set = (o) => this.setState(o);
+
+    const shop = (s) => `https://picsum.photos/seed/${s}/300/240`;
+    const av = (n) => `https://i.pravatar.cc/120?img=${n}`;
+
+    const screens = ['splash','onboard','login','register','forgot','auth','home','explore','findbarber','detail','book','appointment','invoice','booking','history','historydetail','join','rating','chatlist','chatroom','profile','account','security','help','member','about'];
+    const show = {};
+    screens.forEach(s => show[s] = S.screen === s);
+    const nav = {};
+    screens.forEach(s => nav[s] = () => set({ screen: s, showFilter: false, showToast: false }));
+
+    // tab bar
+    const tabScreens = ['home','booking','chatlist','profile'];
+    const showTabBar = tabScreens.includes(S.screen);
+    const tcol = (on) => on ? INK : '#b6b5c4';
+    const tab = {
+      homeColor: tcol(S.screen === 'home'),
+      bookingColor: tcol(S.screen === 'booking'),
+      chatColor: tcol(S.screen === 'chatlist'),
+      profileColor: tcol(S.screen === 'profile'),
+    };
+
+    // status bar color
+    const lightStatus = ['login','onboard','invoice','rating','member','about','profile','booking','chatlist','appointment'];
+    const statusColor = lightStatus.includes(S.screen) ? '#ffffff' : '#1c1c2e';
+
+    // onboarding
+    const onbData = [
+      { title: 'ברוכים הבאים לתספורות הרצליה', body: "מצא את חוויית הטיפוח הטובה בעיר בלחיצה אחת. אל תפספס את התספורת הבאה שלך — בוא נתחיל!", img: shop('onb1') },
+      { title: 'מחפש ספר?', body: 'מצא את המספרה הטובה בקרבתך תוך שניות, קבע תור ותיהנה מחוויית טיפוח מושלמת.', img: shop('onb2') },
+      { title: 'הכול בידיים שלך', body: 'עם תספורות הרצליה תמצא מספרות איכותיות, תקרא ביקורות ותקבע תורים בקלות. השג מראה מטופח ובטוח!', img: shop('onb3') },
+    ];
+    const ob = onbData[S.onbIdx];
+    const onb = {
+      title: ob.title, body: ob.body, img: ob.img,
+      dots: [0,1,2].map(i => ({ bg: i === S.onbIdx ? INK : '#ffffff', w: i === S.onbIdx ? '22px' : '7px' })),
+      next: () => S.onbIdx < 2 ? set({ onbIdx: S.onbIdx + 1 }) : set({ screen: 'login' }),
+    };
+
+    // barbers
+    const raw = [
+      { name: 'וארסיטי ברברשופ הרצליה', loc: 'בן גוריון 12, הרצליה (10 ק"מ)', rating: '4.5', seed: 'b1' },
+      { name: 'The Barber House הרצליה פיתוח', loc: 'אבא אבן 10 (8 ק"מ)', rating: '5.0', seed: 'b2' },
+      { name: 'מספרת הנמל — תספורת וזקן', loc: 'מרינה הרצליה (17 ק"מ)', rating: '4.5', seed: 'b3' },
+      { name: 'סטייל בר — הרצליה', loc: 'ויצמן 30 (5 ק"מ)', rating: '4.5', seed: 'b4' },
+      { name: 'גלריית הספר — הרצליה פיתוח', loc: 'מדינת היהודים (8 ק"מ)', rating: '5.0', seed: 'b5' },
+      { name: 'מספרת ויצמן — גברים', loc: 'ויצמן 15, הרצליה (4 ק"מ)', rating: '4.5', seed: 'b6' },
+    ];
+    const decorate = (arr) => arr.map(b => ({
+      ...b, img: shop(b.seed),
+      open: () => set({ screen: 'detail', detailTab: 'about' }),
+      openHistory: () => set({ screen: 'historydetail' }),
+    }));
+    const customRaw = (S.customBarbers || []).map(b => ({ name: b.name, loc: b.loc, rating: b.rating, seed: b.seed }));
+    const q = (S.query || '').trim().toLowerCase();
+    const filt = (arr) => q ? arr.filter(b => b.name.toLowerCase().includes(q) || b.loc.toLowerCase().includes(q)) : arr;
+    const barbers = decorate(filt([...customRaw, ...raw]));
+    const nearest = decorate(filt([...customRaw, raw[3], raw[4], raw[5]]));
+    const recommendedRest = decorate(filt([raw[0], raw[1], raw[2]]));
+
+    // services
+    const svc = [
+      { name: 'תספורת בסיסית', desc: 'תספורת בסיסית + ויטמינים', price: '₪80', seed: 's1' },
+      { name: 'תספורת ילדים', desc: 'תספורת ילדים מיוחדת', price: '₪60', seed: 's2' },
+      { name: 'צביעת שיער', desc: 'טיפול צבע לשיער', price: '₪120', seed: 's3' },
+      { name: 'טיפוח שיער', desc: 'טיפוח מלא מיוחד', price: '₪50', seed: 's4' },
+      { name: 'עיסוי מיוחד', desc: 'עיסוי נוסף', price: '₪50', seed: 's5' },
+    ];
+    const services = svc.map(s => ({ ...s, img: shop(s.seed) }));
+    const serviceChips = [
+      { name: 'תספורת בסיסית', price: '₪80', seed: 's1', sel: true },
+      { name: 'תספורת ילדים', price: '₪60', seed: 's2', sel: false },
+      { name: 'צביעת שיער', price: '₪120', seed: 's3', sel: false },
+      { name: 'טיפוח שיער', price: '₪50', seed: 's4', sel: false },
+    ].map(s => ({ ...s, img: shop(s.seed), ring: s.sel ? `3px solid ${INK}` : 'none' }));
+
+    // team
+    const team = [
+      { name: 'איתי כהן', role: 'מומחה תספורות', rating: '5.0', img: av(12) },
+      { name: 'דניאל לוי', role: 'מומחה צבע', rating: '4.5', img: av(33) },
+      { name: 'יוסי מזרחי', role: 'מומחה טיפוח', rating: '4.5', img: av(51) },
+    ];
+
+    // reviews
+    const star = (n) => '★'.repeat(n);
+    const rv = [
+      { name: 'אלון כרמלי', n: 4, score: '4.0', text: 'שירות טוב, recommendation for barber shop seekers', img: av(14) },
+      { name: 'רועי גולן', n: 5, score: '5.0', text: 'המקום קרוב ותוצאות הגילוח מעולות', img: av(15) },
+      { name: 'שרון לוי', n: 4, score: '4.0', text: 'המחיר משתלם והשירות טוב, מאוד מרוצה', img: av(60) },
+      { name: 'מיכל ברק', n: 5, score: '5.0', text: 'הסטייל כאן ממש עדכני, אוהב את השירות', img: av(45) },
+    ];
+    const reviews = rv.map(r => ({ ...r, full: star(r.n), empty: star(5 - r.n) }));
+
+    // detail tabs
+    const dtabs = ['about','service','schedule','review'];
+    const dtab = {};
+    dtabs.forEach(t => dtab[t] = () => set({ detailTab: t }));
+    const dShow = {};
+    dtabs.forEach(t => dShow[t] = S.detailTab === t);
+    const dt = {};
+    dtabs.forEach(t => {
+      const on = S.detailTab === t;
+      dt[t + 'Bg'] = on ? '#ffffff' : 'transparent';
+      dt[t + 'Fg'] = on ? INK : '#9a99ad';
+      dt[t + 'Border'] = on ? `1px solid ${INK}` : '1px solid transparent';
+    });
+
+    // schedule
+    const scheduleRows = [
+      { time: '08.00 am', chip: null },
+      { time: '08.30 am', chip: { name: 'עידן בר', service: 'תספורת בסיסית', color: ACC, img: av(11) } },
+      { time: '09.00 am', chip: { name: 'ניר אלון', service: 'צביעת שיער', color: '#8b7ff0', img: av(13) } },
+      { time: '09.30 am', chip: null },
+      { time: '10.00 am', chip: { name: 'ניר אלון', service: 'תספורת בסיסית', color: '#8b7ff0', img: av(13) } },
+      { time: '10.30 am', chip: null },
+    ];
+
+    // calendar
+    const calendar = [];
+    for (let i = 1; i <= 31; i++) calendar.push({ n: String(i).padStart(2,'0'), bg: i === 15 ? INK : 'transparent', fg: i === 15 ? '#fff' : '#23233a' });
+    [1,2,3,4].forEach(i => calendar.push({ n: String(i).padStart(2,'0'), bg: 'transparent', fg: '#cfcfda' }));
+
+    // time slots
+    const ts = [
+      { label: '08 : 00', state: 'sel' }, { label: '08 : 30', state: 'on' }, { label: '09 : 00', state: 'off' }, { label: '09 : 30', state: 'on' },
+      { label: '10 : 00', state: 'on' }, { label: '10 : 30', state: 'on' }, { label: '11 : 30', state: 'on' }, { label: '13 : 00', state: 'on' },
+      { label: '15 : 30', state: 'on' }, { label: '16 : 00', state: 'off' }, { label: '17 : 00', state: 'on' }, { label: '17 : 30', state: 'on' },
+    ];
+    const timeSlots = ts.map(t => {
+      if (t.state === 'sel') return { label: t.label, bg: '#ece1c6', border: INK, fg: INK };
+      if (t.state === 'off') return { label: t.label, bg: '#f2f2f6', border: '#f2f2f6', fg: '#c4c3d0' };
+      return { label: t.label, bg: '#fff', border: '#e7e1d2', fg: INK };
+    });
+
+    // booking tabs
+    const btab = { active: () => set({ bookingTab: 'active' }), history: () => set({ bookingTab: 'history' }) };
+    const bShow = { active: S.bookingTab === 'active', history: S.bookingTab === 'history' };
+    const baOn = S.bookingTab === 'active';
+    const btb = {
+      activeBg: baOn ? '#fff' : 'transparent', activeFg: baOn ? INK : '#9a99ad', activeShadow: baOn ? '0 3px 10px rgba(0,0,0,.08)' : 'none',
+      historyBg: !baOn ? '#fff' : 'transparent', historyFg: !baOn ? INK : '#9a99ad', historyShadow: !baOn ? '0 3px 10px rgba(0,0,0,.08)' : 'none',
+    };
+
+    // booking stages
+    const statuses = ['booked','waiting','onprocess','finished'];
+    const si = statuses.indexOf(S.bookingStatus);
+    const icons = ['📅','🕐','✂','☑'];
+    const labels = ['הוזמן','בהמתנה','בתהליך','הסתיים'];
+    const lefts = ['0%','33%','66%','100%'];
+    const pcts = ['4%','38%','70%','100%'];
+    const stages = statuses.map((st, i) => ({
+      icon: icons[i], label: labels[i],
+      iconColor: i <= si ? INK : '#c4c3d0',
+      dotLeft: lefts[i],
+      dotBg: i < si ? ACC : (i === si ? '#fff' : '#ececf2'),
+      dotBorder: i === si ? `3px solid ${INK}` : 'none',
+      pillOpacity: i <= si ? '1' : '0.55',
+      click: () => set({ bookingStatus: st }),
+    }));
+    const progressPct = pcts[si];
+
+    const stShow = {
+      details: S.bookingStatus !== 'finished',
+      finished: S.bookingStatus === 'finished',
+      note: S.bookingStatus === 'waiting' || S.bookingStatus === 'onprocess',
+    };
+    const stNote = S.bookingStatus === 'onprocess'
+      ? { label: '✂ בתהליך', value: '30 דקות' }
+      : { label: '⏱ זמן משוער', value: '~50 דקות' };
+
+    // chats
+    const chatsActive = [
+      { name: 'וארסיטי ברברשופ', msg: 'אשמח להתייעץ לגבי התספורת ה...', time: '16:30', online: true, read: true, n: 17 },
+      { name: 'The Barber House', msg: 'יש המלצה לתספורת ל...', time: '21:30', online: true, read: true, n: 13 },
+      { name: 'מספרת הנמל', msg: 'סליחה, אנחנו פתוחים מ-9 עד...', time: '18:00', unread: 2, n: 52 },
+      { name: 'סטייל בר', msg: 'ממליצים על התספורת ה...', time: '12:00', unread: 1, n: 8 },
+      { name: 'וארסיטי ברברשופ', msg: 'תודה שביקרת אצלנו, מקווים ש...', time: '08:53', unread: 1, n: 23 },
+      { name: 'וארסיטי ברברשופ', msg: 'סליחה, אנחנו בחופשה היום...', time: '09:24', unread: 1, n: 31 },
+      { name: 'וארסיטי ברברשופ', msg: 'אנחנו מוכנים לקבל אותך היום...', time: '11:57', unread: 1, n: 41 },
+    ].map(c => ({
+      ...c, img: av(c.n),
+      dot: c.online ? '#16b981' : '#c4c3d0',
+      badge: c.read ? '✓✓' : String(c.unread),
+      badgeColor: c.read ? INK : '#fff',
+    }));
+    // unread badge needs circle; emulate with text color — approximate via badge bubble
+    chatsActive.forEach(c => {
+      if (!c.read) { c.badge = ''; }
+    });
+    // simpler: keep read as checkmarks, unread as number bubble rendered via badge text + bg — handled below
+    const chatsActive2 = [
+      { name: 'וארסיטי ברברשופ', msg: 'אשמח להתייעץ לגבי התספורת ה...', time: '16:30', online: true, read: true, n: 17 },
+      { name: 'The Barber House', msg: 'יש המלצה לתספורת ל...', time: '21:30', online: true, read: true, n: 13 },
+      { name: 'מספרת הנמל', msg: 'סליחה, אנחנו פתוחים מ-9 עד...', time: '18:00', unread: 2, n: 52 },
+      { name: 'סטייל בר', msg: 'ממליצים על התספורת ה...', time: '12:00', unread: 1, n: 8 },
+      { name: 'וארסיטי ברברשופ', msg: 'תודה שביקרת אצלנו, מקווים ש...', time: '08:53', unread: 1, n: 23 },
+      { name: 'וארסיטי ברברשופ', msg: 'סליחה, אנחנו בחופשה היום...', time: '09:24', unread: 1, n: 31 },
+      { name: 'וארסיטי ברברשופ', msg: 'אנחנו מוכנים לקבל אותך היום...', time: '11:57', unread: 1, n: 41 },
+    ].map(c => ({
+      ...c, img: av(c.n),
+      dot: c.online ? '#16b981' : '#c4c3d0',
+      badge: c.read ? '✓✓' : String(c.unread),
+      badgeColor: c.read ? INK : '#fff',
+    }));
+
+    const chatsFinished = [
+      { name: 'מספרת הנמל', n: 52 }, { name: 'סטייל בר', n: 8 },
+      { name: 'וארסיטי ברברשופ', n: 17 }, { name: 'וארסיטי ברברשופ', n: 23 }, { name: 'וארסיטי ברברשופ', n: 41 },
+    ].map(c => ({ ...c, img: av(c.n) }));
+    const storyAvatars = [12,33,51,60].map(n => ({ img: av(n) }));
+
+    const ctab = { active: () => set({ chatTab: 'active' }), finished: () => set({ chatTab: 'finished' }) };
+    const cShow = { active: S.chatTab === 'active', finished: S.chatTab === 'finished' };
+    const caOn = S.chatTab === 'active';
+    const ctb = {
+      activeBg: caOn ? '#fff' : 'transparent', activeFg: caOn ? INK : '#9a99ad', activeShadow: caOn ? '0 3px 10px rgba(0,0,0,.08)' : 'none',
+      finishedBg: !caOn ? '#fff' : 'transparent', finishedFg: !caOn ? INK : '#9a99ad', finishedShadow: !caOn ? '0 3px 10px rgba(0,0,0,.08)' : 'none',
+    };
+
+    // levels
+    const levels = [
+      { name: 'כסף', icon: '✦' }, { name: 'זהב', icon: '🏅' }, { name: 'פלטינום', icon: '🥇' }, { name: 'יהלום', icon: '👑' },
+    ];
+
+    // recent search
+    const recentSearch = [
+      { name: 'הרצליה פיתוח', addr: 'אבא אבן 10, הרצליה' },
+      { name: 'מרינה הרצליה', addr: 'יורדי הים 3, הרצליה' },
+    ];
+
+    // otp
+    const firstEmpty = S.otp.findIndex(c => c === '');
+    const otpBoxes = S.otp.map((c, i) => ({
+      char: c, bg: i === firstEmpty ? '#f8f1e2' : '#fff',
+      border: i === firstEmpty ? INK : '#e7e7ee',
+    }));
+    const keyData = [
+      { num: '1', sub: '' }, { num: '2', sub: 'ABC' }, { num: '3', sub: 'DEF' },
+      { num: '4', sub: 'GHI' }, { num: '5', sub: 'JKL' }, { num: '6', sub: 'MNO' },
+      { num: '7', sub: 'PQRS' }, { num: '8', sub: 'TUV' }, { num: '9', sub: 'WXYZ' },
+      { num: '', sub: '' }, { num: '0', sub: '' }, { num: '⌫', sub: '' },
+    ];
+    const keypad = keyData.map(k => ({
+      num: k.num, sub: k.sub,
+      bg: k.num === '' || k.num === '⌫' ? 'transparent' : '#454549',
+      press: () => {
+        if (k.num === '⌫') {
+          const arr = [...S.otp]; const last = arr.map(x => x !== '').lastIndexOf(true);
+          if (last >= 0) arr[last] = ''; set({ otp: arr });
+        } else if (k.num !== '') {
+          const arr = [...S.otp]; const fe = arr.findIndex(x => x === '');
+          if (fe >= 0) arr[fe] = k.num; set({ otp: arr });
+        }
+      },
+    }));
+
+    // rating stars
+    const ratingStars = [1,2,3,4,5].map(n => ({
+      color: n <= S.rating ? '#ffb300' : '#dcdce4',
+      set: () => set({ rating: n }),
+    }));
+
+    // find barber
+    const findDefault = S.findMode === 'default';
+    const findSearch = S.findMode === 'search';
+
+    // search
+    const setQuery = (e) => set({ query: e.target.value });
+
+    // business join form
+    const F = S.form;
+    const upd = (k) => (e) => set({ form: { ...S.form, [k]: e.target.value }, formError: false });
+    const cats = ['תספורת בסיסית','צביעה','טיפוח','עיסוי','תספורת ילדים'];
+    const catChips = cats.map(c => ({
+      label: c, sel: F.category === c,
+      bg: F.category === c ? INK : 'transparent',
+      fg: F.category === c ? '#fff' : '#9a99ad',
+      border: F.category === c ? INK : '#e7e1d2',
+      pick: () => set({ form: { ...S.form, category: c }, formError: false }),
+    }));
+    const pseeds = ['biz1','biz2','biz3','biz4'];
+    const photoPicks = pseeds.map(s => ({
+      img: `https://picsum.photos/seed/${s}/120/120`, sel: F.photoSeed === s,
+      ring: F.photoSeed === s ? `3px solid ${INK}` : '2px solid #ececf2',
+      pick: () => set({ form: { ...S.form, photoSeed: s }, formError: false }),
+    }));
+    const formValid = !!(F.name && F.email && F.phone && F.address && F.category && F.photoSeed);
+    const form = {
+      name: F.name, owner: F.owner, email: F.email, phone: F.phone,
+      address: F.address, desc: F.desc, hours: F.hours, price: F.price,
+      setName: upd('name'), setOwner: upd('owner'), setEmail: upd('email'),
+      setPhone: upd('phone'), setAddress: upd('address'), setDesc: upd('desc'),
+      setHours: upd('hours'), setPrice: upd('price'),
+    };
+    const submitBiz = () => {
+      if (!formValid) { set({ formError: true }); return; }
+      const nb = {
+        name: F.name + ' – ' + F.category,
+        loc: (F.address.length > 24 ? F.address.slice(0, 24) + '…' : F.address) + ' (1 km)',
+        rating: '5.0 (חדש)', seed: F.photoSeed,
+      };
+      set({
+        customBarbers: [nb, ...(S.customBarbers || [])],
+        form: { name:'', owner:'', email:'', phone:'', address:'', category:'', desc:'', hours:'', price:'', photoSeed:'' },
+        formError: false, query: '', screen: 'explore',
+      });
+    };
+
+    return {
+      setRoot: (el) => { this._root = el; if (el) requestAnimationFrame(() => this._hyd()); },
+      statusColor, show, nav, showTabBar, tab,
+      onb,
+      heroShop: shop('master'), heroPortrait: shop('portrait'),
+      userAvatar: av(68), barberAvatar: av(13),
+      svcBasic: shop('s1'), svcMassage: shop('s5'),
+      hasBooking: S.hasBooking, noBooking: !S.hasBooking,
+      barbers, nearest, recommendedRest, services, serviceChips, team, reviews,
+      dtab, dShow, dt, scheduleRows, calendar, timeSlots,
+      favColor: S.fav ? '#e8485f' : '#d7a8b0',
+      toggleFav: () => set({ fav: !S.fav }),
+      doPay: () => set({ screen: 'invoice', hasBooking: true }),
+      btab, bShow, btb, stages, progressPct, stShow, stNote,
+      chatsActive: chatsActive2, chatsFinished, storyAvatars, ctab, cShow, ctb,
+      levels, recentSearch,
+      otpBoxes, keypad,
+      ratingStars, ratingValue: S.rating.toFixed(1),
+      findDefault, findSearch,
+      query: S.query, setQuery,
+      form, catChips, photoPicks, formValid, submitBiz, formError: S.formError,
+      toggleSearch: () => set({ findMode: 'search' }),
+      setLocation: () => set({ findMode: 'default', showToast: true }),
+      closeToast: () => set({ showToast: false }),
+      showToast: S.showToast,
+      showFilter: S.showFilter,
+      openFilter: () => set({ showFilter: true }),
+      closeFilter: () => set({ showFilter: false }),
+      notifBg: S.notif ? INK : '#e7e1d2',
+      notifLeft: S.notif ? '23px' : '3px',
+      toggleNotif: () => set({ notif: !S.notif }),
+    };
+  }
+}
+</script>
+</body>
+</html>

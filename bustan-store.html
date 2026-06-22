@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>בוסתן · ירקות ופירות טריים מהשדה עד הבית</title>
+<meta name="description" content="משלוח ירקות ופירות טריים מהחקלאי לצרכן. תוצרת איכותית מהשדות של ארץ ישראל, ישר עד פתח הבית." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Suez+One&family=Assistant:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --green:#1f3d2b;        /* forest */
+    --green-2:#2f5a3d;
+    --leaf:#7cb342;         /* fresh leaf */
+    --leaf-soft:#e4f0d4;
+    --sun:#f0c537;          /* sunny yellow */
+    --sun-deep:#e3b21f;
+    --cream:#f7f2e6;        /* paper */
+    --cream-2:#fffdf7;
+    --tomato:#e0603a;       /* sale accent */
+    --ink:#1c241d;
+    --muted:#6f7a6b;
+    --line:#e7e0cd;
+    --shadow:0 14px 40px -18px rgba(31,61,43,.45);
+    --radius:22px;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Assistant',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    background-image:
+      radial-gradient(circle at 12% -5%, rgba(124,179,66,.10), transparent 40%),
+      radial-gradient(circle at 95% 8%, rgba(240,197,55,.12), transparent 35%);
+    line-height:1.55;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{font-family:'Suez One',serif;font-weight:400;letter-spacing:-.2px}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .btn{
+    font-family:'Assistant';font-weight:700;font-size:15px;cursor:pointer;border:none;
+    border-radius:999px;padding:13px 26px;transition:transform .15s,box-shadow .2s,background .2s;
+  }
+  .btn:active{transform:scale(.96)}
+  .btn-primary{background:var(--green);color:#fff}
+  .btn-primary:hover{background:var(--green-2);box-shadow:0 10px 24px -10px rgba(31,61,43,.6)}
+  .btn-sun{background:var(--sun);color:var(--green)}
+  .btn-sun:hover{background:var(--sun-deep)}
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{background:var(--green);color:#fff;font-size:13.5px;font-weight:600}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:38px;gap:16px}
+  .topbar .tlinks{display:flex;gap:22px;opacity:.92}
+  .topbar .tlinks a:hover{opacity:1;color:var(--sun)}
+  .topbar .ship{display:flex;align-items:center;gap:8px;color:var(--sun)}
+  @media(max-width:780px){.topbar .tlinks{display:none}}
+
+  /* ---------- HEADER ---------- */
+  header{position:sticky;top:0;z-index:60;background:rgba(255,253,247,.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .head{display:flex;align-items:center;gap:22px;height:78px}
+  .logo{display:flex;align-items:center;gap:11px;flex-shrink:0}
+  .logo .mark{
+    width:46px;height:46px;border-radius:14px;background:var(--green);
+    display:grid;place-items:center;font-size:24px;box-shadow:var(--shadow);
+    transform:rotate(-4deg)
+  }
+  .logo .name{font-family:'Suez One';font-size:25px;color:var(--green);line-height:1}
+  .logo .name small{display:block;font-family:'Assistant';font-weight:600;font-size:11px;color:var(--leaf);letter-spacing:1.5px}
+  .search{flex:1;position:relative;max-width:560px}
+  .search input{
+    width:100%;border:1.5px solid var(--line);background:#fff;border-radius:999px;
+    padding:13px 50px 13px 18px;font-family:'Assistant';font-size:15px;outline:none;transition:border .2s,box-shadow .2s
+  }
+  .search input:focus{border-color:var(--leaf);box-shadow:0 0 0 4px var(--leaf-soft)}
+  .search .ico{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:18px;opacity:.5}
+  .head-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
+  .icon-btn{display:flex;align-items:center;gap:8px;background:none;border:none;cursor:pointer;font-family:'Assistant';font-weight:600;font-size:14px;color:var(--green);padding:9px 12px;border-radius:14px;transition:background .2s}
+  .icon-btn:hover{background:var(--leaf-soft)}
+  .cart-btn{background:var(--green);color:#fff;position:relative}
+  .cart-btn:hover{background:var(--green-2)}
+  .cart-count{position:absolute;top:-6px;right:-6px;background:var(--sun);color:var(--green);font-size:12px;font-weight:800;min-width:22px;height:22px;border-radius:999px;display:grid;place-items:center;padding:0 5px;border:2px solid var(--cream-2)}
+  @media(max-width:680px){.search{display:none}.head{gap:12px;height:66px}.icon-btn span.lbl{display:none}}
+
+  /* ---------- NAV ---------- */
+  nav.cats{background:var(--cream-2);border-bottom:1px solid var(--line)}
+  .cats-row{display:flex;gap:6px;height:54px;align-items:center;overflow-x:auto;scrollbar-width:none}
+  .cats-row::-webkit-scrollbar{display:none}
+  .cats-row a{font-weight:700;font-size:15px;color:var(--green);padding:8px 16px;border-radius:999px;white-space:nowrap;transition:background .2s;display:flex;align-items:center;gap:7px}
+  .cats-row a:hover{background:var(--leaf-soft)}
+  .cats-row a.hot{color:var(--tomato)}
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;padding:54px 0 64px;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);color:var(--green);font-weight:700;font-size:13.5px;padding:7px 15px;border-radius:999px;margin-bottom:22px}
+  .hero h1{font-size:clamp(34px,5vw,58px);color:var(--green);line-height:1.05}
+  .hero h1 em{font-style:normal;color:var(--leaf);position:relative}
+  .hero p.lead{font-size:18.5px;color:var(--muted);max-width:480px;margin:20px 0 30px;font-weight:500}
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:30px;margin-top:38px}
+  .hero-stats .st b{font-family:'Suez One';font-size:30px;color:var(--green);display:block;line-height:1}
+  .hero-stats .st span{font-size:13.5px;color:var(--muted);font-weight:600}
+  .hero-art{position:relative;aspect-ratio:1/1;max-width:480px;margin-inline:auto;width:100%}
+  .hero-art .disc{position:absolute;inset:0;border-radius:50%;background:
+     radial-gradient(circle at 35% 30%, #fff7d9, var(--sun) 70%);
+     box-shadow:var(--shadow);overflow:hidden}
+  .hero-art .basket{position:absolute;inset:0;display:grid;place-items:center;font-size:min(46vw,210px);filter:drop-shadow(0 18px 22px rgba(31,61,43,.28))}
+  .float{position:absolute;font-size:54px;animation:bob 5s ease-in-out infinite;filter:drop-shadow(0 8px 10px rgba(31,61,43,.22))}
+  .float.f1{top:-6%;left:6%;animation-delay:0s}
+  .float.f2{bottom:2%;left:-4%;font-size:64px;animation-delay:1.1s}
+  .float.f3{top:8%;right:-3%;font-size:60px;animation-delay:.5s}
+  .float.f4{bottom:8%;right:6%;animation-delay:1.8s}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-16px) rotate(5deg)}}
+  @media(max-width:880px){.hero-grid{grid-template-columns:1fr;gap:10px}.hero-art{order:-1;max-width:300px}.hero-stats{gap:20px}}
+
+  /* ---------- TRUST STRIP ---------- */
+  .trust{background:var(--green);color:#fff;padding:24px 0}
+  .trust-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
+  .trust .t{display:flex;flex-direction:column;align-items:center;gap:6px}
+  .trust .t .e{font-size:30px}
+  .trust .t b{font-size:16px}
+  .trust .t span{font-size:13px;opacity:.78;font-weight:500}
+  @media(max-width:680px){.trust-row{grid-template-columns:repeat(2,1fr);gap:22px}}
+
+  /* ---------- SECTION ---------- */
+  section.block{padding:56px 0}
+  .sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:28px}
+  .sec-head h2{font-size:clamp(26px,3.4vw,38px);color:var(--green)}
+  .sec-head .sub{color:var(--muted);font-weight:600;font-size:15px;margin-top:4px}
+  .sec-head a.more{color:var(--leaf);font-weight:700;white-space:nowrap}
+
+  /* filter pills */
+  .pills{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:28px}
+  .pill{font-family:'Assistant';font-weight:700;font-size:14.5px;border:1.5px solid var(--line);background:#fff;color:var(--green);padding:9px 18px;border-radius:999px;cursor:pointer;transition:all .18s}
+  .pill:hover{border-color:var(--leaf)}
+  .pill.active{background:var(--green);color:#fff;border-color:var(--green)}
+
+  /* ---------- PRODUCT GRID ---------- */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr);gap:13px}}
+  .card{background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius);padding:14px;display:flex;flex-direction:column;position:relative;transition:transform .2s,box-shadow .2s}
+  .card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .card .badge{position:absolute;top:14px;right:14px;background:var(--tomato);color:#fff;font-weight:800;font-size:12px;padding:5px 11px;border-radius:999px;z-index:2}
+  .card .badge.org{background:var(--leaf)}
+  .card .thumb{aspect-ratio:1/1;border-radius:16px;display:grid;place-items:center;font-size:74px;margin-bottom:12px;position:relative}
+  .card .fav{position:absolute;top:14px;left:14px;border:none;background:rgba(255,255,255,.8);width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:15px;display:grid;place-items:center;transition:transform .15s}
+  .card .fav:hover{transform:scale(1.15)}
+  .card h3{font-family:'Assistant';font-weight:800;font-size:17px;color:var(--ink);margin-bottom:2px}
+  .card .unit{font-size:13px;color:var(--muted);font-weight:600;margin-bottom:10px}
+  .card .pricerow{display:flex;align-items:baseline;gap:8px;margin-top:auto}
+  .card .price{font-family:'Suez One';font-size:23px;color:var(--green)}
+  .card .price small{font-family:'Assistant';font-size:13px;font-weight:600;color:var(--muted)}
+  .card .old{font-size:14px;color:var(--muted);text-decoration:line-through}
+  .card .add{margin-top:12px}
+  .add-btn{width:100%;background:var(--leaf-soft);color:var(--green);border:none;border-radius:14px;padding:11px;font-family:'Assistant';font-weight:800;font-size:15px;cursor:pointer;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px}
+  .add-btn:hover{background:var(--leaf);color:#fff}
+  .qty{display:flex;align-items:center;justify-content:space-between;background:var(--green);border-radius:14px;overflow:hidden}
+  .qty button{background:none;border:none;color:#fff;font-size:22px;width:44px;height:44px;cursor:pointer;font-weight:700}
+  .qty button:hover{background:rgba(255,255,255,.12)}
+  .qty span{color:#fff;font-weight:800;font-size:16px}
+
+  /* ---------- STORY ---------- */
+  .story{background:linear-gradient(120deg,var(--green),var(--green-2));color:#fff;border-radius:34px;overflow:hidden;position:relative}
+  .story-grid{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px}
+  .story-txt{padding:54px}
+  .story-txt h2{color:#fff;font-size:clamp(26px,3.4vw,40px);line-height:1.1;margin-bottom:18px}
+  .story-txt h2 em{font-style:normal;color:var(--sun)}
+  .story-txt p{opacity:.9;font-size:16.5px;font-weight:500;margin-bottom:14px}
+  .story-art{align-self:stretch;background:radial-gradient(circle at 60% 40%,#fff7d9,var(--sun));display:grid;place-items:center;font-size:140px;min-height:320px}
+  @media(max-width:820px){.story-grid{grid-template-columns:1fr}.story-txt{padding:36px 26px}.story-art{min-height:200px;font-size:96px}}
+
+  /* ---------- RECIPES ---------- */
+  .recipes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.recipes{grid-template-columns:1fr}}
+  .recipe{background:var(--cream-2);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:transform .2s,box-shadow .2s;cursor:pointer}
+  .recipe:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+  .recipe .ph{height:180px;display:grid;place-items:center;font-size:74px}
+  .recipe .rb{padding:20px}
+  .recipe .tag{font-size:12px;font-weight:800;color:var(--tomato);letter-spacing:.5px}
+  .recipe h3{font-family:'Assistant';font-weight:800;font-size:19px;color:var(--green);margin:6px 0 6px}
+  .recipe p{font-size:14.5px;color:var(--muted);font-weight:500}
+
+  /* ---------- BRANCHES ---------- */
+  .branches{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  @media(max-width:880px){.branches{grid-template-columns:repeat(2,1fr)}}
+  .branch{background:var(--cream-2);border:1px solid var(--line);border-radius:18px;padding:20px;text-align:center;transition:border .2s}
+  .branch:hover{border-color:var(--leaf)}
+  .branch .e{font-size:30px}
+  .branch b{display:block;font-size:16px;color:var(--green);margin-top:6px}
+  .branch span{font-size:13px;color:var(--muted);font-weight:600}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--green);color:#fff;padding:56px 0 24px;margin-top:20px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-bottom:36px}
+  .foot-grid h4{font-family:'Assistant';font-weight:800;font-size:16px;margin-bottom:16px;color:var(--sun)}
+  .foot-grid a,.foot-grid p{display:block;color:rgba(255,255,255,.82);font-size:14.5px;font-weight:500;margin-bottom:9px}
+  .foot-grid a:hover{color:#fff}
+  .foot-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .foot-logo .mark{width:42px;height:42px;border-radius:12px;background:var(--sun);display:grid;place-items:center;font-size:22px}
+  .foot-logo .name{font-family:'Suez One';font-size:23px}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.16);padding-top:20px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:13px;opacity:.75}
+  @media(max-width:820px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+  /* ---------- CART DRAWER ---------- */
+  .overlay{position:fixed;inset:0;background:rgba(28,36,29,.5);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+  .overlay.show{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;left:0;height:100%;width:420px;max-width:90vw;background:var(--cream);z-index:100;transform:translateX(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,.3)}
+  .drawer.show{transform:translateX(0)}
+  .drawer-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+  .drawer-head h3{font-size:22px;color:var(--green)}
+  .drawer-head .x{background:none;border:none;font-size:26px;cursor:pointer;color:var(--muted);line-height:1}
+  .freebar{padding:16px 24px;background:var(--leaf-soft)}
+  .freebar .ftext{font-size:13.5px;font-weight:700;color:var(--green);margin-bottom:8px}
+  .freebar .track{height:9px;background:#fff;border-radius:999px;overflow:hidden}
+  .freebar .fill{height:100%;background:linear-gradient(90deg,var(--leaf),var(--sun));width:0;transition:width .4s;border-radius:999px}
+  .drawer-body{flex:1;overflow-y:auto;padding:14px 18px}
+  .empty{text-align:center;color:var(--muted);padding:60px 20px}
+  .empty .e{font-size:60px;opacity:.5}
+  .litem{display:flex;gap:13px;padding:13px;background:var(--cream-2);border:1px solid var(--line);border-radius:16px;margin-bottom:11px;align-items:center}
+  .litem .li-thumb{width:58px;height:58px;border-radius:12px;display:grid;place-items:center;font-size:34px;flex-shrink:0}
+  .litem .li-info{flex:1;min-width:0}
+  .litem .li-info b{font-size:15px;font-weight:800;display:block}
+  .litem .li-info span{font-size:13px;color:var(--muted);font-weight:600}
+  .litem .li-price{font-family:'Suez One';color:var(--green);font-size:16px;white-space:nowrap}
+  .li-qty{display:flex;align-items:center;gap:6px;margin-top:6px}
+  .li-qty button{width:26px;height:26px;border-radius:8px;border:1px solid var(--line);background:#fff;cursor:pointer;font-size:15px;font-weight:700;color:var(--green)}
+  .li-qty span{font-weight:800;min-width:22px;text-align:center}
+  .li-rm{background:none;border:none;color:var(--tomato);cursor:pointer;font-size:13px;font-weight:700;margin-top:4px}
+  .li-total{display:inline-flex;align-items:center;gap:5px;background:var(--leaf-soft);color:var(--green);font-size:12.5px;font-weight:800;padding:4px 10px;border-radius:999px;margin-top:6px;line-height:1}
+  .li-total b{font-weight:800}
+  .drawer-foot{border-top:1px solid var(--line);padding:20px 24px;background:var(--cream-2)}
+  .sumline{display:flex;justify-content:space-between;font-size:14.5px;font-weight:600;color:var(--muted);margin-bottom:8px}
+  .sumline.total{font-size:20px;color:var(--green);font-weight:800;font-family:'Suez One'}
+  .drawer-foot .btn{width:100%;margin-top:14px;font-size:17px;padding:15px}
+
+  /* toast */
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--green);color:#fff;padding:15px 22px;border-radius:16px;font-weight:700;box-shadow:var(--shadow);z-index:120;transform:translateY(120px);opacity:0;transition:all .35s;display:flex;align-items:center;gap:10px}
+  .toast.show{transform:translateY(0);opacity:1}
+
+  /* whatsapp float */
+  .wa{position:fixed;bottom:24px;left:24px;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:30px;box-shadow:var(--shadow);z-index:80;transition:transform .2s}
+  .wa:hover{transform:scale(1.1)}
+  @media(max-width:680px){.wa{width:50px;height:50px;font-size:26px;bottom:18px;left:18px}}
+
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .6s,transform .6s}
+  .reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<!-- CLOSED BANNER (shown only when admin closes the store) -->
+<div id="closedBanner" style="display:none;background:#e0603a;color:#fff;text-align:center;padding:11px 18px;font-weight:700;font-size:14.5px;position:sticky;top:0;z-index:70">
+  🔴 <span id="closedBannerMsg">החנות סגורה כרגע</span> · לא ניתן לבצע הזמנות
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <div class="ship">🚚 משלוח חינם בקנייה מעל ₪149 · משלוח עד הבית ברוב אזורי המרכז</div>
+    <div class="tlinks">
+      <a href="#about">אודות</a>
+      <a href="#branches">סניפים</a>
+      <a href="#">משלוחים</a>
+      <a href="#">שירות לקוחות</a>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap head">
+    <a class="logo" href="#">
+      <div class="mark">🌿</div>
+      <div class="name">בּוּסְתָּן<small>מהשדה עד הבית</small></div>
+    </a>
+    <div class="search">
+      <input id="searchInput" type="text" placeholder="מה מתחשק לכם היום? עגבניות, מנגו, חסה..." />
+      <span class="ico">🔍</span>
+    </div>
+    <div class="head-actions">
+      <button class="icon-btn"><span>👤</span><span class="lbl">כניסה</span></button>
+      <button class="icon-btn cart-btn" onclick="openCart()">
+        🛒 <span class="lbl">עגלה</span>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <nav class="cats">
+    <div class="wrap cats-row">
+      <a onclick="filterCat('all',event)">🛍️ הכל</a>
+      <a onclick="filterCat('ירקות',event)">🥦 ירקות</a>
+      <a onclick="filterCat('פירות',event)">🍓 פירות</a>
+      <a onclick="filterCat('עלים ותיבול',event)">🌿 עלים ותיבול</a>
+      <a onclick="filterCat('מהמקרר',event)">🧀 מהמקרר</a>
+      <a onclick="filterCat('מהמאפייה',event)">🥖 מהמאפייה</a>
+      <a class="hot" onclick="filterCat('מבצעים',event)">🔥 מבצעים</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="hero-eyebrow">🌱 דור שלישי לחקלאות ישראלית</span>
+      <h1>טריוּת אמיתית<br>ישר <em>מהשדה</em> אליכם הביתה</h1>
+      <p class="lead">פירות וירקות שנקטפים בבוקר ומגיעים אליכם עוד באותו יום. ישר מהחקלאי, בלי מתווכים, במחיר הוגן.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="document.getElementById('shop').scrollIntoView()">התחילו לקנות</button>
+        <a class="btn btn-sun" href="#about">הסיפור שלנו</a>
+      </div>
+      <div class="hero-stats">
+        <div class="st"><b>17</b><span>סניפים בארץ</span></div>
+        <div class="st"><b>+450</b><span>מוצרים טריים</span></div>
+        <div class="st"><b>24ש'</b><span>מהשדה למשלוח</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="disc"></div>
+      <div class="basket">🧺</div>
+      <span class="float f1">🍅</span>
+      <span class="float f2">🥬</span>
+      <span class="float f3">🍋</span>
+      <span class="float f4">🥑</span>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<div class="trust">
+  <div class="wrap trust-row">
+    <div class="t"><span class="e">🌾</span><b>מהחקלאי ישירות</b><span>בלי מתווכים, מחיר הוגן</span></div>
+    <div class="t"><span class="e">⚡</span><b>משלוח מהיר</b><span>עד הבית, גם בערב</span></div>
+    <div class="t"><span class="e">💚</span><b>טריות מובטחת</b><span>לא טרי? כספכם חזרה</span></div>
+    <div class="t"><span class="e">🧺</span><b>בחירה אישית</b><span>כל פריט נבחר בקפידה</span></div>
+  </div>
+</div>
+
+<!-- SHOP -->
+<section class="block" id="shop">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>הטריים של בוסתן</h2>
+        <div class="sub">נקטפו הבוקר · מתעדכן מדי יום</div>
+      </div>
+    </div>
+    <div class="pills" id="pills"></div>
+    <div class="grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="story reveal">
+      <div class="story-grid">
+        <div class="story-txt">
+          <h2>מסבא איציק <em>ועד היום</em></h2>
+          <p>הכל התחיל בשדה קטן ובחלום פשוט: להביא לכל בית בישראל את הירקות והפירות הכי טריים, הכי יפים והכי טעימים שיש.</p>
+          <p>היום, דור שלישי אחרי, אנחנו ממשיכים את אותה מסורת — עובדים ישירות עם החקלאים הטובים בארץ, בוחרים כל פרי וכל ירק ביד, ומביאים אותם אליכם עד פתח הבית.</p>
+          <button class="btn btn-sun" style="margin-top:12px">עוד עלינו »</button>
+        </div>
+        <div class="story-art">👩‍🌾</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section class="block">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>מתכונים מהמטבח שלנו</h2>
+        <div class="sub">השראה טרייה למה לבשל הערב</div>
+      </div>
+      <a class="more" href="#">לכל המתכונים »</a>
+    </div>
+    <div class="recipes">
+      <div class="recipe reveal"><div class="ph" style="background:#fde8df">🍑</div><div class="rb"><span class="tag">קיץ · 15 דק'</span><h3>בורטה ואפרסקים צרובים</h3><p>סלט קיצי מושלם עם רוקולה, גבינת בורטה ואפרסקים מקורמלים בדבש.</p></div></div>
+      <div class="recipe reveal"><div class="ph" style="background:#e9f0d9">🍆</div><div class="rb"><span class="tag">מאפה · 45 דק'</span><h3>מגולגלות חציל וריקוטה</h3><p>רצועות חציל צרובות במילוי ריקוטה ברוטב עגבניות עשיר ובזיליקום.</p></div></div>
+      <div class="recipe reveal"><div class="ph" style="background:#dff0e6">🥬</div><div class="rb"><span class="tag">פסטה · 25 דק'</span><h3>ניוקי ברוטב תרד קטיפתי</h3><p>ניוקי ברוטב תרד קרמי עם ברוקולי, לימון וקורט שום קלוי.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BRANCHES -->
+<section class="block" id="branches">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <h2>בואו לבקר בסניפים</h2>
+        <div class="sub">17 סניפים יפים ברחבי הארץ · תוצרת טרייה כל יום מחדש</div>
+      </div>
+    </div>
+    <div class="branches">
+      <div class="branch reveal"><span class="e">📍</span><b>תל אביב</b><span>שרונה מרקט</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>ראשון לציון</b><span>קריית הספורט</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>גבעתיים</b><span>כיכר העירייה</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>הוד השרון</b><span>מרכז העיר</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>מודיעין</b><span>אזור הקניון</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>קריית אונו</b><span>שדרות ירושלים</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>רמת אפעל</b><span>המרכז המסחרי</span></div>
+      <div class="branch reveal"><span class="e">📍</span><b>שוהם</b><span>קניון שוהם</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-logo"><div class="mark">🌿</div><div class="name">בּוּסְתָּן</div></div>
+        <p>פירות וירקות טריים מהחקלאי לצרכן, ישר עד פתח הבית. דור שלישי לחקלאות גאה.</p>
+        <p>📞 *1234 · א'-ה' 07:00-22:00</p>
+      </div>
+      <div>
+        <h4>קנייה</h4>
+        <a href="#">ירקות</a><a href="#">פירות</a><a href="#">עלים ותיבול</a><a href="#">מבצעים</a>
+      </div>
+      <div>
+        <h4>שירות</h4>
+        <a href="#">אזורי משלוח</a><a href="#">שאלות נפוצות</a><a href="#">מעקב הזמנה</a><a href="#">צרו קשר</a>
+      </div>
+      <div>
+        <h4>החברה</h4>
+        <a href="#about">הסיפור שלנו</a><a href="#branches">הסניפים</a><a href="#">דרושים</a><a href="#">תקנון ופרטיות</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© כל הזכויות שמורות לבוסתן 2026</span>
+      <span>אתר הדגמה · נבנה בהשראת חנויות תוצרת טרייה</span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer">
+  <div class="drawer-head">
+    <h3>🛒 העגלה שלי</h3>
+    <button class="x" onclick="closeCart()">×</button>
+  </div>
+  <div class="freebar">
+    <div class="ftext" id="freeText">הוסיפו ₪149 לקבלת משלוח חינם 🚚</div>
+    <div class="track"><div class="fill" id="freeFill"></div></div>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+  <div class="drawer-foot" id="drawerFoot" style="display:none">
+    <div class="sumline" style="color:var(--green);font-weight:700;padding-bottom:8px;border-bottom:1px dashed var(--line);margin-bottom:10px"><span>📦 סה"כ לאריזה</span><span id="cartWeight">-</span></div>
+    <div class="sumline"><span>סכום ביניים</span><span id="subtotal">₪0</span></div>
+    <div class="sumline"><span>משלוח</span><span id="shipFee">₪25</span></div>
+    <div class="sumline total"><span>סה"כ</span><span id="grandTotal">₪0</span></div>
+    <button class="btn btn-primary" onclick="checkout()">למעבר לתשלום »</button>
+  </div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WHATSAPP -->
+<a class="wa" href="https://wa.me/972500000000" target="_blank" title="דברו איתנו">💬</a>
+
+<script>
+/* ---------------- SHARED DB (synced with admin panel) ---------------- */
+const DB_KEY = 'bustan_db_v1';
+function loadSharedDB(){
+  try{ const raw = localStorage.getItem(DB_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return null;
+}
+const SHARED = loadSharedDB();
+
+/* If the admin app has been opened in this browser, use its data.
+   Otherwise fall back to the storefront's own defaults below. */
+let FREE_THRESHOLD = SHARED?.store?.freeDeliveryThreshold ?? 149;
+let SHIP_FEE       = SHARED?.store?.deliveryFee ?? 25;
+let STORE_OPEN     = SHARED?.store?.isOpen ?? true;
+let STORE_MSG      = SHARED?.store?.closedMessage ?? 'החנות סגורה כרגע';
+
+/* React to admin changes in another tab in real time */
+window.addEventListener('storage', e=>{
+  if(e.key===DB_KEY){ location.reload(); }
+});
+
+const DEFAULT_PRODUCTS = [
+  // ירקות
+  {id:1, name:'עגבניות שרי', cat:'ירקות', unit:'250 גרם', price:8.9, emoji:'🍅', bg:'#fde6e0'},
+  {id:2, name:'מלפפונים', cat:'ירקות', unit:'ק"ג', price:6.9, emoji:'🥒', bg:'#e3f0d6'},
+  {id:3, name:'גזר', cat:'ירקות', unit:'ק"ג', price:5.5, emoji:'🥕', bg:'#fdeada'},
+  {id:4, name:'פלפל אדום', cat:'ירקות', unit:'ק"ג', price:12.9, old:15.9, emoji:'🫑', bg:'#fde0e0', sale:true},
+  {id:5, name:'בצל יבש', cat:'ירקות', unit:'ק"ג', price:4.9, emoji:'🧅', bg:'#f3e8da'},
+  {id:6, name:'תפוח אדמה', cat:'ירקות', unit:'ק"ג', price:6.5, emoji:'🥔', bg:'#f1e6d2'},
+  {id:7, name:'ברוקולי', cat:'ירקות', unit:'יחידה', price:9.9, emoji:'🥦', bg:'#dff0d9'},
+  {id:8, name:'תירס מתוק', cat:'ירקות', unit:'2 יח׳', price:11.9, emoji:'🌽', bg:'#fcf2cf'},
+  // פירות
+  {id:9, name:'תפוחים אדומים', cat:'פירות', unit:'ק"ג', price:9.9, emoji:'🍎', bg:'#fde0e0'},
+  {id:10, name:'בננות', cat:'פירות', unit:'ק"ג', price:7.9, emoji:'🍌', bg:'#fcf3cf'},
+  {id:11, name:'תות שדה', cat:'פירות', unit:'500 גרם', price:16.9, old:19.9, emoji:'🍓', bg:'#fde0e6', sale:true},
+  {id:12, name:'אבטיח', cat:'פירות', unit:'יחידה', price:24.9, emoji:'🍉', bg:'#fde0e3'},
+  {id:13, name:'ענבים ירוקים', cat:'פירות', unit:'ק"ג', price:14.9, emoji:'🍇', bg:'#ece0f0'},
+  {id:14, name:'מנגו', cat:'פירות', unit:'יחידה', price:8.9, emoji:'🥭', bg:'#fdecd0'},
+  {id:15, name:'אבוקדו', cat:'פירות', unit:'יחידה', price:5.9, emoji:'🥑', bg:'#e6efd2'},
+  {id:16, name:'לימונים', cat:'פירות', unit:'ק"ג', price:8.5, emoji:'🍋', bg:'#fcf5cf'},
+  // עלים ותיבול
+  {id:17, name:'חסה ערבית', cat:'עלים ותיבול', unit:'יחידה', price:6.9, emoji:'🥬', bg:'#dff0d9'},
+  {id:18, name:'פטרוזיליה', cat:'עלים ותיבול', unit:'צרור', price:3.9, emoji:'🌿', bg:'#e0f0db'},
+  {id:19, name:'בזיליקום טרי', cat:'עלים ותיבול', unit:'עציץ', price:7.9, emoji:'🪴', bg:'#e0f0db'},
+  {id:20, name:'נענע', cat:'עלים ותיבול', unit:'צרור', price:3.5, emoji:'☘️', bg:'#e0f0db'},
+  // מהמקרר
+  {id:21, name:'ביצים חופש L', cat:'מהמקרר', unit:'12 יח׳', price:18.9, emoji:'🥚', bg:'#f5ecd9'},
+  {id:22, name:'גבינת בוטיק', cat:'מהמקרר', unit:'200 גרם', price:24.9, old:28.9, emoji:'🧀', bg:'#fcf2cf', sale:true},
+  {id:23, name:'חלב טרי 3%', cat:'מהמקרר', unit:'ליטר', price:7.5, emoji:'🥛', bg:'#eef0f2'},
+  {id:24, name:'יוגורט ביו', cat:'מהמקרר', unit:'4 יח׳', price:15.9, emoji:'🍶', bg:'#eef0f2'},
+  // מהמאפייה
+  {id:25, name:'לחם כפרי מחמצת', cat:'מהמאפייה', unit:'500 גרם', price:16.9, emoji:'🍞', bg:'#f3e6d2'},
+  {id:26, name:'חלה מתוקה', cat:'מהמאפייה', unit:'יחידה', price:14.9, emoji:'🥖', bg:'#f5ecd2'},
+  {id:27, name:'קרואסון חמאה', cat:'מהמאפייה', unit:'2 יח׳', price:12.9, emoji:'🥐', bg:'#f5ecd2'},
+  {id:28, name:'בורקס גבינה', cat:'מהמאפייה', unit:'4 יח׳', price:19.9, old:23.9, emoji:'🥟', bg:'#f5ecd2', inStock:true, sale:true, visible:true},
+];
+
+/* Use admin's products if available, only those marked visible+inStock+with stock for the shop */
+const ALL_PRODUCTS = SHARED?.products ?? DEFAULT_PRODUCTS;
+const PRODUCTS = ALL_PRODUCTS.filter(p =>
+  p.visible !== false &&
+  p.inStock !== false &&
+  (p.stock === undefined || p.stock > 0)
+);
+
+const DEFAULT_CATS = [
+  {key:'all', label:'הכל ✨'},
+  {key:'מבצעים', label:'🔥 מבצעים'},
+  {key:'ירקות', label:'🥦 ירקות'},
+  {key:'פירות', label:'🍓 פירות'},
+  {key:'עלים ותיבול', label:'🌿 עלים ותיבול'},
+  {key:'מהמקרר', label:'🧀 מהמקרר'},
+  {key:'מהמאפייה', label:'🥖 מהמאפייה'},
+];
+
+/* If admin has categories, use them (respect visibility + order) */
+const CATS = SHARED?.categories
+  ? [
+      {key:'all', label:'הכל ✨'},
+      {key:'מבצעים', label:'🔥 מבצעים'},
+      ...[...SHARED.categories].filter(c=>c.visible).sort((a,b)=>a.order-b.order)
+        .map(c=>({key:c.name, label:`${c.icon} ${c.name}`}))
+    ]
+  : DEFAULT_CATS;
+
+/* ---------------- STATE ---------------- */
+let cart = {};          // id -> qty
+let activeCat = 'all';
+let search = '';
+
+/* ---------------- RENDER ---------------- */
+const $ = s => document.querySelector(s);
+const fmt = n => '₪' + (Math.round(n*10)/10).toLocaleString('he-IL',{minimumFractionDigits: n%1?2:0});
+
+function renderPills(){
+  $('#pills').innerHTML = CATS.map(c =>
+    `<button class="pill ${c.key===activeCat?'active':''}" onclick="filterCat('${c.key}',event)">${c.label}</button>`
+  ).join('');
+}
+
+function visibleProducts(){
+  return PRODUCTS.filter(p=>{
+    const catOk = activeCat==='all' ? true : (activeCat==='מבצעים' ? p.sale : p.cat===activeCat);
+    const sOk = !search || p.name.includes(search);
+    return catOk && sOk;
+  });
+}
+
+function renderGrid(){
+  const list = visibleProducts();
+  if(!list.length){
+    $('#productGrid').innerHTML = `<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:50px">לא נמצאו מוצרים 🔍<br>נסו חיפוש אחר</div>`;
+    return;
+  }
+  $('#productGrid').innerHTML = list.map(p=>{
+    const q = cart[p.id]||0;
+    const thumb = p.imageUrl
+      ? `<img src="${p.imageUrl}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;border-radius:inherit" onerror="this.style.display='none';this.parentElement.style.fontSize='74px';this.parentElement.innerHTML='${p.emoji}'+this.parentElement.innerHTML">`
+      : p.emoji;
+    return `<div class="card">
+      ${p.sale?`<span class="badge">מבצע</span>`:''}
+      <div class="thumb" style="background:${p.bg};${p.imageUrl?'overflow:hidden;':''}">
+        ${thumb}
+        <button class="fav" title="לרשימת המועדפים">🤍</button>
+      </div>
+      <h3>${p.name}</h3>
+      <div class="unit">ל${p.unit}</div>
+      <div class="pricerow">
+        <span class="price">${fmt(p.price)}</span>
+        ${p.old?`<span class="old">${fmt(p.old)}</span>`:''}
+      </div>
+      <div class="add">
+        ${q===0
+          ? `<button class="add-btn" onclick="addItem(${p.id})">➕ הוספה לעגלה</button>`
+          : `<div class="qty">
+               <button onclick="changeQty(${p.id},1)">+</button>
+               <span>${q}</span>
+               <button onclick="changeQty(${p.id},-1)">−</button>
+             </div>`}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filterCat(key,e){
+  activeCat = key;
+  renderPills();
+  renderGrid();
+  if(e){ $('#shop').scrollIntoView({behavior:'smooth'}); }
+}
+
+/* ---------------- CART LOGIC ---------------- */
+function addItem(id){
+  cart[id] = (cart[id]||0)+1;
+  const p = PRODUCTS.find(x=>x.id===id);
+  showToast(`${p.emoji} ${p.name} נוסף לעגלה`);
+  syncAll();
+}
+function changeQty(id,delta){
+  cart[id] = (cart[id]||0)+delta;
+  if(cart[id]<=0) delete cart[id];
+  syncAll();
+}
+function removeItem(id){ delete cart[id]; syncAll(); }
+
+function cartCount(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
+function cartSubtotal(){
+  return Object.entries(cart).reduce((sum,[id,q])=>{
+    const p = PRODUCTS.find(x=>x.id==id); return sum + p.price*q;
+  },0);
+}
+
+/* ---------- Line quantity / weight calculator ----------
+   Parses the product unit ("250 גרם", "ק\"ג", "12 יח׳", "צרור", "ליטר")
+   and returns a localized total label for qty × unit.
+   Examples:
+     ("250 גרם", 2)  → "500 גרם"
+     ("250 גרם", 4)  → "1 ק\"ג"
+     ("500 גרם", 3)  → "1.5 ק\"ג"
+     ("ק\"ג", 3)      → "3 ק\"ג"
+     ("12 יח׳", 2)   → "24 יח׳"
+     ("יחידה", 1)    → "יחידה אחת"
+     ("יחידה", 5)    → "5 יחידות"                                                   */
+const PLURAL = {'יחידה':'יחידות','צרור':'צרורות','עציץ':'עציצים'};
+function lineQtyLabel(unitStr, qty){
+  const s = (unitStr||'').trim();
+  const m = s.match(/^([\d.]+)\s*(.+)$/);
+  let num=1, label=s;
+  if(m){ num = parseFloat(m[1]); label = m[2].trim(); }
+  let total = num * qty;
+  // grams → kg
+  if(/^גרם|^גר['׳]?$/.test(label) && total>=1000){
+    total = total/1000;
+    label = 'ק"ג';
+  }
+  // ml → liter
+  else if(/^מ["׳']?ל$/.test(label) && total>=1000){
+    total = total/1000;
+    label = 'ליטר';
+  }
+  if(qty>1 && PLURAL[label]) label = PLURAL[label];
+  const totalFmt = Number.isInteger(total)
+    ? total.toLocaleString('he-IL')
+    : total.toLocaleString('he-IL',{maximumFractionDigits:2});
+  return `${totalFmt} ${label}`;
+}
+
+/* Aggregate: total weight (kg-equivalent) + non-weight item count */
+function cartWeightSummary(){
+  let grams = 0, items = 0;
+  Object.entries(cart).forEach(([id,q])=>{
+    const p = PRODUCTS.find(x=>x.id==id); if(!p) return;
+    const u = (p.unit||'').trim();
+    const m = u.match(/^([\d.]+)\s*(.+)$/);
+    const num = m ? parseFloat(m[1]) : 1;
+    const rest = m ? m[2].trim() : u;
+    if(/^גרם|^גר['׳]?$/.test(rest))      grams += num*q;
+    else if(/^ק["׳']?ג$/.test(rest))     grams += num*q*1000;
+    else                                  items += num*q;
+  });
+  return { grams, items };
+}
+
+function syncAll(){
+  $('#cartCount').textContent = cartCount();
+  renderGrid();
+  renderCart();
+}
+
+function renderCart(){
+  const entries = Object.entries(cart);
+  const body = $('#drawerBody');
+  const foot = $('#drawerFoot');
+  if(!entries.length){
+    body.innerHTML = `<div class="empty"><div class="e">🧺</div><p style="margin-top:14px;font-weight:700;font-size:17px;color:var(--green)">העגלה ריקה</p><p>בואו נמלא אותה בטוב 🍅🥑🍓</p></div>`;
+    foot.style.display='none';
+  } else {
+    body.innerHTML = entries.map(([id,q])=>{
+      const p = PRODUCTS.find(x=>x.id==id);
+      const thumb = p.imageUrl
+        ? `<img src="${p.imageUrl}" alt="" style="width:100%;height:100%;object-fit:cover;border-radius:inherit">`
+        : p.emoji;
+      return `<div class="litem">
+        <div class="li-thumb" style="background:${p.bg};${p.imageUrl?'overflow:hidden':''}">${thumb}</div>
+        <div class="li-info">
+          <b>${p.name}</b>
+          <span>${fmt(p.price)} / ${p.unit}</span>
+          <div class="li-qty">
+            <button onclick="changeQty(${p.id},-1)">−</button>
+            <span>${q}</span>
+            <button onclick="changeQty(${p.id},1)">+</button>
+          </div>
+          <div class="li-total">📦 סה"כ לאריזה: <b>${lineQtyLabel(p.unit, q)}</b></div>
+          <button class="li-rm" onclick="removeItem(${p.id})">הסרה</button>
+        </div>
+        <div class="li-price">${fmt(p.price*q)}</div>
+      </div>`;
+    }).join('');
+    foot.style.display='block';
+    const sub = cartSubtotal();
+    const ship = sub>=FREE_THRESHOLD ? 0 : SHIP_FEE;
+    $('#subtotal').textContent = fmt(sub);
+    $('#shipFee').textContent = ship===0 ? 'חינם 🎉' : fmt(ship);
+    $('#grandTotal').textContent = fmt(sub+ship);
+    // weight + item summary
+    const sum = cartWeightSummary();
+    const parts = [];
+    if(sum.grams>0){
+      const kg = sum.grams/1000;
+      parts.push(kg>=1
+        ? `<b>${kg.toLocaleString('he-IL',{maximumFractionDigits:2})}</b> ק"ג`
+        : `<b>${sum.grams}</b> גרם`);
+    }
+    if(sum.items>0) parts.push(`<b>${sum.items}</b> פריטים`);
+    $('#cartWeight').innerHTML = parts.join(' · ') || '-';
+  }
+  // free delivery bar
+  const sub = cartSubtotal();
+  const pct = Math.min(100, sub/FREE_THRESHOLD*100);
+  $('#freeFill').style.width = pct+'%';
+  $('#freeText').innerHTML = sub>=FREE_THRESHOLD
+    ? 'מעולה! יש לכם משלוח חינם 🚚💚'
+    : `הוסיפו <b>${fmt(FREE_THRESHOLD-sub)}</b> לקבלת משלוח חינם 🚚`;
+}
+
+function openCart(){ $('#overlay').classList.add('show'); $('#drawer').classList.add('show'); document.body.style.overflow='hidden'; }
+function closeCart(){ $('#overlay').classList.remove('show'); $('#drawer').classList.remove('show'); document.body.style.overflow=''; }
+function checkout(){
+  if(!cartCount()) return;
+  if(!STORE_OPEN){
+    showToast('🔴 ' + STORE_MSG);
+    return;
+  }
+  showToast('🎉 הדמו הושלם! כאן ייפתח עמוד התשלום');
+}
+
+/* Show the closed banner if admin marked store as closed */
+if(!STORE_OPEN){
+  const b = document.getElementById('closedBanner');
+  b.style.display = 'block';
+  document.getElementById('closedBannerMsg').textContent = STORE_MSG;
+}
+
+/* ---------------- TOAST ---------------- */
+let toastT;
+function showToast(msg){
+  const t = $('#toast');
+  t.innerHTML = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.classList.remove('show'),2200);
+}
+
+/* ---------------- SEARCH ---------------- */
+$('#searchInput').addEventListener('input', e=>{
+  search = e.target.value.trim();
+  if(search) activeCat='all', renderPills();
+  renderGrid();
+});
+
+/* ---------------- SCROLL REVEAL ---------------- */
+const io = new IntersectionObserver(es=>{
+  es.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target);} });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* ---------------- INIT ---------------- */
+renderPills();
+renderGrid();
+renderCart();
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeCart(); });
+</script>
+</body>
+</html>

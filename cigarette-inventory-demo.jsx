@@ -1,0 +1,537 @@
+import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+
+/* ============================================================
+   דמו ללקוח — ניהול מלאי מחובר לקופה (Comax)
+   מדגיש את סיפור האינטגרציה:
+   - מכירות נכנסות אוטומטית "מהקופה" בכל סנכרון
+   - קליטת סחורה נשלחת ל-Comax ומאושרת (loop חי)
+   - מק"ט (SKU) כמפתח מיפוי, סטטוס סנכרון, מקור אמת = Comax
+   הקופה מדומה מקומית כדי שאפשר להדגים בלי API אמיתי.
+   ============================================================ */
+
+const KEYS = { products: "cigdemo:products:v2", sales: "cigdemo:sales:v2", receipts: "cigdemo:receipts:v2", meta: "cigdemo:meta:v2" };
+
+const C = {
+  bg: "#faf6f0", surface: "#ffffff", surface2: "#f5efe6", surface3: "#ece2d4", border: "#e6dccb",
+  text: "#2c2218", mutedSolid: "#8a7968", amber: "#c47e35", amberDark: "#a3641f",
+  green: "#2f8f55", greenBg: "#e6f4ec", red: "#c0432f", redBg: "#fbe8e3", blue: "#2d6fa3", blueBg: "#e8f1f9",
+};
+
+const SEED = [
+  { sku: "7290000111", name: "Marlboro Red", category: "סיגריות", cost: 32, price: 40, stock: 24, low: 10 },
+  { sku: "7290000112", name: "Marlboro Gold", category: "סיגריות", cost: 32, price: 40, stock: 18, low: 10 },
+  { sku: "7290000121", name: "Winston Blue", category: "סיגריות", cost: 28, price: 36, stock: 30, low: 12 },
+  { sku: "7290000131", name: "L&M Red", category: "סיגריות", cost: 26, price: 34, stock: 9, low: 12 },
+  { sku: "7290000141", name: "Time Blue", category: "סיגריות", cost: 24, price: 32, stock: 40, low: 15 },
+  { sku: "7290000151", name: "Noblesse", category: "סיגריות", cost: 22, price: 30, stock: 15, low: 10 },
+  { sku: "7290000161", name: "Parliament", category: "סיגריות", cost: 34, price: 42, stock: 7, low: 8 },
+  { sku: "7290000201", name: "טבק Golden Virginia 30g", category: "טבק לגלגול", cost: 40, price: 52, stock: 12, low: 6 },
+  { sku: "7290000301", name: "נייר גלגול OCB", category: "אביזרים", cost: 3, price: 6, stock: 50, low: 20 },
+  { sku: "7290000401", name: "מצת Clipper", category: "מצתים", cost: 4, price: 8, stock: 22, low: 10 },
+  { sku: "7290000402", name: "מצת BIC", category: "מצתים", cost: 5, price: 9, stock: 6, low: 10 },
+];
+
+const uid = () => crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+const nis = (n) => "₪" + (Math.round(n * 100) / 100).toLocaleString("he-IL");
+const dayKey = (d) => new Date(d).toLocaleDateString("he-IL");
+const todayKey = () => new Date().toLocaleDateString("he-IL");
+const timeStr = (d) => new Date(d).toLocaleTimeString("he-IL", { hour: "2-digit", minute: "2-digit" });
+function ago(ts) {
+  if (!ts) return "מעולם לא";
+  const s = Math.floor((Date.now() - new Date(ts)) / 1000);
+  if (s < 60) return "הרגע";
+  if (s < 3600) return `לפני ${Math.floor(s / 60)} דק׳`;
+  return `לפני ${Math.floor(s / 3600)} שע׳`;
+}
+async function loadKey(k, fb) { try { const r = await window.storage.get(k); return r?.value ? JSON.parse(r.value) : fb; } catch { return fb; } }
+async function saveKey(k, v) { try { await window.storage.set(k, JSON.stringify(v)); } catch (e) { console.error(e); } }
+
+export default function App() {
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [sales, setSales] = useState([]);
+  const [receipts, setReceipts] = useState([]);
+  const [lastSync, setLastSync] = useState(null);
+  const [view, setView] = useState("inventory");
+  const [toast, setToast] = useState(null);
+  const [editing, setEditing] = useState(null);
+  const [connOpen, setConnOpen] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const docRef = useRef(1000);
+
+  useEffect(() => {
+    (async () => {
+      let p = await loadKey(KEYS.products, null);
+      const s = await loadKey(KEYS.sales, []);
+      const r = await loadKey(KEYS.receipts, []);
+      const m = await loadKey(KEYS.meta, { lastSync: null, doc: 1000 });
+      if (!p) { p = SEED.map((x) => ({ id: uid(), ...x })); await saveKey(KEYS.products, p); }
+      docRef.current = m.doc || 1000;
+      setProducts(p); setSales(s); setReceipts(r); setLastSync(m.lastSync);
+      setLoading(false);
+    })();
+  }, []);
+
+  const showToast = useCallback((text, kind = "ok") => {
+    const id = uid(); setToast({ text, kind, id });
+    setTimeout(() => setToast((t) => (t && t.id === id ? null : t)), 2400);
+  }, []);
+
+  const nextDoc = () => { docRef.current += 1; return "CMX-" + docRef.current; };
+  const persistMeta = (ls) => saveKey(KEYS.meta, { lastSync: ls, doc: docRef.current });
+
+  const commitProducts = useCallback((n) => { setProducts(n); saveKey(KEYS.products, n); }, []);
+  const commitSales = useCallback((n) => { setSales(n); saveKey(KEYS.sales, n); }, []);
+  const commitReceipts = useCallback((n) => { setReceipts(n); saveKey(KEYS.receipts, n); }, []);
+
+  // ---- simulate Comax register pull ----
+  const sync = useCallback(() => {
+    setSyncing(true);
+    setTimeout(() => {
+      let working = [...products];
+      const newSales = [];
+      const sellable = () => working.filter((p) => p.stock > 0);
+      const n = sellable().length ? 1 + Math.floor(Math.random() * 3) : 0;
+      for (let i = 0; i < n; i++) {
+        const pool = sellable();
+        if (!pool.length) break;
+        const weighted = pool.flatMap((p) => (p.category === "סיגריות" ? [p, p, p] : [p]));
+        const p = weighted[Math.floor(Math.random() * weighted.length)];
+        const qty = Math.min(p.stock, 1 + Math.floor(Math.random() * 2));
+        working = working.map((x) => (x.id === p.id ? { ...x, stock: x.stock - qty } : x));
+        newSales.push({ id: uid(), doc: nextDoc(), sku: p.sku, name: p.name, qty, price: p.price, ts: new Date().toISOString() });
+      }
+      commitProducts(working);
+      if (newSales.length) commitSales([...newSales, ...sales]);
+      const ts = new Date().toISOString();
+      setLastSync(ts); persistMeta(ts);
+      setSyncing(false);
+      showToast(newSales.length ? `סונכרן · ${newSales.length} מכירות נקלטו מהקופה` : "סונכרן · אין שינויים");
+    }, 850);
+  }, [products, sales, commitProducts, commitSales, showToast]);
+
+  // ---- receive: push to Comax then confirm ----
+  const receive = useCallback((p, qty) => {
+    if (qty <= 0) return;
+    const r = { id: uid(), sku: p.sku, name: p.name, qty, status: "pending", doc: null, ts: new Date().toISOString() };
+    setReceipts((prev) => { const m = [r, ...prev]; saveKey(KEYS.receipts, m); return m; });
+    showToast(`נשלח ל-Comax · ${qty} יח׳ ${p.name}`, "info");
+    setTimeout(() => {
+      const doc = nextDoc();
+      setReceipts((prev) => { const m = prev.map((x) => (x.id === r.id ? { ...x, status: "confirmed", doc } : x)); saveKey(KEYS.receipts, m); return m; });
+      setProducts((prev) => { const m = prev.map((x) => (x.id === p.id ? { ...x, stock: x.stock + qty } : x)); saveKey(KEYS.products, m); return m; });
+      persistMeta(lastSync);
+      showToast(`אושר ב-Comax · המלאי עודכן (${doc})`, "ok");
+    }, 1400);
+  }, [showToast, lastSync]);
+
+  const saveProduct = useCallback((data) => {
+    if (data.id) { commitProducts(products.map((p) => (p.id === data.id ? { ...p, ...data } : p))); showToast("המוצר עודכן"); }
+    else { commitProducts([{ id: uid(), ...data }, ...products]); showToast("מוצר נוסף"); }
+    setEditing(null);
+  }, [products, commitProducts, showToast]);
+  const deleteProduct = useCallback((id) => { commitProducts(products.filter((p) => p.id !== id)); setEditing(null); showToast("נמחק", "err"); }, [products, commitProducts, showToast]);
+
+  if (loading)
+    return <div dir="rtl" className="cigfont" style={{ ...full, background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", color: C.mutedSolid }}><Fonts />טוען…</div>;
+
+  return (
+    <div dir="rtl" className="cigfont" style={{ ...full, background: C.bg, color: C.text, display: "flex", flexDirection: "column" }}>
+      <Fonts />
+      <header style={{ padding: "13px 18px 11px", borderBottom: `1px solid ${C.border}`, background: C.surface, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div>
+          <div style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.3 }}>חנות הסיגריות</div>
+          <div style={{ fontSize: 11.5, color: C.mutedSolid, marginTop: 1 }}>ניהול מלאי מחובר לקופה</div>
+        </div>
+        <span style={{ fontSize: 10.5, fontWeight: 700, color: C.amber, background: C.surface2, border: `1px solid ${C.border}`, padding: "4px 9px", borderRadius: 7 }}>נתוני הדגמה</span>
+      </header>
+
+      {/* Comax status bar — the integration emphasis */}
+      <div onClick={() => setConnOpen(true)} style={{ display: "flex", alignItems: "center", gap: 9, padding: "9px 16px", background: C.surface2, borderBottom: `1px solid ${C.border}`, cursor: "pointer" }}>
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: C.green, boxShadow: `0 0 8px ${C.green}` }} />
+        <span style={{ fontSize: 13, fontWeight: 700 }}>מחובר ל-Comax</span>
+        <span style={{ fontSize: 12, color: C.mutedSolid }}>· סניף ראשי · סונכרן {ago(lastSync)}</span>
+        <div style={{ flex: 1 }} />
+        <button onClick={(e) => { e.stopPropagation(); sync(); }} disabled={syncing}
+          style={{ background: C.amber, color: "#1a120a", border: "none", borderRadius: 9, padding: "7px 13px", fontSize: 12.5, fontWeight: 800, cursor: "pointer", fontFamily: "inherit", opacity: syncing ? 0.6 : 1 }}>
+          {syncing ? "מסנכרן…" : "סנכרן עכשיו"}
+        </button>
+      </div>
+
+      <main style={{ flex: 1, overflowY: "auto", padding: "15px 14px 96px" }}>
+        {view === "inventory" && <Inventory products={products} onEdit={setEditing} onAddNew={() => setEditing({ new: true })} onReceive={receive} />}
+        {view === "sales" && <Sales products={products} sales={sales} onSyncHint={sync} />}
+        {view === "receive" && <Receive products={products} receipts={receipts} onReceive={receive} />}
+        {view === "report" && <Report products={products} sales={sales} receipts={receipts} />}
+      </main>
+
+      <nav style={{ position: "absolute", bottom: 0, left: 0, right: 0, display: "grid", gridTemplateColumns: "repeat(4,1fr)", background: C.surface, borderTop: `1px solid ${C.border}` }}>
+        {[{ k: "inventory", l: "מלאי", i: "▤" }, { k: "sales", l: "מכירות", i: "↑" }, { k: "receive", l: "קבלה", i: "↓" }, { k: "report", l: "דוח", i: "▦" }].map((t) => (
+          <button key={t.k} onClick={() => setView(t.k)} style={{ background: "none", border: "none", padding: "10px 0 14px", cursor: "pointer", color: view === t.k ? C.amber : C.mutedSolid, display: "flex", flexDirection: "column", alignItems: "center", gap: 3, fontFamily: "inherit" }}>
+            <span style={{ fontSize: 19 }}>{t.i}</span>
+            <span style={{ fontSize: 11.5, fontWeight: view === t.k ? 700 : 500 }}>{t.l}</span>
+          </button>
+        ))}
+      </nav>
+
+      {toast && (
+        <div style={{ position: "absolute", bottom: 86, left: "50%", transform: "translateX(-50%)", background: toast.kind === "err" ? C.redBg : toast.kind === "info" ? C.blueBg : C.greenBg, color: toast.kind === "err" ? C.red : toast.kind === "info" ? C.blue : C.green, border: `1px solid ${(toast.kind === "err" ? C.red : toast.kind === "info" ? C.blue : C.green)}55`, padding: "10px 18px", borderRadius: 12, fontSize: 13.5, fontWeight: 600, whiteSpace: "nowrap", boxShadow: "0 6px 20px #0000001f", maxWidth: "90%" }}>{toast.text}</div>
+      )}
+
+      {editing && <ProductModal initial={editing.new ? null : editing} onSave={saveProduct} onDelete={deleteProduct} onClose={() => setEditing(null)} />}
+      {connOpen && <ConnSheet lastSync={lastSync} onSync={sync} onClose={() => setConnOpen(false)} syncing={syncing} />}
+    </div>
+  );
+}
+
+/* ---------------- Inventory ---------------- */
+function Inventory({ products, onEdit, onAddNew, onReceive }) {
+  const [q, setQ] = useState("");
+  const [cat, setCat] = useState("הכל");
+  const [lowOpen, setLowOpen] = useState(false);
+  const cats = ["הכל", ...Array.from(new Set(products.map((p) => p.category)))];
+  const filtered = products.filter((p) => (cat === "הכל" || p.category === cat) && (p.name.includes(q) || p.sku.includes(q)));
+  const totalUnits = products.reduce((s, p) => s + p.stock, 0);
+  const totalValue = products.reduce((s, p) => s + p.stock * p.cost, 0);
+  const lowItems = products.filter((p) => p.stock <= p.low);
+  const lowCount = lowItems.length;
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8, marginBottom: 13 }}>
+        <Stat label="פריטים" value={totalUnits.toLocaleString("he-IL")} />
+        <Stat label="שווי מלאי" value={nis(totalValue)} />
+        <Stat label="מתחת לסף" value={String(lowCount)} accent={lowCount ? C.red : C.green} onClick={lowCount ? () => setLowOpen(true) : undefined} />
+      </div>
+      <Note>יתרות המלאי מסונכרנות אוטומטית מ-Comax. כל מכירה בקופה מתעדכנת כאן.</Note>
+      <SearchBar value={q} onChange={setQ} placeholder="חיפוש לפי שם או מק״ט…" />
+      <div style={{ display: "flex", gap: 7, overflowX: "auto", padding: "11px 0 4px" }}>{cats.map((c) => <Chip key={c} active={cat === c} onClick={() => setCat(c)}>{c}</Chip>)}</div>
+      <div style={{ display: "flex", flexDirection: "column", gap: 9, marginTop: 4 }}>
+        {filtered.map((p) => {
+          const low = p.stock <= p.low;
+          return (
+            <div key={p.id} style={card} onClick={() => onEdit(p)}>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+                  <span style={{ fontWeight: 700, fontSize: 15, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{p.name}</span>
+                  {low && <span style={badge(C.red, C.redBg)}>מלאי נמוך</span>}
+                </div>
+                <div style={{ fontSize: 12, color: C.mutedSolid, marginTop: 3 }}>מק״ט {p.sku} · מכירה {nis(p.price)}</div>
+              </div>
+              <div style={{ textAlign: "center" }}>
+                <div style={{ fontWeight: 800, fontSize: 20, color: low ? C.red : C.text }}>{p.stock}</div>
+                <div style={{ fontSize: 10, color: C.mutedSolid }}>במלאי</div>
+              </div>
+            </div>
+          );
+        })}
+        {!filtered.length && <Empty text="לא נמצאו מוצרים" />}
+      </div>
+      <button onClick={onAddNew} style={primaryBtn}>+ מוצר חדש</button>
+      {lowOpen && <LowStockSheet items={lowItems} onReceive={onReceive} onEdit={(p) => { setLowOpen(false); onEdit(p); }} onClose={() => setLowOpen(false)} />}
+    </>
+  );
+}
+
+function LowStockSheet({ items, onReceive, onEdit, onClose }) {
+  const [qty, setQty] = useState({});
+  const getQ = (id) => qty[id] ?? 10;
+  const setQ_ = (id, v) => setQty((s) => ({ ...s, [id]: Math.max(1, v) }));
+  return (
+    <Sheet title={`מוצרים מתחת לסף (${items.length})`} onClose={onClose}>
+      <Note>אלו המוצרים שצריך להזמין מחדש. אפשר לקלוט סחורה ישירות מכאן — הקליטה תישלח ל-Comax.</Note>
+      <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
+        {items.map((p) => {
+          const deficit = Math.max(0, p.low - p.stock);
+          return (
+            <div key={p.id} style={{ ...card, flexDirection: "column", alignItems: "stretch", gap: 10, cursor: "default", borderColor: `${C.red}55` }}>
+              <div style={{ display: "flex", alignItems: "flex-start", gap: 8 }}>
+                <div style={{ flex: 1, minWidth: 0 }} onClick={() => onEdit(p)}>
+                  <div style={{ fontWeight: 700, fontSize: 14.5, cursor: "pointer" }}>{p.name}</div>
+                  <div style={{ fontSize: 12, color: C.mutedSolid, marginTop: 3 }}>מק״ט {p.sku}</div>
+                </div>
+                <div style={{ textAlign: "center", flexShrink: 0 }}>
+                  <div style={{ fontWeight: 800, fontSize: 19, color: C.red }}>{p.stock}</div>
+                  <div style={{ fontSize: 10, color: C.mutedSolid }}>מתוך {p.low}</div>
+                </div>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ fontSize: 11.5, color: C.mutedSolid, fontWeight: 600 }}>הזמן:</span>
+                <QtyStepper value={getQ(p.id)} onChange={(v) => setQ_(p.id, v)} />
+                <div style={{ flex: 1 }} />
+                <button style={{ ...actionBtn, background: C.amber, color: "#fff", padding: "10px 16px" }} onClick={() => { onReceive(p, getQ(p.id)); setQ_(p.id, deficit > 0 ? deficit : 10); }}>קלוט</button>
+              </div>
+            </div>
+          );
+        })}
+        {!items.length && <Empty text="הכל מעל הסף" />}
+      </div>
+    </Sheet>
+  );
+}
+
+/* ---------------- Sales (read-only from Comax) ---------------- */
+function Sales({ products, sales, onSyncHint }) {
+  const today = todayKey();
+  const todaySales = sales.filter((s) => dayKey(s.ts) === today);
+  const units = todaySales.reduce((s, m) => s + m.qty, 0);
+  const revenue = todaySales.reduce((s, m) => s + m.qty * m.price, 0);
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 13 }}>
+        <Stat label="נמכר היום (יח׳)" value={units.toLocaleString("he-IL")} accent={C.amber} big />
+        <Stat label="הכנסה היום" value={nis(revenue)} accent={C.green} big />
+      </div>
+      <Note>המכירות נכנסות אוטומטית מהקופה (Comax). אין צורך לרשום ידנית — לחיצה על "סנכרן עכשיו" מושכת את המכירות האחרונות.</Note>
+      <SectionTitle title="מכירות אחרונות מהקופה" />
+      <div style={{ display: "flex", flexDirection: "column", gap: 8, marginTop: 6 }}>
+        {todaySales.length === 0 && (
+          <div style={{ ...panel, textAlign: "center", padding: "26px 16px" }}>
+            <div style={{ color: C.mutedSolid, fontSize: 13.5, marginBottom: 12 }}>אין עדיין מכירות היום</div>
+            <button onClick={onSyncHint} style={{ ...actionBtn, background: C.amber, color: "#1a120a" }}>משוך מכירות מהקופה</button>
+          </div>
+        )}
+        {todaySales.map((s) => (
+          <div key={s.id} style={{ ...card, cursor: "default" }}>
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div style={{ fontWeight: 700, fontSize: 14.5 }}>{s.name}</div>
+              <div style={{ fontSize: 11.5, color: C.mutedSolid, marginTop: 2 }}>{timeStr(s.ts)} · מסמך {s.doc} · מק״ט {s.sku}</div>
+            </div>
+            <div style={{ textAlign: "center" }}>
+              <div style={{ fontWeight: 800, fontSize: 16, color: C.amber }}>×{s.qty}</div>
+              <div style={{ fontSize: 11, color: C.green }}>{nis(s.qty * s.price)}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ---------------- Receive (push to Comax) ---------------- */
+function Receive({ products, receipts, onReceive }) {
+  const [q, setQ] = useState("");
+  const [qty, setQty] = useState({});
+  const filtered = products.filter((p) => p.name.includes(q) || p.sku.includes(q));
+  const getQ = (id) => qty[id] ?? 1;
+  const setQ_ = (id, v) => setQty((s) => ({ ...s, [id]: Math.max(0, v) }));
+  const recent = receipts.slice(0, 4);
+  return (
+    <>
+      <SectionTitle title="קבלת סחורה" sub="כל קליטה נשלחת ל-Comax ומאושרת אוטומטית. המלאי מתעדכן בשתי המערכות." />
+      {recent.length > 0 && (
+        <div style={{ ...panel, marginBottom: 12, padding: "10px 14px" }}>
+          <div style={{ fontSize: 12, color: C.mutedSolid, fontWeight: 700, marginBottom: 8 }}>קליטות אחרונות</div>
+          {recent.map((r) => (
+            <div key={r.id} style={{ display: "flex", alignItems: "center", gap: 8, padding: "5px 0", fontSize: 13 }}>
+              <span style={{ flex: 1 }}>{r.name} ×{r.qty}</span>
+              {r.status === "pending"
+                ? <span style={badge(C.blue, C.blueBg)}>נשלח ל-Comax…</span>
+                : <span style={badge(C.green, C.greenBg)}>אושר · {r.doc}</span>}
+            </div>
+          ))}
+        </div>
+      )}
+      <SearchBar value={q} onChange={setQ} placeholder="חיפוש מוצר לקליטה…" />
+      <div style={{ display: "flex", flexDirection: "column", gap: 9, marginTop: 12 }}>
+        {filtered.map((p) => (
+          <div key={p.id} style={{ ...card, flexDirection: "column", alignItems: "stretch", gap: 10, cursor: "default" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span style={{ fontWeight: 700, fontSize: 14.5 }}>{p.name}</span>
+              <span style={{ fontSize: 12, color: C.mutedSolid }}>מק״ט {p.sku} · במלאי {p.stock}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <div style={{ display: "flex", gap: 6 }}>{[5, 10, 20].map((n) => <Chip key={n} small onClick={() => setQ_(p.id, getQ(p.id) + n)}>+{n}</Chip>)}</div>
+              <div style={{ flex: 1 }} />
+              <QtyStepper value={getQ(p.id)} onChange={(v) => setQ_(p.id, v)} />
+              <button style={{ ...actionBtn, background: C.amber, color: "#1a120a" }} onClick={() => { onReceive(p, getQ(p.id)); setQ_(p.id, 1); }}>קבל</button>
+            </div>
+          </div>
+        ))}
+        {!filtered.length && <Empty text="לא נמצאו מוצרים" />}
+      </div>
+    </>
+  );
+}
+
+/* ---------------- Report ---------------- */
+function Report({ products, sales, receipts }) {
+  const today = todayKey();
+  const ts = sales.filter((s) => dayKey(s.ts) === today);
+  const units = ts.reduce((s, m) => s + m.qty, 0);
+  const rev = ts.reduce((s, m) => s + m.qty * m.price, 0);
+  const profit = ts.reduce((s, m) => { const p = products.find((x) => x.sku === m.sku); return s + (p ? (m.price - p.cost) * m.qty : 0); }, 0);
+  const received = receipts.filter((r) => r.status === "confirmed" && dayKey(r.ts) === today).reduce((s, r) => s + r.qty, 0);
+
+  const days = useMemo(() => {
+    const a = [];
+    for (let i = 6; i >= 0; i--) { const d = new Date(); d.setDate(d.getDate() - i); const k = dayKey(d); a.push({ k, label: d.toLocaleDateString("he-IL", { weekday: "short" }), units: sales.filter((s) => dayKey(s.ts) === k).reduce((x, m) => x + m.qty, 0) }); }
+    return a;
+  }, [sales]);
+  const maxU = Math.max(1, ...days.map((d) => d.units));
+
+  const top = useMemo(() => {
+    const m = {}; sales.forEach((s) => (m[s.sku] = (m[s.sku] || 0) + s.qty));
+    return Object.entries(m).map(([sku, u]) => ({ p: products.find((x) => x.sku === sku), u })).filter((x) => x.p).sort((a, b) => b.u - a.u).slice(0, 5);
+  }, [sales, products]);
+  const low = products.filter((p) => p.stock <= p.low);
+
+  return (
+    <>
+      <SectionTitle title={`דוח יומי · ${today}`} sub="הנתונים מבוססים על מכירות שנמשכו מהקופה." />
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+        <Stat label="יחידות שנמכרו" value={units.toLocaleString("he-IL")} accent={C.amber} big />
+        <Stat label="הכנסה" value={nis(rev)} accent={C.green} big />
+        <Stat label="רווח גולמי" value={nis(profit)} accent={C.blue} big />
+        <Stat label="התקבל למלאי" value={received.toLocaleString("he-IL")} big />
+      </div>
+      <div style={{ ...panel, marginTop: 13 }}>
+        <div style={{ fontSize: 13.5, fontWeight: 700, marginBottom: 14 }}>מכירות 7 ימים אחרונים</div>
+        <div style={{ display: "flex", alignItems: "flex-end", gap: 8, height: 120 }}>
+          {days.map((d) => (
+            <div key={d.k} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+              <div style={{ fontSize: 11, color: C.mutedSolid, fontWeight: 700 }}>{d.units || ""}</div>
+              <div style={{ width: "100%", height: `${(d.units / maxU) * 88}px`, minHeight: d.units ? 4 : 2, background: d.units ? `linear-gradient(${C.amber},${C.amberDark})` : C.surface3, borderRadius: 6 }} />
+              <div style={{ fontSize: 11, color: C.mutedSolid }}>{d.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ ...panel, marginTop: 12 }}>
+        <div style={{ fontSize: 13.5, fontWeight: 700, marginBottom: 10 }}>הנמכרים ביותר</div>
+        {!top.length && <div style={{ color: C.mutedSolid, fontSize: 13 }}>סנכרן כדי למשוך מכירות מהקופה.</div>}
+        {top.map((t, i) => (
+          <div key={t.p.sku} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", borderTop: i ? `1px solid ${C.border}` : "none" }}>
+            <span style={{ width: 22, height: 22, borderRadius: 6, background: C.surface3, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: C.amber }}>{i + 1}</span>
+            <span style={{ flex: 1, fontWeight: 600, fontSize: 14 }}>{t.p.name}</span>
+            <span style={{ fontWeight: 800, color: C.amber }}>{t.u}</span>
+          </div>
+        ))}
+      </div>
+      {low.length > 0 && (
+        <div style={{ ...panel, marginTop: 12, borderColor: `${C.red}55` }}>
+          <div style={{ fontSize: 13.5, fontWeight: 700, marginBottom: 10, color: C.red }}>להזמין מחדש ({low.length})</div>
+          {low.map((p, i) => (
+            <div key={p.id} style={{ display: "flex", justifyContent: "space-between", padding: "7px 0", borderTop: i ? `1px solid ${C.border}` : "none", fontSize: 14 }}>
+              <span style={{ fontWeight: 600 }}>{p.name}</span><span style={{ color: C.red, fontWeight: 700 }}>נותרו {p.stock}</span>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
+/* ---------------- Connection sheet (client selling points) ---------------- */
+function ConnSheet({ lastSync, onSync, onClose, syncing }) {
+  const rows = [
+    ["מקור אמת", "Comax — הקופה. כל מכירה מתעדכנת כאן אוטומטית."],
+    ["משיכה מהקופה", "מכירות, מלאי ומחירים נמשכים מ-Comax."],
+    ["דחיפה לקופה", "קליטת סחורה נשלחת ל-Comax ומאושרת."],
+    ["מפתח מיפוי", "מק״ט (SKU) — כל מוצר ממופה מול הקופה."],
+    ["תדירות", "סנכרון אוטומטי כל 5 דק׳ + ידני."],
+    ["סניף", "ראשי (תמיכה בריבוי סניפים)."],
+  ];
+  return (
+    <Sheet title="חיבור לקופה (Comax)" onClose={onClose}>
+      <div style={{ display: "flex", alignItems: "center", gap: 9, padding: "11px 14px", background: C.greenBg, border: `1px solid ${C.green}55`, borderRadius: 12, marginBottom: 14 }}>
+        <span style={{ width: 9, height: 9, borderRadius: "50%", background: C.green }} />
+        <span style={{ fontWeight: 700, color: C.green }}>מחובר · סונכרן {ago(lastSync)}</span>
+      </div>
+      {rows.map(([k, v], i) => (
+        <div key={k} style={{ display: "flex", gap: 10, padding: "9px 0", borderTop: i ? `1px solid ${C.border}` : "none" }}>
+          <span style={{ width: 92, color: C.mutedSolid, fontSize: 13, fontWeight: 700, flexShrink: 0 }}>{k}</span>
+          <span style={{ fontSize: 13.5, lineHeight: 1.5 }}>{v}</span>
+        </div>
+      ))}
+      <button onClick={() => { onSync(); }} disabled={syncing} style={{ ...primaryBtn, opacity: syncing ? 0.6 : 1 }}>{syncing ? "מסנכרן…" : "סנכרן עכשיו"}</button>
+    </Sheet>
+  );
+}
+
+/* ---------------- Product modal ---------------- */
+function ProductModal({ initial, onSave, onDelete, onClose }) {
+  const [f, setF] = useState(initial || { name: "", sku: "", category: "", cost: "", price: "", stock: "", low: 10 });
+  const [errors, setErrors] = useState({});
+  const firstErrRef = useRef(null);
+  const set = (k, v) => {
+    setF((s) => ({ ...s, [k]: v }));
+    setErrors((e) => { if (!e[k]) return e; const n = { ...e }; delete n[k]; return n; });
+  };
+  const numField = (k, e) => set(k, e.target.value === "" ? "" : +e.target.value);
+
+  const validate = () => {
+    const e = {};
+    if (!String(f.name).trim()) e.name = "שדה חובה";
+    if (!String(f.sku).trim()) e.sku = "שדה חובה — חייב להתאים למק״ט ב-Comax";
+    if (!f.category) e.category = "יש לבחור קטגוריה";
+    if (!(Number(f.cost) > 0)) e.cost = "יש להזין סכום";
+    if (!(Number(f.price) > 0)) e.price = "יש להזין סכום";
+    return e;
+  };
+  const handleSave = () => {
+    const e = validate();
+    if (Object.keys(e).length) {
+      setErrors(e);
+      setTimeout(() => firstErrRef.current?.scrollIntoView({ behavior: "smooth", block: "center" }), 30);
+      return;
+    }
+    onSave({ ...f, cost: Number(f.cost) || 0, price: Number(f.price) || 0, stock: Number(f.stock) || 0, low: Number(f.low) || 10 });
+  };
+  const inp = (k) => ({ ...input, ...(errors[k] ? { borderColor: C.red, background: C.redBg } : {}) });
+
+  return (
+    <Sheet title={initial ? "עריכת מוצר" : "מוצר חדש"} onClose={onClose}>
+      <div ref={errors.name ? firstErrRef : null}>
+        <Field label="שם המוצר" required error={errors.name}>
+          <input style={inp("name")} value={f.name} onChange={(e) => set("name", e.target.value)} placeholder="Marlboro Red" />
+        </Field>
+      </div>
+      <div ref={!errors.name && errors.sku ? firstErrRef : null}>
+        <Field label="מק״ט (חייב להתאים ל-Comax)" required error={errors.sku}>
+          <input style={inp("sku")} value={f.sku} onChange={(e) => set("sku", e.target.value)} placeholder="7290000111" />
+        </Field>
+      </div>
+      <div ref={!errors.name && !errors.sku && errors.category ? firstErrRef : null}>
+        <Field label="קטגוריה" required error={errors.category}>
+          <div style={{ display: "flex", gap: 7, flexWrap: "wrap", ...(errors.category ? { padding: 6, border: `1px solid ${C.red}`, background: C.redBg, borderRadius: 11 } : {}) }}>
+            {["סיגריות", "טבק לגלגול", "אביזרים", "מצתים"].map((c) => <Chip key={c} active={f.category === c} onClick={() => set("category", c)}>{c}</Chip>)}
+          </div>
+        </Field>
+      </div>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+        <div ref={!errors.name && !errors.sku && !errors.category && errors.cost ? firstErrRef : null}>
+          <Field label="עלות (₪)" required error={errors.cost}><input style={inp("cost")} type="number" inputMode="decimal" value={f.cost} onChange={(e) => numField("cost", e)} placeholder="0" /></Field>
+        </div>
+        <div ref={!errors.name && !errors.sku && !errors.category && !errors.cost && errors.price ? firstErrRef : null}>
+          <Field label="מחיר מכירה (₪)" required error={errors.price}><input style={inp("price")} type="number" inputMode="decimal" value={f.price} onChange={(e) => numField("price", e)} placeholder="0" /></Field>
+        </div>
+        <Field label="מלאי"><input style={input} type="number" inputMode="numeric" value={f.stock} onChange={(e) => numField("stock", e)} placeholder="0" /></Field>
+        <Field label="סף התראה"><input style={input} type="number" inputMode="numeric" value={f.low} onChange={(e) => numField("low", e)} placeholder="10" /></Field>
+      </div>
+      <button style={primaryBtn} onClick={handleSave}>שמירה</button>
+      {initial && <button style={{ ...primaryBtn, background: "none", color: C.red, border: `1px solid ${C.red}55`, marginTop: 8 }} onClick={() => onDelete(initial.id)}>מחיקה</button>}
+    </Sheet>
+  );
+}
+
+/* ---------------- shared ---------------- */
+function Fonts() { return <style>{`@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&display=swap');.cigfont,.cigfont *{font-family:'Heebo',-apple-system,sans-serif;box-sizing:border-box}.cigfont input{outline:none}.cigfont input:focus{border-color:${C.amber}!important}.cigfont ::-webkit-scrollbar{height:0;width:0}`}</style>; }
+function Stat({ label, value, accent = C.text, big, onClick }) { const clickable = !!onClick; return <div onClick={onClick} style={{ ...panel, padding: big ? "12px 13px" : "10px 11px", cursor: clickable ? "pointer" : "default", position: "relative" }}><div style={{ fontSize: 11, color: C.mutedSolid, marginBottom: 4, fontWeight: 600, display: "flex", alignItems: "center", gap: 4 }}>{label}{clickable && <span style={{ color: accent, fontSize: 12, fontWeight: 800 }}>›</span>}</div><div style={{ fontSize: big ? 21 : 15, fontWeight: 800, color: accent, letterSpacing: -0.4 }}>{value}</div></div>; }
+function Note({ children }) { return <div style={{ background: C.blueBg, border: `1px solid ${C.blue}44`, borderRadius: 11, padding: "9px 13px", fontSize: 12.5, color: C.blue, lineHeight: 1.5, marginBottom: 12 }}>{children}</div>; }
+function SearchBar({ value, onChange, placeholder }) { return <input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} style={{ ...input, background: C.surface }} />; }
+function Chip({ children, active, onClick, small }) { return <button onClick={onClick} style={{ background: active ? C.amber : C.surface2, color: active ? "#1a120a" : C.text, border: `1px solid ${active ? C.amber : C.border}`, borderRadius: 999, padding: small ? "6px 12px" : "7px 14px", fontSize: 13, fontWeight: active ? 700 : 500, cursor: "pointer", whiteSpace: "nowrap", fontFamily: "inherit" }}>{children}</button>; }
+function QtyStepper({ value, onChange }) { return <div style={{ display: "flex", alignItems: "center", gap: 4, background: C.surface3, borderRadius: 10, padding: 3 }}><button style={stepBtn} onClick={() => onChange(value - 1)}>−</button><input type="number" value={value} onChange={(e) => onChange(Math.max(0, +e.target.value || 0))} style={{ width: 38, textAlign: "center", background: "none", border: "none", color: C.text, fontSize: 16, fontWeight: 800, fontFamily: "inherit" }} /><button style={stepBtn} onClick={() => onChange(value + 1)}>+</button></div>; }
+function SectionTitle({ title, sub }) { return <div style={{ marginBottom: 10 }}><div style={{ fontSize: 16.5, fontWeight: 800, letterSpacing: -0.3 }}>{title}</div>{sub && <div style={{ fontSize: 12, color: C.mutedSolid, marginTop: 3, lineHeight: 1.5 }}>{sub}</div>}</div>; }
+function Empty({ text }) { return <div style={{ textAlign: "center", color: C.mutedSolid, padding: "40px 0", fontSize: 14 }}>{text}</div>; }
+function Field({ label, required, error, children }) { return <div style={{ marginBottom: 12 }}><div style={{ fontSize: 12.5, color: C.mutedSolid, marginBottom: 6, fontWeight: 600 }}>{label}{required && <span style={{ color: C.red, marginInlineStart: 3, fontWeight: 800 }}>*</span>}</div>{children}{error && <div style={{ fontSize: 11.5, color: C.red, marginTop: 5, fontWeight: 700 }}>{error}</div>}</div>; }
+function Sheet({ title, children, onClose }) { return <div onClick={onClose} style={{ position: "absolute", inset: 0, background: "#2c221833", display: "flex", alignItems: "flex-end", justifyContent: "center", zIndex: 50 }}><div onClick={(e) => e.stopPropagation()} style={{ width: "100%", maxHeight: "92%", overflowY: "auto", background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "20px 20px 0 0", padding: "8px 18px 24px", boxShadow: "0 -8px 30px #0000001a" }}><div style={{ width: 38, height: 4, background: C.border, borderRadius: 2, margin: "8px auto 14px" }} /><div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}><div style={{ fontSize: 18, fontWeight: 800 }}>{title}</div><button onClick={onClose} style={iconBtn}>✕</button></div>{children}</div></div>; }
+
+const full = { width: "100%", height: "100vh", maxWidth: 480, margin: "0 auto", position: "relative", overflow: "hidden" };
+const panel = { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 14, padding: "14px 16px", boxShadow: "0 1px 2px #0000000a" };
+const card = { background: C.surface, border: `1px solid ${C.border}`, borderRadius: 14, padding: "12px 14px", display: "flex", alignItems: "center", gap: 10, cursor: "pointer", boxShadow: "0 1px 2px #0000000a" };
+const input = { width: "100%", background: C.surface2, border: `1px solid ${C.border}`, borderRadius: 11, padding: "12px 14px", color: C.text, fontSize: 15.5, fontFamily: "inherit" };
+const primaryBtn = { width: "100%", background: C.amber, color: "#1a120a", border: "none", borderRadius: 13, padding: "15px", fontSize: 16, fontWeight: 800, cursor: "pointer", marginTop: 16, fontFamily: "inherit" };
+const actionBtn = { border: "none", borderRadius: 11, padding: "11px 20px", fontSize: 15, fontWeight: 800, cursor: "pointer", fontFamily: "inherit" };
+const stepBtn = { width: 32, height: 32, borderRadius: 9, background: C.surface3, border: `1px solid ${C.border}`, color: C.text, fontSize: 19, fontWeight: 700, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "inherit", lineHeight: 1 };
+const iconBtn = { width: 38, height: 38, borderRadius: 10, background: C.surface2, border: `1px solid ${C.border}`, color: C.text, fontSize: 17, cursor: "pointer", fontFamily: "inherit" };
+const badge = (color, bg) => ({ fontSize: 10.5, fontWeight: 700, color, background: bg, border: `1px solid ${color}44`, padding: "2px 7px", borderRadius: 6, whiteSpace: "nowrap" });

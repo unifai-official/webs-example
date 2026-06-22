@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אִיווֹרי · מכון יופי וקוסמטיקה</title>
+<meta name="description" content="מכון יופי בוטיק. טיפולי פנים, פילינג, אנטי-אייג'ינג וטיפוח עור מותאם אישית. קביעת תור מהירה בוואטסאפ.">
+
+<!-- =================================================================
+     הגדרות מהירות לעריכה — שנה כאן ויתעדכן בכל הדף
+     ================================================================= -->
+<!--
+  טלפון וואטסאפ: ערוך את המשתנה WHATSAPP_PHONE ב-<script> בתחתית הקובץ.
+  פורמט: קידומת מדינה ללא + וללא 0 בהתחלה. דוגמה: 972501234567
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --cream:#F7F2EA;
+    --cream-deep:#F0E8DB;
+    --espresso:#3A3027;
+    --espresso-soft:#6B5D4F;
+    --gold:#B89968;
+    --gold-deep:#9A7C4E;
+    --blush:#E6D3C4;
+    --rose-taupe:#9B7E6B;
+    --white:#FFFFFF;
+    --shadow:rgba(58,48,39,.10);
+    --maxw:1160px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Assistant',sans-serif;
+    background:var(--cream);
+    color:var(--espresso);
+    line-height:1.7;
+    font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:'Frank Ruhl Libre',serif;font-weight:500;line-height:1.2;letter-spacing:-.01em}
+  a{text-decoration:none;color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+
+  /* ---------- קו זהב חתימה ---------- */
+  .gold-line{
+    display:flex;align-items:center;gap:14px;
+    color:var(--gold-deep);font-size:.8rem;letter-spacing:.22em;
+    font-weight:600;text-transform:uppercase;
+  }
+  .gold-line::before,.gold-line.center::after{
+    content:"";height:1px;width:48px;background:linear-gradient(90deg,transparent,var(--gold));
+  }
+  .gold-line.center{justify-content:center}
+  .gold-line.center::before{background:linear-gradient(270deg,transparent,var(--gold))}
+
+  /* ---------- כפתורים ---------- */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 32px;border-radius:50px;font-weight:600;font-size:1rem;
+    cursor:pointer;border:none;transition:transform .25s ease,box-shadow .25s ease;
+    font-family:'Assistant',sans-serif;
+  }
+  .btn-primary{
+    background:var(--espresso);color:var(--cream);
+    box-shadow:0 8px 24px var(--shadow);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(58,48,39,.22)}
+  .btn-gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));color:var(--white)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(154,124,78,.35)}
+  .btn-ghost{background:transparent;border:1.5px solid var(--gold);color:var(--gold-deep)}
+  .btn-ghost:hover{background:var(--gold);color:var(--white)}
+
+  /* ---------- כותרת עליונה ---------- */
+  header{
+    position:fixed;top:0;right:0;left:0;z-index:100;
+    padding:18px 0;transition:all .3s ease;
+  }
+  header.scrolled{
+    background:rgba(247,242,234,.88);
+    backdrop-filter:blur(14px);
+    box-shadow:0 1px 0 rgba(184,153,104,.18);
+    padding:12px 0;
+  }
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:'Frank Ruhl Libre',serif;font-size:1.6rem;font-weight:700;letter-spacing:.02em}
+  .logo span{color:var(--gold-deep)}
+  .nav-links{display:flex;gap:36px;align-items:center}
+  .nav-links a{font-size:.98rem;font-weight:500;color:var(--espresso-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--gold-deep)}
+  .nav-cta{padding:10px 22px;font-size:.92rem}
+  .menu-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:5px;padding:6px}
+  .menu-btn span{width:24px;height:2px;background:var(--espresso);transition:.3s}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    padding:120px 0 80px;overflow:hidden;
+  }
+  .hero-glow{
+    position:absolute;top:-10%;left:-5%;width:55%;height:90%;
+    background:radial-gradient(circle,rgba(184,153,104,.20),transparent 65%);
+    filter:blur(20px);pointer-events:none;
+  }
+  .hero-glow.two{top:30%;left:auto;right:-10%;width:45%;
+    background:radial-gradient(circle,rgba(230,211,196,.35),transparent 65%)}
+  .hero-grid{
+    display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center;
+    position:relative;z-index:2;
+  }
+  .hero-eyebrow{margin-bottom:28px}
+  .hero h1{font-size:clamp(2.8rem,6vw,4.6rem);font-weight:500;margin-bottom:24px}
+  .hero h1 em{font-style:normal;color:var(--gold-deep);position:relative}
+  .hero h1 em::after{
+    content:"";position:absolute;bottom:6px;right:0;left:0;height:10px;
+    background:rgba(184,153,104,.22);border-radius:4px;z-index:-1;
+  }
+  .hero-sub{font-size:1.18rem;color:var(--espresso-soft);max-width:480px;margin-bottom:38px;font-weight:300}
+  .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+  .hero-trust{margin-top:40px;display:flex;gap:32px;align-items:center}
+  .hero-trust .stat{display:flex;flex-direction:column}
+  .hero-trust .num{font-family:'Frank Ruhl Libre',serif;font-size:1.8rem;font-weight:700;color:var(--espresso)}
+  .hero-trust .lbl{font-size:.84rem;color:var(--espresso-soft);letter-spacing:.02em}
+  .hero-trust .divider{width:1px;height:38px;background:var(--blush)}
+
+  /* כרטיס תמונת hero */
+  .hero-visual{position:relative}
+  .hero-card{
+    position:relative;border-radius:24px;overflow:hidden;aspect-ratio:4/5;
+    background:linear-gradient(160deg,#EFE2D6,#E6D3C4 55%,#D8BFA8);
+    box-shadow:0 30px 60px rgba(58,48,39,.18);
+  }
+  /* תמונת ה-hero (מעל גרדיאנט ה-fallback של .hero-card) */
+  .hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+  .hero-card-img{
+    position:absolute;inset:0;z-index:2;
+    background:linear-gradient(to top,rgba(58,48,39,.5),transparent 50%);
+    display:flex;align-items:flex-end;padding:32px;
+  }
+  .hero-card-tag{
+    background:rgba(247,242,234,.92);backdrop-filter:blur(8px);
+    padding:16px 22px;border-radius:16px;
+  }
+  .hero-card-tag .t{font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.1rem}
+  .hero-card-tag .s{font-size:.9rem;color:var(--espresso-soft)}
+  .hero-badge{
+    position:absolute;top:24px;left:24px;background:var(--white);
+    padding:12px 18px;border-radius:50px;box-shadow:0 8px 20px var(--shadow);
+    font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:8px;
+  }
+  .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+
+  /* ---------- מקטעים כלליים ---------- */
+  section{padding:100px 0}
+  .sec-head{margin-bottom:60px;max-width:620px}
+  .sec-head.center{margin-inline:auto;text-align:center}
+  .sec-head h2{font-size:clamp(2rem,4vw,3rem);margin:20px 0 16px}
+  .sec-head p{color:var(--espresso-soft);font-size:1.1rem;font-weight:300}
+
+  /* ---------- שירותים ---------- */
+  .services{background:var(--white)}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .svc-card{
+    background:var(--cream);border-radius:20px;padding:36px 32px;
+    border:1px solid transparent;transition:all .3s ease;position:relative;overflow:hidden;
+  }
+  .svc-card::before{
+    content:"";position:absolute;top:0;right:0;left:0;height:3px;
+    background:linear-gradient(90deg,var(--gold),var(--blush));
+    transform:scaleX(0);transform-origin:right;transition:transform .35s ease;
+  }
+  .svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 40px var(--shadow);border-color:rgba(184,153,104,.25)}
+  .svc-card:hover::before{transform:scaleX(1)}
+  .svc-icon{
+    width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--blush),var(--cream-deep));margin-bottom:22px;font-size:1.5rem;
+  }
+  .svc-card h3{font-size:1.4rem;margin-bottom:12px}
+  .svc-card p{color:var(--espresso-soft);font-size:1rem;font-weight:300;margin-bottom:18px}
+  .svc-price{display:flex;align-items:baseline;gap:8px;color:var(--gold-deep);font-weight:600}
+  .svc-price .from{font-size:.85rem;color:var(--espresso-soft);font-weight:400}
+  .svc-price .amt{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;font-weight:700}
+
+  /* ---------- למה אנחנו ---------- */
+  .why{position:relative}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;margin-top:20px}
+  .why-item{text-align:center}
+  .why-num{
+    font-family:'Frank Ruhl Libre',serif;font-size:2.4rem;font-weight:700;color:var(--gold);
+    margin-bottom:10px;
+  }
+  .why-item h3{font-size:1.2rem;margin-bottom:10px}
+  .why-item p{color:var(--espresso-soft);font-size:.96rem;font-weight:300}
+
+  /* ---------- גלריה ---------- */
+  .gallery{background:var(--white)}
+  .gal-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  /* החלף את הרקעים בתמונות אמיתיות מהמכון */
+  .gal-item{
+    border-radius:18px;aspect-ratio:1;position:relative;overflow:hidden;cursor:pointer;
+    transition:transform .35s ease;
+  }
+  .gal-item:hover{transform:scale(1.03)}
+  .gal-item img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .5s ease}
+  .gal-item:hover img{transform:scale(1.06)}
+  .gal-item.tall{aspect-ratio:1/1.4;grid-row:span 1}
+  .gal-item:nth-child(1){background:linear-gradient(160deg,#E6D3C4,#C9A98C)}
+  .gal-item:nth-child(2){background:linear-gradient(160deg,#EFE2D6,#D8BFA8)}
+  .gal-item:nth-child(3){background:linear-gradient(160deg,#E8D8C8,#B89968)}
+  .gal-item:nth-child(4){background:linear-gradient(160deg,#F0E8DB,#D6C0A8)}
+  .gal-item:nth-child(5){background:linear-gradient(160deg,#DCC6B0,#B89968)}
+  .gal-item:nth-child(6){background:linear-gradient(160deg,#EFE2D6,#CBB397)}
+  .gal-item::after{
+    content:attr(data-label);position:absolute;bottom:16px;right:16px;z-index:3;
+    background:rgba(247,242,234,.9);padding:6px 14px;border-radius:30px;
+    font-size:.82rem;font-weight:600;color:var(--espresso);
+  }
+  .gal-item::before{
+    content:"";position:absolute;inset:0;z-index:2;
+    background:linear-gradient(to top,rgba(58,48,39,.28),transparent 55%);
+  }
+
+  /* ---------- המלצות ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .testi-card{
+    background:var(--white);border-radius:20px;padding:34px 30px;
+    box-shadow:0 8px 24px var(--shadow);position:relative;
+  }
+  .testi-quote{font-family:'Frank Ruhl Libre',serif;font-size:3rem;color:var(--blush);
+    line-height:1;position:absolute;top:20px;left:24px}
+  .testi-stars{color:var(--gold);letter-spacing:2px;margin-bottom:16px}
+  .testi-card p{font-size:1.05rem;font-weight:300;margin-bottom:22px;position:relative;z-index:1}
+  .testi-author{display:flex;align-items:center;gap:14px}
+  .testi-avatar{
+    width:46px;height:46px;border-radius:50%;
+    background:linear-gradient(135deg,var(--blush),var(--rose-taupe));
+    display:flex;align-items:center;justify-content:center;color:var(--white);
+    font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.1rem;
+  }
+  .testi-author .name{font-weight:600;font-size:.98rem}
+  .testi-author .role{font-size:.85rem;color:var(--espresso-soft)}
+
+  /* ---------- CTA יצירת קשר ---------- */
+  .contact{
+    background:linear-gradient(160deg,var(--espresso),#2A221B);
+    color:var(--cream);border-radius:32px;margin:0 24px;
+    max-width:var(--maxw);margin-inline:auto;padding:0;overflow:hidden;
+  }
+  .contact-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:0}
+  .contact-text{padding:70px 60px}
+  .contact-text .gold-line{color:var(--gold)}
+  .contact-text .gold-line::before{background:linear-gradient(90deg,transparent,var(--gold))}
+  .contact-text h2{color:var(--cream);font-size:clamp(2rem,4vw,2.8rem);margin:20px 0 18px}
+  .contact-text p{color:rgba(247,242,234,.75);font-size:1.1rem;font-weight:300;margin-bottom:34px}
+  .contact-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .contact-info{
+    background:rgba(184,153,104,.12);padding:70px 50px;
+    display:flex;flex-direction:column;gap:26px;justify-content:center;
+  }
+  .info-row{display:flex;gap:16px;align-items:flex-start}
+  .info-icon{font-size:1.3rem;margin-top:2px}
+  .info-row .lbl{font-size:.85rem;color:var(--gold);letter-spacing:.08em;margin-bottom:4px;text-transform:uppercase}
+  .info-row .val{font-size:1.05rem;color:var(--cream);font-weight:500}
+  .info-row .val a:hover{color:var(--gold)}
+
+  /* ---------- כפתור וואטסאפ צף ---------- */
+  .wa-float{
+    position:fixed;bottom:24px;left:24px;z-index:90;
+    width:60px;height:60px;border-radius:50%;
+    background:#25D366;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 24px rgba(37,211,102,.4);cursor:pointer;
+    transition:transform .25s ease;animation:waPulse 2.6s infinite;
+  }
+  .wa-float:hover{transform:scale(1.08)}
+  .wa-float svg{width:32px;height:32px;fill:var(--white)}
+  @keyframes waPulse{0%{box-shadow:0 8px 24px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,.5)}
+    70%{box-shadow:0 8px 24px rgba(37,211,102,.4),0 0 0 16px rgba(37,211,102,0)}
+    100%{box-shadow:0 8px 24px rgba(37,211,102,.4),0 0 0 0 rgba(37,211,102,0)}}
+
+  /* ---------- פוטר ---------- */
+  footer{padding:60px 0 40px;border-top:1px solid var(--blush);margin-top:100px}
+  .footer-grid{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:24px}
+  .footer-logo{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;font-weight:700}
+  .footer-logo span{color:var(--gold-deep)}
+  .footer-social{display:flex;gap:16px}
+  .footer-social a{
+    width:40px;height:40px;border-radius:50%;border:1px solid var(--blush);
+    display:flex;align-items:center;justify-content:center;transition:all .25s;color:var(--espresso-soft);
+  }
+  .footer-social a:hover{background:var(--gold);color:var(--white);border-color:var(--gold)}
+  .footer-copy{font-size:.88rem;color:var(--espresso-soft);text-align:center;margin-top:30px}
+
+  /* ---------- אנימציית חשיפה ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- רספונסיב ---------- */
+  @media(max-width:900px){
+    .nav-links{display:none}
+    .menu-btn{display:flex}
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .hero-visual{max-width:420px;margin-inline:auto;width:100%}
+    .svc-grid,.testi-grid{grid-template-columns:1fr}
+    .why-grid{grid-template-columns:1fr 1fr;gap:32px}
+    .gal-grid{grid-template-columns:1fr 1fr}
+    .contact-inner{grid-template-columns:1fr}
+    .contact-text{padding:50px 32px}
+    .contact-info{padding:40px 32px}
+    section{padding:70px 0}
+    .nav-links.open{
+      display:flex;position:absolute;top:100%;right:24px;left:24px;
+      flex-direction:column;background:var(--white);padding:24px;border-radius:18px;
+      box-shadow:0 14px 40px var(--shadow);gap:18px;
+    }
+  }
+  @media(max-width:520px){
+    .hero-trust{gap:18px}
+    .hero-actions{flex-direction:column}
+    .hero-actions .btn{justify-content:center}
+    .why-grid{grid-template-columns:1fr}
+    .contact{margin:0 16px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#" class="logo">אִיווֹ<span>רי</span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#services">טיפולים</a>
+      <a href="#why">למה אנחנו</a>
+      <a href="#gallery">גלריה</a>
+      <a href="#testimonials">המלצות</a>
+      <a href="#contact" class="btn btn-gold nav-cta">קביעת תור</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="תפריט">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow two"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-content">
+      <div class="gold-line hero-eyebrow">מכון יופי בוטיק · הרצליה</div>
+      <h1>היופי שלך,<br>ב<em>ידיים הנכונות</em></h1>
+      <p class="hero-sub">טיפולי פנים מתקדמים וטיפוח עור מותאם אישית, בחלל רגוע ופרטי. כל טיפול מתחיל באבחון אישי — כי לעור שלך מגיע יחס שמתאים בדיוק לו.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary wa-link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg>
+          קביעת תור בוואטסאפ
+        </a>
+        <a href="#services" class="btn btn-ghost">לתפריט הטיפולים</a>
+      </div>
+      <div class="hero-trust">
+        <div class="stat"><span class="num">+12</span><span class="lbl">שנות ניסיון</span></div>
+        <div class="divider"></div>
+        <div class="stat"><span class="num">+2,400</span><span class="lbl">לקוחות מרוצות</span></div>
+        <div class="divider"></div>
+        <div class="stat"><span class="num">4.9★</span><span class="lbl">דירוג ממוצע</span></div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-card">
+        <!-- להחלפה בתמונת מכון אמיתית: שנה את ה-src. אם התמונה לא נטענת, מוצג גרדיאנט -->
+        <img class="hero-photo" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=900&q=80" alt="טיפול פנים במכון אִיווֹרי" loading="eager" onerror="this.style.display='none'">
+        <div class="hero-card-img">
+          <div class="hero-card-tag">
+            <div class="t">טיפול פנים סיגנצ'ר</div>
+            <div class="s">60 דק' של רוגע מוחלט</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-badge"><span class="dot"></span>מוצרים טבעיים בלבד</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="gold-line center">תפריט טיפולים</div>
+      <h2>טיפולים שמותאמים בדיוק לעור שלך</h2>
+      <p>כל טיפול נבנה אחרי אבחון אישי. הנה הטיפולים המבוקשים ביותר במכון.</p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card reveal">
+        <div class="svc-icon">✨</div>
+        <h3>טיפול פנים עמוק</h3>
+        <p>ניקוי, פילינג עדין ומיצוק. משאיר את העור נקי, זוהר ונושם.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪290</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">💧</div>
+        <h3>הזרקות חומצה הילרונית</h3>
+        <p>החזרת לחות ונפח לעור, להבעה רעננה וטבעית ללא מאמץ.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪690</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🌿</div>
+        <h3>אנטי-אייג'ינג</h3>
+        <p>פרוטוקול ממוקד לקמטוטים וגמישות, עם טכנולוגיה ומוצרים מתקדמים.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪450</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🪷</div>
+        <h3>פילינג כימי</h3>
+        <p>חידוש עור, טשטוש כתמים ויישור גוון לקראת עור אחיד וחלק.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪380</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">💎</div>
+        <h3>טיפול הבהרה</h3>
+        <p>הבהרת כתמי שמש ופיגמנטציה, לעור בהיר ואחיד יותר בהדרגה.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪340</span></div>
+      </div>
+      <div class="svc-card reveal">
+        <div class="svc-icon">🌸</div>
+        <h3>טיפוח עיניים</h3>
+        <p>טיפול עדין לאזור העיניים — מפחית נפיחות, עיגולים וקווים דקים.</p>
+        <div class="svc-price"><span class="from">החל מ־</span><span class="amt">₪220</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY US ===================== -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="gold-line center">למה אִיווֹרי</div>
+      <h2>חוויה אחרת מהרגע שנכנסת</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-num">01</div>
+        <h3>אבחון אישי</h3>
+        <p>אנחנו לא מתחילים טיפול לפני שהבנו את העור שלך לעומק.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">02</div>
+        <h3>מוצרים מובחרים</h3>
+        <p>עבודה עם מותגים מקצועיים ומרכיבים טבעיים, ללא פשרות.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">03</div>
+        <h3>חלל פרטי ורגוע</h3>
+        <p>מכון בוטיק שקט, בלי המולה — רק את והטיפול שלך.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-num">04</div>
+        <h3>ליווי מתמשך</h3>
+        <p>המלצות טיפוח לבית והתאמות לאורך הדרך, לא רק ביום הטיפול.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== GALLERY ===================== -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="gold-line center">הצצה למכון</div>
+      <h2>האווירה שמחכה לך</h2>
+    </div>
+    <div class="gal-grid">
+      <!-- להחלפה בתמונות מהמכון: שנה את ה-src בכל img. נכשלת טעינה → גרדיאנט -->
+      <div class="gal-item" data-label="חלל הטיפולים"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80" alt="חלל הטיפולים" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="פינת קבלה"><img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?auto=format&fit=crop&w=600&q=80" alt="פינת קבלה" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="עור זוהר"><img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=600&q=80" alt="עור זוהר אחרי טיפול" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="מוצרי טיפוח"><img src="https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&w=600&q=80" alt="מוצרי טיפוח" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="חדר אבחון"><img src="https://images.unsplash.com/photo-1556760544-74068565f05c?auto=format&fit=crop&w=600&q=80" alt="חדר אבחון" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="פינת המתנה"><img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?auto=format&fit=crop&w=600&q=80" alt="פינת המתנה" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="טיפול פנים"><img src="https://images.unsplash.com/photo-1620916297397-a4a5402a3c6c?auto=format&fit=crop&w=600&q=80" alt="טיפול פנים" loading="lazy" onerror="this.style.display='none'"></div>
+      <div class="gal-item" data-label="פרטים קטנים"><img src="https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&w=600&q=80" alt="פרטים קטנים" loading="lazy" onerror="this.style.display='none'"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="gold-line center">לקוחות מספרות</div>
+      <h2>הן כבר חוו את ההבדל</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>הגעתי עם עור בעייתי שנים. אחרי סדרת טיפולים העור שלי נראה אחרת לגמרי. יחס אישי ומקצועי ברמה אחרת.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ד</div>
+          <div><div class="name">דנה ל.</div><div class="role">לקוחה קבועה</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>המקום הכי רגוע שהייתי בו. יוצאת מכל טיפול עם עור זוהר ועם תחושה שטיפלו בי באמת. ממליצה בחום.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">ש</div>
+          <div><div class="name">שירן מ.</div><div class="role">טיפולי אנטי-אייג'ינג</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>קבעתי תור בוואטסאפ תוך דקה והכול היה זורם. מקצועיות, ניקיון וחוויה שמרגישה כמו פינוק אמיתי.</p>
+        <div class="testi-author">
+          <div class="testi-avatar">נ</div>
+          <div><div class="name">נועה ק.</div><div class="role">טיפול פנים ראשון</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CONTACT / CTA ===================== -->
+<section id="contact">
+  <div class="contact">
+    <div class="contact-inner">
+      <div class="contact-text">
+        <div class="gold-line">קביעת תור</div>
+        <h2>מוכנה לפנק את העור שלך?</h2>
+        <p>כתבי לנו בוואטסאפ ונמצא יחד את הטיפול והמועד שמתאימים לך. בלי טפסים מסובכים — פשוט הודעה אחת.</p>
+        <div class="contact-actions">
+          <a class="btn btn-gold wa-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24z"/></svg>
+            שליחת הודעה
+          </a>
+          <a href="tel:+972500000000" class="btn btn-ghost" style="border-color:rgba(184,153,104,.5);color:var(--gold)">חיוג ישיר</a>
+        </div>
+      </div>
+      <div class="contact-info">
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <div><div class="lbl">כתובת</div><div class="val">רחוב הנדיב 12, הרצליה</div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🕐</span>
+          <div><div class="lbl">שעות פעילות</div><div class="val">א׳–ה׳ 09:00–20:00 · ו׳ 09:00–14:00</div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">📞</span>
+          <div><div class="lbl">טלפון</div><div class="val"><a href="tel:+972500000000">050-000-0000</a></div></div>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">✉️</span>
+          <div><div class="lbl">אימייל</div><div class="val"><a href="mailto:hello@ivory.co.il">hello@ivory.co.il</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-logo">אִיווֹ<span>רי</span> · מכון יופי</div>
+      <div class="footer-social">
+        <a href="#" aria-label="אינסטגרם">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.7.1-1.1.1-1.7.2-2.1.4-.5.2-.9.4-1.3.8-.4.4-.6.8-.8 1.3-.2.4-.3 1-.4 2.1C2.6 9.7 2.6 10.1 2.6 12s0 2.3.1 3.4c.1 1.1.2 1.7.4 2.1.2.5.4.9.8 1.3.4.4.8.6 1.3.8.4.2 1 .3 2.1.4 1.2.1 1.6.1 4.7.1s3.5 0 4.7-.1c1.1-.1 1.7-.2 2.1-.4.5-.2.9-.4 1.3-.8.4-.4.6-.8.8-1.3.2-.4.3-1 .4-2.1.1-1.2.1-1.6.1-3.4s0-2.3-.1-3.4c-.1-1.1-.2-1.7-.4-2.1-.2-.5-.4-.9-.8-1.3-.4-.4-.8-.6-1.3-.8-.4-.2-1-.3-2.1-.4-1.2-.1-1.6-.1-4.7-.1zm0 3.1a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8zm0 8.1a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4zm6.2-8.3a1.1 1.1 0 11-2.3 0 1.1 1.1 0 012.3 0z"/></svg>
+        </a>
+        <a href="#" class="wa-link" aria-label="וואטסאפ">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.747-.962z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-copy">© 2026 אִיווֹרי מכון יופי · כל הזכויות שמורות · נבנה באהבה</div>
+  </div>
+</footer>
+
+<!-- ===================== כפתור וואטסאפ צף ===================== -->
+<a class="wa-float wa-link" aria-label="וואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 001.51 5.26l-.999 3.648 3.747-.962zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+</a>
+
+<script>
+  // =================================================================
+  // הגדרות — ערוך כאן בלבד
+  // =================================================================
+  const WHATSAPP_PHONE = "972500000000"; // ← החלף במספר האמיתי (קידומת מדינה, בלי + ובלי 0 מוביל)
+  const WHATSAPP_MSG   = "היי, אשמח לקבוע תור לטיפול 🌸 מה הזמינות הקרובה?";
+
+  // בניית קישור וואטסאפ לכל אלמנט עם class="wa-link"
+  const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(WHATSAPP_MSG)}`;
+  document.querySelectorAll('.wa-link').forEach(el=>{
+    el.setAttribute('href', waUrl);
+    el.setAttribute('target','_blank');
+    el.setAttribute('rel','noopener');
+  });
+
+  // כותרת דביקה
+  const header = document.getElementById('header');
+  const onScroll = ()=> header.classList.toggle('scrolled', window.scrollY > 30);
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // תפריט מובייל
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', ()=> navLinks.classList.toggle('open'));
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+  // אנימציית חשיפה בגלילה
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=> io.observe(el));
+</script>
+</body>
+</html>

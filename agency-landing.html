@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>בניית אתרים | סטודיו — מהיום לא צריך לשלם הון על אתר</title>
+<meta name="description" content="בניית אתרים בישראל במודל שקוף: אפיון, עיצוב והקמה מלאה של אתרי תדמית וחנות, במחיר ידוע מראש וללא עלויות נסתרות." />
+
+<!-- ====== SWAP PER CLIENT: brand name, colors (:root), phone, email, links ====== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  /* ——— Brand tokens (change these to rebrand the whole site) ——— */
+  --ink:#13182b;
+  --ink-soft:#46506b;
+  --paper:#fbfaf7;
+  --card:#ffffff;
+  --line:#ece8e1;
+  --accent:#ff4d2e;       /* primary CTA / highlight */
+  --accent-2:#0fb3a3;     /* secondary */
+  --accent-3:#ffb020;     /* tertiary / sale */
+  --accent-ink:#fff;
+  --radius:22px;
+  --radius-sm:14px;
+  --shadow:0 18px 50px -22px rgba(19,24,43,.28);
+  --shadow-soft:0 10px 30px -18px rgba(19,24,43,.25);
+  --maxw:1180px;
+  --display:"Rubik",system-ui,sans-serif;
+  --body:"Assistant",system-ui,sans-serif;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--display);line-height:1.12;font-weight:800;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:22px}
+section{position:relative}
+
+/* ——— Buttons ——— */
+.btn{
+  display:inline-flex;align-items:center;gap:.55rem;
+  font-family:var(--display);font-weight:700;font-size:1.02rem;
+  padding:.95rem 1.7rem;border-radius:999px;cursor:pointer;border:0;
+  transition:transform .18s ease, box-shadow .18s ease, background .18s;
+  white-space:nowrap;
+}
+.btn-primary{background:var(--accent);color:var(--accent-ink);box-shadow:0 12px 26px -10px rgba(255,77,46,.6)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 18px 34px -12px rgba(255,77,46,.7)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{transform:translateY(-2px)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink)}
+
+/* ——— Top promo bar ——— */
+.topbar{
+  background:linear-gradient(90deg,var(--ink),#1f2746);
+  color:#fff;text-align:center;font-family:var(--display);font-weight:600;
+  font-size:.92rem;padding:.55rem 16px;position:relative;z-index:60;
+}
+.topbar a{color:var(--accent-3);font-weight:700;border-bottom:1.5px solid transparent}
+.topbar a:hover{border-color:var(--accent-3)}
+
+/* ——— Header / nav ——— */
+header{position:sticky;top:0;z-index:50;background:rgba(251,250,247,.82);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:72px}
+.brand{font-family:var(--display);font-weight:900;font-size:1.5rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.1rem}
+.brand .dot{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.55rem;list-style:none}
+.nav-links a{font-weight:600;font-size:.98rem;color:var(--ink-soft);position:relative;padding:.2rem 0}
+.nav-links a::after{content:"";position:absolute;inset-inline:0;bottom:-3px;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .2s;transform-origin:right}
+.nav-links a:hover{color:var(--ink)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{display:flex;align-items:center;gap:.6rem}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:8px}
+.burger span{display:block;width:24px;height:2.4px;background:var(--ink);margin:5px 0;border-radius:2px;transition:.25s}
+
+/* ——— Hero ——— */
+.hero{padding:74px 0 60px;text-align:center;position:relative;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;z-index:0}
+.blob.b1{width:520px;height:520px;background:#ffd9cf;top:-180px;inset-inline-start:-120px}
+.blob.b2{width:460px;height:460px;background:#c7f3ee;top:60px;inset-inline-end:-160px}
+.hero .wrap{position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:.45rem 1rem;font-weight:600;font-size:.86rem;color:var(--ink-soft);box-shadow:var(--shadow-soft)}
+.eyebrow b{color:var(--accent)}
+.hero h1{font-size:clamp(2.5rem,6.2vw,4.6rem);font-weight:900;margin:1.3rem 0 .4rem}
+.hero h1 .price{color:var(--accent);white-space:nowrap}
+.hero .sub{font-family:var(--display);font-weight:600;font-size:clamp(1.15rem,2.4vw,1.6rem);color:var(--ink-soft);margin-bottom:1.8rem}
+.hero-cta{display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap}
+.fineprint{margin-top:1.1rem;font-size:.82rem;color:#8a92a8}
+.hero-strip{margin-top:2.6rem;font-family:var(--display);font-weight:700;font-size:clamp(1.3rem,3vw,1.9rem);color:var(--ink);opacity:.9}
+
+/* ——— Section heads ——— */
+.sec-head{text-align:center;max-width:720px;margin:0 auto 2.6rem}
+.sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem)}
+.sec-head p{color:var(--ink-soft);font-size:1.1rem;margin-top:.7rem}
+.kicker{display:inline-block;font-family:var(--display);font-weight:700;color:var(--accent-2);
+  letter-spacing:.04em;text-transform:uppercase;font-size:.82rem;margin-bottom:.6rem}
+
+/* ——— Features grid ——— */
+.features{padding:60px 0}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem 1.6rem;
+  box-shadow:var(--shadow-soft);transition:transform .2s, box-shadow .2s}
+.fcard:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+.ficon{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;margin-bottom:1.1rem;
+  background:linear-gradient(135deg,#fff1ec,#ffe2da)}
+.ficon svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:1.9}
+.fcard:nth-child(2) .ficon{background:linear-gradient(135deg,#e3faf6,#cdf2ec)} .fcard:nth-child(2) .ficon svg{stroke:var(--accent-2)}
+.fcard:nth-child(4) .ficon{background:linear-gradient(135deg,#e3faf6,#cdf2ec)} .fcard:nth-child(4) .ficon svg{stroke:var(--accent-2)}
+.fcard:nth-child(3) .ficon{background:linear-gradient(135deg,#fff6e0,#ffedc2)} .fcard:nth-child(3) .ficon svg{stroke:var(--accent-3)}
+.fcard:nth-child(6) .ficon{background:linear-gradient(135deg,#fff6e0,#ffedc2)} .fcard:nth-child(6) .ficon svg{stroke:var(--accent-3)}
+.fcard h3{font-size:1.22rem;margin-bottom:.45rem}
+.fcard p{color:var(--ink-soft);font-size:.98rem}
+
+/* ——— Promo banner ——— */
+.promo{padding:30px 0 60px}
+.promo-box{background:linear-gradient(120deg,var(--ink),#222c52);color:#fff;border-radius:30px;
+  padding:clamp(2rem,5vw,3.6rem);display:grid;grid-template-columns:1.2fr .9fr;gap:2rem;align-items:center;
+  position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.promo-box::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,77,46,.5),transparent 70%);top:-120px;inset-inline-start:-80px}
+.promo-tag{display:inline-block;background:var(--accent-3);color:var(--ink);font-family:var(--display);
+  font-weight:800;padding:.4rem 1rem;border-radius:999px;font-size:.9rem;margin-bottom:1rem}
+.promo-box h2{font-size:clamp(1.8rem,4vw,2.7rem);position:relative}
+.promo-list{list-style:none;margin:1.2rem 0;display:grid;gap:.6rem;position:relative}
+.promo-list li{display:flex;gap:.6rem;align-items:flex-start;font-size:1.05rem}
+.promo-list .ok{color:var(--accent-2);font-weight:900;font-family:var(--display)}
+.price-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);
+  padding:1.6rem;text-align:center;position:relative;backdrop-filter:blur(6px)}
+.price-card .was{color:#aeb6cf;text-decoration:line-through;font-size:1rem}
+.price-card .now{font-family:var(--display);font-weight:900;font-size:2.8rem;color:#fff;margin:.2rem 0}
+.price-card .now small{font-size:1.2rem}
+.price-card .btn{width:100%;justify-content:center;margin-top:1rem}
+
+/* ——— Lead + stats ——— */
+.lead{padding:60px 0;display:grid;grid-template-columns:1fr 1fr;gap:2.4rem;align-items:center}
+.form-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:2rem;box-shadow:var(--shadow-soft)}
+.form-card h3{font-size:1.5rem;margin-bottom:1.2rem}
+.field{margin-bottom:1rem}
+.field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:.35rem;color:var(--ink-soft)}
+.field input,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:var(--radius-sm);
+  padding:.8rem 1rem;font-family:var(--body);font-size:1rem;background:#fff;transition:border .15s}
+.field input:focus,.field textarea:focus{outline:none;border-color:var(--accent)}
+.consent{display:flex;gap:.55rem;align-items:flex-start;font-size:.82rem;color:var(--ink-soft);margin:.4rem 0 1rem}
+.consent input{margin-top:.25rem}
+.form-card .btn{width:100%;justify-content:center}
+.form-msg{margin-top:.8rem;font-weight:600;color:var(--accent-2);min-height:1.2rem}
+.stats{display:grid;gap:1.4rem}
+.stat{display:flex;align-items:baseline;gap:.8rem;border-bottom:1px dashed var(--line);padding-bottom:1.3rem}
+.stat:last-child{border:0}
+.stat .num{font-family:var(--display);font-weight:900;font-size:clamp(2.4rem,5vw,3.4rem);color:var(--accent);line-height:1}
+.stat .lbl{font-size:1.05rem;color:var(--ink-soft);font-weight:600}
+
+/* ——— Packages ——— */
+.packages{padding:60px 0}
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem;align-items:stretch}
+.pcard{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.7rem 1.5rem;
+  display:flex;flex-direction:column;box-shadow:var(--shadow-soft);position:relative;transition:transform .2s,box-shadow .2s}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.pcard.featured{border:2px solid var(--accent);box-shadow:0 22px 48px -20px rgba(255,77,46,.45)}
+.pcard .ribbon{position:absolute;top:-13px;inset-inline-start:1.5rem;background:var(--accent);color:#fff;
+  font-family:var(--display);font-weight:700;font-size:.78rem;padding:.3rem .9rem;border-radius:999px}
+.pcard .ptype{font-size:.92rem;color:var(--ink-soft);min-height:3.2rem}
+.pcard h3{font-size:1.18rem;margin:.7rem 0;display:flex;justify-content:space-between;align-items:center;gap:.4rem}
+.pcard h3 .amt{color:var(--accent);white-space:nowrap}
+.pcard .detail{font-size:.86rem;color:var(--ink-soft);line-height:1.7;border-top:1px solid var(--line);padding-top:.9rem;margin-bottom:1.1rem}
+.pcard .detail b{color:var(--ink)}
+.pcard .btn{margin-top:auto;width:100%;justify-content:center}
+
+/* ——— Why a website ——— */
+.why{padding:60px 0}
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.1rem}
+.why-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.6rem;display:flex;gap:1rem;box-shadow:var(--shadow-soft)}
+.why-item .n{font-family:var(--display);font-weight:900;font-size:1.6rem;color:#fff;background:var(--ink);
+  min-width:48px;height:48px;border-radius:14px;display:grid;place-items:center}
+.why-item:nth-child(odd) .n{background:var(--accent)}
+.why-item h3{font-size:1.16rem;margin-bottom:.35rem}
+.why-item p{color:var(--ink-soft);font-size:.96rem}
+
+/* ——— Portfolio ——— */
+.portfolio{padding:60px 0}
+.pf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.pf{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:4/3;
+  display:flex;align-items:flex-end;color:#fff;padding:1.1rem;box-shadow:var(--shadow-soft);
+  background-size:cover;transition:transform .25s}
+.pf:hover{transform:scale(1.02)}
+.pf::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,11,22,.78),transparent 60%)}
+.pf .meta{position:relative;z-index:1}
+.pf .meta .cat{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;opacity:.85;font-weight:700;font-family:var(--display)}
+.pf .meta .name{font-family:var(--display);font-weight:800;font-size:1.05rem}
+.pf-cta{text-align:center;margin-top:2rem}
+
+/* ——— Testimonials ——— */
+.tst{padding:60px 0;background:linear-gradient(180deg,#fff,var(--paper))}
+.tslider{position:relative;max-width:760px;margin:0 auto;text-align:center}
+.tslide{display:none;animation:fade .5s ease}
+.tslide.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tavatar{width:84px;height:84px;border-radius:50%;margin:0 auto 1.2rem;background:linear-gradient(135deg,var(--accent),var(--accent-3));
+  display:grid;place-items:center;color:#fff;font-family:var(--display);font-weight:900;font-size:2rem}
+.tquote{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,3vw,1.9rem);line-height:1.4}
+.tname{margin-top:1.1rem;font-weight:700;color:var(--ink)}
+.trole{color:var(--ink-soft);font-size:.95rem}
+.tdots{display:flex;gap:.5rem;justify-content:center;margin-top:1.8rem}
+.tdots button{width:10px;height:10px;border-radius:50%;border:0;background:var(--line);cursor:pointer;transition:.2s;padding:0}
+.tdots button.active{background:var(--accent);width:26px;border-radius:6px}
+
+/* ——— Final CTA ——— */
+.final{padding:70px 0}
+.final-box{background:var(--accent);color:#fff;border-radius:30px;padding:clamp(2.4rem,5vw,4rem);text-align:center;
+  position:relative;overflow:hidden;box-shadow:0 28px 60px -26px rgba(255,77,46,.6)}
+.final-box::before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;
+  background:rgba(255,255,255,.12);top:-180px;inset-inline-end:-120px}
+.final-box h2{font-size:clamp(2rem,4.5vw,3rem);position:relative}
+.final-box p{font-size:1.15rem;opacity:.95;max-width:620px;margin:1rem auto 1.8rem;position:relative}
+.final-box .hero-cta .btn-ghost{background:#fff;border-color:#fff}
+.final-box .btn-dark{background:var(--ink)}
+
+/* ——— Footer ——— */
+footer{background:var(--ink);color:#c4cae0;padding:56px 0 30px;font-size:.95rem}
+.fgrid2{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:2rem}
+footer h4{color:#fff;font-size:1.05rem;margin-bottom:1rem}
+footer ul{list-style:none;display:grid;gap:.55rem}
+footer a:hover{color:#fff}
+.fbrand{font-family:var(--display);font-weight:900;font-size:1.6rem;color:#fff}
+.fbrand .dot{color:var(--accent)}
+.social{display:flex;gap:.6rem;margin-top:1.1rem}
+.social a{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:.2s}
+.social a:hover{background:var(--accent)}
+.social svg{width:18px;height:18px;fill:#fff}
+.fbottom{border-top:1px solid rgba(255,255,255,.1);margin-top:2.4rem;padding-top:1.4rem;
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.6rem;color:#8b93b3;font-size:.85rem}
+.fbottom a{color:#8b93b3}
+
+/* ——— Responsive ——— */
+@media(max-width:980px){
+  .fgrid{grid-template-columns:repeat(2,1fr)}
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .pf-grid{grid-template-columns:repeat(2,1fr)}
+  .promo-box{grid-template-columns:1fr}
+  .lead{grid-template-columns:1fr}
+  .fgrid2{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .nav-links,.nav-cta .btn-ghost{display:none}
+  .burger{display:block}
+  .nav-links.open{display:flex;position:absolute;top:72px;inset-inline:0;flex-direction:column;
+    background:var(--paper);padding:1.2rem 22px;border-bottom:1px solid var(--line);gap:1rem;z-index:40}
+  .fgrid,.pgrid,.pf-grid,.why-grid,.fgrid2{grid-template-columns:1fr}
+  .hero{padding:48px 0 40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP PROMO ============ -->
+<div class="topbar">מבצע פתיחת קיץ — אתר עד 20 עמודים ב-1,550 ₪ בלבד &nbsp;·&nbsp; <a href="#packages">לפרטים המלאים ←</a></div>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">סטודיו<span class="dot">.</span></a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">למה אנחנו</a></li>
+        <li><a href="#packages">מחירון</a></li>
+        <li><a href="#portfolio">אתרים שבנינו</a></li>
+        <li><a href="#why">שירותים</a></li>
+        <li><a href="#contact">צרו קשר</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost">דברו איתנו</a>
+      <a href="#packages" class="btn btn-primary">הצטרפו עכשיו</a>
+      <button class="burger" id="burger" aria-label="תפריט"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="wrap">
+    <span class="eyebrow">מודל שקוף · מחיר ידוע מראש · <b>ללא עלויות נסתרות</b></span>
+    <h1>בניית אתרים מדהימים<br>ב-<span class="price">1,900 ₪</span></h1>
+    <p class="sub">מהיום לא צריך לשלם הון על אתר לעסק</p>
+    <div class="hero-cta">
+      <a href="#packages" class="btn btn-primary">הצטרפו וחסכו אלפי שקלים</a>
+      <a href="#portfolio" class="btn btn-ghost">לתיק העבודות</a>
+    </div>
+    <p class="fineprint">*לפני מע"מ. לא כולל דומיין ואחסון — אך נסייע לכם ברכישתם.</p>
+    <p class="hero-strip">אפיון · עיצוב · הקמה מלאה — הכל במקום אחד</p>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">מה כלול בכל אתר</span>
+      <h2>הכל מובנה. בלי הפתעות.</h2>
+      <p>צוות מקצועי שמלווה אתכם מהרעיון ועד לאתר חי שמביא לקוחות.</p>
+    </div>
+    <div class="fgrid">
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><path d="M12 3l8 4-8 4-8-4 8-4z"/><path d="M4 11l8 4 8-4"/><path d="M4 15l8 4 8-4"/></svg></div>
+        <h3>אפיון ועיצוב מקצועי</h3>
+        <p>אסטרטגיה ותכנון, כתיבת תוכן, תמונות, אייקונים ופונטים — הכל בהתאמה אישית למותג שלכם.</p>
+      </div>
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/><path d="M8 21h8"/></svg></div>
+        <h3>עד 20 עמודים + בלוג</h3>
+        <p>אתרים גדולים וקטנים, עד 20 עמודים, כולל בלוג מובנה לפרסום מאמרים וקידום אורגני.</p>
+      </div>
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>מוכן בשיא המהירות</h3>
+        <p>תקבלו אתר ראשוני להערות תוך 7 ימי עסקים בלבד — בלי לחכות חודשים.</p>
+      </div>
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg></div>
+        <h3>מותאם למחשב ולמובייל</h3>
+        <p>כולל כפתורי חיוג, וואטסאפ, קישורים לרשתות חברתיות וטופס השארת פרטים.</p>
+      </div>
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-9A8.4 8.4 0 1 1 21 11.5z"/></svg></div>
+        <h3>שירות לקוחות מכל הלב</h3>
+        <p>לא עוזבים לכם את היד. תמיכה מהירה וזמינה לאורך כל הדרך.</p>
+      </div>
+      <div class="fcard">
+        <div class="ficon"><svg viewBox="0 0 24 24"><path d="M12 20v-6"/><path d="M9 17l3 3 3-3"/><path d="M4 7h16"/><path d="M6 7V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2"/></svg></div>
+        <h3>שינויים עתידיים בחינם</h3>
+        <p>עדכונים ותיקונים באתר ללא תשלום נוסף — חיסכון אמיתי לטווח הארוך.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROMO ============ -->
+<section class="promo">
+  <div class="wrap">
+    <div class="promo-box">
+      <div>
+        <span class="promo-tag">מבצע פתיחת קיץ</span>
+        <h2>אתר מקצועי לעסק — בפחות ממה שחשבתם</h2>
+        <ul class="promo-list">
+          <li><span class="ok">✓</span> אתר עד 20 עמודים ב-1,550 ₪ בלבד</li>
+          <li><span class="ok">✓</span> דומיין, אחסון ושירות שנתי ב-890 ₪</li>
+          <li><span class="ok">✓</span> עיצוב בהתאמה אישית + אחסון מאובטח HTTPS</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">וואו, אני רוצה</a>
+      </div>
+      <div class="price-card">
+        <div class="was">מחיר רגיל: 2,790 ₪</div>
+        <div class="now">2,440<small> ₪</small></div>
+        <div style="color:#aeb6cf;font-size:.85rem">1,550 ₪ הקמה + 890 ₪ שנתי</div>
+        <a href="#contact" class="btn btn-dark">תפסו את המבצע</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEAD + STATS ============ -->
+<section class="lead wrap" id="contact">
+  <div class="form-card">
+    <h3>רוצים שנחזור אליכם? השאירו פרטים</h3>
+    <div class="field"><label for="name">שם מלא</label><input id="name" type="text" placeholder="איך לפנות אליכם?"></div>
+    <div class="field"><label for="phone">טלפון</label><input id="phone" type="tel" placeholder="050-0000000"></div>
+    <div class="field"><label for="email">אימייל</label><input id="email" type="email" placeholder="name@example.com"></div>
+    <label class="consent"><input type="checkbox" id="consent"><span>אני מאשר/ת פנייה בטלפון ובאימייל ומסכים/ה למדיניות הפרטיות.</span></label>
+    <button class="btn btn-primary" id="submitBtn">שלחו ונחזור אליכם</button>
+    <div class="form-msg" id="formMsg"></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><span class="num">7</span><span class="lbl">שנים של מהפכה בבניית אתרים</span></div>
+    <div class="stat"><span class="num">+₪7M</span><span class="lbl">שקלים שחסכנו ללקוחותינו</span></div>
+    <div class="stat"><span class="num">+2,000</span><span class="lbl">לקוחות עסקיים מרוצים</span></div>
+  </div>
+</section>
+
+<!-- ============ PACKAGES ============ -->
+<section class="packages" id="packages">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">מחירון</span>
+      <h2>בחרו את החבילה שמתאימה לכם</h2>
+      <p>שולחים לנו לוגו — ואנחנו בונים לכם אתר מושלם. כל המחירים לפני מע"מ.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <p class="ptype">דף נחיתה או אתר תדמית בעל עמוד אחד נגלל. מושלם להתחלה מהירה.</p>
+        <h3>דף נחיתה <span class="amt">1,500 ₪</span></h3>
+        <div class="detail"><b>610 ₪</b> הקמה (במקום 1,010)<br><b>890 ₪</b> דומיין, אחסון ושירות שנתי</div>
+        <a href="#contact" class="btn btn-ghost">לפרטי החבילה</a>
+      </div>
+      <div class="pcard featured">
+        <span class="ribbon">הכי פופולרי</span>
+        <p class="ptype">מתאים לרוב העסקים. אתר עד 20 עמודים ללא סליקת אשראי.</p>
+        <h3>אתר לעסק <span class="amt">2,440 ₪</span></h3>
+        <div class="detail"><b>1,550 ₪</b> הקמה (במקום 1,900)<br><b>890 ₪</b> דומיין, אחסון ושירות שנתי</div>
+        <a href="#contact" class="btn btn-primary">לפרטי החבילה</a>
+      </div>
+      <div class="pcard">
+        <p class="ptype">אתר עם סליקת אשראי למכירת מוצרים, מנויים, ניהול תורים ועוד.</p>
+        <h3>חנות / סליקה <span class="amt">3,700 ₪</span></h3>
+        <div class="detail"><b>1,900 ₪</b> הקמה חד-פעמית<br><b>1,800 ₪</b> דומיין, אחסון ושירות שנתי</div>
+        <a href="#contact" class="btn btn-ghost">לפרטי החבילה</a>
+      </div>
+      <div class="pcard">
+        <p class="ptype">יש לכם אתר קיים שצריך פנים חדשות? נעצב לכם אותו מחדש.</p>
+        <h3>עיצוב מחדש <span class="amt">1,900 ₪</span></h3>
+        <div class="detail"><b>1,900 ₪</b> הקמה חד-פעמית<br>דומיין ואחסון — לא כלול בחבילה זו</div>
+        <a href="#contact" class="btn btn-ghost">לפרטי החבילה</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY A WEBSITE ============ -->
+<section class="why" id="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">למה בכלל אתר</span>
+      <h2>קחו את תדמית העסק לרמה הגבוהה ביותר</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item"><span class="n">1</span><div><h3>להופיע בגוגל ובבינה מלאכותית</h3><p>לקוחות מחפשים אתכם ב-Google, ב-Gemini וב-ChatGPT — גם כשהגיעו דרך המלצה.</p></div></div>
+      <div class="why-item"><span class="n">2</span><div><h3>כל המידע במקום אחד</h3><p>שירותים, פרויקטים ופרטי קשר — מרוכזים בצורה ברורה ונגישה ללקוח.</p></div></div>
+      <div class="why-item"><span class="n">3</span><div><h3>מותג יוקרתי ורציני</h3><p>אתר מקצועי ממצב אתכם כמותג אמין ומשפיע ישירות על אופן קבלת ההחלטות.</p></div></div>
+      <div class="why-item"><span class="n">4</span><div><h3>גיוס לקוחות 24/7</h3><p>האתר עובד גם כשאתם לא — ומייצר הזדמנויות עסקיות חדשות מסביב לשעון.</p></div></div>
+      <div class="why-item"><span class="n">5</span><div><h3>החזר מקסימלי על ההשקעה</h3><p>בניית אתר עשויה להיות מוכרת כהוצאה לעסק בכפוף לחוק (אינו ייעוץ מס).</p></div></div>
+      <div class="why-item"><span class="n">6</span><div><h3>שליטה מלאה בתוכן</h3><p>עדכון מבצעים, מאמרים ותמונות בקלות — בלי תלות במתכנת חיצוני בכל שינוי קטן.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PORTFOLIO ============ -->
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="kicker">תיק עבודות</span>
+      <h2>אתרים שבנינו</h2>
+      <p>מבחר עבודות לדוגמה. החליפו בתמונות ובקישורים של הלקוחות שלכם.</p>
+    </div>
+    <div class="pf-grid">
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#ff7a59,#ff4d2e)"><div class="meta"><div class="cat">מעצבת פנים</div><div class="name">סטודיו עיצוב</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#13c2b0,#0a8478)"><div class="meta"><div class="cat">רואי חשבון</div><div class="name">פירמת ייעוץ</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#3b4a78,#13182b)"><div class="meta"><div class="cat">משרד עו"ד</div><div class="name">דין ומשפט</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#ffb020,#ff7a00)"><div class="meta"><div class="cat">סטארטאפ</div><div class="name">חברת טכנולוגיה</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#7b5cff,#4a2fd6)"><div class="meta"><div class="cat">מותג אופנה</div><div class="name">חנות אונליין</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#ff5f8f,#d6246b)"><div class="meta"><div class="cat">קליניקה</div><div class="name">מרכז טיפולים</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#2bb3ff,#0a6fd6)"><div class="meta"><div class="cat">נדל"ן</div><div class="name">חברת השקעות</div></div></a>
+      <a class="pf" href="#" style="background-image:linear-gradient(135deg,#1fa971,#0c6b46)"><div class="meta"><div class="cat">מסעדה</div><div class="name">מטבח שף</div></div></a>
+    </div>
+    <div class="pf-cta"><a href="#contact" class="btn btn-dark">לתיק העבודות המלא</a></div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="tst">
+  <div class="wrap">
+    <div class="sec-head"><span class="kicker">לקוחות מספרים</span><h2>מה אומרים עלינו</h2></div>
+    <div class="tslider" id="tslider">
+      <div class="tslide active"><div class="tavatar">מ</div><p class="tquote">"פשוט מדהימים. הרגשתי שמלווים אותי בכל שלב, והאתר יצא מעבר למה שדמיינתי."</p><div class="tname">מאיה ל.</div><div class="trole">בעלת חברה</div></div>
+      <div class="tslide"><div class="tavatar">ד</div><p class="tquote">"קיבלתי אתר מקצועי תוך שבוע, במחיר שאף אחד אחר לא הציע. ממליץ בחום."</p><div class="tname">דני ב.</div><div class="trole">סוכן ביטוח</div></div>
+      <div class="tslide"><div class="tavatar">נ</div><p class="tquote">"השירות אחרי ההקמה הוא מה שעשה את ההבדל. כל שינוי מטופל מיד וללא עלות."</p><div class="tname">נועה ג.</div><div class="trole">אדריכלית ומעצבת פנים</div></div>
+      <div class="tslide"><div class="tavatar">א</div><p class="tquote">"מאז שהשקנו את האתר, פניות חדשות מגיעות אליי כל שבוע מגוגל. שווה כל שקל."</p><div class="tname">אלון ש.</div><div class="trole">בעל סטודיו</div></div>
+      <div class="tdots" id="tdots"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="final">
+  <div class="wrap">
+    <div class="final-box">
+      <h2>בניית אתרים בחיסכון של אלפי שקלים</h2>
+      <p>שינינו את עולם בניית האתרים בישראל. אלפי לקוחות כבר חסכו — עכשיו תורכם.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-dark">הזמינו שיחה עם נציג</a>
+        <a href="#packages" class="btn btn-ghost">הצטרפו עכשיו אונליין</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="fgrid2">
+      <div>
+        <div class="fbrand">סטודיו<span class="dot">.</span></div>
+        <p style="margin-top:.8rem;max-width:280px">בניית אתרי תדמית וחנות לעסקים בישראל, במחיר שקוף וללא עלויות נסתרות.</p>
+        <div class="social">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-8h3l1-4h-4V8c0-1.1.3-2 2-2h2V2.1C18.5 2 17.4 2 16.2 2 13.6 2 12 3.6 12 6.5V10H9v4h3v8h1z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.1.4.3 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.1-1 .3-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4a3.7 3.7 0 0 1-1.4-.9 3.7 3.7 0 0 1-.9-1.4c-.1-.4-.3-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.1 1-.3 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.2A6.6 6.6 0 1 0 18.6 12 6.6 6.6 0 0 0 12 5.4zm0 10.9A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.8-11.1a1.5 1.5 0 1 1-1.5-1.5 1.5 1.5 0 0 1 1.5 1.5z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.2 8h4.6v14H.2V8zm7.5 0h4.4v1.9h.1c.6-1.1 2.1-2.3 4.3-2.3 4.6 0 5.4 3 5.4 6.9V22h-4.6v-6.2c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V22H7.7V8z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4>מידע נוסף</h4>
+        <ul>
+          <li><a href="#packages">מחירון בניית אתרים</a></li>
+          <li><a href="#features">למה לבחור בנו</a></li>
+          <li><a href="#portfolio">אתרים שבנינו</a></li>
+          <li><a href="#why">בלוג — ידעת חסכת</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>השירותים שלנו</h4>
+        <ul>
+          <li><a href="#">חנות אינטרנטית</a></li>
+          <li><a href="#">מערכת ניהול תורים</a></li>
+          <li><a href="#">דף נחיתה</a></li>
+          <li><a href="#">מייל עסקי</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>צרו קשר</h4>
+        <ul>
+          <li><a href="mailto:hello@example.co.il">hello@example.co.il</a></li>
+          <li>ימים א'–ה' | 9:00–16:00</li>
+          <li><a href="#">הצהרת נגישות</a></li>
+          <li><a href="#">מדיניות פרטיות</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fbottom">
+      <span>© סטודיו 2019–2026 · ט.ל.ח</span>
+      <span>נבנה באהבה · <a href="#">כל הזכויות שמורות</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// —— Mobile menu ——
+const burger=document.getElementById('burger'), navLinks=document.getElementById('navLinks');
+burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// —— Testimonials slider ——
+const slides=[...document.querySelectorAll('.tslide')], dotsWrap=document.getElementById('tdots');
+let idx=0;
+slides.forEach((_,i)=>{const b=document.createElement('button');if(i===0)b.classList.add('active');
+  b.addEventListener('click',()=>go(i));dotsWrap.appendChild(b);});
+const dots=[...dotsWrap.children];
+function go(i){slides[idx].classList.remove('active');dots[idx].classList.remove('active');
+  idx=i;slides[idx].classList.add('active');dots[idx].classList.add('active');}
+setInterval(()=>go((idx+1)%slides.length),5000);
+
+// —— Lead form (front-end only — connect to your backend / Formspree / Supabase) ——
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const name=document.getElementById('name').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const consent=document.getElementById('consent').checked;
+  const msg=document.getElementById('formMsg');
+  if(!name||!phone){msg.style.color='#ff4d2e';msg.textContent='נא למלא שם וטלפון';return;}
+  if(!consent){msg.style.color='#ff4d2e';msg.textContent='נא לאשר את מדיניות הפרטיות';return;}
+  msg.style.color='#0fb3a3';msg.textContent='תודה! קיבלנו את הפרטים ונחזור אליכם בהקדם.';
+  // TODO: send to backend here
+});
+</script>
+</body>
+</html>

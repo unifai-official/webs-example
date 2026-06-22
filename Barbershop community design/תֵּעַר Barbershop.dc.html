@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #0B0B0C; }
+  ::selection { background: #C8A45C; color: #0B0B0C; }
+  @keyframes taarFadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes taarPole { to { background-position: 0 -34px; } }
+  @keyframes taarSpin { to { transform: rotate(360deg); } }
+  @keyframes taarMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes taarGlow { 0%,100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.08); } }
+  @keyframes taarPop { 0% { transform: scale(0.5); opacity: 0; } 60% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+  .taar-grain { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E"); }
+</style>
+</helmet>
+<div dir="rtl" lang="he" style="font-family:'Heebo',-apple-system,system-ui,sans-serif; background:#0B0B0C; color:rgba(255,255,255,0.92); min-height:100vh; overflow-x:hidden; position:relative;">
+
+  <!-- ====== NAV ====== -->
+  <nav style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:14px 40px; background:rgba(11,11,12,0.62); -webkit-backdrop-filter:saturate(180%) blur(20px); backdrop-filter:saturate(180%) blur(20px); box-shadow:inset 0 -0.5px 0 rgba(255,255,255,0.08);">
+    <a href="#top" style="display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;">
+      <span style="display:inline-flex; width:38px; height:38px; border-radius:999px; background:linear-gradient(140deg,#C8A45C,#8C6E36); align-items:center; justify-content:center; box-shadow:0 2px 10px rgba(200,164,92,0.35), inset 0 1px 0 rgba(255,255,255,0.4);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B0B0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+      </span>
+      <span style="display:flex; flex-direction:column; line-height:1;">
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:20px; letter-spacing:0.04em;">תֵּעַר</span>
+        <span style="font-size:9px; letter-spacing:0.42em; color:rgba(255,255,255,0.45); margin-top:3px;">BARBERSHOP</span>
+      </span>
+    </a>
+    <div style="display:flex; align-items:center; gap:30px;">
+      <a href="#services" style="color:rgba(255,255,255,0.62); text-decoration:none; font-size:14px; font-weight:500;" onMouseOver="this.style.color='rgba(255,255,255,0.95)'" onMouseOut="this.style.color='rgba(255,255,255,0.62)'">שירותים</a>
+      <a href="#gallery" style="color:rgba(255,255,255,0.62); text-decoration:none; font-size:14px; font-weight:500;" onMouseOver="this.style.color='rgba(255,255,255,0.95)'" onMouseOut="this.style.color='rgba(255,255,255,0.62)'">גלריה</a>
+      <a href="#reviews" style="color:rgba(255,255,255,0.62); text-decoration:none; font-size:14px; font-weight:500;" onMouseOver="this.style.color='rgba(255,255,255,0.95)'" onMouseOut="this.style.color='rgba(255,255,255,0.62)'">ביקורות</a>
+      <a href="#team" style="color:rgba(255,255,255,0.62); text-decoration:none; font-size:14px; font-weight:500;" onMouseOver="this.style.color='rgba(255,255,255,0.95)'" onMouseOut="this.style.color='rgba(255,255,255,0.62)'">הספרים</a>
+      <a href="#contact" style="color:rgba(255,255,255,0.62); text-decoration:none; font-size:14px; font-weight:500;" onMouseOver="this.style.color='rgba(255,255,255,0.95)'" onMouseOut="this.style.color='rgba(255,255,255,0.62)'">צור קשר</a>
+      <a href="#booking" style="background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; text-decoration:none; font-size:14px; font-weight:700; padding:10px 22px; border-radius:999px; box-shadow:0 4px 16px rgba(200,164,92,0.32), inset 0 1px 0 rgba(255,255,255,0.4);" onMouseOver="this.style.filter='brightness(1.07)'" onMouseOut="this.style.filter='none'">הזמנת תור</a>
+    </div>
+  </nav>
+
+  <!-- ====== HERO ====== -->
+  <header id="top" style="position:relative; padding:96px 40px 88px; max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;">
+    <div style="background:radial-gradient(120% 120% at 80% 0%, rgba(200,164,92,0.14), transparent 55%); position:absolute; inset:0; pointer-events:none;"></div>
+    <div style="position:absolute; top:-80px; left:8%; width:420px; height:420px; border-radius:999px; background:radial-gradient(circle, rgba(200,164,92,0.22), transparent 65%); filter:blur(30px); pointer-events:none; animation:taarGlow 7s ease-in-out infinite;"></div>
+    <div class="taar-grain" style="position:absolute; inset:0; opacity:0.05; mix-blend-mode:overlay; pointer-events:none;"></div>
+    <div style="position:relative; animation:taarFadeUp 0.7s cubic-bezier(0.16,1,0.30,1) both;">
+      <div style="display:inline-flex; align-items:center; gap:10px; padding:7px 16px; border-radius:999px; background:rgba(200,164,92,0.10); box-shadow:inset 0 0 0 0.5px rgba(200,164,92,0.35); margin-bottom:26px;">
+        <span style="width:6px; height:6px; border-radius:999px; background:#34C759; box-shadow:0 0 8px #34C759;"></span>
+        <span style="font-size:11px; letter-spacing:0.16em; color:#E2C485; font-weight:600;">תל אביב · מאז 1998</span>
+      </div>
+      <h1 style="font-family:'Frank Ruhl Libre',serif; font-weight:900; font-size:clamp(44px,5.4vw,82px); line-height:1.02; letter-spacing:-0.01em; margin:0 0 22px; color:#fff;">החיתוך המושלם.<br><span style="color:#C8A45C; font-style:italic; font-weight:500;">בכל פעם.</span></h1>
+      <p style="font-size:19px; line-height:1.6; color:rgba(255,255,255,0.6); max-width:480px; margin:0 0 36px; text-wrap:pretty;">תספורת קלאסית, גילוח חם במגבת ועיצוב זקן — בידיים של ספרים שעושים את זה כל החיים. כיסא, מוזיקה טובה, וכוס ויסקי על הבית.</p>
+      <div style="display:flex; gap:14px; flex-wrap:wrap; margin-bottom:44px;">
+        <a href="#booking" style="display:inline-flex; align-items:center; gap:10px; background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; text-decoration:none; font-size:16px; font-weight:700; padding:15px 30px; border-radius:999px; box-shadow:0 8px 24px rgba(200,164,92,0.34), inset 0 1px 0 rgba(255,255,255,0.45);" onMouseOver="this.style.filter='brightness(1.07)'; this.style.transform='translateY(-1px)'" onMouseOut="this.style.filter='none'; this.style.transform='none'">הזמנת תור עכשיו<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+        <a href="#services" style="display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.04); color:#fff; text-decoration:none; font-size:16px; font-weight:600; padding:15px 28px; border-radius:999px; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.18);" onMouseOver="this.style.background='rgba(255,255,255,0.09)'" onMouseOut="this.style.background='rgba(255,255,255,0.04)'">מחירון השירותים</a>
+      </div>
+      <div style="display:flex; gap:34px;">
+        <div><div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; color:#fff;">4.9<span style="color:#C8A45C; font-size:18px;"> ★</span></div><div style="font-size:12px; color:rgba(255,255,255,0.45); margin-top:2px;">2,300+ ביקורות</div></div>
+        <div style="width:0.5px; background:rgba(255,255,255,0.14);"></div>
+        <div><div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; color:#fff;">25+</div><div style="font-size:12px; color:rgba(255,255,255,0.45); margin-top:2px;">שנות ניסיון</div></div>
+        <div style="width:0.5px; background:rgba(255,255,255,0.14);"></div>
+        <div><div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; color:#fff;">6</div><div style="font-size:12px; color:rgba(255,255,255,0.45); margin-top:2px;">ספרים מומחים</div></div>
+      </div>
+    </div>
+    <div style="position:relative; animation:taarFadeUp 0.9s cubic-bezier(0.16,1,0.30,1) both;">
+      <image-slot id="taar_hero" style="display:block; width:100%; aspect-ratio:4/5; box-shadow:0 30px 70px rgba(0,0,0,0.6), inset 0 0 0 0.5px rgba(255,255,255,0.12);" shape="rounded" radius="22" placeholder="גרור תמונת מספרה / ספר בעבודה"></image-slot>
+      <div style="position:absolute; bottom:18px; right:18px; left:18px; display:flex; align-items:center; gap:12px; padding:14px 16px; border-radius:14px; background:rgba(20,20,22,0.66); -webkit-backdrop-filter:saturate(180%) blur(16px); backdrop-filter:saturate(180%) blur(16px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);">
+        <span style="display:inline-flex; width:38px; height:38px; border-radius:999px; background:rgba(52,199,89,0.16); align-items:center; justify-content:center;"><span style="width:9px; height:9px; border-radius:999px; background:#34C759; box-shadow:0 0 10px #34C759;"></span></span>
+        <div><div style="font-size:14px; font-weight:700; color:#fff;">פתוח עכשיו</div><div style="font-size:12px; color:rgba(255,255,255,0.5);">היום עד 20:00 · יש תורים פנויים</div></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== MARQUEE ====== -->
+  <div style="position:relative; overflow:hidden; padding:18px 0; background:linear-gradient(140deg,#D8B468,#B0863F); transform:rotate(-1.4deg) scale(1.04); box-shadow:0 14px 40px rgba(0,0,0,0.45);">
+    <div style="display:flex; width:max-content; animation:taarMarquee 26s linear infinite; will-change:transform;">
+      <div style="display:flex; align-items:center; gap:34px; padding-left:34px;">
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">תספורת קלאסית</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">גילוח חם במגבת</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">סקין פייד</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">עיצוב זקן</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">פומפדור</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">חבילת ג׳נטלמן</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:34px; padding-left:34px;" aria-hidden="true">
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">תספורת קלאסית</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">גילוח חם במגבת</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">סקין פייד</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">עיצוב זקן</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">פומפדור</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+        <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#0B0B0C; white-space:nowrap;">חבילת ג׳נטלמן</span><span style="color:#0B0B0C; opacity:0.5;">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== TRUST STRIP ====== -->
+  <section style="max-width:1240px; margin:0 auto; padding:64px 40px 16px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px;" data-reveal>
+    <div style="display:flex; gap:16px; align-items:flex-start; padding:24px; border-radius:16px; background:rgba(24,24,26,0.5); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.08);">
+      <span style="flex:none; width:46px; height:46px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+      <div><div style="font-weight:700; color:#fff; font-size:16px; margin-bottom:5px;">הזמנה אונליין</div><div style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.5;">תפוס תור ב‑30 שניות, אישור מיידי לנייד. בלי טלפונים.</div></div>
+    </div>
+    <div style="display:flex; gap:16px; align-items:flex-start; padding:24px; border-radius:16px; background:rgba(24,24,26,0.5); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.08);">
+      <span style="flex:none; width:46px; height:46px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.6L5.7 21.4 8 14 2 9.4h7.6z"></path></svg></span>
+      <div><div style="font-weight:700; color:#fff; font-size:16px; margin-bottom:5px;">מוצרי פרימיום</div><div style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.5;">שמנים, פומייד וקרמים מהמותגים המובילים — לטיפוח שנשאר.</div></div>
+    </div>
+    <div style="display:flex; gap:16px; align-items:flex-start; padding:24px; border-radius:16px; background:rgba(24,24,26,0.5); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.08);">
+      <span style="flex:none; width:46px; height:46px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></span>
+      <div><div style="font-weight:700; color:#fff; font-size:16px; margin-bottom:5px;">חוויה, לא רק תספורת</div><div style="font-size:14px; color:rgba(255,255,255,0.5); line-height:1.5;">קפה, ויסקי ומוזיקת וויניל. 45 דקות שהן הזמן שלך.</div></div>
+    </div>
+  </section>
+
+  <!-- ====== SERVICES ====== -->
+  <section id="services" data-reveal style="position:relative; padding:90px 40px; max-width:1240px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:54px;">
+      <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">השירותים שלנו</div>
+      <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(32px,4vw,52px); margin:0 0 14px; color:#fff;">מחירון מלא, בלי הפתעות</h2>
+      <p style="font-size:17px; color:rgba(255,255,255,0.55); max-width:520px; margin:0 auto; text-wrap:pretty;">בחר שירות והזמן תור בכמה לחיצות. כל מחיר כולל שטיפה, עיצוב ומשקה על הבית.</p>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <sc-for list="{{ servicesSel }}" as="service" hint-placeholder-count="6">
+        <a href="#booking" onClick="{{ service._pick }}" style="display:flex; flex-direction:column; gap:14px; text-decoration:none; color:inherit; padding:26px; border-radius:18px; background:rgba(24,24,26,0.66); -webkit-backdrop-filter:saturate(180%) blur(16px); backdrop-filter:saturate(180%) blur(16px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 30px rgba(0,0,0,0.35); transition:transform 0.22s cubic-bezier(0.32,0.72,0,1), box-shadow 0.22s;" onMouseOver="this.style.transform='translateY(-4px)'; this.style.boxShadow='inset 0 0 0 0.5px rgba(200,164,92,0.45), 0 16px 40px rgba(0,0,0,0.5)'" onMouseOut="this.style.transform='none'; this.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.10), inset 0 1px 0 rgba(255,255,255,0.07), 0 10px 30px rgba(0,0,0,0.35)'">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+            <h3 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:23px; margin:0; color:#fff;">{{ service.name }}</h3>
+            <sc-if value="{{ service._hasTag }}" hint-placeholder-val="{{ true }}">
+              <span style="flex:none; font-size:11px; font-weight:700; color:#0B0B0C; background:linear-gradient(140deg,#E2C485,#C8A45C); padding:4px 10px; border-radius:999px;">{{ service.tag }}</span>
+            </sc-if>
+          </div>
+          <p style="font-size:14px; color:rgba(255,255,255,0.52); margin:0; line-height:1.5; flex:1;">{{ service.desc }}</p>
+          <div style="display:flex; align-items:center; justify-content:space-between; padding-top:14px; box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.10);">
+            <div style="display:flex; align-items:baseline; gap:8px;"><span style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; color:#C8A45C;">{{ service.price }} ₪</span></div>
+            <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:rgba(255,255,255,0.5); font-weight:500;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg>{{ service.dur }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ====== GALLERY ====== -->
+  <section id="gallery" data-reveal style="position:relative; padding:90px 40px; background:linear-gradient(180deg,#0B0B0C,#0E0E10,#0B0B0C);">
+    <div style="max-width:1240px; margin:0 auto;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:42px; flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">העבודות שלנו</div>
+          <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(32px,4vw,52px); margin:0; color:#fff;">גלריית תספורות</h2>
+        </div>
+        <p style="font-size:15px; color:rgba(255,255,255,0.5); max-width:360px; margin:0; text-wrap:pretty;">מבחר עבודות מהכיסא — פייד, פומפדור, עיצובי זקן וקלאסיקות. גרור את התמונות שלך כדי לעדכן את הגלריה.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:188px; gap:14px;">
+        <div style="position:relative; overflow:hidden; border-radius:16px; grid-row:span 2; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g1" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="פייד קלאסי"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">פייד קלאסי</span></div>
+        </div>
+        <div style="position:relative; overflow:hidden; border-radius:16px; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g2" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="עיצוב זקן"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">עיצוב זקן</span></div>
+        </div>
+        <div style="position:relative; overflow:hidden; border-radius:16px; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g3" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="פומפדור"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">פומפדור</span></div>
+        </div>
+        <div style="position:relative; overflow:hidden; border-radius:16px; grid-row:span 2; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g4" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="גילוח תער"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">גילוח תער</span></div>
+        </div>
+        <div style="position:relative; overflow:hidden; border-radius:16px; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g5" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="קרופ מודרני"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">קרופ מודרני</span></div>
+        </div>
+        <div style="position:relative; overflow:hidden; border-radius:16px; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10);" onMouseOver="this.firstElementChild.style.transform='scale(1.06)'; this.lastElementChild.style.opacity='1'" onMouseOut="this.firstElementChild.style.transform='none'; this.lastElementChild.style.opacity='0'">
+          <image-slot id="taar_g6" style="display:block; width:100%; height:100%; transition:transform .5s cubic-bezier(.16,1,.3,1);" shape="rect" placeholder="טקסטורה"></image-slot>
+          <div style="position:absolute; right:0; bottom:0; left:0; padding:16px; background:linear-gradient(transparent,rgba(0,0,0,0.78)); pointer-events:none; opacity:0; transition:opacity .3s;"><span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; color:#fff; font-size:18px;">טקסטורה</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== BOOKING ====== -->
+  <section id="booking" style="position:relative; padding:90px 40px;">
+    <div style="position:absolute; inset:0; background:radial-gradient(80% 60% at 50% 0%, rgba(200,164,92,0.10), transparent 60%); pointer-events:none;"></div>
+    <div style="position:relative; max-width:860px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">הזמנת תור</div>
+        <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(32px,4vw,52px); margin:0 0 12px; color:#fff;">תפוס את הכיסא שלך</h2>
+        <p style="font-size:17px; color:rgba(255,255,255,0.55); margin:0;">ארבעה צעדים קצרים. אישור מיידי לנייד.</p>
+      </div>
+
+      <div style="border-radius:24px; padding:32px; background:rgba(22,22,24,0.72); -webkit-backdrop-filter:saturate(180%) blur(24px); backdrop-filter:saturate(180%) blur(24px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), inset 0 1px 0 rgba(255,255,255,0.08), 0 24px 60px rgba(0,0,0,0.5);">
+
+        <sc-if value="{{ notDone }}" hint-placeholder-val="{{ true }}">
+        <!-- Stepper -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; margin-bottom:30px;">
+          <sc-for list="{{ bookSteps }}" as="bs" hint-placeholder-count="4">
+            <div onClick="{{ bs._go }}" style="display:flex; align-items:center; gap:10px; cursor:pointer;">
+              <span style="{{ bs._numStyle }}">{{ bs.n }}</span>
+              <span style="{{ bs._labelStyle }}">{{ bs.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="height:0.5px; background:rgba(255,255,255,0.10); margin-bottom:28px;"></div>
+
+        <!-- STEP 1: service -->
+        <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:taarFadeUp .4s ease both;">
+            <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:18px;">איזה שירות?</div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:12px;">
+              <sc-for list="{{ servicesSel }}" as="service" hint-placeholder-count="6">
+                <div onClick="{{ service._pick }}" style="{{ service._style }}">
+                  <div style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:17px; color:#fff;">{{ service.name }}</div>
+                  <div style="display:flex; align-items:center; justify-content:space-between; margin-top:auto;"><span style="color:#C8A45C; font-weight:700; font-size:16px;">{{ service.price }} ₪</span><span style="font-size:12px; color:rgba(255,255,255,0.45);">{{ service.dur }}</span></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- STEP 2: barber -->
+        <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:taarFadeUp .4s ease both;">
+            <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:18px;">עם איזה ספר?</div>
+            <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:12px;">
+              <sc-for list="{{ barbersSel }}" as="barber" hint-placeholder-count="4">
+                <div onClick="{{ barber._pick }}" style="{{ barber._style }}">
+                  <span style="flex:none; display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:999px; font-family:'Frank Ruhl Libre',serif; font-size:20px; font-weight:700; color:#0B0B0C; background:linear-gradient(140deg,#E2C485,#B0863F);">{{ barber.init }}</span>
+                  <div style="flex:1;">
+                    <div style="font-size:16px; font-weight:700; color:#fff;">{{ barber.name }}</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.5);">{{ barber.role }}</div>
+                  </div>
+                  <sc-if value="{{ barber._hasExp }}" hint-placeholder-val="{{ true }}">
+                    <span style="flex:none; font-size:12px; color:#C8A45C; font-weight:600;">{{ barber.exp }}</span>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+            <button onClick="{{ go1 }}" style="margin-top:20px; background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit;">→ חזרה לבחירת שירות</button>
+          </div>
+        </sc-if>
+
+        <!-- STEP 3: date + time -->
+        <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:taarFadeUp .4s ease both;">
+            <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:16px;">בחר תאריך</div>
+            <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:10px; margin-bottom:26px;">
+              <sc-for list="{{ datesSel }}" as="d" hint-placeholder-count="10">
+                <div onClick="{{ d._pick }}" style="{{ d._style }}">
+                  <div style="font-size:12px; font-weight:600; opacity:0.7;">{{ d.dayName }}</div>
+                  <div style="font-family:'Frank Ruhl Libre',serif; font-size:24px; font-weight:700; margin:2px 0;">{{ d.dayNum }}</div>
+                  <div style="font-size:11px; opacity:0.6;">{{ d.month }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:16px;">בחר שעה</div>
+            <div style="display:grid; grid-template-columns:repeat(6,1fr); gap:10px;">
+              <sc-for list="{{ timesSel }}" as="ts" hint-placeholder-count="18">
+                <div onClick="{{ ts._pick }}" style="{{ ts._style }}">{{ ts.t }}</div>
+              </sc-for>
+            </div>
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-top:26px;">
+              <button onClick="{{ go2 }}" style="background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit;">→ חזרה</button>
+              <sc-if value="{{ canStep3 }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ toStep3Next }}" style="display:inline-flex; align-items:center; gap:8px; background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; border:none; font-size:15px; font-weight:700; padding:13px 28px; border-radius:999px; cursor:pointer; font-family:inherit; box-shadow:0 8px 22px rgba(200,164,92,0.32);" onMouseOver="this.style.filter='brightness(1.07)'" onMouseOut="this.style.filter='none'">המשך לפרטים</button>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+
+        <!-- STEP 4: details -->
+        <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ true }}">
+          <div style="animation:taarFadeUp .4s ease both; display:grid; grid-template-columns:1fr 300px; gap:26px;">
+            <div>
+              <div style="font-size:18px; font-weight:700; color:#fff; margin-bottom:18px;">הפרטים שלך</div>
+              <label style="display:block; font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:7px;">שם מלא</label>
+              <input value="{{ name }}" onChange="{{ setName }}" placeholder="ישראל ישראלי" style="width:100%; box-sizing:border-box; padding:14px 16px; margin-bottom:18px; border:none; border-radius:12px; background:rgba(255,255,255,0.06); color:#fff; font-size:15px; font-family:inherit; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.14); outline:none;" onFocus="this.style.boxShadow='inset 0 0 0 1.5px #C8A45C'" onBlur="this.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.14)'">
+              <label style="display:block; font-size:13px; color:rgba(255,255,255,0.55); margin-bottom:7px;">טלפון נייד</label>
+              <input value="{{ phone }}" onChange="{{ setPhone }}" placeholder="050-000-0000" inputMode="tel" style="width:100%; box-sizing:border-box; padding:14px 16px; border:none; border-radius:12px; background:rgba(255,255,255,0.06); color:#fff; font-size:15px; font-family:inherit; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.14); outline:none;" onFocus="this.style.boxShadow='inset 0 0 0 1.5px #C8A45C'" onBlur="this.style.boxShadow='inset 0 0 0 0.5px rgba(255,255,255,0.14)'">
+              <button onClick="{{ go3 }}" style="margin-top:18px; background:none; border:none; color:rgba(255,255,255,0.5); font-size:14px; font-weight:600; cursor:pointer; font-family:inherit;">→ חזרה</button>
+            </div>
+            <div style="border-radius:16px; padding:22px; background:rgba(255,255,255,0.04); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);">
+              <div style="font-size:13px; letter-spacing:0.1em; color:#C8A45C; font-weight:700; margin-bottom:16px;">סיכום ההזמנה</div>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:rgba(255,255,255,0.5);">שירות</span><span style="color:#fff; font-weight:600;">{{ serviceName }}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:rgba(255,255,255,0.5);">ספר</span><span style="color:#fff; font-weight:600;">{{ barberName }}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:rgba(255,255,255,0.5);">תאריך</span><span style="color:#fff; font-weight:600;">{{ dateLabel }}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:14px;"><span style="color:rgba(255,255,255,0.5);">שעה</span><span style="color:#fff; font-weight:600;">{{ timeLabel }}</span></div>
+                <div style="height:0.5px; background:rgba(255,255,255,0.12); margin:4px 0;"></div>
+                <div style="display:flex; justify-content:space-between; align-items:center;"><span style="color:rgba(255,255,255,0.5); font-size:14px;">לתשלום במקום</span><span style="font-family:'Frank Ruhl Libre',serif; font-size:26px; font-weight:700; color:#C8A45C;">{{ priceLabel }}</span></div>
+              </div>
+              <sc-if value="{{ canConfirm }}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{ confirm }}" style="width:100%; margin-top:20px; background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; border:none; font-size:15px; font-weight:700; padding:14px 0; border-radius:12px; cursor:pointer; font-family:inherit; box-shadow:0 8px 22px rgba(200,164,92,0.32);" onMouseOver="this.style.filter='brightness(1.07)'" onMouseOut="this.style.filter='none'">אשר הזמנה</button>
+              </sc-if>
+              <sc-if value="{{ notCanConfirm }}" hint-placeholder-val="{{ true }}">
+                <div style="width:100%; margin-top:20px; text-align:center; color:rgba(255,255,255,0.35); font-size:14px; font-weight:600; padding:14px 0; border-radius:12px; background:rgba(255,255,255,0.04);">מלא שם וטלפון לאישור</div>
+              </sc-if>
+            </div>
+          </div>
+        </sc-if>
+        </sc-if>
+
+        <!-- CONFIRMATION -->
+        <sc-if value="{{ done }}" hint-placeholder-val="{{ false }}">
+          <div style="text-align:center; padding:24px 0; animation:taarFadeUp .5s ease both;">
+            <div style="display:inline-flex; align-items:center; justify-content:center; width:76px; height:76px; border-radius:999px; background:rgba(52,199,89,0.16); margin-bottom:22px; animation:taarPop .6s cubic-bezier(.16,1,.3,1) both; box-shadow:0 0 0 10px rgba(52,199,89,0.08);">
+              <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="#34C759" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:32px; margin:0 0 10px; color:#fff;">התור נקבע, {{ name }}!</h3>
+            <p style="font-size:16px; color:rgba(255,255,255,0.55); margin:0 0 26px;">שלחנו אישור ל־{{ phone }}. נתראה ב{{ dateLabel }} בשעה {{ timeLabel }}.</p>
+            <div style="display:inline-flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:30px;">
+              <span style="padding:9px 16px; border-radius:999px; background:rgba(255,255,255,0.05); font-size:14px; color:#fff; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);">{{ serviceName }}</span>
+              <span style="padding:9px 16px; border-radius:999px; background:rgba(255,255,255,0.05); font-size:14px; color:#fff; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);">{{ barberName }}</span>
+              <span style="padding:9px 16px; border-radius:999px; background:rgba(200,164,92,0.14); font-size:14px; color:#C8A45C; font-weight:600; box-shadow:inset 0 0 0 0.5px rgba(200,164,92,0.35);">{{ priceLabel }}</span>
+            </div>
+            <div><button onClick="{{ reset }}" style="background:rgba(255,255,255,0.06); color:#fff; border:none; font-size:15px; font-weight:600; padding:13px 30px; border-radius:999px; cursor:pointer; font-family:inherit; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.18);" onMouseOver="this.style.background='rgba(255,255,255,0.11)'" onMouseOut="this.style.background='rgba(255,255,255,0.06)'">הזמנת תור נוסף</button></div>
+          </div>
+        </sc-if>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== REVIEWS ====== -->
+  <section id="reviews" data-reveal style="position:relative; padding:90px 40px; background:linear-gradient(180deg,#0B0B0C,#0E0E10,#0B0B0C);">
+    <div style="max-width:1240px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:50px;">
+        <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">מה הלקוחות אומרים</div>
+        <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(32px,4vw,52px); margin:0 0 10px; color:#fff;">4.9 מתוך 5</h2>
+        <div style="color:#C8A45C; font-size:22px; letter-spacing:4px;">★★★★★</div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+        <div style="padding:30px; border-radius:18px; background:rgba(24,24,26,0.66); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 10px 30px rgba(0,0,0,0.35);">
+          <div style="color:#C8A45C; font-size:16px; letter-spacing:3px; margin-bottom:16px;">★★★★★</div>
+          <p style="font-family:'Frank Ruhl Libre',serif; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.88); margin:0 0 22px; text-wrap:pretty;">"הפייד הכי נקי שקיבלתי בחיים. אבי שם לב לכל פרט, והאווירה במקום פשוט אחרת. לא מתספר בשום מקום אחר."</p>
+          <div style="display:flex; align-items:center; gap:12px;"><span style="width:42px; height:42px; border-radius:999px; background:linear-gradient(140deg,#3a3a3c,#1c1c1e); display:inline-flex; align-items:center; justify-content:center; color:#C8A45C; font-weight:700; font-family:'Frank Ruhl Libre',serif;">י</span><div><div style="font-weight:700; color:#fff; font-size:15px;">יוסי ברק</div><div style="font-size:13px; color:rgba(255,255,255,0.45);">לקוח קבוע · 3 שנים</div></div></div>
+        </div>
+        <div style="padding:30px; border-radius:18px; background:rgba(24,24,26,0.66); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 10px 30px rgba(0,0,0,0.35);">
+          <div style="color:#C8A45C; font-size:16px; letter-spacing:3px; margin-bottom:16px;">★★★★★</div>
+          <p style="font-family:'Frank Ruhl Libre',serif; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.88); margin:0 0 22px; text-wrap:pretty;">"הגעתי לגילוח חם לפני החתונה והרגשתי כמו מלך. מגבת חמה, תער ישר, וכוס ויסקי. חוויה שלמה, לא רק תספורת."</p>
+          <div style="display:flex; align-items:center; gap:12px;"><span style="width:42px; height:42px; border-radius:999px; background:linear-gradient(140deg,#3a3a3c,#1c1c1e); display:inline-flex; align-items:center; justify-content:center; color:#C8A45C; font-weight:700; font-family:'Frank Ruhl Libre',serif;">ע</span><div><div style="font-weight:700; color:#fff; font-size:15px;">עומר דהן</div><div style="font-size:13px; color:rgba(255,255,255,0.45);">גילוח חם במגבת</div></div></div>
+        </div>
+        <div style="padding:30px; border-radius:18px; background:rgba(24,24,26,0.66); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 10px 30px rgba(0,0,0,0.35);">
+          <div style="color:#C8A45C; font-size:16px; letter-spacing:3px; margin-bottom:16px;">★★★★★</div>
+          <p style="font-family:'Frank Ruhl Libre',serif; font-size:19px; line-height:1.55; color:rgba(255,255,255,0.88); margin:0 0 22px; text-wrap:pretty;">"מביא את הבן שלי לרועי כל חודש. סבלני, מצחיק, והתספורת תמיד מושלמת. גם ההזמנה אונליין סופר נוחה."</p>
+          <div style="display:flex; align-items:center; gap:12px;"><span style="width:42px; height:42px; border-radius:999px; background:linear-gradient(140deg,#3a3a3c,#1c1c1e); display:inline-flex; align-items:center; justify-content:center; color:#C8A45C; font-weight:700; font-family:'Frank Ruhl Libre',serif;">ד</span><div><div style="font-weight:700; color:#fff; font-size:15px;">דנה לוין</div><div style="font-size:13px; color:rgba(255,255,255,0.45);">תספורת ילדים</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TEAM ====== -->
+  <section id="team" data-reveal style="position:relative; padding:90px 40px; max-width:1240px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:50px;">
+      <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">הספרים שלנו</div>
+      <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(32px,4vw,52px); margin:0; color:#fff;">ידיים שאתה סומך עליהן</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+      <div style="border-radius:20px; overflow:hidden; background:rgba(24,24,26,0.6); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 12px 34px rgba(0,0,0,0.4);">
+        <image-slot id="taar_t1" style="display:block; width:100%; aspect-ratio:1/1;" shape="rect" placeholder="תמונת אבי"></image-slot>
+        <div style="padding:22px;"><div style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#fff;">אבי לוי</div><div style="font-size:14px; color:#C8A45C; margin:4px 0 12px;">בעלים · מאסטר ספר</div><p style="font-size:14px; color:rgba(255,255,255,0.5); margin:0; line-height:1.5;">25 שנות תער. מתמחה בתספורות קלאסיות וגילוח חם בשיטה האיטלקית.</p></div>
+      </div>
+      <div style="border-radius:20px; overflow:hidden; background:rgba(24,24,26,0.6); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 12px 34px rgba(0,0,0,0.4);">
+        <image-slot id="taar_t2" style="display:block; width:100%; aspect-ratio:1/1;" shape="rect" placeholder="תמונת דניאל"></image-slot>
+        <div style="padding:22px;"><div style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#fff;">דניאל כהן</div><div style="font-size:14px; color:#C8A45C; margin:4px 0 12px;">מומחה זקן ותער</div><p style="font-size:14px; color:rgba(255,255,255,0.5); margin:0; line-height:1.5;">אמן עיצוב הזקן. כל קו תיחום מדויק לטיפה. מאמין שזקן זה אמירה.</p></div>
+      </div>
+      <div style="border-radius:20px; overflow:hidden; background:rgba(24,24,26,0.6); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 12px 34px rgba(0,0,0,0.4);">
+        <image-slot id="taar_t3" style="display:block; width:100%; aspect-ratio:1/1;" shape="rect" placeholder="תמונת רועי"></image-slot>
+        <div style="padding:22px;"><div style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:22px; color:#fff;">רועי מזרחי</div><div style="font-size:14px; color:#C8A45C; margin:4px 0 12px;">פייד וקלאסי</div><p style="font-size:14px; color:rgba(255,255,255,0.5); margin:0; line-height:1.5;">דור חדש של ספרות. סקין-פייד, טקסטורות ומראות מודרניים בדיוק של שעון.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT + MAP ====== -->
+  <section id="contact" data-reveal style="position:relative; padding:90px 40px; background:linear-gradient(180deg,#0B0B0C,#0E0E10);">
+    <div style="max-width:1240px; margin:0 auto; display:grid; grid-template-columns:0.85fr 1.15fr; gap:36px; align-items:stretch;">
+      <div>
+        <div style="font-size:12px; letter-spacing:0.32em; color:#C8A45C; font-weight:700; margin-bottom:14px;">צור קשר</div>
+        <h2 style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:clamp(30px,3.6vw,46px); margin:0 0 26px; color:#fff;">בוא לבקר</h2>
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:42px; height:42px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span><div><div style="font-weight:700; color:#fff; font-size:15px;">הכתובת</div><div style="font-size:14px; color:rgba(255,255,255,0.55);">רח׳ דיזנגוף 142, תל אביב</div></div></div>
+          <div style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:42px; height:42px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg></span><div><div style="font-weight:700; color:#fff; font-size:15px;">טלפון</div><div style="font-size:14px; color:rgba(255,255,255,0.55);">03-555-0142</div></div></div>
+          <div style="display:flex; gap:14px; align-items:flex-start;"><span style="flex:none; width:42px; height:42px; border-radius:12px; background:rgba(200,164,92,0.12); display:inline-flex; align-items:center; justify-content:center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C8A45C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15 14"></polyline></svg></span><div style="flex:1;"><div style="font-weight:700; color:#fff; font-size:15px; margin-bottom:10px;">שעות פתיחה</div>
+            <div style="display:flex; flex-direction:column; gap:7px; font-size:14px;">
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);">ראשון – חמישי</span><span style="color:#fff;">09:00 – 20:00</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);">שישי</span><span style="color:#fff;">08:00 – 14:00</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:rgba(255,255,255,0.55);">שבת</span><span style="color:rgba(255,255,255,0.35);">סגור</span></div>
+            </div>
+          </div></div>
+        </div>
+        <div style="display:flex; gap:10px; margin-top:28px;">
+          <a href="#" style="width:44px; height:44px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.14);" onMouseOver="this.style.background='rgba(200,164,92,0.18)'" onMouseOut="this.style.background='rgba(255,255,255,0.05)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a>
+          <a href="#" style="width:44px; height:44px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.14);" onMouseOver="this.style.background='rgba(200,164,92,0.18)'" onMouseOut="this.style.background='rgba(255,255,255,0.05)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 2h-11A4.5 4.5 0 0 0 2 6.5v11A4.5 4.5 0 0 0 6.5 22h11a4.5 4.5 0 0 0 4.5-4.5v-11A4.5 4.5 0 0 0 17.5 2zM13 18v-6h2l.4-2.5H13V8.2c0-.7.2-1.2 1.2-1.2H15.5V4.8c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.4v1.9H8v2.5h2.1V18H13z"></path></svg></a>
+          <a href="https://wa.me/" style="width:44px; height:44px; border-radius:999px; display:inline-flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.05); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.14);" onMouseOver="this.style.background='rgba(52,199,89,0.22)'" onMouseOut="this.style.background='rgba(255,255,255,0.05)'"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-2.8.8.8-2.8-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.6-.8s-.4-.1-.5.1-.6.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.2-.4.2-.4.6-1.2a.4.4 0 0 0 0-.4l-.8-1.9c-.2-.5-.4-.4-.5-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-1 2.3 5.3 5.3 0 0 0 1.1 2.8 12 12 0 0 0 4.6 4c2.3.9 2.3.6 2.7.6a2.5 2.5 0 0 0 1.7-1.2 2 2 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3z"></path></svg></a>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=Dizengoff+142+Tel+Aviv" target="_blank" style="position:relative; display:block; border-radius:20px; overflow:hidden; min-height:380px; text-decoration:none; background:#15161A; box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.10), 0 12px 34px rgba(0,0,0,0.45);">
+        <div style="position:absolute; inset:0; background:
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 86px),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0 1px, transparent 1px 110px);"></div>
+        <div style="position:absolute; top:0; bottom:0; right:38%; width:14px; background:rgba(200,164,92,0.10); transform:skewX(-12deg);"></div>
+        <div style="position:absolute; left:0; right:0; top:54%; height:22px; background:rgba(255,255,255,0.05); transform:skewY(-3deg);"></div>
+        <div style="position:absolute; top:0; bottom:0; left:22%; width:9px; background:rgba(46,107,216,0.16);"></div>
+        <div style="position:absolute; top:42%; right:36%;">
+          <span style="position:relative; display:inline-flex; width:50px; height:50px; border-radius:999px; background:linear-gradient(140deg,#D8B468,#B0863F); align-items:center; justify-content:center; box-shadow:0 8px 24px rgba(200,164,92,0.45), 0 0 0 8px rgba(200,164,92,0.16);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0B0B0C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg>
+          </span>
+        </div>
+        <div style="position:absolute; bottom:18px; right:18px; left:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:14px 18px; border-radius:14px; background:rgba(15,15,17,0.74); -webkit-backdrop-filter:saturate(180%) blur(16px); backdrop-filter:saturate(180%) blur(16px); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);">
+          <div><div style="font-weight:700; color:#fff; font-size:15px;">תֵּעַר · דיזנגוף 142</div><div style="font-size:13px; color:rgba(255,255,255,0.5);">5 דק׳ הליכה מתחנת הרכבת הקלה</div></div>
+          <span style="flex:none; display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:700; color:#C8A45C;">פתח במפות<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="17" y1="7" x2="7" y2="17"></line><polyline points="7 7 17 7 17 17"></polyline></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer style="position:relative; padding:54px 40px 40px; background:#070708; box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.08);">
+    <div style="max-width:1240px; margin:0 auto; display:flex; align-items:flex-start; justify-content:space-between; gap:30px; flex-wrap:wrap;">
+      <div style="max-width:300px;">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+          <span style="display:inline-flex; width:34px; height:34px; border-radius:999px; background:linear-gradient(140deg,#C8A45C,#8C6E36); align-items:center; justify-content:center;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B0B0C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg></span>
+          <span style="font-family:'Frank Ruhl Libre',serif; font-weight:700; font-size:20px; letter-spacing:0.04em; color:#fff;">תֵּעַר</span>
+        </div>
+        <p style="font-size:14px; color:rgba(255,255,255,0.45); line-height:1.6; margin:0;">מספרת ג׳נטלמן בלב תל אביב. תספורת, זקן וגילוח קלאסי — מאז 1998.</p>
+      </div>
+      <div style="display:flex; gap:60px; flex-wrap:wrap;">
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <div style="font-size:12px; letter-spacing:0.12em; color:#C8A45C; font-weight:700; margin-bottom:4px;">ניווט</div>
+          <a href="#services" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:14px;" onMouseOver="this.style.color='#fff'" onMouseOut="this.style.color='rgba(255,255,255,0.55)'">שירותים</a>
+          <a href="#gallery" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:14px;" onMouseOver="this.style.color='#fff'" onMouseOut="this.style.color='rgba(255,255,255,0.55)'">גלריה</a>
+          <a href="#reviews" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:14px;" onMouseOver="this.style.color='#fff'" onMouseOut="this.style.color='rgba(255,255,255,0.55)'">ביקורות</a>
+          <a href="#team" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:14px;" onMouseOver="this.style.color='#fff'" onMouseOut="this.style.color='rgba(255,255,255,0.55)'">הספרים</a>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:11px;">
+          <div style="font-size:12px; letter-spacing:0.12em; color:#C8A45C; font-weight:700; margin-bottom:4px;">פרטים</div>
+          <span style="color:rgba(255,255,255,0.55); font-size:14px;">דיזנגוף 142, תל אביב</span>
+          <span style="color:rgba(255,255,255,0.55); font-size:14px;">03-555-0142</span>
+          <span style="color:rgba(255,255,255,0.55); font-size:14px;">א׳–ה׳ 09:00–20:00</span>
+          <a href="#booking" style="color:#C8A45C; text-decoration:none; font-size:14px; font-weight:700;">הזמן תור →</a>
+        </div>
+      </div>
+    </div>
+    <div style="max-width:1240px; margin:36px auto 0; padding-top:22px; box-shadow:inset 0 0.5px 0 rgba(255,255,255,0.08); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+      <span style="font-size:13px; color:rgba(255,255,255,0.32);">© 2026 תֵּעַר Barbershop. כל הזכויות שמורות.</span>
+      <span style="font-size:13px; color:rgba(255,255,255,0.32);">עוצב באהבה לכיסא</span>
+    </div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  state = {
+    step: 1,
+    serviceId: null,
+    barberId: null,
+    dateKey: null,
+    time: null,
+    name: '',
+    phone: '',
+    done: false,
+    lightbox: null,
+    faq: null,
+  };
+
+  buildServices() {
+    return [
+      { id: 'class', name: 'תספורת קלאסית', desc: 'מספריים ומכונה, שטיפה ועיצוב', price: 90, dur: '40 דק׳', tag: 'הכי מבוקש' },
+      { id: 'beard', name: 'עיצוב זקן', desc: 'תיחום, קיצור וטיפוח שמנים', price: 60, dur: '25 דק׳', tag: '' },
+      { id: 'combo', name: 'תספורת + זקן', desc: 'החבילה המלאה למראה מושלם', price: 130, dur: '60 דק׳', tag: 'משתלם' },
+      { id: 'shave', name: 'גילוח חם במגבת', desc: 'תער ישר, מגבת חמה וקרם פנים', price: 80, dur: '35 דק׳', tag: '' },
+      { id: 'kids', name: 'תספורת ילדים', desc: 'עד גיל 12, בסבלנות ובחיוך', price: 65, dur: '30 דק׳', tag: '' },
+      { id: 'vip', name: 'חבילת ג׳נטלמן VIP', desc: 'תספורת, גילוח, עיצוב גבות ומשקה', price: 199, dur: '90 דק׳', tag: 'פרימיום' },
+    ];
+  }
+
+  buildBarbers() {
+    return [
+      { id: 'avi', name: 'אבי לוי', role: 'בעלים · מאסטר ספר', exp: '25 שנה', init: 'א' },
+      { id: 'dan', name: 'דניאל כהן', role: 'מומחה זקן ותער', exp: '12 שנה', init: 'ד' },
+      { id: 'roi', name: 'רועי מזרחי', role: 'פייד וקלאסי', exp: '8 שנה', init: 'ר' },
+      { id: 'any', name: 'הספר הראשון שמתפנה', role: 'ללא העדפה', exp: '', init: '✦' },
+    ];
+  }
+
+  buildDates() {
+    const days = ['יום א׳','יום ב׳','יום ג׳','יום ד׳','יום ה׳','יום ו׳','שבת'];
+    const months = ['ינו','פבר','מרץ','אפר','מאי','יונ','יול','אוג','ספט','אוק','נוב','דצמ'];
+    const out = [];
+    const base = new Date();
+    for (let i = 0; i < 10; i++) {
+      const d = new Date(base.getFullYear(), base.getMonth(), base.getDate() + i);
+      const dow = d.getDay();
+      out.push({
+        key: 'd' + i,
+        dayName: i === 0 ? 'היום' : (i === 1 ? 'מחר' : days[dow]),
+        dayNum: String(d.getDate()),
+        month: months[d.getMonth()],
+        closed: dow === 6,
+      });
+    }
+    return out;
+  }
+
+  buildTimes() {
+    const slots = ['09:00','09:30','10:00','10:30','11:00','11:30','12:00','13:00','13:30','14:00','15:00','15:30','16:00','16:30','17:00','17:30','18:00','18:30','19:00'];
+    const taken = { '10:00': 1, '11:30': 1, '14:00': 1, '16:30': 1, '18:00': 1 };
+    return slots.map((t) => ({ t, taken: !!taken[t] }));
+  }
+
+  go(n) { this.setState({ step: n }); }
+  pickService(id) { this.setState({ serviceId: id, step: 2 }); }
+  pickBarber(id) { this.setState({ barberId: id, step: 3 }); }
+  pickDate(key) { this.setState({ dateKey: key, time: null }); }
+  pickTime(t) { this.setState({ time: t }); }
+  setName(e) { this.setState({ name: e.target.value }); }
+  setPhone(e) { this.setState({ phone: e.target.value }); }
+  confirm() { if (this.state.name.trim() && this.state.phone.trim()) this.setState({ done: true }); }
+  reset() { this.setState({ step: 1, serviceId: null, barberId: null, dateKey: null, time: null, name: '', phone: '', done: false }); }
+  toggleFaq(i) { this.setState({ faq: this.state.faq === i ? null : i }); }
+  openLb(id) { this.setState({ lightbox: id }); }
+  closeLb() { this.setState({ lightbox: null }); }
+
+  componentDidMount() {
+    const reveal = (el) => { el.style.opacity = '1'; el.style.transform = 'none'; };
+    const els = Array.from(document.querySelectorAll('[data-reveal]'));
+    els.forEach((el) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(34px)';
+      el.style.transition = 'opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1)';
+    });
+    if ('IntersectionObserver' in window) {
+      this._io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) { reveal(e.target); this._io.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      els.forEach((el) => this._io.observe(el));
+    } else {
+      els.forEach(reveal);
+    }
+    this._revealTimer = setTimeout(() => els.forEach(reveal), 1600);
+  }
+
+  componentWillUnmount() {
+    if (this._revealTimer) clearTimeout(this._revealTimer);
+    if (this._io) this._io.disconnect();
+  }
+
+  renderVals() {
+    const services = this.buildServices();
+    const barbers = this.buildBarbers();
+    const dates = this.buildDates();
+    const times = this.buildTimes();
+    const s = this.state;
+    const serviceObj = services.find((x) => x.id === s.serviceId) || null;
+    const barberObj = barbers.find((x) => x.id === s.barberId) || null;
+    const dateObj = dates.find((x) => x.key === s.dateKey) || null;
+
+    const chipBase = 'display:flex; flex-direction:column; gap:6px; cursor:pointer; border-radius:14px; padding:18px; background:rgba(255,255,255,0.035); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12); transition:transform .18s var(--ease,cubic-bezier(.32,.72,0,1)), box-shadow .18s, background .18s;';
+    const chipSel = 'display:flex; flex-direction:column; gap:6px; cursor:pointer; border-radius:14px; padding:18px; background:rgba(200,164,92,0.13); box-shadow:inset 0 0 0 1.5px #C8A45C, 0 8px 22px rgba(200,164,92,0.18); transition:transform .18s, box-shadow .18s, background .18s;';
+    const barberBase = 'display:flex; align-items:center; gap:14px; cursor:pointer; border-radius:14px; padding:16px 18px; background:rgba(255,255,255,0.035); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12); transition:all .18s;';
+    const barberSel = 'display:flex; align-items:center; gap:14px; cursor:pointer; border-radius:14px; padding:16px 18px; background:rgba(200,164,92,0.13); box-shadow:inset 0 0 0 1.5px #C8A45C; transition:all .18s;';
+    const dateBase = 'flex:none; width:74px; text-align:center; cursor:pointer; border-radius:14px; padding:14px 6px; background:rgba(255,255,255,0.04); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12); transition:all .16s;';
+    const dateSel = 'flex:none; width:74px; text-align:center; cursor:pointer; border-radius:14px; padding:14px 6px; background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; box-shadow:0 6px 18px rgba(200,164,92,0.35); transition:all .16s;';
+    const dateClosed = 'flex:none; width:74px; text-align:center; border-radius:14px; padding:14px 6px; background:rgba(255,255,255,0.02); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.06); opacity:0.32; cursor:not-allowed;';
+    const timeBase = 'text-align:center; cursor:pointer; border-radius:10px; padding:11px 0; font-size:15px; font-weight:600; color:#fff; background:rgba(255,255,255,0.05); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12); transition:all .15s;';
+    const timeSel = 'text-align:center; cursor:pointer; border-radius:10px; padding:11px 0; font-size:15px; font-weight:700; color:#0B0B0C; background:linear-gradient(140deg,#D8B468,#B0863F); box-shadow:0 6px 16px rgba(200,164,92,0.32); transition:all .15s;';
+    const timeTaken = 'text-align:center; border-radius:10px; padding:11px 0; font-size:15px; color:rgba(255,255,255,0.28); background:rgba(255,255,255,0.02); text-decoration:line-through; cursor:not-allowed;';
+
+    const stepLabels = ['שירות', 'הספר', 'תאריך ושעה', 'פרטים'];
+    const numDone = 'display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:999px; font-size:14px; font-weight:700; background:linear-gradient(140deg,#D8B468,#B0863F); color:#0B0B0C; box-shadow:0 4px 12px rgba(200,164,92,0.3);';
+    const numNow = 'display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:999px; font-size:14px; font-weight:700; background:transparent; color:#C8A45C; box-shadow:inset 0 0 0 1.5px #C8A45C;';
+    const numNext = 'display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:999px; font-size:14px; font-weight:700; background:rgba(255,255,255,0.05); color:rgba(255,255,255,0.4); box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12);';
+    const goSteps = [() => this.go(1), () => this.go(2), () => this.go(3), () => this.go(4)];
+    const bookSteps = stepLabels.map((label, i) => {
+      const n = i + 1;
+      const isDone = s.step > n;
+      const isNow = s.step === n;
+      return {
+        n: String(n),
+        label,
+        _done: isDone,
+        _last: n === 4,
+        _numStyle: isDone ? numDone : (isNow ? numNow : numNext),
+        _labelStyle: 'font-size:14px; font-weight:600; color:' + (isNow || isDone ? '#fff' : 'rgba(255,255,255,0.4)') + ';',
+        _go: (isDone || isNow) ? goSteps[i] : null,
+      };
+    });
+
+    return {
+      bookSteps,
+      step: s.step,
+      isStep1: s.step === 1, isStep2: s.step === 2, isStep3: s.step === 3, isStep4: s.step === 4,
+      done: s.done, notDone: !s.done,
+      bookOpen: s.step === 1, hasService: !!serviceObj, hasBarber: !!barberObj,
+      canStep3: !!(s.dateKey && s.time),
+      name: s.name, phone: s.phone,
+      lightbox: s.lightbox, hasLightbox: !!s.lightbox,
+      faq: s.faq,
+      services,
+      servicesSel: services.map((it) => ({ ...it, _sel: it.id === s.serviceId, _hasTag: !!it.tag, _pick: () => this.pickService(it.id), _style: it.id === s.serviceId ? chipSel : chipBase })),
+      barbersSel: barbers.map((it) => ({ ...it, _sel: it.id === s.barberId, _hasExp: !!it.exp, _pick: () => this.pickBarber(it.id), _style: it.id === s.barberId ? barberSel : barberBase })),
+      datesSel: dates.map((d) => ({ ...d, _sel: d.key === s.dateKey, _pick: d.closed ? null : (() => this.pickDate(d.key)), _style: d.closed ? dateClosed : (d.key === s.dateKey ? dateSel : dateBase) })),
+      timesSel: times.map((t) => ({ ...t, _sel: t.t === s.time, _pick: t.taken ? null : (() => this.pickTime(t.t)), _style: t.taken ? timeTaken : (t.t === s.time ? timeSel : timeBase) })),
+      serviceObj, barberObj, dateObj,
+      serviceName: serviceObj ? serviceObj.name : '—',
+      barberName: barberObj ? barberObj.name : '—',
+      dateLabel: dateObj ? (dateObj.dayName + ' ' + dateObj.dayNum + ' ' + dateObj.month) : '—',
+      timeLabel: s.time || '—',
+      priceLabel: serviceObj ? (serviceObj.price + ' ₪') : '—',
+      canConfirm: !!(s.name.trim() && s.phone.trim()),
+      notCanConfirm: !(s.name.trim() && s.phone.trim()),
+      showDateStep: s.step === 3,
+      pickService: (id) => this.pickService(id),
+      pickBarber: (id) => this.pickBarber(id),
+      pickDate: (k) => this.pickDate(k),
+      pickTime: (t) => this.pickTime(t),
+      toStep3Next: () => { if (this.state.dateKey && this.state.time) this.go(4); },
+      go1: () => this.go(1), go2: () => this.go(2), go3: () => this.go(3),
+      setName: (e) => this.setName(e),
+      setPhone: (e) => this.setPhone(e),
+      confirm: () => this.confirm(),
+      reset: () => this.reset(),
+      toggleFaq: (i) => this.toggleFaq(i),
+      openLb: (id) => this.openLb(id),
+      closeLb: () => this.closeLb(),
+    };
+  }
+}
+</script>
+</body>
+</html>

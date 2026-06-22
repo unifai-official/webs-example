@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>UnifAI · Podcasts</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",sans-serif;
+    background:radial-gradient(circle at 50% 0%,#e7e5e4,#d6d3d1);display:flex;align-items:center;justify-content:center;overflow:hidden}
+  input{font-family:inherit}
+  button{font-family:inherit;background:none;border:none;cursor:pointer;color:inherit}
+  ::-webkit-scrollbar{display:none}
+
+  /* layout */
+  .flex{display:flex}.flex-col{flex-direction:column}.flex-1{flex:1 1 0%}.flex-shrink-0{flex-shrink:0}
+  .grid{display:grid}.block{display:block}.relative{position:relative}.absolute{position:absolute}
+  .items-center{align-items:center}.items-end{align-items:flex-end}.items-start{align-items:flex-start}
+  .justify-center{justify-content:center}.justify-between{justify-content:space-between}.justify-around{justify-content:space-around}
+  .grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .col-span-3{grid-column:span 3}
+  .min-w-0{min-width:0}.w-full{width:100%}.h-full{height:100%}
+  .text-right{text-align:right}.text-center{text-align:center}.leading-tight{line-height:1.25}
+  .truncate{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .whitespace-nowrap{white-space:nowrap}.tabular-nums{font-variant-numeric:tabular-nums}.select-none{user-select:none}
+  .overflow-hidden{overflow:hidden}.overflow-x-auto{overflow-x:auto}.overflow-y-auto{overflow-y:auto}.overflow-x-hidden{overflow-x:hidden}
+
+  .inset-0{top:0;right:0;bottom:0;left:0}.bottom-0{bottom:0}.left-0{left:0}.right-0{right:0}
+  .right-3{right:.75rem}.right-4{right:1rem}.left-3{left:.75rem}.left-4{left:1rem}
+  .top-2{top:.5rem}.top-3{top:.75rem}.bottom-16{bottom:4rem}.left-1\/2{left:50%}.-translate-x-1\/2{transform:translateX(-50%)}
+
+  /* gaps */
+  .gap-0\.5{gap:.125rem}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.gap-2\.5{gap:.625rem}
+  .gap-3{gap:.75rem}.gap-10{gap:2.5rem}.gap-x-3{column-gap:.75rem}.gap-y-4{row-gap:1rem}
+
+  /* padding */
+  .p-2\.5{padding:.625rem}.p-3{padding:.75rem}.p-3\.5{padding:.875rem}.p-4{padding:1rem}.p-5{padding:1.25rem}
+  .px-2{padding-inline:.5rem}.px-2\.5{padding-inline:.625rem}.px-3{padding-inline:.75rem}.px-3\.5{padding-inline:.875rem}
+  .px-4{padding-inline:1rem}.px-5{padding-inline:1.25rem}.px-6{padding-inline:1.5rem}.px-7{padding-inline:1.75rem}
+  .py-1{padding-block:.25rem}.py-1\.5{padding-block:.375rem}.py-2{padding-block:.5rem}.py-2\.5{padding-block:.625rem}
+  .py-3{padding-block:.75rem}.py-3\.5{padding-block:.875rem}.py-4{padding-block:1rem}.py-6{padding-block:1.5rem}.py-10{padding-block:2.5rem}
+  .pt-1{padding-top:.25rem}.pt-2{padding-top:.5rem}.pt-3{padding-top:.75rem}
+  .pb-1{padding-bottom:.25rem}.pb-2{padding-bottom:.5rem}.pb-3{padding-bottom:.75rem}.pb-5{padding-bottom:1.25rem}.pb-7{padding-bottom:1.75rem}.pb-8{padding-bottom:2rem}
+
+  /* margin */
+  .mb-1{margin-bottom:.25rem}.mb-2{margin-bottom:.5rem}.mb-3{margin-bottom:.75rem}.mb-4{margin-bottom:1rem}.mb-5{margin-bottom:1.25rem}.mb-7{margin-bottom:1.75rem}
+  .mt-0\.5{margin-top:.125rem}.mt-1{margin-top:.25rem}.mt-2{margin-top:.5rem}.mt-3{margin-top:.75rem}.mt-4{margin-top:1rem}.mt-5{margin-top:1.25rem}
+  .mx-3{margin-inline:.75rem}.mx-auto{margin-inline:auto}.-mx-4{margin-inline:-1rem}
+
+  /* sizes */
+  .w-5{width:1.25rem}.w-8{width:2rem}.w-9{width:2.25rem}.w-10{width:2.5rem}.w-11{width:2.75rem}.w-12{width:3rem}.w-14{width:3.5rem}.w-16{width:4rem}
+  .h-1{height:.25rem}.h-7{height:1.75rem}.h-9{height:2.25rem}.h-10{height:2.5rem}.h-11{height:2.75rem}.h-12{height:3rem}.h-14{height:3.5rem}.h-16{height:4rem}.h-28{height:7rem}
+
+  /* radius */
+  .rounded-full{border-radius:9999px}.rounded-2xl{border-radius:1rem}.rounded-xl{border-radius:.75rem}.rounded-lg{border-radius:.5rem}.rounded-sm{border-radius:.125rem}
+
+  /* type */
+  .font-medium{font-weight:500}.font-semibold{font-weight:600}.font-bold{font-weight:700}.font-extrabold{font-weight:800}
+
+  /* colors */
+  .text-white{color:#fff}.text-white\/90{color:rgba(255,255,255,.9)}
+  .text-neutral-900{color:#171717}.text-neutral-700{color:#404040}.text-neutral-600{color:#525252}
+  .text-neutral-500{color:#737373}.text-neutral-400{color:#a3a3a3}.text-neutral-300{color:#d4d4d4}
+  .text-red-600{color:#dc2626}.text-red-500{color:#ef4444}
+  .bg-white{background:#fff}.bg-neutral-50{background:#fafafa}.bg-neutral-100{background:#f5f5f5}
+  .bg-neutral-200{background:#e5e5e5}.bg-neutral-900{background:#171717}.bg-red-500{background:#ef4444}
+  .bg-white\/20{background:rgba(255,255,255,.2)}.bg-white\/25{background:rgba(255,255,255,.25)}.bg-white\/95{background:rgba(255,255,255,.95)}
+
+  /* borders */
+  .border-b{border-bottom:1px solid #f5f5f5}.border-2{border-width:2px;border-style:solid}.border-neutral-900{border-color:#171717}
+
+  /* opacity */
+  .opacity-80{opacity:.8}.opacity-90{opacity:.9}
+
+  /* effects */
+  .drop-shadow-sm{filter:drop-shadow(0 1px 1px rgba(0,0,0,.2))}
+  .shadow-2xl{box-shadow:0 25px 50px -12px rgba(0,0,0,.25)}
+  .transition-transform{transition:transform .3s cubic-bezier(.16,1,.3,1)}
+  .transition-opacity{transition:opacity .3s ease}
+  .transition-all{transition:all .3s ease}
+
+  /* states */
+  .active\:opacity-60:active{opacity:.6}.active\:opacity-70:active{opacity:.7}.active\:opacity-80:active{opacity:.8}
+  .active\:opacity-85:active{opacity:.85}.active\:opacity-90:active{opacity:.9}
+  .active\:bg-neutral-200:active{background:#e5e5e5}.active\:scale-95:active{transform:scale(.95)}
+  .placeholder\:text-neutral-400::placeholder{color:#a3a3a3}
+
+  input[type=range]{-webkit-appearance:none;appearance:none;height:4px;border-radius:9999px;background:rgba(255,255,255,.35);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:9999px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+  input[type=range]::-moz-range-thumb{width:14px;height:14px;border:none;border-radius:9999px;background:#fff}
+
+  #phone-wrap{transform-origin:center center}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useCallback, createContext, useContext } = React;
+
+/* ----------------------------- ICONS (inline SVG) ----------------------------- */
+const PATHS = {
+  play:[<polygon key="a" points="6 3 20 12 6 21 6 3"/>],
+  pause:[<rect key="a" x="14" y="4" width="4" height="16" rx="1"/>,<rect key="b" x="6" y="4" width="4" height="16" rx="1"/>],
+  skipback:[<polygon key="a" points="19 20 9 12 19 4 19 20"/>,<line key="b" x1="5" x2="5" y1="19" y2="5"/>],
+  skipforward:[<polygon key="a" points="5 4 15 12 5 20 5 4"/>,<line key="b" x1="19" x2="19" y1="5" y2="19"/>],
+  search:[<circle key="a" cx="11" cy="11" r="8"/>,<path key="b" d="m21 21-4.3-4.3"/>],
+  home:[<path key="a" d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>],
+  sparkles:[<path key="a" d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z"/>],
+  library:[<path key="a" d="m16 6 4 14"/>,<path key="b" d="M12 6v14"/>,<path key="c" d="M8 8v12"/>,<path key="d" d="M4 4v16"/>],
+  plus:[<path key="a" d="M5 12h14"/>,<path key="b" d="M12 5v14"/>],
+  check:[<path key="a" d="M20 6 9 17l-5-5"/>],
+  more:[<circle key="a" cx="12" cy="12" r="1"/>,<circle key="b" cx="19" cy="12" r="1"/>,<circle key="c" cx="5" cy="12" r="1"/>],
+  chevleft:[<path key="a" d="m15 18-6-6 6-6"/>],
+  chevright:[<path key="a" d="m9 18 6-6-6-6"/>],
+  chevdown:[<path key="a" d="m6 9 6 6 6-6"/>],
+  moon:[<path key="a" d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>],
+  gauge:[<path key="a" d="m12 14 4-4"/>,<path key="b" d="M3.34 19a10 10 0 1 1 17.32 0"/>],
+  list:[<path key="a" d="M21 15V6"/>,<path key="b" d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>,<path key="c" d="M12 12H3"/>,<path key="d" d="M16 6H3"/>,<path key="e" d="M12 18H3"/>],
+  file:[<path key="a" d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>,<path key="b" d="M14 2v4a2 2 0 0 0 2 2h4"/>,<path key="c" d="M16 13H8"/>,<path key="d" d="M16 17H8"/>],
+  download:[<path key="a" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>,<polyline key="b" points="7 10 12 15 17 10"/>,<line key="c" x1="12" x2="12" y1="15" y2="3"/>],
+  bookmark:[<path key="a" d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/>],
+  star:[<polygon key="a" points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>],
+  wand:[<path key="a" d="M5 19 19 5"/>,<path key="b" d="M14 4l.6 2L17 6.6 15 7.2 14.4 9.4 13.8 7.2 11.6 6.6 13.8 6z"/>],
+  x:[<path key="a" d="M18 6 6 18"/>,<path key="b" d="m6 6 12 12"/>],
+  rss:[<path key="a" d="M4 11a9 9 0 0 1 9 9"/>,<path key="b" d="M4 4a16 16 0 0 1 16 16"/>,<circle key="c" cx="5" cy="19" r="1"/>],
+  arrowup:[<path key="a" d="M7 7h10v10"/>,<path key="b" d="M7 17 17 7"/>],
+};
+function Icon({ name, size = 24, fill = "none", strokeWidth = 2, className = "", ...rest }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor"
+      strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round" className={className} {...rest}>
+      {PATHS[name]}
+    </svg>
+  );
+}
+const Play=(p)=><Icon name="play" {...p}/>, Pause=(p)=><Icon name="pause" {...p}/>,
+  SkipBack=(p)=><Icon name="skipback" {...p}/>, SkipForward=(p)=><Icon name="skipforward" {...p}/>,
+  SearchI=(p)=><Icon name="search" {...p}/>, HomeI=(p)=><Icon name="home" {...p}/>,
+  Sparkles=(p)=><Icon name="sparkles" {...p}/>, Library=(p)=><Icon name="library" {...p}/>,
+  Plus=(p)=><Icon name="plus" {...p}/>, Check=(p)=><Icon name="check" {...p}/>,
+  MoreHorizontal=(p)=><Icon name="more" {...p}/>, ChevronLeft=(p)=><Icon name="chevleft" {...p}/>,
+  ChevronRight=(p)=><Icon name="chevright" {...p}/>, ChevronDown=(p)=><Icon name="chevdown" {...p}/>,
+  Moon=(p)=><Icon name="moon" {...p}/>, Gauge=(p)=><Icon name="gauge" {...p}/>,
+  ListMusic=(p)=><Icon name="list" {...p}/>, FileText=(p)=><Icon name="file" {...p}/>,
+  Download=(p)=><Icon name="download" {...p}/>, Bookmark=(p)=><Icon name="bookmark" {...p}/>,
+  Star=(p)=><Icon name="star" {...p}/>, Wand2=(p)=><Icon name="wand" {...p}/>,
+  X=(p)=><Icon name="x" {...p}/>, Rss=(p)=><Icon name="rss" {...p}/>, ArrowUpRight=(p)=><Icon name="arrowup" {...p}/>;
+
+/* ----------------------------- DATA ----------------------------- */
+const PALETTES = {
+  tech:["#4f46e5","#06b6d4"], science:["#0d9488","#34d399"], business:["#f59e0b","#ea580c"],
+  fiction:["#7c3aed","#db2777"], wellness:["#fb7185","#f472b6"], history:["#a16207","#d97706"], default:["#475569","#94a3b8"],
+};
+const TOOLS = {
+  narrato:{name:"Narrato",tagline:"סינתזת קול ושיחה",grad:["#6366f1","#22d3ee"],desc:"מנוע יצירת פודקאסטים שמפיק שיחות טבעיות בין דמויות AI עם קולות ריאליסטיים ומיקס מקצועי.",steps:["תסריט נוצר מתוך prompt וקווי נושא","קולות הדמויות מסונתזים ומולחנים","עריכה, מוזיקה ומיקס אוטומטיים"]},
+  wavegen:{name:"WaveGen",tagline:"הקראת סיפורים",grad:["#a855f7","#ec4899"],desc:"כלי לכתיבה והקראה של סיפורת קצרה — מייצר עלילה מקורית ומקריא אותה בקול אטמוספרי.",steps:["עלילה נכתבת מ-seed נושאי","נרטור עם בקרת רגש וקצב","פסקול ואפקטים מתווספים אוטומטית"]},
+  resonance:{name:"Resonance AI",tagline:"הסברים קצרים",grad:["#14b8a6","#84cc16"],desc:"מחולל פרקי explainer קצרים: לוקח נושא מורכב ומפיק הסבר ברור באורך דקות בודדות.",steps:["מחקר ותמצות הנושא","כתיבת תסריט הסבר","סינתזת קריינות מהירה"]},
+  dialoguelab:{name:"DialogueLab",tagline:"שיחת שני מנחים",grad:["#f59e0b","#ef4444"],desc:"מפיק שיחות בין שני מנחי AI — דינמיקה של שאלות, תגובות והומור על בסיס דאטה עדכני.",steps:["נתונים עדכניים נאספים","תסריט דו-שיח עם פרסונות","שני קולות נפרדים מסונתזים"]},
+};
+const CATEGORIES = [
+  {id:"tech",title:"טכנולוגיה"},{id:"science",title:"מדע"},{id:"business",title:"עסקים"},
+  {id:"fiction",title:"סיפורת"},{id:"wellness",title:"בריאות ונפש"},{id:"history",title:"היסטוריה"},
+];
+const SHOWS = [
+  {id:"beyond-code",title:"מעבר לקוד",creator:"סינתיה · UnifAI Voice",cat:"tech",tool:"narrato",plays:9800,desc:"שיחות שבועיות על טכנולוגיה, AI ובניית מוצרים — תסריט, קולות והפקה נוצרו במלואם ב-AI."},
+  {id:"night-stories",title:"סיפורי לילה",creator:"הקול של לילי",cat:"fiction",tool:"wavegen",plays:7400,desc:"סיפורים קצרים מקוריים שנכתבים ומוקראים מחדש בכל ערב."},
+  {id:"science-minute",title:"דקה של מדע",creator:"ד״ר אֵקו",cat:"science",tool:"resonance",plays:12100,desc:"רעיון מדעי אחד גדול, מוסבר בקצרה וברור."},
+  {id:"smart-market",title:"השוק החכם",creator:"נועה · אנליסטית AI",cat:"business",tool:"dialoguelab",plays:6600,desc:"מה זז בשווקים היום, מוסבר בשפה אנושית בשיחה בין שני מנחים."},
+  {id:"mindful",title:"מיינדפול",creator:"מנחה רגוע",cat:"wellness",tool:"narrato",plays:5200,desc:"מדיטציות ושיחות מרגיעות שנוצרות בהתאמה אישית."},
+  {id:"history-2min",title:"היסטוריה בשתי דקות",creator:"הסַפָּר",cat:"history",tool:"resonance",plays:8800,desc:"אירוע היסטורי, מסופר מחדש בשתי דקות."},
+];
+const EPISODES = [
+  {id:"bc1",show:"beyond-code",title:"איך AI משנה את כתיבת הקוד",date:"אתמול",dur:1930,desc:"ניתוח של מעבר מ-autocomplete לסוכנים שכותבים מודולים שלמים, ומה זה אומר על תפקיד המהנדס.",chapters:[["פתיחה",0],["מ-autocomplete לסוכנים",240],["מה נשאר אנושי",980],["סיכום",1700]]},
+  {id:"bc2",show:"beyond-code",title:"בניית מוצר בעידן ה-agentי",date:"לפני 3 ימים",dur:1724,desc:"איך נראה product loop כשהמשתמש מדבר עם מערכת שמבצעת פעולות בעצמה."},
+  {id:"bc3",show:"beyond-code",title:"הקול שמאחורי הפודקאסט",date:"לפני שבוע",dur:1145,desc:"פרק מטא: איך הפודקאסט הזה עצמו נוצר, צעד-אחר-צעד."},
+  {id:"ns1",show:"night-stories",title:"הבית בקצה הרחוב",date:"אתמול",dur:860,desc:"סיפור קצר על בית שזוכר את כל מי שגר בו."},
+  {id:"ns2",show:"night-stories",title:"מכתב מהעתיד",date:"לפני יומיים",dur:710,desc:"מה היית כותב לעצמך בעוד עשר שנים?"},
+  {id:"sm1",show:"science-minute",title:"למה השמיים כחולים",date:"היום",dur:150,desc:"פיזור ריילי, בשפה פשוטה."},
+  {id:"sm2",show:"science-minute",title:"מהי אנטרופיה",date:"אתמול",dur:130,desc:"למה כוס מתנפצת אבל לא מתאחה."},
+  {id:"mk1",show:"smart-market",title:"סיכום השבוע בשווקים",date:"היום",dur:580,desc:"המהלכים הגדולים, בשיחה בין שני מנחים.",chapters:[["מאקרו",0],["טכנולוגיה",160],["מטבעות",380]]},
+  {id:"mk2",show:"smart-market",title:"מה זה ריבית, בעצם",date:"לפני 4 ימים",dur:435,desc:"הסבר בסיסי על הכלי שמניע את הכלכלה."},
+  {id:"md1",show:"mindful",title:"נשימה לפני שינה",date:"היום",dur:720,desc:"תרגול הרגעה קצר לסוף היום."},
+  {id:"h1",show:"history-2min",title:"נפילת חומת ברלין",date:"אתמול",dur:125,desc:"הלילה ששינה את אירופה, בשתי דקות."},
+];
+const showById=(id)=>SHOWS.find(s=>s.id===id);
+const epsOf=(id)=>EPISODES.filter(e=>e.show===id);
+const epById=(id)=>EPISODES.find(e=>e.id===id);
+const fmt=(sec)=>{sec=Math.max(0,Math.floor(sec));const m=Math.floor(sec/60);const s=sec%60;return `${m}:${String(s).padStart(2,"0")}`;};
+const gradOf=(cat)=>PALETTES[cat]||PALETTES.default;
+
+/* ----------------------------- CONTEXT ----------------------------- */
+const Nav=createContext(null), Player=createContext(null);
+const useNav=()=>useContext(Nav), usePlayer=()=>useContext(Player);
+
+/* ----------------------------- PRIMITIVES ----------------------------- */
+function Noise({opacity=0.06}){
+  const svg="data:image/svg+xml;utf8,"+encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>`);
+  return <div className="absolute inset-0" style={{backgroundImage:`url("${svg}")`,opacity,mixBlendMode:"overlay",pointerEvents:"none"}}/>;
+}
+function Artwork({item,size=160,radius=14,word=false}){
+  const show=item.cat?item:showById(item.show);
+  const [a,b]=gradOf(show.cat);
+  const title=item.cat?item.title:show.title;
+  const w=typeof size==="number"?size:"100%";
+  const h=typeof size==="number"?size:undefined;
+  return (
+    <div className="relative overflow-hidden flex items-end" style={{width:w,height:h,aspectRatio:typeof size==="number"?undefined:"1/1",borderRadius:radius,background:`linear-gradient(145deg, ${a}, ${b})`,boxShadow:"0 6px 18px rgba(0,0,0,0.18)",flex:"0 0 auto"}}>
+      <Noise/>
+      <div className="absolute inset-0" style={{background:"radial-gradient(120% 80% at 80% 0%, rgba(255,255,255,0.35), transparent 60%)"}}/>
+      {word&&<div className="absolute flex items-center gap-1 text-white\/90 font-semibold" style={{top:8,left:8,fontSize:11}}><Rss size={11}/> UnifAI</div>}
+      <div className="relative text-white font-extrabold drop-shadow-sm leading-tight" style={{padding:10,fontSize:Math.max(13,(typeof size==="number"?size:150)/8.5)}}>{title}</div>
+    </div>
+  );
+}
+function SectionHeader({title,onMore}){
+  return (
+    <button onClick={onMore} className="flex items-center gap-1 w-full text-right mb-3 active:opacity-60">
+      <span className="font-extrabold text-neutral-900" style={{fontSize:22,letterSpacing:"-0.02em"}}>{title}</span>
+      {onMore&&<ChevronLeft size={20} className="text-neutral-400" style={{marginTop:4}}/>}
+    </button>
+  );
+}
+function Carousel({children}){
+  return <div className="flex gap-3 overflow-x-auto pb-1 -mx-4 px-4" style={{scrollSnapType:"x mandatory"}}>{children}</div>;
+}
+
+/* ----------------------------- CARDS ----------------------------- */
+function ShowCard({show,size=158}){
+  const {push}=useNav();
+  return (
+    <button onClick={()=>push({name:"show",id:show.id})} className="text-right active:opacity-70" style={{scrollSnapAlign:"start"}}>
+      <Artwork item={show} size={size} radius={14} word/>
+      <div className="font-semibold text-neutral-900 truncate mt-2" style={{width:size,fontSize:15}}>{show.title}</div>
+      <div className="text-neutral-500 truncate" style={{width:size,fontSize:13}}>{show.creator}</div>
+    </button>
+  );
+}
+function EpisodeCard({ep,progress=0}){
+  const {play}=usePlayer(); const {push}=useNav(); const show=showById(ep.show);
+  return (
+    <div className="overflow-hidden bg-white" style={{width:290,borderRadius:18,boxShadow:"0 4px 16px rgba(0,0,0,0.06)",scrollSnapAlign:"start",flex:"0 0 auto"}}>
+      <button onClick={()=>push({name:"episode",id:ep.id})} className="block w-full text-right active:opacity-80">
+        <div className="relative" style={{height:120,background:`linear-gradient(145deg, ${gradOf(show.cat)[0]}, ${gradOf(show.cat)[1]})`}}>
+          <Noise/>
+          <div className="absolute text-white font-bold" style={{bottom:10,right:12,left:12,fontSize:16}}>{ep.title}</div>
+        </div>
+      </button>
+      <div className="p-3">
+        <div className="text-neutral-500" style={{fontSize:12}}>{show.title}</div>
+        {progress>0&&<div className="h-1 rounded-full bg-neutral-200 overflow-hidden mt-2"><div className="h-full rounded-full bg-red-500" style={{width:`${progress*100}%`}}/></div>}
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-neutral-400" style={{fontSize:12}}>{progress>0?`נותרו ${fmt(ep.dur*(1-progress))}`:fmt(ep.dur)}</span>
+          <button onClick={()=>play(ep)} className="flex items-center gap-1.5 bg-neutral-100 active:bg-neutral-200 rounded-full font-semibold text-neutral-900" style={{fontSize:13,padding:"6px 14px"}}><Play size={13} fill="currentColor"/> נגן</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+function EpisodeRow({ep}){
+  const {play,current}=usePlayer(); const {push}=useNav(); const active=current?.id===ep.id;
+  return (
+    <div className="flex items-center gap-3 py-3 border-b">
+      <button onClick={()=>push({name:"episode",id:ep.id})} className="active:opacity-70"><Artwork item={ep} size={54} radius={10}/></button>
+      <button onClick={()=>push({name:"episode",id:ep.id})} className="flex-1 text-right min-w-0 active:opacity-70">
+        <div className={`font-semibold truncate ${active?"text-red-600":"text-neutral-900"}`} style={{fontSize:15}}>{ep.title}</div>
+        <div className="text-neutral-500 truncate" style={{fontSize:13}}>{ep.date} · {fmt(ep.dur)}</div>
+      </button>
+      <button onClick={()=>play(ep)} className="w-9 h-9 rounded-full bg-neutral-100 active:bg-neutral-200 flex items-center justify-center text-neutral-900">
+        {active?<Pause size={15} fill="currentColor"/>:<Play size={15} fill="currentColor"/>}
+      </button>
+    </div>
+  );
+}
+function ChartRow({show,rank}){
+  const {push}=useNav();
+  return (
+    <button onClick={()=>push({name:"show",id:show.id})} className="flex items-center gap-3 py-2.5 w-full text-right active:opacity-70">
+      <span className="text-neutral-400 font-bold tabular-nums text-center w-5" style={{fontSize:17}}>{rank}</span>
+      <Artwork item={show} size={52} radius={10}/>
+      <div className="flex-1 min-w-0">
+        <div className="font-semibold text-neutral-900 truncate" style={{fontSize:15}}>{show.title}</div>
+        <div className="text-neutral-500 truncate" style={{fontSize:13}}>{CATEGORIES.find(c=>c.id===show.cat)?.title}</div>
+      </div>
+      <MoreHorizontal size={18} className="text-neutral-400"/>
+    </button>
+  );
+}
+function CategoryTile({cat}){
+  const {push}=useNav(); const [a,b]=gradOf(cat.id);
+  return (
+    <button onClick={()=>push({name:"category",id:cat.id})} className="relative overflow-hidden text-white font-bold flex items-end p-3 active:opacity-80" style={{height:92,borderRadius:14,background:`linear-gradient(135deg, ${a}, ${b})`,fontSize:17}}>
+      <Noise/>{cat.title}
+    </button>
+  );
+}
+function ShowCardFromEp({ep}){
+  const {push}=useNav(); const show=showById(ep.show);
+  return (
+    <button onClick={()=>push({name:"episode",id:ep.id})} className="text-right active:opacity-70" style={{scrollSnapAlign:"start"}}>
+      <Artwork item={ep} size={150} radius={14}/>
+      <div className="font-semibold text-neutral-900 truncate mt-2" style={{width:150,fontSize:14}}>{ep.title}</div>
+      <div className="text-neutral-500 truncate" style={{width:150,fontSize:12}}>{show.title}</div>
+    </button>
+  );
+}
+function EmptyState({text,cta,onClick}){
+  return (
+    <div className="flex flex-col items-center justify-center text-center py-10 px-6">
+      <div className="w-12 h-12 rounded-full bg-neutral-100 flex items-center justify-center mb-3"><Rss size={22} className="text-neutral-400"/></div>
+      <div className="text-neutral-500" style={{fontSize:14}}>{text}</div>
+      {cta&&<button onClick={onClick} className="bg-neutral-900 text-white rounded-full font-semibold mt-3" style={{fontSize:13,padding:"8px 16px"}}>{cta}</button>}
+    </div>
+  );
+}
+
+/* ----------------------------- INVERSION ----------------------------- */
+function HowBadge({tool,big=false}){
+  const {openHow}=usePlayer(); const t=TOOLS[tool];
+  if(big) return (
+    <button onClick={()=>openHow(tool)} className="w-full flex items-center gap-3 text-right rounded-2xl active:opacity-85" style={{padding:14,background:`linear-gradient(120deg, ${t.grad[0]}, ${t.grad[1]})`}}>
+      <div className="w-10 h-10 rounded-full bg-white\/25 flex items-center justify-center text-white"><Wand2 size={20}/></div>
+      <div className="flex-1 min-w-0 text-white">
+        <div className="font-bold" style={{fontSize:15}}>איך זה נוצר?</div>
+        <div className="opacity-90 truncate" style={{fontSize:13}}>נוצר עם {t.name} · {t.tagline}</div>
+      </div>
+      <ArrowUpRight size={20} className="text-white\/90"/>
+    </button>
+  );
+  return (
+    <button onClick={()=>openHow(tool)} className="flex items-center gap-1.5 rounded-full text-white font-semibold active:opacity-80" style={{fontSize:13,padding:"6px 12px",background:`linear-gradient(120deg, ${t.grad[0]}, ${t.grad[1]})`}}><Wand2 size={13}/> איך זה נוצר?</button>
+  );
+}
+function HowSheet(){
+  const {howTool,closeHow}=usePlayer(); const open=!!howTool; const t=howTool?TOOLS[howTool]:null;
+  return (
+    <>
+      <div onClick={closeHow} className="absolute inset-0 transition-opacity" style={{background:"rgba(0,0,0,0.4)",zIndex:50,opacity:open?1:0,pointerEvents:open?"auto":"none"}}/>
+      <div className="absolute bg-white transition-transform" style={{left:0,right:0,bottom:0,zIndex:51,borderTopLeftRadius:24,borderTopRightRadius:24,transform:open?"translateY(0)":"translateY(110%)",boxShadow:"0 -8px 40px rgba(0,0,0,0.25)"}}>
+        {t&&(
+          <div className="p-5 pb-8">
+            <div className="rounded-full bg-neutral-200 mx-auto mb-5" style={{width:40,height:4}}/>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-14 h-14 flex items-center justify-center text-white" style={{borderRadius:16,background:`linear-gradient(120deg, ${t.grad[0]}, ${t.grad[1]})`}}><Wand2 size={26}/></div>
+              <div>
+                <div className="text-neutral-400 font-medium" style={{fontSize:12}}>נוצר עם</div>
+                <div className="font-extrabold text-neutral-900" style={{fontSize:22}}>{t.name}</div>
+                <div className="text-neutral-500" style={{fontSize:13}}>{t.tagline}</div>
+              </div>
+            </div>
+            <p className="text-neutral-700 mb-4" style={{fontSize:15,lineHeight:1.6}}>{t.desc}</p>
+            <div className="bg-neutral-50 rounded-2xl p-4 mb-5">
+              <div className="font-bold text-neutral-900 mb-2" style={{fontSize:14}}>איך זה עובד</div>
+              {t.steps.map((s,i)=>(
+                <div key={i} className="flex items-center gap-2.5 py-1.5">
+                  <span className="rounded-full text-white flex items-center justify-center font-bold flex-shrink-0" style={{width:20,height:20,fontSize:11,background:t.grad[0]}}>{i+1}</span>
+                  <span className="text-neutral-700" style={{fontSize:14}}>{s}</span>
+                </div>
+              ))}
+            </div>
+            <button className="w-full text-white font-bold rounded-full mb-2 active:opacity-85" style={{fontSize:15,padding:"14px 0",background:`linear-gradient(120deg, ${t.grad[0]}, ${t.grad[1]})`}}>צור תוכן דומה ב-{t.name}</button>
+            <button onClick={closeHow} className="w-full bg-neutral-100 text-neutral-900 font-semibold rounded-full active:opacity-80" style={{fontSize:15,padding:"14px 0"}}>אולי אחר כך</button>
+            <div className="text-center text-neutral-400 mt-4" style={{fontSize:11}}>UnifAI inversion · קודם ה-Wow, אחר כך ה-How</div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+/* ----------------------------- SCREENS ----------------------------- */
+function HomeScreen(){
+  const {push}=useNav(); const {progress}=usePlayer();
+  const cont=["bc1","mk1"].map(epById); const recent=["sm1","ns1","md1","h1"].map(epById);
+  const rec=["night-stories","science-minute","smart-market","history-2min"].map(showById);
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-4" style={{fontSize:32,letterSpacing:"-0.03em"}}>בית</h1>
+      <SectionHeader title="המשך להאזין"/>
+      <Carousel>{cont.map(ep=><EpisodeCard key={ep.id} ep={ep} progress={progress[ep.id]?progress[ep.id]/ep.dur:0.35}/>)}</Carousel>
+      <div style={{height:28}}/>
+      <SectionHeader title="הושמע לאחרונה" onMore={()=>push({name:"new"})}/>
+      <Carousel>{recent.map(ep=><ShowCardFromEp key={ep.id} ep={ep}/>)}</Carousel>
+      <div style={{height:28}}/>
+      <SectionHeader title="אולי תאהבו" onMore={()=>push({name:"new"})}/>
+      <Carousel>{rec.map(s=><ShowCard key={s.id} show={s}/>)}</Carousel>
+      <div style={{height:28}}/>
+      <SectionHeader title="טכנולוגיה" onMore={()=>push({name:"category",id:"tech"})}/>
+      <Carousel>{epsOf("beyond-code").map(ep=><ShowCardFromEp key={ep.id} ep={ep}/>)}</Carousel>
+      <div className="h-28"/>
+    </div>
+  );
+}
+function NewScreen(){
+  const {push}=useNav(); const hero=showById("beyond-code");
+  const top=[...SHOWS].sort((a,b)=>b.plays-a.plays); const topEps=["sm1","bc1","h1","mk1"].map(epById);
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-4" style={{fontSize:32,letterSpacing:"-0.03em"}}>חדש</h1>
+      <button onClick={()=>push({name:"show",id:hero.id})} className="relative w-full overflow-hidden text-right active:opacity-90" style={{height:220,borderRadius:20,background:`linear-gradient(160deg, ${gradOf(hero.cat)[0]}, ${gradOf(hero.cat)[1]})`}}>
+        <Noise opacity={0.08}/>
+        <div className="absolute text-white\/90 font-semibold flex items-center gap-1" style={{top:12,left:12,fontSize:12}}><Rss size={12}/> UnifAI · מומלץ</div>
+        <div className="absolute text-white" style={{bottom:16,right:16,left:16}}>
+          <div className="font-extrabold" style={{fontSize:28,letterSpacing:"-0.02em"}}>{hero.title}</div>
+          <div className="opacity-90" style={{fontSize:14}}>{hero.desc}</div>
+        </div>
+      </button>
+      <div style={{height:28}}/>
+      <SectionHeader title="Top Shows" onMore={()=>push({name:"charts"})}/>
+      <div>{top.slice(0,5).map((s,i)=><ChartRow key={s.id} show={s} rank={i+1}/>)}</div>
+      <div style={{height:28}}/>
+      <SectionHeader title="פרקים בולטים"/>
+      <Carousel>{topEps.map(ep=><ShowCardFromEp key={ep.id} ep={ep}/>)}</Carousel>
+      <div style={{height:28}}/>
+      <SectionHeader title="הקולות החדשים של UnifAI"/>
+      <Carousel>{["mindful","night-stories","smart-market"].map(id=><ShowCard key={id} show={showById(id)}/>)}</Carousel>
+      <div className="h-28"/>
+    </div>
+  );
+}
+function LibraryScreen(){
+  const {push}=useNav(); const {follows,saved}=usePlayer();
+  const followed=SHOWS.filter(s=>follows.has(s.id));
+  const latest=SHOWS.map(s=>epsOf(s.id)[0]).filter(Boolean);
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-4" style={{fontSize:32,letterSpacing:"-0.03em"}}>ספרייה</h1>
+      <div className="grid grid-cols-2 gap-2.5 mb-7">{CATEGORIES.slice(0,4).map(c=><CategoryTile key={c.id} cat={c}/>)}</div>
+      <SectionHeader title="תוכניות שאני עוקב"/>
+      {followed.length===0?<EmptyState text="עדיין לא עוקבים אחרי תוכניות" cta="גלו תוכניות" onClick={()=>push({name:"new"})}/>:(
+        <div className="grid grid-cols-2 gap-x-3 gap-y-4 mb-2">{followed.map(s=>(
+          <button key={s.id} onClick={()=>push({name:"show",id:s.id})} className="text-right active:opacity-70">
+            <Artwork item={s} size="full" radius={14} word/>
+            <div className="font-semibold text-neutral-900 truncate mt-2" style={{fontSize:14}}>{s.title}</div>
+            <div className="text-neutral-500 truncate" style={{fontSize:12}}>{s.creator}</div>
+          </button>
+        ))}</div>
+      )}
+      <div style={{height:28}}/>
+      <SectionHeader title="פרקים אחרונים"/>
+      <div>{latest.slice(0,5).map(ep=><EpisodeRow key={ep.id} ep={ep}/>)}</div>
+      <div style={{height:28}}/>
+      <SectionHeader title="שמורים"/>
+      {saved.size===0?<EmptyState text="אין פרקים שמורים. סמנו פרק עם הסימנייה."/>:<div>{[...saved].map(id=><EpisodeRow key={id} ep={epById(id)}/>)}</div>}
+      <div className="h-28"/>
+    </div>
+  );
+}
+function SearchScreen(){
+  const [q,setQ]=useState("");
+  const results=q.trim()?[
+    ...SHOWS.filter(s=>s.title.includes(q)||s.creator.includes(q)).map(s=>({type:"show",item:s})),
+    ...EPISODES.filter(e=>e.title.includes(q)).map(e=>({type:"ep",item:e})),
+  ]:[];
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-3" style={{fontSize:32,letterSpacing:"-0.03em"}}>חיפוש</h1>
+      <div className="flex items-center gap-2 bg-neutral-100 rounded-xl mb-5" style={{padding:"10px 12px"}}>
+        <SearchI size={18} className="text-neutral-400"/>
+        <input value={q} onChange={e=>setQ(e.target.value)} placeholder="תוכניות, פרקים, קטגוריות" className="flex-1 text-neutral-900 placeholder:text-neutral-400" style={{fontSize:16,background:"transparent",outline:"none",border:"none"}}/>
+        {q&&<button onClick={()=>setQ("")}><X size={16} className="text-neutral-400"/></button>}
+      </div>
+      {q.trim()?(results.length===0?<EmptyState text={`אין תוצאות עבור "${q}"`}/>:(
+        <div>{results.map((r,i)=>r.type==="show"?<ChartRow key={"s"+i} show={r.item} rank={i+1}/>:<EpisodeRow key={"e"+i} ep={r.item}/>)}</div>
+      )):(
+        <>
+          <SectionHeader title="עיון בקטגוריות"/>
+          <div className="grid grid-cols-2 gap-2.5">{CATEGORIES.map(c=><CategoryTile key={c.id} cat={c}/>)}</div>
+        </>
+      )}
+      <div className="h-28"/>
+    </div>
+  );
+}
+function ShowScreen({id}){
+  const {play,follows,toggleFollow,engaged}=usePlayer(); const [filter,setFilter]=useState("all");
+  const show=showById(id); const eps=epsOf(id); const [a]=gradOf(show.cat); const isF=follows.has(id);
+  const showAttr=eps.some(e=>engaged.has(e.id));
+  return (
+    <div>
+      <div className="relative px-4 pt-2 pb-5" style={{background:`linear-gradient(180deg, ${a}22, transparent)`}}>
+        <div className="flex justify-center mb-4"><Artwork item={show} size={168} radius={18} word/></div>
+        <div className="text-center">
+          <div className="font-extrabold text-neutral-900" style={{fontSize:22}}>{show.title}</div>
+          <div className="text-red-600 font-medium" style={{fontSize:15}}>{show.creator}</div>
+          <div className="text-neutral-500 mt-0.5" style={{fontSize:13}}>{CATEGORIES.find(c=>c.id===show.cat)?.title}</div>
+        </div>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button onClick={()=>play(eps[0])} className="flex items-center gap-2 bg-neutral-900 text-white font-semibold rounded-full active:opacity-80" style={{fontSize:15,padding:"10px 24px"}}><Play size={15} fill="currentColor"/> נגן</button>
+          <button onClick={()=>toggleFollow(id)} className={`flex items-center gap-1.5 font-semibold rounded-full active:opacity-80 ${isF?"bg-neutral-100 text-neutral-900":"bg-neutral-900 text-white"}`} style={{fontSize:15,padding:"10px 16px"}}>{isF?<><Check size={15}/> עוקב</>:<><Plus size={15}/> עקוב</>}</button>
+        </div>
+        <p className="text-neutral-600 text-center mt-4" style={{fontSize:14,lineHeight:1.5}}>{show.desc}</p>
+        {showAttr&&<div className="flex justify-center mt-4"><HowBadge tool={show.tool}/></div>}
+      </div>
+      <div className="px-4">
+        <div className="flex items-center gap-2 mb-1 overflow-x-auto pb-2">
+          {[["all","הכל"],["unplayed","לא הושמעו"],["downloaded","הורדו"],["saved","שמורים"]].map(([k,label])=>(
+            <button key={k} onClick={()=>setFilter(k)} className={`rounded-full font-medium whitespace-nowrap ${filter===k?"bg-neutral-900 text-white":"bg-neutral-100 text-neutral-600"}`} style={{fontSize:13,padding:"6px 14px"}}>{label}</button>
+          ))}
+        </div>
+        <div>{eps.map(ep=><EpisodeRow key={ep.id} ep={ep}/>)}</div>
+      </div>
+      <div className="h-28"/>
+    </div>
+  );
+}
+function EpisodeScreen({id}){
+  const {play,current,isPlaying,toggle,saved,toggleSave,engaged}=usePlayer();
+  const ep=epById(id); const show=showById(ep.show); const active=current?.id===ep.id;
+  const isSaved=saved.has(ep.id); const isEng=engaged.has(ep.id); const [a]=gradOf(show.cat);
+  return (
+    <div>
+      <div className="relative px-4 pt-2 pb-5" style={{background:`linear-gradient(180deg, ${a}22, transparent)`}}>
+        <div className="flex justify-center mb-4"><Artwork item={ep} size={150} radius={16}/></div>
+        <div className="text-center">
+          <div className="text-red-600 font-medium" style={{fontSize:13}}>{show.title}</div>
+          <div className="font-extrabold text-neutral-900 mt-0.5" style={{fontSize:20,lineHeight:1.2}}>{ep.title}</div>
+          <div className="text-neutral-500 mt-1" style={{fontSize:13}}>{ep.date} · {fmt(ep.dur)}</div>
+        </div>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <button onClick={()=>active?toggle():play(ep)} className="flex items-center gap-2 bg-neutral-900 text-white font-semibold rounded-full active:opacity-80" style={{fontSize:15,padding:"10px 28px"}}>{active&&isPlaying?<><Pause size={15} fill="currentColor"/> השהה</>:<><Play size={15} fill="currentColor"/> נגן</>}</button>
+          <button onClick={()=>toggleSave(ep.id)} className="w-11 h-11 rounded-full bg-neutral-100 active:bg-neutral-200 flex items-center justify-center text-neutral-900"><Bookmark size={18} fill={isSaved?"currentColor":"none"}/></button>
+          <button className="w-11 h-11 rounded-full bg-neutral-100 active:bg-neutral-200 flex items-center justify-center text-neutral-900"><Download size={18}/></button>
+        </div>
+      </div>
+      <div className="px-4">
+        {isEng?<div className="mb-5"><HowBadge tool={show.tool} big/></div>:(
+          <div className="flex items-center gap-2 text-neutral-400 bg-neutral-50 rounded-xl mb-5" style={{fontSize:13,padding:"12px 14px"}}><Wand2 size={15}/><span>התחילו להאזין כדי לגלות איך הפרק הזה נוצר</span></div>
+        )}
+        <SectionHeader title="תיאור"/>
+        <p className="text-neutral-700 mb-5" style={{fontSize:15,lineHeight:1.6}}>{ep.desc}</p>
+        {ep.chapters&&(
+          <>
+            <SectionHeader title="פרקים"/>
+            <div className="mb-5">{ep.chapters.map(([title,t],i)=>(
+              <button key={i} onClick={()=>play(ep,t)} className="flex items-center gap-3 w-full text-right py-2.5 border-b active:opacity-60">
+                <span className="text-neutral-400 tabular-nums" style={{fontSize:13,width:44}}>{fmt(t)}</span>
+                <span className="flex-1 text-neutral-900" style={{fontSize:15}}>{title}</span>
+                <Play size={13} className="text-neutral-400" fill="currentColor"/>
+              </button>
+            ))}</div>
+          </>
+        )}
+      </div>
+      <div className="h-28"/>
+    </div>
+  );
+}
+function CategoryScreen({id}){
+  const cat=CATEGORIES.find(c=>c.id===id); const shows=SHOWS.filter(s=>s.cat===id);
+  const eps=EPISODES.filter(e=>showById(e.show).cat===id);
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-4" style={{fontSize:30,letterSpacing:"-0.03em"}}>{cat.title}</h1>
+      <SectionHeader title="תוכניות"/>
+      {shows.length?<Carousel>{shows.map(s=><ShowCard key={s.id} show={s}/>)}</Carousel>:<EmptyState text="אין תוכניות בקטגוריה"/>}
+      <div style={{height:28}}/>
+      <SectionHeader title="פרקים אחרונים"/>
+      <div>{eps.map(ep=><EpisodeRow key={ep.id} ep={ep}/>)}</div>
+      <div className="h-28"/>
+    </div>
+  );
+}
+function ChartsScreen(){
+  const top=[...SHOWS].sort((a,b)=>b.plays-a.plays);
+  return (
+    <div className="px-4 pt-2">
+      <h1 className="font-extrabold text-neutral-900 mb-4" style={{fontSize:30,letterSpacing:"-0.03em"}}>Top Charts</h1>
+      <SectionHeader title="Top Shows"/>
+      <div>{top.map((s,i)=><ChartRow key={s.id} show={s} rank={i+1}/>)}</div>
+      <div className="h-28"/>
+    </div>
+  );
+}
+
+/* ----------------------------- PLAYER UI ----------------------------- */
+function MiniPlayer(){
+  const {current,isPlaying,toggle,openNowPlaying,skip}=usePlayer(); if(!current)return null;
+  const show=showById(current.show);
+  return (
+    <button onClick={openNowPlaying} className="flex items-center gap-3 active:opacity-90 mx-3" style={{padding:"8px 10px",marginBottom:8,borderRadius:18,background:"rgba(250,250,250,0.72)",backdropFilter:"blur(24px) saturate(180%)",WebkitBackdropFilter:"blur(24px) saturate(180%)",border:"1px solid rgba(255,255,255,0.6)",boxShadow:"0 8px 30px rgba(0,0,0,0.12)",width:"calc(100% - 24px)"}}>
+      <Artwork item={current} size={40} radius={9}/>
+      <div className="flex-1 min-w-0 text-right">
+        <div className="font-semibold text-neutral-900 truncate" style={{fontSize:14}}>{current.title}</div>
+        <div className="text-neutral-500 truncate" style={{fontSize:12}}>{show.title}</div>
+      </div>
+      <div onClick={e=>{e.stopPropagation();toggle();}} className="w-9 h-9 flex items-center justify-center text-neutral-900">{isPlaying?<Pause size={20} fill="currentColor"/>:<Play size={20} fill="currentColor"/>}</div>
+      <div onClick={e=>{e.stopPropagation();skip(30);}} className="w-9 h-9 flex items-center justify-center text-neutral-900"><SkipForward size={20} fill="currentColor"/></div>
+    </button>
+  );
+}
+function Popover({title,children,onClose}){
+  return (
+    <div className="absolute bg-white text-neutral-900 rounded-2xl p-4 shadow-2xl" style={{bottom:64,left:0,right:0,marginInline:"auto",width:"85%",zIndex:5}}>
+      <div className="flex items-center justify-between mb-3"><span className="font-bold" style={{fontSize:15}}>{title}</span><button onClick={onClose}><X size={18} className="text-neutral-400"/></button></div>
+      {children}
+    </div>
+  );
+}
+function SidePanel({open,onClose,title,children}){
+  return (
+    <div className="absolute inset-0 transition-transform bg-white" style={{zIndex:6,transform:open?"translateY(0)":"translateY(110%)"}}>
+      <div className="flex items-center justify-between px-5 py-4" style={{borderBottom:"1px solid #f5f5f5"}}>
+        <span className="font-extrabold text-neutral-900" style={{fontSize:20}}>{title}</span>
+        <button onClick={onClose} className="w-8 h-8 rounded-full bg-neutral-100 flex items-center justify-center"><ChevronDown size={20} className="text-neutral-600"/></button>
+      </div>
+      <div className="px-5 py-3 overflow-y-auto" style={{height:"calc(100% - 60px)"}}>{children}</div>
+    </div>
+  );
+}
+function Transcript({ep,position,seek}){
+  const lines=[[0,"שלום וברוכים הבאים לפרק חדש."],[12,"היום נצלול לאחד הנושאים המעניינים בתחום."],[28,"בואו נתחיל מהבסיס ונבין מה באמת קורה כאן."],[55,"זו נקודה שאנשים רבים מפספסים."],[90,"ועכשיו, החלק שהכי מסקרן אותי."],[140,"תודה שהאזנתם, נתראה בפרק הבא."]];
+  return (
+    <div>
+      {lines.map(([t,text],i)=>{const next=lines[i+1]?.[0]??ep.dur;const active=position>=t&&position<next;
+        return <button key={i} onClick={()=>seek(t)} className={`block w-full text-right py-2.5 ${active?"text-neutral-900 font-semibold":"text-neutral-300"}`} style={{fontSize:16,lineHeight:1.5}}>{text}</button>;})}
+      <div className="text-neutral-300 text-center py-4" style={{fontSize:11}}>תמלול מסונכרן · הקישו על שורה כדי לדלג</div>
+    </div>
+  );
+}
+function NowPlaying(){
+  const p=usePlayer();
+  const {current,isPlaying,toggle,position,skip,seek,speed,setSpeed,sleep,setSleep,nowPlayingOpen,closeNowPlaying,engaged,queue}=p;
+  const [panel,setPanel]=useState(null); const [pop,setPop]=useState(null);
+  useEffect(()=>{if(!nowPlayingOpen){setPanel(null);setPop(null);}},[nowPlayingOpen]);
+  if(!current)return null;
+  const show=showById(current.show); const [a,b]=gradOf(show.cat);
+  const isEng=engaged.has(current.id); const remaining=current.dur-position;
+  return (
+    <div className="absolute inset-0 transition-transform overflow-hidden" style={{zIndex:40,transform:nowPlayingOpen?"translateY(0)":"translateY(110%)"}}>
+      <div className="absolute inset-0" style={{background:`linear-gradient(180deg, ${a}, ${b})`}}/>
+      <div className="absolute inset-0" style={{background:"rgba(0,0,0,0.18)"}}/>
+      <Noise opacity={0.05}/>
+      <div className="relative h-full flex flex-col px-6 pt-3 pb-7 text-white">
+        <div className="flex justify-center pt-1"><button onClick={closeNowPlaying} className="active:opacity-60"><ChevronDown size={28}/></button></div>
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="flex justify-center mb-7">
+            <div className="relative overflow-hidden flex items-end" style={{width:210,height:210,borderRadius:18,background:`linear-gradient(145deg, ${a}, ${b})`,boxShadow:"0 24px 60px rgba(0,0,0,0.4)",transform:isPlaying?"scale(1)":"scale(0.86)",transition:"transform 0.4s ease"}}>
+              <Noise/><div className="relative font-extrabold" style={{padding:12,fontSize:22}}>{current.title}</div>
+            </div>
+          </div>
+          <div className="flex items-start justify-between mb-1">
+            <div className="min-w-0 flex-1">
+              <div className="font-bold truncate" style={{fontSize:20}}>{current.title}</div>
+              <div className="opacity-80 truncate" style={{fontSize:15}}>{show.title}</div>
+            </div>
+            <button className="w-9 h-9 rounded-full bg-white\/20 flex items-center justify-center active:opacity-70 mt-1"><Star size={16}/></button>
+          </div>
+          {isEng&&<div style={{marginTop:8,marginBottom:16}}><HowBadge tool={show.tool} big/></div>}
+          <div className="mt-4">
+            <input type="range" min={0} max={current.dur} value={position} onChange={e=>seek(Number(e.target.value))} className="w-full" style={{accentColor:"#fff"}}/>
+            <div className="flex justify-between opacity-80 tabular-nums" style={{fontSize:12}}><span>{fmt(position)}</span><span>-{fmt(remaining)}</span></div>
+          </div>
+          <div className="flex items-center justify-center gap-10 mt-5">
+            <button onClick={()=>skip(-15)} className="relative active:opacity-60"><SkipBack size={30}/><span className="absolute inset-0 flex items-center justify-center font-bold" style={{fontSize:9}}>15</span></button>
+            <button onClick={toggle} className="w-16 h-16 rounded-full bg-white\/95 text-neutral-900 flex items-center justify-center active:scale-95 transition-transform">{isPlaying?<Pause size={30} fill="currentColor"/>:<Play size={30} fill="currentColor"/>}</button>
+            <button onClick={()=>skip(30)} className="relative active:opacity-60"><SkipForward size={30}/><span className="absolute inset-0 flex items-center justify-center font-bold" style={{fontSize:9}}>30</span></button>
+          </div>
+        </div>
+        <div className="flex items-center justify-around relative pt-3">
+          <button onClick={()=>setPop(pop==="speed"?null:"speed")} className="flex flex-col items-center gap-1 active:opacity-60"><Gauge size={20}/><span style={{fontSize:10}}>{speed}x</span></button>
+          <button onClick={()=>setPop(pop==="sleep"?null:"sleep")} className="flex flex-col items-center gap-1 active:opacity-60"><Moon size={20}/><span style={{fontSize:10}}>{sleep?`${sleep}'`:"טיימר"}</span></button>
+          <button onClick={()=>setPanel(panel==="transcript"?null:"transcript")} className="flex flex-col items-center gap-1 active:opacity-60"><FileText size={20}/><span style={{fontSize:10}}>תמלול</span></button>
+          <button onClick={()=>setPanel(panel==="queue"?null:"queue")} className="flex flex-col items-center gap-1 active:opacity-60"><ListMusic size={20}/><span style={{fontSize:10}}>תור</span></button>
+          {pop==="speed"&&(
+            <Popover onClose={()=>setPop(null)} title="מהירות נגינה">
+              <div className="grid grid-cols-4 gap-2">{[0.8,1,1.2,1.5,1.75,2,2.5,3].map(s=>(
+                <button key={s} onClick={()=>{setSpeed(s);setPop(null);}} className={`rounded-lg font-semibold ${speed===s?"bg-neutral-900 text-white":"bg-neutral-100 text-neutral-900"}`} style={{fontSize:13,padding:"8px 0"}}>{s}x</button>
+              ))}</div>
+              <div className="text-neutral-400 text-center mt-2" style={{fontSize:11}}>0.5x–3x · צעדים של 0.1x</div>
+            </Popover>
+          )}
+          {pop==="sleep"&&(
+            <Popover onClose={()=>setPop(null)} title="טיימר שינה">
+              <div className="grid grid-cols-3 gap-2">
+                {[5,10,15,30,45,60].map(m=>(<button key={m} onClick={()=>{setSleep(m);setPop(null);}} className={`rounded-lg font-semibold ${sleep===m?"bg-neutral-900 text-white":"bg-neutral-100 text-neutral-900"}`} style={{fontSize:13,padding:"8px 0"}}>{m} דק'</button>))}
+                <button onClick={()=>{setSleep(0);setPop(null);}} className="rounded-lg font-semibold bg-neutral-100 text-neutral-900 col-span-3" style={{fontSize:13,padding:"8px 0"}}>כבה</button>
+              </div>
+            </Popover>
+          )}
+        </div>
+      </div>
+      <SidePanel open={panel==="queue"} onClose={()=>setPanel(null)} title="הבא בתור">
+        {queue.length===0?<div className="text-neutral-500 text-center py-6" style={{fontSize:14}}>התור ריק</div>:queue.map(id=>{const e=epById(id);return (
+          <div key={id} className="flex items-center gap-3 py-3 border-b"><Artwork item={e} size={44} radius={9}/><div className="flex-1 min-w-0"><div className="font-semibold text-neutral-900 truncate" style={{fontSize:14}}>{e.title}</div><div className="text-neutral-500 truncate" style={{fontSize:12}}>{showById(e.show).title}</div></div></div>);})}
+      </SidePanel>
+      <SidePanel open={panel==="transcript"} onClose={()=>setPanel(null)} title="תמלול"><Transcript ep={current} position={position} seek={seek}/></SidePanel>
+    </div>
+  );
+}
+
+/* ----------------------------- SHELL ----------------------------- */
+function StatusBar(){
+  return (
+    <div className="relative flex items-center justify-between px-7 pt-3 pb-1 select-none" style={{height:48}}>
+      <span className="font-semibold text-neutral-900 tabular-nums" style={{fontSize:15}}>9:41</span>
+      <div className="absolute bg-neutral-900 rounded-full left-1/2 -translate-x-1/2" style={{width:92,height:28,top:10,background:"#000"}}/>
+      <div className="flex items-center gap-1.5">
+        <div className="flex items-end gap-0.5" style={{height:11}}>{[4,6,8,10].map((h,i)=><div key={i} className="rounded-sm" style={{width:3,height:h,background:"#171717"}}/>)}</div>
+        <div className="relative border-2 border-neutral-900 rounded-sm" style={{width:22,height:11}}><div className="absolute rounded-sm" style={{top:1,bottom:1,right:1,width:"60%",background:"#171717"}}/></div>
+      </div>
+    </div>
+  );
+}
+function TabBar(){
+  const {setTab,route}=useNav();
+  const tabs=[{id:"home",label:"בית",Icon:HomeI},{id:"new",label:"חדש",Icon:Sparkles},{id:"library",label:"ספרייה",Icon:Library}];
+  const activeTab=["show","episode","category","charts"].includes(route.name)?route._tab:route.name;
+  const glass={background:"rgba(250,250,250,0.72)",backdropFilter:"blur(24px) saturate(180%)",WebkitBackdropFilter:"blur(24px) saturate(180%)",border:"1px solid rgba(255,255,255,0.6)",boxShadow:"0 8px 30px rgba(0,0,0,0.12)"};
+  return (
+    <div className="flex items-center gap-2 px-3 pb-3">
+      <div className="flex-1 flex items-center justify-around" style={{padding:"8px 8px",borderRadius:26,...glass}}>
+        {tabs.map(({id,label,Icon})=>{const active=activeTab===id;return (
+          <button key={id} onClick={()=>setTab(id)} className="flex flex-col items-center gap-0.5 px-3 active:opacity-60" style={{color:active?"#dc2626":"#71717a"}}>
+            <Icon size={22} fill={active?"currentColor":"none"} strokeWidth={active?1.5:2}/><span className="font-medium" style={{fontSize:10}}>{label}</span>
+          </button>
+        );})}
+      </div>
+      <button onClick={()=>setTab("search")} className="flex items-center justify-center active:opacity-60" style={{width:56,height:56,borderRadius:28,color:activeTab==="search"?"#dc2626":"#71717a",...glass}}><SearchI size={24}/></button>
+    </div>
+  );
+}
+
+/* ----------------------------- APP ----------------------------- */
+function App(){
+  const [tab,setTabState]=useState("home");
+  const [stack,setStack]=useState([{name:"home"}]);
+  const route=stack[stack.length-1];
+  const scrollRef=useRef(null); const phoneRef=useRef(null);
+  const [scale,setScale]=useState(1);
+
+  const push=useCallback((r)=>setStack(s=>[...s,{...r,_tab:tab}]),[tab]);
+  const back=useCallback(()=>setStack(s=>s.length>1?s.slice(0,-1):s),[]);
+  const setTab=useCallback((t)=>{setTabState(t);setStack([{name:t}]);},[]);
+  useEffect(()=>{if(scrollRef.current)scrollRef.current.scrollTop=0;},[stack]);
+
+  // responsive scale
+  useEffect(()=>{
+    const fit=()=>setScale(Math.min(1,(window.innerWidth-16)/390,(window.innerHeight-16)/800));
+    fit();window.addEventListener("resize",fit);return()=>window.removeEventListener("resize",fit);
+  },[]);
+
+  const [current,setCurrent]=useState(null);
+  const [isPlaying,setIsPlaying]=useState(false);
+  const [position,setPosition]=useState(0);
+  const [speed,setSpeed]=useState(1);
+  const [sleep,setSleep]=useState(0);
+  const [nowPlayingOpen,setNowPlayingOpen]=useState(false);
+  const [queue]=useState([]);
+  const [follows,setFollows]=useState(new Set(["beyond-code","science-minute"]));
+  const [saved,setSaved]=useState(new Set(["ns1"]));
+  const [progress,setProgress]=useState({bc1:810,mk1:383});
+  const [engaged,setEngaged]=useState(new Set());
+  const [howTool,setHowTool]=useState(null);
+  const [toast,setToast]=useState(null);
+  const engageRef=useRef(0);
+
+  const play=useCallback((ep,at=null)=>{
+    setCurrent(ep); setPosition(at!=null?at:(progress[ep.id]||0)); setIsPlaying(true);
+    engageRef.current=engaged.has(ep.id)?999:0;
+  },[progress,engaged]);
+  const toggle=useCallback(()=>setIsPlaying(v=>!v),[]);
+  const seek=useCallback(s=>setPosition(s),[]);
+  const skip=useCallback(d=>setPosition(p=>Math.max(0,Math.min(current?.dur||0,p+d))),[current]);
+  const toggleFollow=useCallback(id=>setFollows(s=>{const n=new Set(s);n.has(id)?n.delete(id):n.add(id);return n;}),[]);
+  const toggleSave=useCallback(id=>setSaved(s=>{const n=new Set(s);n.has(id)?n.delete(id):n.add(id);return n;}),[]);
+  const openNowPlaying=useCallback(()=>setNowPlayingOpen(true),[]);
+  const closeNowPlaying=useCallback(()=>setNowPlayingOpen(false),[]);
+  const openHow=useCallback(t=>setHowTool(t),[]);
+  const closeHow=useCallback(()=>setHowTool(null),[]);
+
+  useEffect(()=>{
+    if(!isPlaying||!current)return;
+    const iv=setInterval(()=>{
+      setPosition(pp=>{const np=pp+speed;if(np>=current.dur){setIsPlaying(false);return current.dur;}return np;});
+      setProgress(pr=>({...pr,[current.id]:Math.min(current.dur,(pr[current.id]||0)+speed)}));
+      engageRef.current+=1;
+      if(engageRef.current===4&&!engaged.has(current.id)){
+        setEngaged(s=>new Set(s).add(current.id));
+        setToast("גלו איך הפרק הזה נוצר"); setTimeout(()=>setToast(null),3500);
+      }
+    },1000);
+    return()=>clearInterval(iv);
+  },[isPlaying,current,speed,engaged]);
+
+  const renderScreen=()=>{
+    switch(route.name){
+      case "home":return <HomeScreen/>;
+      case "new":return <NewScreen/>;
+      case "library":return <LibraryScreen/>;
+      case "search":return <SearchScreen/>;
+      case "show":return <ShowScreen id={route.id}/>;
+      case "episode":return <EpisodeScreen id={route.id}/>;
+      case "category":return <CategoryScreen id={route.id}/>;
+      case "charts":return <ChartsScreen/>;
+      default:return <HomeScreen/>;
+    }
+  };
+  const canBack=stack.length>1;
+
+  return (
+    <div id="phone-wrap" ref={phoneRef} style={{transform:`scale(${scale})`}}>
+      <div className="relative bg-white overflow-hidden" style={{width:390,height:800,borderRadius:44,boxShadow:"0 40px 100px rgba(0,0,0,0.35), 0 0 0 11px #1c1917, 0 0 0 13px #44403c"}}>
+        <Nav.Provider value={{tab,setTab,push,back,route,canBack}}>
+          <Player.Provider value={{current,isPlaying,position,speed,sleep,queue,follows,saved,progress,engaged,howTool,nowPlayingOpen,play,toggle,seek,skip,setSpeed,setSleep,toggleFollow,toggleSave,openNowPlaying,closeNowPlaying,openHow,closeHow}}>
+            <div className="relative h-full flex flex-col">
+              <StatusBar/>
+              {canBack&&(
+                <button onClick={back} className="absolute flex items-center justify-center active:opacity-60" style={{top:52,right:12,zIndex:20,width:36,height:36,borderRadius:18,background:"rgba(255,255,255,0.7)",backdropFilter:"blur(12px)",boxShadow:"0 2px 10px rgba(0,0,0,0.12)"}}><ChevronRight size={22} className="text-neutral-900"/></button>
+              )}
+              <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden">{renderScreen()}</div>
+              <div className="absolute left-0 right-0 bottom-0" style={{zIndex:30}}><MiniPlayer/><TabBar/></div>
+              <NowPlaying/>
+              <HowSheet/>
+              <div className="absolute left-0 right-0 flex justify-center transition-all" style={{bottom:150,zIndex:60,opacity:toast?1:0,transform:toast?"translateY(0)":"translateY(10px)",pointerEvents:"none"}}>
+                {toast&&<div className="flex items-center gap-2 text-white font-semibold rounded-full" style={{fontSize:13,padding:"10px 16px",background:"rgba(28,25,23,0.92)",backdropFilter:"blur(12px)",boxShadow:"0 8px 24px rgba(0,0,0,0.3)"}}><Wand2 size={15}/> {toast}</div>}
+              </div>
+            </div>
+          </Player.Provider>
+        </Nav.Provider>
+      </div>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>

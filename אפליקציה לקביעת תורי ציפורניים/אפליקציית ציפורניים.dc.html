@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  @keyframes lqPop { from { opacity:0; transform:scale(.96) translateY(6px);} to { opacity:1; transform:scale(1) translateY(0);} }
+  @keyframes lqUp { from { opacity:0; transform:translateY(14px);} to { opacity:1; transform:translateY(0);} }
+  @keyframes lqDraw { to { stroke-dashoffset:0; } }
+  @keyframes lqRing { from { transform:scale(.5); opacity:0;} 60%{opacity:1;} to { transform:scale(1); opacity:1;} }
+  ::-webkit-scrollbar { display:none; }
+  body { background:#E7E0E2; }
+  * { -webkit-tap-highlight-color: transparent; }
+</style>
+</helmet>
+
+<div style="min-height:100vh; display:flex; align-items:center; justify-content:center; padding:32px; box-sizing:border-box; background:radial-gradient(120% 80% at 30% 0%, #F2E9EC 0%, #E7DEE1 55%, #DCD3D6 100%); font-family:'Assistant',-apple-system,system-ui,sans-serif;">
+
+  <x-import component="IOSDevice" from="./ios-frame.jsx" hint-size="402px,874px">
+
+    <div dir="rtl" style="height:100%; display:flex; flex-direction:column; position:relative; background:linear-gradient(185deg,#FBF4F4 0%, #F5EAEE 42%, #F1E7EE 72%, #EEE6F0 100%); color:#2A1B24; font-family:'Assistant',-apple-system,system-ui,sans-serif;">
+
+      <div style="flex:1; overflow:auto; position:relative;">
+
+        <!-- ════════════ HOME ════════════ -->
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:54px 20px 28px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+            <div>
+              <div style="font-size:12px; font-weight:500; color:#A07F8C; letter-spacing:.04em;">ערב טוב</div>
+              <div style="font-family:'Frank Ruhl Libre',serif; font-size:26px; font-weight:700; color:#2A1B24; line-height:1.1; margin-top:2px;">מאיה לוי</div>
+            </div>
+            <div style="width:46px; height:46px; border-radius:50%; background:linear-gradient(150deg,#C98B9E,#8E4A62); display:flex; align-items:center; justify-content:center; color:#FBF4F4; font-weight:600; font-size:17px; box-shadow:0 6px 16px rgba(142,74,98,.35), inset 0 1px 0 rgba(255,255,255,.4);">מ</div>
+          </div>
+
+          <!-- hero card -->
+          <div style="position:relative; border-radius:24px; overflow:hidden; padding:22px 22px 20px; background:linear-gradient(150deg,#3C2230 0%, #6E3450 55%, #B0617B 130%); box-shadow:0 18px 38px rgba(60,34,48,.34), inset 0 1px 0 rgba(255,255,255,.16); margin-bottom:26px; animation:lqUp .5s var(--ease-out,ease) both;">
+            <div style="position:absolute; top:-30px; left:-30px; width:150px; height:150px; border-radius:50%; background:radial-gradient(circle, rgba(194,163,107,.5), transparent 70%); filter:blur(2px);"></div>
+            <div style="position:relative;">
+              <div style="display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:999px; background:rgba(255,255,255,.16); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); color:#F6E8C9; font-size:10.5px; font-weight:600; letter-spacing:.06em;">★ סטודיו מוביל בעיר</div>
+              <div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; color:#FBF4F4; line-height:1.12; margin:12px 0 4px;">Lumière</div>
+              <div style="font-size:12.5px; color:rgba(255,255,255,.72); margin-bottom:18px;">סטודיו ציפורניים · תל אביב · הרצליה</div>
+              <div style="display:flex; align-items:center; gap:14px;">
+                <div onClick="{{ tabDesigns }}" style="flex:1; text-align:center; padding:12px; border-radius:14px; background:#FBF4F4; color:#2A1B24; font-weight:700; font-size:14px; cursor:pointer; box-shadow:0 6px 14px rgba(0,0,0,.18); transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.97);">קביעת תור</div>
+                <div style="display:flex; flex-direction:column; align-items:center; color:#FBF4F4;">
+                  <div style="font-weight:700; font-size:16px; font-family:'Frank Ruhl Libre',serif;">4.9</div>
+                  <div style="font-size:9.5px; color:rgba(255,255,255,.6); letter-spacing:.04em;">312 ביקורות</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- section header -->
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+            <div style="font-family:'Frank Ruhl Libre',serif; font-size:19px; font-weight:700;">הכי מבוקשים</div>
+            <div onClick="{{ tabDesigns }}" style="font-size:12px; font-weight:600; color:#B0617B; cursor:pointer;">לכל העיצובים ‹</div>
+          </div>
+
+          <!-- trending horizontal -->
+          <div style="display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; margin:0 -20px; padding-right:20px; padding-left:20px;">
+            <sc-for list="{{ trending }}" as="d" hint-placeholder-count="4">
+              <div onClick="{{ d.open }}" style="flex:none; width:128px; cursor:pointer; animation:lqUp .5s var(--ease-out,ease) both;">
+                <div style="height:128px; border-radius:18px; background:linear-gradient(170deg,#FFFFFF,#F6EEF1); box-shadow:0 8px 18px rgba(60,34,48,.12), inset 0 1px 0 rgba(255,255,255,.7); display:flex; align-items:flex-end; justify-content:center; gap:4px; padding-bottom:18px;">
+                  <sc-for list="{{ d.nails }}" as="n" hint-placeholder-count="5">
+                    <div style="width:13px; height:{{ n.h }}px; border-radius:{{ d.radius }}; clip-path:{{ d.clip }}; background:{{ d.bg }}; box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 1px 2px rgba(0,0,0,.14); position:relative;">
+                      <div style="position:absolute; top:3px; right:3px; width:4px; height:8px; border-radius:50%; background:rgba(255,255,255,.5); filter:blur(.6px);"></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="font-weight:600; font-size:13px; margin-top:9px;">{{ d.name }}</div>
+                <div style="font-size:11.5px; color:#A07F8C;">החל מ‑₪{{ d.price }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- shop slider -->
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin:28px 0 14px;">
+            <div style="font-family:'Frank Ruhl Libre',serif; font-size:19px; font-weight:700;">החנות של Lumière</div>
+            <div style="font-size:12px; font-weight:600; color:#B0617B; cursor:pointer;">לכל המוצרים ‹</div>
+          </div>
+          <div style="display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; margin:0 -20px; padding-right:20px; padding-left:20px;">
+            <sc-for list="{{ products }}" as="p" hint-placeholder-count="5">
+              <div style="flex:none; width:144px; animation:lqUp .5s var(--ease-out,ease) both;">
+                <div style="position:relative; height:160px; border-radius:18px; overflow:hidden; background:{{ p.cardBg }}; box-shadow:0 8px 18px rgba(60,34,48,.1), inset 0 1px 0 rgba(255,255,255,.7); display:flex; align-items:flex-end; justify-content:center;">
+                  <div style="display:flex; flex-direction:column; align-items:center; margin-bottom:20px;">
+                    <div style="width:{{ p.capW }}px; height:{{ p.capH }}px; border-radius:4px 4px 2px 2px; background:{{ p.capBg }}; box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 1px 2px rgba(0,0,0,.18);"></div>
+                    <div style="width:{{ p.neckW }}px; height:5px; background:{{ p.capBg }}; opacity:.8;"></div>
+                    <div style="width:{{ p.bodyW }}px; height:{{ p.bodyH }}px; border-radius:{{ p.bodyR }}; background:{{ p.bodyBg }}; box-shadow:inset 0 1px 1px rgba(255,255,255,.45), inset -3px 0 7px rgba(0,0,0,.14), 0 5px 12px rgba(0,0,0,.16); position:relative; margin-top:1px;">
+                      <div style="position:absolute; top:6px; right:6px; width:5px; height:58%; border-radius:999px; background:rgba(255,255,255,.42); filter:blur(1px);"></div>
+                      <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:'Frank Ruhl Libre',serif; font-size:11px; font-weight:700; color:{{ p.markFg }}; opacity:.5;">YY</div>
+                    </div>
+                  </div>
+                  <div onClick="{{ p.add }}" style="position:absolute; top:10px; left:10px; width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,.72); -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); box-shadow:0 2px 8px rgba(0,0,0,.12), inset 0 0 0 .5px rgba(0,0,0,.06); display:flex; align-items:center; justify-content:center; cursor:pointer; transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.88);">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#8E4A62" stroke-width="2.6" stroke-linecap="round"/></svg>
+                  </div>
+                </div>
+                <div style="font-weight:600; font-size:13px; margin-top:9px;">{{ p.name }}</div>
+                <div style="display:flex; align-items:baseline; justify-content:space-between; margin-top:2px;">
+                  <div style="font-size:11px; color:#A07F8C;">{{ p.sub }}</div>
+                  <div style="font-size:12.5px; font-weight:700; color:#8E4A62;">₪{{ p.price }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- next appointment -->
+          <div style="margin-top:24px; border-radius:18px; padding:16px; display:flex; align-items:center; gap:14px; background:rgba(255,255,255,.62); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 .5px rgba(0,0,0,.05), 0 10px 24px rgba(60,34,48,.08);">
+            <div style="width:44px; height:44px; border-radius:12px; background:linear-gradient(150deg,#C2A36B,#9C7E45); display:flex; align-items:center; justify-content:center; flex-shrink:0; box-shadow:inset 0 1px 0 rgba(255,255,255,.4);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="3" stroke="#FBF4F4" stroke-width="1.8"/><path d="M3 9h18M8 3v4M16 3v4" stroke="#FBF4F4" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-size:10.5px; color:#A07F8C; font-weight:600; letter-spacing:.04em;">התור הקרוב שלך</div>
+              <div style="font-weight:600; font-size:13.5px; margin-top:1px;">בנייה בג'ל · יום ג׳ 10:30</div>
+            </div>
+            <div onClick="{{ tabAppointments }}" style="font-size:12px; font-weight:600; color:#B0617B; cursor:pointer;">פרטים ›</div>
+          </div>
+
+          <sc-if value="{{ showCart }}" hint-placeholder-val="{{ true }}">
+          <div style="position:sticky; bottom:6px; margin-top:20px; display:flex; align-items:center; justify-content:space-between; padding:11px 14px 11px 11px; border-radius:16px; background:linear-gradient(150deg,#2A1B24,#6E3450); color:#FBF4F4; box-shadow:0 14px 30px rgba(42,27,36,.4), inset 0 1px 0 rgba(255,255,255,.15); animation:lqUp .3s var(--ease-out,ease) both;">
+            <div style="display:flex; align-items:center; gap:11px;">
+              <div style="width:36px; height:36px; border-radius:11px; background:rgba(255,255,255,.14); display:flex; align-items:center; justify-content:center;">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none"><path d="M6 8h12l-1 11a2 2 0 01-2 2H9a2 2 0 01-2-2L6 8z" stroke="#FBF4F4" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8a3 3 0 016 0" stroke="#FBF4F4" stroke-width="1.7"/></svg>
+              </div>
+              <div>
+                <div style="font-size:10.5px; color:rgba(255,255,255,.6);">סל הקניות</div>
+                <div style="font-weight:700; font-size:13.5px;">{{ cartCount }} מוצרים · ₪{{ cartTotal }}</div>
+              </div>
+            </div>
+            <div style="padding:9px 17px; border-radius:11px; background:#FBF4F4; color:#2A1B24; font-weight:700; font-size:13px; cursor:pointer; transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.96);">לתשלום</div>
+          </div>
+          </sc-if>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ DESIGNS GALLERY ════════════ -->
+        <sc-if value="{{ isDesigns }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:54px 20px 28px;">
+          <div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; margin-bottom:4px;">העיצובים</div>
+          <div style="font-size:12.5px; color:#A07F8C; margin-bottom:18px;">בחרי השראה, התאימי אותה אלייך</div>
+
+          <div style="display:flex; gap:8px; overflow-x:auto; margin:0 -20px 20px; padding:0 20px 4px;">
+            <sc-for list="{{ filters }}" as="f" hint-placeholder-count="5">
+              <div onClick="{{ f.select }}" style="flex:none; padding:7px 15px; border-radius:999px; font-size:12.5px; font-weight:600; cursor:pointer; color:{{ f.fg }}; background:{{ f.bg }}; box-shadow:{{ f.shadow }}; transition:all .15s var(--ease-out,ease);">{{ f.label }}</div>
+            </sc-for>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+            <sc-for list="{{ gallery }}" as="d" hint-placeholder-count="8">
+              <div onClick="{{ d.open }}" style="cursor:pointer; animation:lqUp .45s var(--ease-out,ease) both;">
+                <div style="position:relative; height:150px; border-radius:20px; background:linear-gradient(170deg,#FFFFFF,#F5EDF0); box-shadow:0 8px 18px rgba(60,34,48,.1), inset 0 1px 0 rgba(255,255,255,.7); display:flex; align-items:flex-end; justify-content:center; gap:5px; padding-bottom:22px; overflow:hidden;">
+                  <div style="position:absolute; top:10px; right:10px; padding:3px 9px; border-radius:999px; background:rgba(42,27,36,.55); -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); color:#FBF4F4; font-size:9px; font-weight:600; letter-spacing:.04em;">{{ d.tag }}</div>
+                  <sc-for list="{{ d.nails }}" as="n" hint-placeholder-count="5">
+                    <div style="width:15px; height:{{ n.h }}px; border-radius:{{ d.radius }}; clip-path:{{ d.clip }}; background:{{ d.bg }}; box-shadow:inset 0 1px 1px rgba(255,255,255,.5), 0 1px 3px rgba(0,0,0,.16); position:relative;">
+                      <div style="position:absolute; top:4px; right:3px; width:5px; height:10px; border-radius:50%; background:rgba(255,255,255,.5); filter:blur(.7px);"></div>
+                    </div>
+                  </sc-for>
+                </div>
+                <div style="display:flex; align-items:baseline; justify-content:space-between; margin-top:9px;">
+                  <div style="font-weight:600; font-size:13.5px;">{{ d.name }}</div>
+                  <div style="font-size:12px; color:#8E4A62; font-weight:600;">₪{{ d.price }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ DESIGN DETAIL / CUSTOMIZE ════════════ -->
+        <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ true }}">
+        <div style="padding-bottom:120px;">
+          <div style="position:sticky; top:0; z-index:10; padding:50px 20px 12px; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(180deg,rgba(251,244,244,.95),rgba(251,244,244,.6)); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);">
+            <div onClick="{{ goDesigns }}" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.7); box-shadow:0 2px 8px rgba(0,0,0,.08), inset 0 0 0 .5px rgba(0,0,0,.06); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="9" height="16" viewBox="0 0 9 16"><path d="M1 1l7 7-7 7" stroke="#2A1B24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="font-weight:600; font-size:15px;">התאמה אישית</div>
+            <div style="width:38px;"></div>
+          </div>
+
+          <!-- live preview -->
+          <div style="margin:6px 20px 22px; height:236px; border-radius:24px; position:relative; overflow:hidden; background:radial-gradient(110% 90% at 50% 0%, #FFFFFF, #F2E7EC 80%); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 12px 28px rgba(60,34,48,.12); display:flex; align-items:flex-end; justify-content:center; gap:8px; padding-bottom:46px;">
+            <sc-for list="{{ previewNails }}" as="n" hint-placeholder-count="5">
+              <div style="width:26px; height:{{ n.h }}px; border-radius:{{ previewRadius }}; clip-path:{{ previewClip }}; background:{{ previewBg }}; box-shadow:inset 0 1px 1px rgba(255,255,255,.55), 0 3px 7px rgba(0,0,0,.18); position:relative; transition:height .3s var(--ease-out,ease), border-radius .3s var(--ease-out,ease);">
+                <div style="position:absolute; top:6px; right:5px; width:8px; height:16px; border-radius:50%; background:rgba(255,255,255,{{ previewShine }}); filter:blur(1px);"></div>
+              </div>
+            </sc-for>
+            <div style="position:absolute; bottom:16px; right:20px; font-family:'Frank Ruhl Libre',serif; font-size:17px; font-weight:700; color:#2A1B24;">{{ designName }}</div>
+          </div>
+
+          <!-- shape -->
+          <div style="padding:0 20px;">
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">צורה</div>
+            <div style="display:flex; gap:10px; margin-bottom:22px;">
+              <sc-for list="{{ shapeOptions }}" as="o" hint-placeholder-count="5">
+                <div onClick="{{ o.select }}" style="flex:1; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:7px; padding:12px 4px; border-radius:14px; background:{{ o.bg }}; box-shadow:{{ o.shadow }}; transition:all .15s var(--ease-out,ease);">
+                  <div style="width:16px; height:30px; background:#8E4A62; border-radius:{{ o.radius }}; clip-path:{{ o.clip }};"></div>
+                  <div style="font-size:10.5px; font-weight:600; color:{{ o.fg }};">{{ o.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- length -->
+          <div style="padding:0 20px;">
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">אורך</div>
+            <div style="display:flex; gap:0; padding:3px; border-radius:12px; background:rgba(120,120,128,.1); margin-bottom:22px;">
+              <sc-for list="{{ lengthOptions }}" as="o" hint-placeholder-count="3">
+                <div onClick="{{ o.select }}" style="flex:1; text-align:center; padding:9px; border-radius:9px; font-size:12.5px; font-weight:600; cursor:pointer; color:{{ o.fg }}; background:{{ o.bg }}; box-shadow:{{ o.shadow }}; transition:all .15s var(--ease-out,ease);">{{ o.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- color -->
+          <div style="padding:0 20px;">
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">גוון</div>
+            <div style="display:flex; flex-wrap:wrap; gap:13px; margin-bottom:22px;">
+              <sc-for list="{{ colorOptions }}" as="c" hint-placeholder-count="9">
+                <div onClick="{{ c.select }}" style="width:38px; height:38px; border-radius:50%; cursor:pointer; background:{{ c.bg }}; box-shadow:{{ c.ring }}; transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.92);"></div>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- finish -->
+          <div style="padding:0 20px;">
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">גימור</div>
+            <div style="display:flex; flex-wrap:wrap; gap:9px;">
+              <sc-for list="{{ finishOptions }}" as="o" hint-placeholder-count="5">
+                <div onClick="{{ o.select }}" style="padding:8px 16px; border-radius:999px; font-size:12.5px; font-weight:600; cursor:pointer; color:{{ o.fg }}; background:{{ o.bg }}; box-shadow:{{ o.shadow }}; transition:all .15s var(--ease-out,ease);">{{ o.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:14px 20px 30px; background:linear-gradient(180deg,rgba(241,231,238,0),rgba(241,231,238,.96) 38%);">
+          <div onClick="{{ goBooking }}" style="display:flex; align-items:center; justify-content:space-between; padding:15px 22px; border-radius:16px; background:linear-gradient(150deg,#8E4A62,#B0617B); color:#FBF4F4; cursor:pointer; box-shadow:0 10px 24px rgba(142,74,98,.4), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.98);">
+            <span style="font-weight:700; font-size:15px;">המשך לקביעת תור</span>
+            <span style="font-weight:600; font-size:14px;">₪{{ currentPrice }}</span>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ BOOKING ════════════ -->
+        <sc-if value="{{ isBooking }}" hint-placeholder-val="{{ true }}">
+        <div style="padding-bottom:120px;">
+          <div style="position:sticky; top:0; z-index:10; padding:50px 20px 12px; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(180deg,rgba(251,244,244,.95),rgba(251,244,244,.6)); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);">
+            <div onClick="{{ goDetail }}" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.7); box-shadow:0 2px 8px rgba(0,0,0,.08), inset 0 0 0 .5px rgba(0,0,0,.06); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="9" height="16" viewBox="0 0 9 16"><path d="M1 1l7 7-7 7" stroke="#2A1B24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="font-weight:600; font-size:15px;">בחירת תור</div>
+            <div style="width:38px;"></div>
+          </div>
+
+          <div style="padding:6px 20px 0;">
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">סטודיו</div>
+            <div style="display:flex; gap:10px; margin-bottom:24px;">
+              <sc-for list="{{ studioOptions }}" as="o" hint-placeholder-count="2">
+                <div onClick="{{ o.select }}" style="flex:1; padding:13px 14px; border-radius:14px; cursor:pointer; background:{{ o.bg }}; box-shadow:{{ o.shadow }}; transition:all .15s var(--ease-out,ease);">
+                  <div style="font-weight:600; font-size:13px; color:{{ o.fg }};">{{ o.city }}</div>
+                  <div style="font-size:11px; color:{{ o.sub }}; margin-top:2px;">{{ o.addr }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">מעצבת</div>
+            <div style="display:flex; gap:12px; overflow-x:auto; margin:0 -20px 24px; padding:0 20px 4px;">
+              <sc-for list="{{ therapistOptions }}" as="t" hint-placeholder-count="4">
+                <div onClick="{{ t.select }}" style="flex:none; width:78px; text-align:center; cursor:pointer;">
+                  <div style="width:64px; height:64px; margin:0 auto; border-radius:50%; background:{{ t.avatar }}; display:flex; align-items:center; justify-content:center; color:#FBF4F4; font-weight:600; font-size:20px; font-family:'Frank Ruhl Libre',serif; box-shadow:{{ t.ring }}; transition:all .15s var(--ease-out,ease);">{{ t.initial }}</div>
+                  <div style="font-weight:600; font-size:12px; margin-top:8px; color:{{ t.fg }};">{{ t.name }}</div>
+                  <div style="font-size:9.5px; color:#A07F8C;">{{ t.role }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">תאריך</div>
+            <div style="display:flex; gap:9px; overflow-x:auto; margin:0 -20px 24px; padding:0 20px 4px;">
+              <sc-for list="{{ dateOptions }}" as="d" hint-placeholder-count="7">
+                <div onClick="{{ d.select }}" style="flex:none; width:52px; text-align:center; padding:11px 0; border-radius:14px; cursor:pointer; background:{{ d.bg }}; box-shadow:{{ d.shadow }}; transition:all .15s var(--ease-out,ease);">
+                  <div style="font-size:10px; font-weight:600; color:{{ d.sub }};">{{ d.wd }}</div>
+                  <div style="font-size:18px; font-weight:700; color:{{ d.fg }}; font-family:'Frank Ruhl Libre',serif; line-height:1.3;">{{ d.num }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">שעה פנויה</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+              <sc-for list="{{ timeOptions }}" as="t" hint-placeholder-count="9">
+                <div onClick="{{ t.select }}" style="text-align:center; padding:12px 0; border-radius:12px; font-size:13.5px; font-weight:600; cursor:{{ t.cursor }}; color:{{ t.fg }}; background:{{ t.bg }}; box-shadow:{{ t.shadow }}; transition:all .15s var(--ease-out,ease);">{{ t.label }}</div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:14px 20px 30px; background:linear-gradient(180deg,rgba(241,231,238,0),rgba(241,231,238,.96) 38%);">
+          <div onClick="{{ goPayment }}" style="display:flex; align-items:center; justify-content:space-between; padding:15px 22px; border-radius:16px; background:linear-gradient(150deg,#8E4A62,#B0617B); color:#FBF4F4; cursor:pointer; box-shadow:0 10px 24px rgba(142,74,98,.4), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.98);">
+            <span style="font-weight:700; font-size:15px;">המשך לתשלום</span>
+            <span style="font-weight:600; font-size:13px;">{{ bookingSummary }}</span>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ PAYMENT ════════════ -->
+        <sc-if value="{{ isPayment }}" hint-placeholder-val="{{ true }}">
+        <div style="padding-bottom:120px;">
+          <div style="position:sticky; top:0; z-index:10; padding:50px 20px 12px; display:flex; align-items:center; justify-content:space-between; background:linear-gradient(180deg,rgba(251,244,244,.95),rgba(251,244,244,.6)); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px);">
+            <div onClick="{{ goBooking }}" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.7); box-shadow:0 2px 8px rgba(0,0,0,.08), inset 0 0 0 .5px rgba(0,0,0,.06); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="9" height="16" viewBox="0 0 9 16"><path d="M1 1l7 7-7 7" stroke="#2A1B24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="font-weight:600; font-size:15px;">סיכום ותשלום</div>
+            <div style="width:38px;"></div>
+          </div>
+
+          <div style="padding:6px 20px 0;">
+            <!-- summary card -->
+            <div style="border-radius:18px; padding:18px; background:rgba(255,255,255,.66); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 .5px rgba(0,0,0,.05), 0 10px 22px rgba(60,34,48,.08); margin-bottom:18px;">
+              <div style="display:flex; align-items:center; gap:13px; padding-bottom:14px; border-bottom:.5px solid rgba(0,0,0,.1);">
+                <div style="width:50px; height:50px; border-radius:13px; background:radial-gradient(110% 90% at 50% 0%, #FFFFFF, #F2E7EC); display:flex; align-items:flex-end; justify-content:center; gap:2.5px; padding-bottom:8px; box-shadow:inset 0 0 0 .5px rgba(0,0,0,.05);">
+                  <sc-for list="{{ previewNails }}" as="n" hint-placeholder-count="5">
+                    <div style="width:5px; height:{{ n.mini }}px; border-radius:{{ previewRadius }}; clip-path:{{ previewClip }}; background:{{ previewBg }};"></div>
+                  </sc-for>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-weight:700; font-size:15px; font-family:'Frank Ruhl Libre',serif;">{{ designName }}</div>
+                  <div style="font-size:11.5px; color:#A07F8C; margin-top:2px;">{{ configSummary }}</div>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:9px; padding-top:13px; font-size:12.5px;">
+                <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">מעצבת</span><span style="font-weight:600;">{{ therapistName }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">סטודיו</span><span style="font-weight:600;">{{ studioName }}</span></div>
+                <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">מועד</span><span style="font-weight:600;">{{ whenSummary }}</span></div>
+              </div>
+            </div>
+
+            <!-- receipt -->
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">פירוט מחיר</div>
+            <div style="border-radius:16px; padding:4px 16px; background:#fff; box-shadow:0 0 0 .5px rgba(0,0,0,.05), 0 6px 16px rgba(60,34,48,.06); margin-bottom:18px;">
+              <sc-for list="{{ priceLines }}" as="p" hint-placeholder-count="3">
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:{{ p.border }};">
+                  <span style="font-size:13px; color:#2A1B24;">{{ p.label }}</span>
+                  <span style="font-size:13px; font-weight:600; color:#2A1B24;">{{ p.amount }}</span>
+                </div>
+              </sc-for>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:14px 0;">
+                <span style="font-size:15px; font-weight:700; font-family:'Frank Ruhl Libre',serif;">סה״כ</span>
+                <span style="font-size:18px; font-weight:700; color:#8E4A62; font-family:'Frank Ruhl Libre',serif;">₪{{ currentPrice }}</span>
+              </div>
+            </div>
+
+            <!-- payment method -->
+            <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:10px;">אמצעי תשלום</div>
+            <div style="display:flex; align-items:center; gap:13px; border-radius:16px; padding:15px 16px; background:#fff; box-shadow:0 0 0 .5px rgba(0,0,0,.05), 0 6px 16px rgba(60,34,48,.06);">
+              <div style="width:42px; height:30px; border-radius:7px; background:linear-gradient(135deg,#3C2230,#8E4A62); position:relative; box-shadow:inset 0 1px 0 rgba(255,255,255,.2);">
+                <div style="position:absolute; top:6px; right:5px; width:9px; height:7px; border-radius:2px; background:#C2A36B;"></div>
+              </div>
+              <div style="flex:1;">
+                <div style="font-weight:600; font-size:13px;">ויזה · 4821</div>
+                <div style="font-size:11px; color:#A07F8C;">תוקף 09/27</div>
+              </div>
+              <div style="font-size:12px; font-weight:600; color:#B0617B;">החלפה</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="position:absolute; bottom:0; left:0; right:0; padding:14px 20px 30px; background:linear-gradient(180deg,rgba(241,231,238,0),rgba(241,231,238,.96) 38%);">
+          <div onClick="{{ goConfirm }}" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:15px 22px; border-radius:16px; background:linear-gradient(150deg,#3C2230,#8E4A62); color:#FBF4F4; cursor:pointer; box-shadow:0 10px 24px rgba(60,34,48,.4), inset 0 1px 0 rgba(255,255,255,.2); transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.98);">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="3" stroke="#FBF4F4" stroke-width="1.8"/><path d="M3 9h18" stroke="#FBF4F4" stroke-width="1.8"/></svg>
+            <span style="font-weight:700; font-size:15px;">אישור ותשלום · ₪{{ currentPrice }}</span>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ CONFIRM ════════════ -->
+        <sc-if value="{{ isConfirm }}" hint-placeholder-val="{{ true }}">
+        <div style="height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:40px 32px; text-align:center;">
+          <div style="position:relative; width:108px; height:108px; margin-bottom:28px;">
+            <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle, rgba(176,97,123,.22), transparent 70%); animation:lqRing .6s var(--ease-out,ease) both;"></div>
+            <div style="position:absolute; inset:14px; border-radius:50%; background:linear-gradient(150deg,#8E4A62,#B0617B); display:flex; align-items:center; justify-content:center; box-shadow:0 14px 30px rgba(142,74,98,.4), inset 0 1px 0 rgba(255,255,255,.3); animation:lqPop .5s .1s var(--ease-out,ease) both;">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M11 21l6 6 13-14" stroke="#FBF4F4" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:40; stroke-dashoffset:40; animation:lqDraw .5s .5s var(--ease-out,ease) forwards;"/></svg>
+            </div>
+          </div>
+          <div style="font-family:'Frank Ruhl Libre',serif; font-size:27px; font-weight:700; margin-bottom:8px;">התור נקבע</div>
+          <div style="font-size:13.5px; color:#6E5B65; line-height:1.5; max-width:240px; margin-bottom:26px;">שמרנו לך את המקום. שלחנו אישור והזכרנו יום לפני.</div>
+
+          <div style="width:100%; border-radius:18px; padding:18px; background:rgba(255,255,255,.66); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 .5px rgba(0,0,0,.05), 0 10px 22px rgba(60,34,48,.08); text-align:right; margin-bottom:26px;">
+            <div style="display:flex; flex-direction:column; gap:11px; font-size:13px;">
+              <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">עיצוב</span><span style="font-weight:600;">{{ designName }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">מעצבת</span><span style="font-weight:600;">{{ therapistName }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">מועד</span><span style="font-weight:600;">{{ whenSummary }}</span></div>
+              <div style="display:flex; justify-content:space-between;"><span style="color:#6E5B65;">סטודיו</span><span style="font-weight:600;">{{ studioName }}</span></div>
+            </div>
+          </div>
+
+          <div onClick="{{ goAppointmentsFromConfirm }}" style="width:100%; padding:15px; border-radius:16px; background:linear-gradient(150deg,#8E4A62,#B0617B); color:#FBF4F4; font-weight:700; font-size:15px; cursor:pointer; box-shadow:0 10px 24px rgba(142,74,98,.4), inset 0 1px 0 rgba(255,255,255,.2); margin-bottom:12px; transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.98);">התורים שלי</div>
+          <div onClick="{{ tabHome }}" style="font-size:13px; font-weight:600; color:#8E4A62; cursor:pointer;">חזרה לדף הבית</div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ APPOINTMENTS ════════════ -->
+        <sc-if value="{{ isAppointments }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:54px 20px 28px;">
+          <div style="font-family:'Frank Ruhl Libre',serif; font-size:30px; font-weight:700; margin-bottom:18px;">התורים שלי</div>
+
+          <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">קרובים</div>
+          <div style="position:relative; border-radius:20px; overflow:hidden; padding:18px; background:linear-gradient(150deg,#3C2230,#6E3450); box-shadow:0 14px 30px rgba(60,34,48,.3), inset 0 1px 0 rgba(255,255,255,.14); margin-bottom:26px;">
+            <div style="position:absolute; bottom:-30px; left:-20px; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(194,163,107,.4), transparent 70%);"></div>
+            <div style="position:relative; display:flex; align-items:flex-start; justify-content:space-between;">
+              <div>
+                <div style="display:inline-flex; padding:3px 10px; border-radius:999px; background:rgba(194,163,107,.25); color:#F2DEB3; font-size:10px; font-weight:600; margin-bottom:10px;">בעוד 3 ימים</div>
+                <div style="font-family:'Frank Ruhl Libre',serif; font-size:21px; font-weight:700; color:#FBF4F4;">בנייה בג'ל · ורד עתיק</div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,.72); margin-top:6px;">יום ג׳, 24 ביוני · 10:30</div>
+                <div style="font-size:12.5px; color:rgba(255,255,255,.72); margin-top:2px;">עם שירה · Lumière תל אביב</div>
+              </div>
+            </div>
+            <div style="position:relative; display:flex; gap:10px; margin-top:18px;">
+              <div style="flex:1; text-align:center; padding:9px; border-radius:11px; background:rgba(255,255,255,.14); color:#FBF4F4; font-size:12.5px; font-weight:600; cursor:pointer;">שינוי מועד</div>
+              <div style="flex:1; text-align:center; padding:9px; border-radius:11px; background:#FBF4F4; color:#2A1B24; font-size:12.5px; font-weight:700; cursor:pointer;">הוספה ליומן</div>
+            </div>
+          </div>
+
+          <div style="font-weight:600; font-size:13px; color:#6E5B65; margin-bottom:12px;">היסטוריה</div>
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ history }}" as="h" hint-placeholder-count="3">
+              <div style="display:flex; align-items:center; gap:14px; border-radius:16px; padding:14px; background:rgba(255,255,255,.62); -webkit-backdrop-filter:saturate(180%) blur(16px); backdrop-filter:saturate(180%) blur(16px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 .5px rgba(0,0,0,.05), 0 6px 16px rgba(60,34,48,.06);">
+                <div style="width:46px; height:46px; border-radius:12px; background:radial-gradient(110% 90% at 50% 0%, #FFFFFF, #F2E7EC); display:flex; align-items:flex-end; justify-content:center; gap:2px; padding-bottom:7px; box-shadow:inset 0 0 0 .5px rgba(0,0,0,.05); flex-shrink:0;">
+                  <sc-for list="{{ h.nails }}" as="n" hint-placeholder-count="5">
+                    <div style="width:4.5px; height:{{ n.h }}px; border-radius:{{ h.radius }}; clip-path:{{ h.clip }}; background:{{ h.bg }};"></div>
+                  </sc-for>
+                </div>
+                <div style="flex:1;">
+                  <div style="font-weight:600; font-size:13.5px;">{{ h.name }}</div>
+                  <div style="font-size:11.5px; color:#A07F8C; margin-top:2px;">{{ h.date }} · {{ h.therapist }}</div>
+                </div>
+                <div style="text-align:left;">
+                  <div style="font-size:12.5px; font-weight:600; color:#8E4A62;">₪{{ h.price }}</div>
+                  <div onClick="{{ h.rebook }}" style="font-size:11px; font-weight:600; color:#B0617B; margin-top:3px; cursor:pointer;">הזמיני שוב</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ PROFILE ════════════ -->
+        <sc-if value="{{ isProfile }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:54px 20px 28px;">
+          <div style="display:flex; flex-direction:column; align-items:center; text-align:center; margin-bottom:24px;">
+            <div style="width:80px; height:80px; border-radius:50%; background:linear-gradient(150deg,#C98B9E,#8E4A62); display:flex; align-items:center; justify-content:center; color:#FBF4F4; font-weight:600; font-size:30px; font-family:'Frank Ruhl Libre',serif; box-shadow:0 10px 24px rgba(142,74,98,.35), inset 0 1px 0 rgba(255,255,255,.4); margin-bottom:14px;">מ</div>
+            <div style="font-family:'Frank Ruhl Libre',serif; font-size:23px; font-weight:700;">מאיה לוי</div>
+            <div style="display:inline-flex; align-items:center; gap:5px; margin-top:6px; padding:4px 12px; border-radius:999px; background:linear-gradient(150deg,#C2A36B,#9C7E45); color:#FBF4F4; font-size:11px; font-weight:600; box-shadow:inset 0 1px 0 rgba(255,255,255,.3);">★ חברת מועדון · זהב</div>
+          </div>
+
+          <!-- loyalty -->
+          <div style="border-radius:18px; padding:18px; background:rgba(255,255,255,.66); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:inset 0 1px 0 rgba(255,255,255,.8), 0 0 0 .5px rgba(0,0,0,.05), 0 10px 22px rgba(60,34,48,.08); margin-bottom:24px;">
+            <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px;">
+              <div style="font-weight:600; font-size:13.5px;">כרטיסיית נאמנות</div>
+              <div style="font-size:11.5px; color:#A07F8C;">עוד טיפול אחד למתנה</div>
+            </div>
+            <div style="display:flex; gap:7px;">
+              <sc-for list="{{ loyalty }}" as="l" hint-placeholder-count="8">
+                <div style="flex:1; height:9px; border-radius:999px; background:{{ l.bg }};"></div>
+              </sc-for>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:10.5px; color:#A07F8C;"><span>7 מתוך 8</span><span>טיפול שמיני חינם</span></div>
+          </div>
+
+          <!-- settings list -->
+          <div style="border-radius:16px; overflow:hidden; background:#fff; box-shadow:0 0 0 .5px rgba(0,0,0,.05), 0 6px 16px rgba(60,34,48,.06); margin-bottom:18px;">
+            <sc-for list="{{ profileRows }}" as="r" hint-placeholder-count="4">
+              <div style="display:flex; align-items:center; gap:13px; padding:15px 16px; border-bottom:{{ r.border }}; cursor:pointer;">
+                <div style="width:30px; height:30px; border-radius:8px; background:{{ r.tone }}; display:flex; align-items:center; justify-content:center; flex-shrink:0;">{{ r.icon }}</div>
+                <div style="flex:1; font-size:14px; font-weight:500;">{{ r.label }}</div>
+                <svg width="7" height="13" viewBox="0 0 7 13" style="transform:scaleX(-1);"><path d="M1 1l5 5.5L1 12" stroke="rgba(0,0,0,.25)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+            </sc-for>
+          </div>
+
+          <!-- admin switch -->
+          <div onClick="{{ goAdmin }}" style="display:flex; align-items:center; gap:13px; border-radius:16px; padding:16px; background:linear-gradient(150deg,#2A1B24,#4A2E3C); color:#FBF4F4; cursor:pointer; box-shadow:0 10px 22px rgba(42,27,36,.3), inset 0 1px 0 rgba(255,255,255,.12); transition:transform .12s var(--ease-out,ease);" style-active="transform:scale(.98);">
+            <div style="width:36px; height:36px; border-radius:10px; background:rgba(194,163,107,.25); display:flex; align-items:center; justify-content:center;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="17" rx="3" stroke="#F2DEB3" stroke-width="1.7"/><path d="M3 9h18M8 2v4M16 2v4M7.5 13h3M7.5 17h6" stroke="#F2DEB3" stroke-width="1.7" stroke-linecap="round"/></svg>
+            </div>
+            <div style="flex:1;">
+              <div style="font-weight:600; font-size:14px;">תצוגת מנהלת</div>
+              <div style="font-size:11px; color:rgba(255,255,255,.6); margin-top:1px;">ניהול היומן והתורים</div>
+            </div>
+            <svg width="7" height="13" viewBox="0 0 7 13" style="transform:scaleX(-1);"><path d="M1 1l5 5.5L1 12" stroke="rgba(255,255,255,.4)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+        </div>
+        </sc-if>
+
+        <!-- ════════════ ADMIN DIARY ════════════ -->
+        <sc-if value="{{ isAdmin }}" hint-placeholder-val="{{ true }}">
+        <div style="background:linear-gradient(185deg,#241820,#3A2632 60%, #2A1B24); min-height:100%; padding-bottom:30px;">
+          <div style="position:sticky; top:0; z-index:10; padding:50px 20px 14px; background:linear-gradient(180deg,rgba(36,24,32,.96),rgba(36,24,32,.6)); -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); display:flex; align-items:center; justify-content:space-between;">
+            <div onClick="{{ tabProfile }}" style="width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="9" height="16" viewBox="0 0 9 16"><path d="M1 1l7 7-7 7" stroke="#FBF4F4" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="text-align:center;">
+              <div style="font-weight:600; font-size:15px; color:#FBF4F4;">יומן הסטודיו</div>
+              <div style="font-size:11px; color:rgba(255,255,255,.5); margin-top:1px;">יום ג׳, 24 ביוני</div>
+            </div>
+            <div style="width:38px; height:38px; border-radius:50%; background:linear-gradient(150deg,#C2A36B,#9C7E45); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#FBF4F4" stroke-width="2.4" stroke-linecap="round"/></svg>
+            </div>
+          </div>
+
+          <div style="padding:8px 20px 0;">
+            <!-- stats -->
+            <div style="display:flex; gap:11px; margin-bottom:22px;">
+              <sc-for list="{{ adminStats }}" as="s" hint-placeholder-count="3">
+                <div style="flex:1; border-radius:16px; padding:14px; background:rgba(255,255,255,.08); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 .5px rgba(255,255,255,.06);">
+                  <div style="font-family:'Frank Ruhl Libre',serif; font-size:22px; font-weight:700; color:{{ s.color }};">{{ s.value }}</div>
+                  <div style="font-size:10.5px; color:rgba(255,255,255,.55); margin-top:2px;">{{ s.label }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- day filter chips (therapists) -->
+            <div style="display:flex; gap:8px; overflow-x:auto; margin:0 -20px 20px; padding:0 20px 4px;">
+              <sc-for list="{{ adminFilters }}" as="f" hint-placeholder-count="4">
+                <div style="flex:none; display:flex; align-items:center; gap:7px; padding:7px 14px 7px 12px; border-radius:999px; background:{{ f.bg }}; box-shadow:{{ f.shadow }};">
+                  <div style="width:8px; height:8px; border-radius:50%; background:{{ f.dot }};"></div>
+                  <span style="font-size:12px; font-weight:600; color:{{ f.fg }};">{{ f.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <!-- agenda -->
+            <div style="display:flex; flex-direction:column;">
+              <sc-for list="{{ schedule }}" as="a" hint-placeholder-count="7">
+                <div style="display:flex; gap:14px; align-items:stretch;">
+                  <div style="width:42px; flex-shrink:0; text-align:left; padding-top:2px;">
+                    <div style="font-size:12px; font-weight:700; color:rgba(255,255,255,.85); font-family:'Frank Ruhl Libre',serif;">{{ a.time }}</div>
+                  </div>
+                  <div style="position:relative; width:14px; flex-shrink:0; display:flex; flex-direction:column; align-items:center;">
+                    <div style="width:9px; height:9px; border-radius:50%; background:{{ a.dot }}; margin-top:4px; box-shadow:0 0 0 3px {{ a.dotRing }}; z-index:1;"></div>
+                    <div style="flex:1; width:1.5px; background:rgba(255,255,255,.12);"></div>
+                  </div>
+                  <div style="flex:1; padding-bottom:14px;">
+                    <div style="border-radius:14px; padding:13px 14px; background:{{ a.cardBg }}; box-shadow:{{ a.cardShadow }};">
+                      <div style="display:flex; align-items:center; justify-content:space-between;">
+                        <div style="font-weight:600; font-size:13.5px; color:{{ a.titleColor }};">{{ a.client }}</div>
+                        <div style="font-size:11px; font-weight:600; color:{{ a.priceColor }};">{{ a.price }}</div>
+                      </div>
+                      <div style="font-size:11.5px; color:{{ a.subColor }}; margin-top:3px;">{{ a.service }} · {{ a.dur }}</div>
+                      <sc-if value="{{ a.hasTherapist }}" hint-placeholder-val="{{ true }}">
+                        <div style="display:inline-flex; align-items:center; gap:5px; margin-top:9px; padding:3px 9px; border-radius:999px; background:{{ a.tagBg }};">
+                          <div style="width:6px; height:6px; border-radius:50%; background:{{ a.dot }};"></div>
+                          <span style="font-size:10px; font-weight:600; color:{{ a.tagFg }};">{{ a.therapist }}</span>
+                        </div>
+                      </sc-if>
+                    </div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        </sc-if>
+
+      </div>
+
+      <!-- ════════════ TAB BAR ════════════ -->
+      <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:none; padding:8px 14px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-around; padding:8px 6px; border-radius:26px; background:rgba(255,255,255,.62); -webkit-backdrop-filter:saturate(180%) blur(24px); backdrop-filter:saturate(180%) blur(24px); box-shadow:inset 0 1px 0 rgba(255,255,255,.9), inset 0 -1px 0 rgba(0,0,0,.04), 0 0 0 .5px rgba(0,0,0,.06), 0 10px 28px rgba(60,34,48,.16);">
+          <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+            <div onClick="{{ t.select }}" style="flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:4px 0; cursor:pointer;">
+              <div style="color:{{ t.color }};">{{ t.icon }}</div>
+              <div style="font-size:10px; font-weight:600; color:{{ t.color }};">{{ t.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </x-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:466,&quot;height&quot;:938}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'home',
+    design: 'rose',
+    shape: 'almond',
+    color: '#C98B9E',
+    finish: 'gloss',
+    length: 'medium',
+    studio: 0,
+    therapist: 'shira',
+    date: 2,
+    time: '10:30',
+    filter: 'all',
+    cart: {},
+  };
+
+  products = [
+    { id:'top',   name:'טופ קוט גלוס',     sub:'30ml',     price:59,  capBg:'#2A1B24', bodyBg:'linear-gradient(160deg,#F6EFEA,#E6D5CD)', cardBg:'linear-gradient(170deg,#FBF4F4,#F3E7EA)', markFg:'#8E4A62', capW:18, capH:22, neckW:9,  bodyW:30, bodyH:62, bodyR:'4px 4px 8px 8px' },
+    { id:'oil',   name:'שמן קוטיקולה',    sub:'15ml',     price:45,  capBg:'#9C7E45', bodyBg:'linear-gradient(160deg,#EAce8e,#C49A52)', cardBg:'linear-gradient(170deg,#FBF6EC,#F1E6CF)', markFg:'#6B4E1F', capW:10, capH:26, neckW:7,  bodyW:26, bodyH:54, bodyR:'10px 10px 12px 12px' },
+    { id:'rose',  name:'לק ג׳ל · ורד עתיק', sub:'12ml',   price:52,  capBg:'#3C2230', bodyBg:'linear-gradient(160deg,#D89BAC,#B0617B)', cardBg:'linear-gradient(170deg,#FBF1F4,#F2DDE4)', markFg:'#FBF4F4', capW:20, capH:20, neckW:10, bodyW:30, bodyH:58, bodyR:'4px 4px 7px 7px' },
+    { id:'cream', name:'קרם ידיים יוקרתי', sub:'75ml',     price:42,  capBg:'#C2A36B', bodyBg:'linear-gradient(160deg,#FBF4F4,#EBDED6)', cardBg:'linear-gradient(170deg,#F8F3EE,#EFE6DE)', markFg:'#9C7E45', capW:30, capH:14, neckW:0,  bodyW:34, bodyH:50, bodyR:'8px 8px 10px 10px' },
+    { id:'kit',   name:'ערכת טיפוח בית',   sub:'5 פריטים', price:189, capBg:'#5B2A45', bodyBg:'linear-gradient(160deg,#7E3A5C,#4A2238)', cardBg:'linear-gradient(170deg,#F4ECF0,#E7D6E0)', markFg:'#F2DEB3', capW:22, capH:20, neckW:11, bodyW:34, bodyH:62, bodyR:'4px 4px 8px 8px' },
+  ];
+
+  addToCart(id) { this.setState(st => { const c = { ...(st.cart||{}) }; c[id] = (c[id]||0) + 1; return { cart: c }; }); }
+
+  designs = [
+    { id:'rose',  name:'ורד עתיק',     tag:'הכי מבוקש', price:240, cat:'soft',    shape:'almond',   swatch:'#C98B9E', finishKey:'gloss',
+      bg:'#C98B9E' },
+    { id:'french',name:"פרנץ' קלאסי",  tag:'קלאסי',     price:180, cat:'classic', shape:'square',   swatch:'#F0DAD0', finishKey:'french',
+      bg:'linear-gradient(to top,#EAD2C7 58%, #FFFAF6 58%)' },
+    { id:'champ', name:'שמפניה כרום',  tag:'לוקס',      price:300, cat:'glam',    shape:'oval',     swatch:'#D9C19A', finishKey:'chrome',
+      bg:'conic-gradient(from 210deg,#E7D4AC,#F8EFD6,#C9AC7C,#F1E2BE,#D6BC8C,#E7D4AC)' },
+    { id:'plum',  name:'שזיף נצנצים',  tag:'דרמטי',     price:280, cat:'glam',    shape:'coffin',   swatch:'#5B2A45', finishKey:'glitter',
+      bg:'radial-gradient(circle at 26% 18%, rgba(255,255,255,.9) 0 1.1px, transparent 1.3px), radial-gradient(circle at 64% 42%, rgba(255,255,255,.75) 0 1px, transparent 1.2px), radial-gradient(circle at 42% 72%, rgba(255,255,255,.8) 0 1px, transparent 1.2px), linear-gradient(160deg,#5B2A45,#371A2B)' },
+    { id:'nude',  name:'ניוד חלבי',    tag:'עדין',      price:200, cat:'soft',    shape:'round',    swatch:'#E4C3B6', finishKey:'matte',
+      bg:'#E4C3B6' },
+    { id:'wine',  name:'אדום יין',     tag:'קלאסי',     price:220, cat:'classic', shape:'stiletto', swatch:'#7E2A3B', finishKey:'gloss',
+      bg:'linear-gradient(160deg,#9A3147,#6B1F30)' },
+    { id:'lav',   name:'לבנדר אומברה', tag:'חדש',       price:260, cat:'glam',    shape:'almond',   swatch:'#B9A7D6', finishKey:'ombre',
+      bg:'linear-gradient(to top,#9F86C6,#ECE3F5)' },
+    { id:'agate', name:'אגת ורוד',     tag:'אמנותי',    price:320, cat:'glam',    shape:'oval',     swatch:'#E7A9C0', finishKey:'gloss',
+      bg:'linear-gradient(135deg,#F0C2D2 0%, #E18FB1 28%, #F6E2EA 50%, #D98BAE 72%, #F0C2D2 100%)' },
+  ];
+
+  palette = [
+    { hex:'#C98B9E', bg:'#C98B9E' },
+    { hex:'#E4C3B6', bg:'#E4C3B6' },
+    { hex:'#D9C19A', bg:'#D9C19A' },
+    { hex:'#7E2A3B', bg:'#7E2A3B' },
+    { hex:'#5B2A45', bg:'#5B2A45' },
+    { hex:'#B9A7D6', bg:'#B9A7D6' },
+    { hex:'#F0C2D2', bg:'#F0C2D2' },
+    { hex:'#241A20', bg:'#241A20' },
+    { hex:'#F3ECE6', bg:'#F3ECE6' },
+  ];
+
+  finishes = [
+    { key:'gloss',   label:'גלוס' },
+    { key:'matte',   label:'מאט' },
+    { key:'glitter', label:'נצנצים' },
+    { key:'chrome',  label:'כרום' },
+    { key:'ombre',   label:'אומברה' },
+    { key:'french',  label:"פרנץ'" },
+  ];
+
+  shapesList = [
+    { key:'square',   label:'סקוור' },
+    { key:'round',    label:'אובל' },
+    { key:'almond',   label:'שקד' },
+    { key:'coffin',   label:'מגדל' },
+    { key:'stiletto', label:'סטילטו' },
+  ];
+
+  therapists = [
+    { id:'shira',  name:'שירה',  role:'בכירה',  initial:'ש', tone:'linear-gradient(150deg,#C98B9E,#8E4A62)' },
+    { id:'noa',    name:'נועה',  role:'בנייה',  initial:'נ', tone:'linear-gradient(150deg,#B9A7D6,#6E5499)' },
+    { id:'yasmin', name:'יסמין', role:'אמנות',  initial:'י', tone:'linear-gradient(150deg,#C2A36B,#9C7E45)' },
+    { id:'michal', name:'מיכל',  role:'ג׳ל',    initial:'מ', tone:'linear-gradient(150deg,#E7A9C0,#B0617B)' },
+  ];
+
+  studios = [
+    { city:'תל אביב', addr:'דיזנגוף 142' },
+    { city:'הרצליה',  addr:'הנדיב 21' },
+  ];
+
+  timesList = [
+    { t:'09:00', taken:false },{ t:'10:30', taken:false },{ t:'12:00', taken:true },
+    { t:'13:30', taken:false },{ t:'15:00', taken:false },{ t:'16:30', taken:true },
+    { t:'18:00', taken:false },{ t:'19:30', taken:false },{ t:'21:00', taken:false },
+  ];
+
+  filtersList = [
+    { key:'all',     label:'הכל' },
+    { key:'soft',    label:'עדין' },
+    { key:'classic', label:'קלאסי' },
+    { key:'glam',    label:'גלאם' },
+  ];
+
+  shapeStyle(key) {
+    const map = {
+      square:   { radius:'7px 7px 13px 13px', clip:'none' },
+      round:    { radius:'50% 50% 40% 40% / 55% 55% 30% 30%', clip:'none' },
+      almond:   { radius:'50% 50% 44% 44% / 72% 72% 30% 30%', clip:'none' },
+      coffin:   { radius:'5px 5px 9px 9px', clip:'polygon(8% 0, 92% 0, 80% 100%, 20% 100%)' },
+      stiletto: { radius:'4px', clip:'polygon(50% 0, 88% 100%, 12% 100%)' },
+    };
+    return map[key] || map.almond;
+  }
+
+  finishBg(color, finish) {
+    if (finish === 'chrome')   return 'conic-gradient(from 210deg,'+color+', #FFFFFF, '+color+', #C9C9D0, '+color+')';
+    if (finish === 'glitter')  return 'radial-gradient(circle at 26% 18%, rgba(255,255,255,.9) 0 1.4px, transparent 1.6px), radial-gradient(circle at 64% 42%, rgba(255,255,255,.75) 0 1.2px, transparent 1.4px), radial-gradient(circle at 42% 72%, rgba(255,255,255,.8) 0 1.2px, transparent 1.4px), '+color;
+    if (finish === 'ombre')    return 'linear-gradient(to top,'+color+', #FBF4F4)';
+    if (finish === 'french')   return 'linear-gradient(to top,'+color+' 58%, #FFFAF6 58%)';
+    return color;
+  }
+
+  lengthHeights(len) {
+    if (len === 'short')  return [40,46,50,46,40];
+    if (len === 'long')   return [58,68,76,68,58];
+    return [48,56,62,56,48];
+  }
+
+  go(s) { this.setState({ screen: s }); }
+
+  openDesign(d) {
+    this.setState({ screen:'detail', design:d.id, shape:d.shape, color:d.swatch, finish:d.finishKey, length:'medium' });
+    const sc = this.scroller(); if (sc) sc.scrollTop = 0;
+  }
+
+  scroller() {
+    try { return this.el && this.el.querySelector ? this.el.querySelector('div[dir=rtl] > div') : null; } catch(e){ return null; }
+  }
+
+  renderVals() {
+    const s = this.state;
+    const heights = [30,36,40,36,30];
+
+    const decorate = (d) => {
+      const sh = this.shapeStyle(d.shape);
+      return { ...d, radius:sh.radius, clip:sh.clip,
+        nails: heights.map(h => ({ h })) };
+    };
+
+    const gallery = this.designs
+      .filter(d => s.filter === 'all' || d.cat === s.filter)
+      .map(d => { const o = decorate(d); o.open = () => this.openDesign(d); return o; });
+
+    const trending = ['rose','champ','agate','plum','lav']
+      .map(id => this.designs.find(d => d.id === id))
+      .map(d => { const o = decorate(d); o.open = () => this.openDesign(d); return o; });
+
+    const curDesign = this.designs.find(d => d.id === s.design) || this.designs[0];
+    const ps = this.shapeStyle(s.shape);
+    const previewBg = this.finishBg(s.color, s.finish);
+    const lh = this.lengthHeights(s.length);
+    const previewNails = lh.map(h => ({ h, mini: Math.round(h * 0.32) }));
+
+    // pricing
+    const lenBase = { short:200, medium:240, long:290 }[s.length];
+    const finishUp = { gloss:0, matte:0, glitter:60, chrome:80, ombre:40, french:30 }[s.finish] || 0;
+    const finishLabel = (this.finishes.find(f => f.key===s.finish)||{}).label || '';
+    const lengthLabel = { short:'קצר', medium:'בינוני', long:'ארוך' }[s.length];
+    const shapeLabel = (this.shapesList.find(x=>x.key===s.shape)||{}).label || '';
+    const total = lenBase + finishUp;
+
+    const priceLines = [
+      { label:'בנייה בג׳ל · '+lengthLabel, amount:'₪'+lenBase, border:'.5px solid rgba(0,0,0,.08)' },
+    ];
+    if (finishUp > 0) priceLines.push({ label:'גימור '+finishLabel, amount:'+₪'+finishUp, border:'.5px solid rgba(0,0,0,.08)' });
+    priceLines.push({ label:'חברת מועדון · הנחה', amount:'₪0', border:'none' });
+
+    // options builders
+    const selRing = (on) => on
+      ? '0 0 0 2px #FBF4F4, 0 0 0 4px #8E4A62, 0 3px 8px rgba(142,74,98,.3)'
+      : '0 0 0 1px rgba(0,0,0,.08), inset 0 1px 1px rgba(255,255,255,.4)';
+
+    const colorOptions = this.palette.map(c => ({
+      bg: c.bg, ring: selRing(s.color === c.hex),
+      select: () => this.setState({ color: c.hex }),
+    }));
+
+    const chipSel = (on) => ({
+      bg: on ? 'linear-gradient(150deg,#8E4A62,#B0617B)' : 'rgba(255,255,255,.7)',
+      fg: on ? '#FBF4F4' : '#6E5B65',
+      shadow: on ? '0 4px 12px rgba(142,74,98,.3)' : 'inset 0 0 0 .5px rgba(0,0,0,.06)',
+    });
+
+    const finishOptions = this.finishes.map(f => {
+      const c = chipSel(s.finish === f.key);
+      return { label:f.label, bg:c.bg, fg:c.fg, shadow:c.shadow, select:()=>this.setState({finish:f.key}) };
+    });
+
+    const shapeOptions = this.shapesList.map(sp => {
+      const on = s.shape === sp.key; const st = this.shapeStyle(sp.key);
+      return { label:sp.label, radius:st.radius, clip:st.clip,
+        bg: on ? 'rgba(142,74,98,.1)' : 'rgba(255,255,255,.6)',
+        fg: on ? '#8E4A62' : '#6E5B65',
+        shadow: on ? 'inset 0 0 0 1.5px #8E4A62' : 'inset 0 0 0 .5px rgba(0,0,0,.06)',
+        select: () => this.setState({ shape: sp.key }) };
+    });
+
+    const lengthOptions = [
+      { key:'short', label:'קצר' },{ key:'medium', label:'בינוני' },{ key:'long', label:'ארוך' },
+    ].map(l => {
+      const on = s.length === l.key;
+      return { label:l.label,
+        bg: on ? '#FBF4F4' : 'transparent',
+        fg: on ? '#2A1B24' : '#6E5B65',
+        shadow: on ? '0 1px 3px rgba(0,0,0,.12)' : 'none',
+        select: () => this.setState({ length: l.key }) };
+    });
+
+    const filters = this.filtersList.map(f => {
+      const c = chipSel(s.filter === f.key);
+      return { label:f.label, bg:c.bg, fg:c.fg, shadow:c.shadow, select:()=>this.setState({filter:f.key}) };
+    });
+
+    // booking options
+    const studioOptions = this.studios.map((st, i) => {
+      const on = s.studio === i;
+      return { city:st.city, addr:st.addr,
+        bg: on ? 'rgba(142,74,98,.1)' : 'rgba(255,255,255,.6)',
+        fg: on ? '#8E4A62' : '#2A1B24',
+        sub: on ? '#B0617B' : '#A07F8C',
+        shadow: on ? 'inset 0 0 0 1.5px #8E4A62' : 'inset 0 0 0 .5px rgba(0,0,0,.06)',
+        select: () => this.setState({ studio: i }) };
+    });
+
+    const therapistOptions = this.therapists.map(t => {
+      const on = s.therapist === t.id;
+      return { name:t.name, role:t.role, initial:t.initial, avatar:t.tone,
+        fg: on ? '#8E4A62' : '#2A1B24',
+        ring: on ? '0 0 0 2.5px #8E4A62, 0 6px 14px rgba(142,74,98,.3)' : '0 4px 10px rgba(60,34,48,.14)',
+        select: () => this.setState({ therapist: t.id }) };
+    });
+
+    const wd = ['א','ב','ג','ד','ה','ו','ש'];
+    const months = ['ינו','פבר','מרץ','אפר','מאי','יוני','יולי','אוג','ספט','אוק','נוב','דצמ'];
+    const today = new Date(2026, 5, 22);
+    const dateOptions = []; let chosenDate = null;
+    for (let i=0; i<7; i++) {
+      const dt = new Date(today); dt.setDate(today.getDate()+i);
+      const on = s.date === i;
+      if (on) chosenDate = dt;
+      dateOptions.push({ wd:wd[dt.getDay()], num:dt.getDate(),
+        bg: on ? 'linear-gradient(150deg,#8E4A62,#B0617B)' : 'rgba(255,255,255,.6)',
+        fg: on ? '#FBF4F4' : '#2A1B24',
+        sub: on ? 'rgba(255,255,255,.7)' : '#A07F8C',
+        shadow: on ? '0 6px 14px rgba(142,74,98,.3)' : 'inset 0 0 0 .5px rgba(0,0,0,.06)',
+        select: () => this.setState({ date: i }) });
+    }
+    if (!chosenDate) chosenDate = today;
+
+    const timeOptions = this.timesList.map(tm => {
+      const on = s.time === tm.t;
+      if (tm.taken) return { label:tm.t, bg:'rgba(120,120,128,.08)', fg:'rgba(0,0,0,.22)', shadow:'none', cursor:'default', select:()=>{} };
+      return { label:tm.t,
+        bg: on ? 'linear-gradient(150deg,#8E4A62,#B0617B)' : '#fff',
+        fg: on ? '#FBF4F4' : '#2A1B24',
+        shadow: on ? '0 6px 14px rgba(142,74,98,.3)' : '0 0 0 .5px rgba(0,0,0,.06), 0 2px 6px rgba(60,34,48,.06)',
+        cursor:'pointer',
+        select: () => this.setState({ time: tm.t }) };
+    });
+
+    const therapistName = (this.therapists.find(t=>t.id===s.therapist)||{}).name || '';
+    const studioName = 'Lumière ' + (this.studios[s.studio]||this.studios[0]).city;
+    const whenSummary = 'יום ' + wd[chosenDate.getDay()] + '׳ ' + chosenDate.getDate() + ' ב' + months[chosenDate.getMonth()] + ' · ' + s.time;
+    const bookingSummary = wd[chosenDate.getDay()] + '׳ · ' + s.time;
+    const configSummary = shapeLabel + ' · ' + lengthLabel + ' · ' + finishLabel;
+
+    // history
+    const histRaw = [
+      { id:'lav',  date:'2 ביוני',  therapist:'נועה',  price:260 },
+      { id:'wine', date:'14 במאי',  therapist:'שירה',  price:220 },
+      { id:'nude', date:'28 באפר',  therapist:'מיכל',  price:200 },
+    ];
+    const history = histRaw.map(h => {
+      const d = this.designs.find(x=>x.id===h.id); const sh = this.shapeStyle(d.shape);
+      return { name:d.name, date:h.date, therapist:h.therapist, price:h.price,
+        radius:sh.radius, clip:sh.clip, bg:d.bg, nails:heights.map(hh=>({h:Math.round(hh*0.42)})),
+        rebook: () => this.openDesign(d) };
+    });
+
+    // loyalty
+    const loyalty = Array.from({length:8}, (_,i) => ({ bg: i<7 ? 'linear-gradient(150deg,#C2A36B,#9C7E45)' : 'rgba(0,0,0,.08)' }));
+
+    const ic = (p) => React.createElement('svg', { width:20, height:20, viewBox:'0 0 24 24', fill:'none' }, p);
+    const profileRows = [
+      { label:'פרטים אישיים', tone:'rgba(176,97,123,.15)',
+        icon: ic([React.createElement('circle',{key:1,cx:12,cy:8,r:4,stroke:'#B0617B',strokeWidth:1.7}),React.createElement('path',{key:2,d:'M4 21c0-4 4-6 8-6s8 2 8 6',stroke:'#B0617B',strokeWidth:1.7,strokeLinecap:'round'})]) },
+      { label:'אמצעי תשלום', tone:'rgba(194,163,107,.18)',
+        icon: ic([React.createElement('rect',{key:1,x:3,y:6,width:18,height:13,rx:2.5,stroke:'#9C7E45',strokeWidth:1.7}),React.createElement('path',{key:2,d:'M3 10h18',stroke:'#9C7E45',strokeWidth:1.7})]) },
+      { label:'התראות ותזכורות', tone:'rgba(110,84,153,.15)',
+        icon: ic([React.createElement('path',{key:1,d:'M12 3a6 6 0 00-6 6c0 5-2 7-2 7h16s-2-2-2-7a6 6 0 00-6-6z',stroke:'#6E5499',strokeWidth:1.7,strokeLinejoin:'round'}),React.createElement('path',{key:2,d:'M10 20a2 2 0 004 0',stroke:'#6E5499',strokeWidth:1.7,strokeLinecap:'round'})]) },
+      { label:'המועדפים שלי', tone:'rgba(176,97,123,.12)',
+        icon: ic([React.createElement('path',{key:1,d:'M12 20s-7-4.5-7-9.5A3.5 3.5 0 0112 7a3.5 3.5 0 017 3.5C19 15.5 12 20 12 20z',stroke:'#B0617B',strokeWidth:1.7,strokeLinejoin:'round'})]) },
+    ].map((r,i,arr) => ({ ...r, border: i<arr.length-1 ? '.5px solid rgba(0,0,0,.07)' : 'none' }));
+
+    // admin
+    const adminStats = [
+      { value:'6', label:'תורים היום', color:'#FBF4F4' },
+      { value:'₪1,340', label:'הכנסה', color:'#F2DEB3' },
+      { value:'85%', label:'תפוסה', color:'#E7A9C0' },
+    ];
+    const adminFilters = [
+      { label:'הכל', dot:'#FBF4F4', on:true },
+      { label:'שירה', dot:'#C98B9E', on:false },
+      { label:'נועה', dot:'#B9A7D6', on:false },
+      { label:'יסמין', dot:'#C2A36B', on:false },
+    ].map(f => ({ label:f.label, dot:f.dot,
+      bg: f.on ? 'rgba(255,255,255,.16)' : 'rgba(255,255,255,.06)',
+      fg: f.on ? '#FBF4F4' : 'rgba(255,255,255,.6)',
+      shadow: f.on ? 'inset 0 0 0 1px rgba(255,255,255,.25)' : 'none' }));
+
+    const mk = (time, client, service, dur, price, ther, dot, free) => {
+      if (free) return { time, client:'פנוי', service:'ניתן לשיבוץ', dur, price:'', hasTherapist:false,
+        cardBg:'rgba(255,255,255,.04)', cardShadow:'inset 0 0 0 1px rgba(255,255,255,.08)',
+        titleColor:'rgba(255,255,255,.45)', subColor:'rgba(255,255,255,.3)', priceColor:'transparent',
+        dot:'rgba(255,255,255,.25)', dotRing:'rgba(255,255,255,.04)', tagBg:'transparent', tagFg:'transparent', therapist:'' };
+      return { time, client, service, dur, price:'₪'+price, hasTherapist:true,
+        cardBg:'rgba(255,255,255,.1)', cardShadow:'inset 0 1px 0 rgba(255,255,255,.12), 0 0 0 .5px rgba(255,255,255,.06)',
+        titleColor:'#FBF4F4', subColor:'rgba(255,255,255,.6)', priceColor:'#F2DEB3',
+        dot, dotRing:dot.replace('1)',',.18)').replace('rgb','rgba').length?dot:dot,
+        tagBg:'rgba(255,255,255,.1)', tagFg:'rgba(255,255,255,.8)', therapist:ther };
+    };
+    const schedule = [
+      mk('09:00','דנה אבני','לק ג׳ל',  '45 דק׳', 120, 'מיכל', '#E7A9C0'),
+      mk('10:30','מאיה לוי','בנייה בג׳ל','90 דק׳', 240, 'שירה', '#C98B9E'),
+      mk('12:00','—','','30 דק׳','', '', '', true),
+      mk('13:30','רוני כהן','עיצוב אמנותי','120 דק׳', 320, 'יסמין', '#C2A36B'),
+      mk('15:00','טל שמש','מילוי אקריל','75 דק׳', 220, 'נועה', '#B9A7D6'),
+      mk('16:30','—','','','', '', '', true),
+      mk('18:00','ליאת בר','בנייה בג׳ל','90 דק׳', 240, 'שירה', '#C98B9E'),
+    ];
+    // fix dotRing
+    schedule.forEach(a => { if (a.hasTherapist) a.dotRing = 'rgba(255,255,255,.08)'; });
+
+    // tabs
+    const tabIcon = (name, on) => {
+      const c = on ? '#8E4A62' : '#A99AA0';
+      const w = on ? 2.2 : 1.8;
+      if (name==='home') return React.createElement('svg',{width:23,height:23,viewBox:'0 0 24 24',fill:'none'},[React.createElement('path',{key:1,d:'M4 11l8-7 8 7v8a2 2 0 01-2 2h-3v-6h-6v6H6a2 2 0 01-2-2v-8z',stroke:c,strokeWidth:w,strokeLinejoin:'round'})]);
+      if (name==='designs') return React.createElement('svg',{width:23,height:23,viewBox:'0 0 24 24',fill:'none'},[React.createElement('path',{key:1,d:'M12 3l1.8 4.7L18.5 6l-1.7 4.7 4.2 1.3-4.2 1.3 1.7 4.7-4.7-1.7L12 21l-1.8-4.7L5.5 18l1.7-4.7L3 12l4.2-1.3L5.5 6l4.7 1.7L12 3z',stroke:c,strokeWidth:w,strokeLinejoin:'round'})]);
+      if (name==='appts') return React.createElement('svg',{width:23,height:23,viewBox:'0 0 24 24',fill:'none'},[React.createElement('rect',{key:1,x:3.5,y:5,width:17,height:16,rx:3,stroke:c,strokeWidth:w}),React.createElement('path',{key:2,d:'M3.5 9.5h17M8 3v4M16 3v4',stroke:c,strokeWidth:w,strokeLinecap:'round'})]);
+      return React.createElement('svg',{width:23,height:23,viewBox:'0 0 24 24',fill:'none'},[React.createElement('circle',{key:1,cx:12,cy:8,r:3.6,stroke:c,strokeWidth:w}),React.createElement('path',{key:2,d:'M4.5 20.5c0-3.8 3.5-5.5 7.5-5.5s7.5 1.7 7.5 5.5',stroke:c,strokeWidth:w,strokeLinecap:'round'})]);
+    };
+    const tabDefs = [
+      { key:'home',  scr:'home',         label:'בית',   ic:'home' },
+      { key:'des',   scr:'designs',      label:'עיצובים', ic:'designs' },
+      { key:'app',   scr:'appointments', label:'התורים', ic:'appts' },
+      { key:'prof',  scr:'profile',      label:'פרופיל', ic:'person' },
+    ];
+    const activeTab = { home:'home', designs:'designs', detail:'designs', booking:'designs', payment:'designs', appointments:'appointments', profile:'profile' }[s.screen];
+    const tabs = tabDefs.map(t => {
+      const on = activeTab === t.scr;
+      return { label:t.label, color: on ? '#8E4A62' : '#A99AA0', icon: tabIcon(t.ic, on),
+        select: () => this.go(t.scr) };
+    });
+
+    const tabScreens = ['home','designs','appointments','profile'];
+
+    // shop
+    const products = this.products.map(p => ({ ...p, add: () => this.addToCart(p.id) }));
+    const cart = s.cart || {};
+    let cartCount = 0, cartTotal = 0;
+    Object.keys(cart).forEach(id => { const q = cart[id]; const pr = this.products.find(x => x.id === id); if (pr) { cartCount += q; cartTotal += q * pr.price; } });
+
+    return {
+      products, cartCount, cartTotal: cartTotal.toLocaleString('en-US'), showCart: cartCount > 0,
+      isHome: s.screen==='home', isDesigns: s.screen==='designs', isDetail: s.screen==='detail',
+      isBooking: s.screen==='booking', isPayment: s.screen==='payment', isConfirm: s.screen==='confirm',
+      isAppointments: s.screen==='appointments', isProfile: s.screen==='profile', isAdmin: s.screen==='admin',
+      showTabs: tabScreens.indexOf(s.screen) !== -1,
+
+      gallery, trending, filters,
+      previewNails, previewBg, previewRadius: ps.radius, previewClip: ps.clip,
+      previewShine: s.finish === 'matte' ? '0.12' : '0.6',
+      designName: curDesign.name,
+      colorOptions, finishOptions, shapeOptions, lengthOptions,
+      currentPrice: total, priceLines,
+      configSummary, therapistName, studioName, whenSummary, bookingSummary,
+      studioOptions, therapistOptions, dateOptions, timeOptions,
+      history, loyalty, profileRows,
+      adminStats, adminFilters, schedule, tabs,
+
+      tabHome: () => this.go('home'),
+      tabDesigns: () => this.go('designs'),
+      tabAppointments: () => this.go('appointments'),
+      tabProfile: () => this.go('profile'),
+      goDesigns: () => this.go('designs'),
+      goDetail: () => this.go('detail'),
+      goBooking: () => { this.go('booking'); const sc=this.scroller(); if(sc) sc.scrollTop=0; },
+      goPayment: () => { this.go('payment'); const sc=this.scroller(); if(sc) sc.scrollTop=0; },
+      goConfirm: () => this.go('confirm'),
+      goAppointmentsFromConfirm: () => this.go('appointments'),
+      goAdmin: () => { this.go('admin'); const sc=this.scroller(); if(sc) sc.scrollTop=0; },
+    };
+  }
+}
+</script>
+</body>
+</html>

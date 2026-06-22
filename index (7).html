@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>כחול הים אשדוד | בוטיק דגים טריים – משלוחים עד הבית</title>
+<meta name="description" content="כחול הים אשדוד – בוטיק דגים טריים מעל 27 שנה. דגים טריים מדי יום, חיתוך לפי בחירה, כשרות מהודרת ומשלוחים עד הבית. הזמינו אונליין.">
+<meta name="theme-color" content="#0a3d4a">
+<meta property="og:title" content="כחול הים אשדוד | בוטיק דגים טריים">
+<meta property="og:description" content="טריות, איכות ושירות עד הבית. בוטיק דגים באשדוד מעל 27 שנה.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --abyss:#062a33;
+  --sea:#0a3d4a;
+  --sea-2:#0e5263;
+  --teal:#1d8aa0;
+  --foam:#a8dadc;
+  --sand:#f4ede1;
+  --cream:#fbf7f0;
+  --coral:#e85d3d;
+  --coral-soft:#f08a6f;
+  --gold:#d9a441;
+  --ink:#0d2a31;
+  --muted:#5a7178;
+  --line:rgba(13,42,49,.10);
+  --shadow:0 18px 50px -18px rgba(6,42,51,.45);
+  --r:22px;
+  --maxw:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:'Heebo',sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.serif{font-family:'Frank Ruhl Libre',serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;
+  font-size:.78rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--teal);
+  margin-bottom:18px;
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--coral);border-radius:2px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:700;font-size:1rem;
+  padding:15px 30px;border-radius:60px;border:none;cursor:pointer;
+  transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,background .25s;
+}
+.btn-primary{background:var(--coral);color:#fff;box-shadow:0 12px 30px -10px rgba(232,93,61,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 38px -10px rgba(232,93,61,.7);background:#e04e2c}
+.btn-ghost{background:transparent;color:var(--cream);border:1.5px solid rgba(255,255,255,.4)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);transform:translateY(-3px)}
+.btn-dark{background:var(--sea);color:#fff}
+.btn-dark:hover{transform:translateY(-3px);box-shadow:var(--shadow);background:var(--sea-2)}
+
+/* ===== HEADER ===== */
+header{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  transition:all .35s ease;
+  padding:20px 0;
+}
+header.scrolled{
+  background:rgba(251,247,240,.88);
+  backdrop-filter:blur(14px);
+  box-shadow:0 6px 30px -16px rgba(6,42,51,.35);
+  padding:12px 0;
+}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.logo{display:flex;align-items:center;gap:12px;color:var(--cream);transition:color .35s}
+header.scrolled .logo{color:var(--ink)}
+.logo-mark{
+  width:46px;height:46px;border-radius:14px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--teal),var(--sea));
+  display:grid;place-items:center;box-shadow:0 8px 20px -8px rgba(6,42,51,.6);
+}
+.logo-mark svg{width:28px;height:28px;fill:#fff}
+.logo-txt b{font-family:'Frank Ruhl Libre',serif;font-size:1.35rem;font-weight:900;display:block;line-height:1}
+.logo-txt span{font-size:.72rem;letter-spacing:.22em;opacity:.75;font-weight:500}
+.nav-links{display:flex;align-items:center;gap:34px}
+.nav-links a{
+  color:var(--cream);font-weight:500;font-size:1rem;position:relative;transition:color .35s;
+}
+header.scrolled .nav-links a{color:var(--ink)}
+.nav-links a::after{
+  content:"";position:absolute;bottom:-6px;right:0;width:0;height:2px;
+  background:var(--coral);transition:width .3s;border-radius:2px;
+}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.burger span{width:26px;height:2.5px;background:var(--cream);border-radius:2px;transition:.3s}
+header.scrolled .burger span{background:var(--ink)}
+
+/* ===== HERO ===== */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  background:
+    radial-gradient(120% 90% at 80% -10%,rgba(29,138,160,.55),transparent 55%),
+    radial-gradient(100% 80% at 0% 110%,rgba(14,82,99,.7),transparent 50%),
+    linear-gradient(160deg,var(--sea) 0%,var(--abyss) 100%);
+  color:var(--cream);
+  overflow:hidden;
+  padding:140px 0 120px;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+  pointer-events:none;mix-blend-mode:overlay;
+}
+.hero-bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bubble{position:absolute;border-radius:50%;background:radial-gradient(circle at 30% 30%,rgba(168,218,220,.5),rgba(168,218,220,.05));animation:rise linear infinite}
+@keyframes rise{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:.6}100%{transform:translateY(-110vh) scale(1.4);opacity:0}}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center;position:relative;z-index:2}
+.hero h1{
+  font-size:clamp(2.6rem,6vw,4.6rem);font-weight:900;line-height:1.05;letter-spacing:-.01em;
+  margin-bottom:22px;
+}
+.hero h1 .accent{color:var(--foam);position:relative;display:inline-block}
+.hero h1 .accent::after{
+  content:"";position:absolute;right:0;bottom:6px;width:100%;height:14px;
+  background:var(--coral);opacity:.45;z-index:-1;border-radius:4px;transform:rotate(-1deg);
+}
+.hero p.lead{font-size:1.22rem;font-weight:300;max-width:520px;color:rgba(251,247,240,.86);margin-bottom:34px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:40px}
+.hero-meta{display:flex;gap:30px;flex-wrap:wrap}
+.hero-meta div{display:flex;flex-direction:column}
+.hero-meta b{font-family:'Frank Ruhl Libre',serif;font-size:1.9rem;font-weight:900;color:var(--foam);line-height:1}
+.hero-meta span{font-size:.85rem;opacity:.8;margin-top:4px}
+.hero-card{
+  position:relative;aspect-ratio:4/5;border-radius:32px;overflow:hidden;
+  box-shadow:0 40px 80px -30px rgba(0,0,0,.6);
+  background:linear-gradient(160deg,var(--teal),var(--sea-2));
+}
+.hero-card img{width:100%;height:100%;object-fit:cover}
+.hero-card .badge{
+  position:absolute;top:20px;right:20px;z-index:3;
+  background:rgba(251,247,240,.95);color:var(--sea);
+  padding:10px 18px;border-radius:50px;font-weight:700;font-size:.9rem;
+  display:flex;align-items:center;gap:8px;box-shadow:var(--shadow);
+}
+.hero-card .badge i{width:9px;height:9px;border-radius:50%;background:var(--coral);animation:pulse 1.8s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.4}}
+.wave-divider{position:absolute;bottom:-1px;left:0;width:100%;line-height:0;z-index:3}
+.wave-divider svg{width:100%;height:90px;display:block}
+
+/* ===== TRUST STRIP ===== */
+.trust{background:var(--cream);padding:0}
+.trust-inner{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  background:#fff;border-radius:var(--r);box-shadow:var(--shadow);
+  margin-top:-50px;position:relative;z-index:5;overflow:hidden;
+}
+.trust-item{padding:30px 24px;text-align:center;border-left:1px solid var(--line)}
+.trust-item:first-child{border-left:none}
+.trust-item .ic{width:48px;height:48px;margin:0 auto 12px;display:grid;place-items:center;border-radius:14px;background:var(--sand)}
+.trust-item .ic svg{width:26px;height:26px;stroke:var(--teal);fill:none;stroke-width:1.8}
+.trust-item b{display:block;font-weight:700;font-size:1.05rem;color:var(--ink)}
+.trust-item span{font-size:.85rem;color:var(--muted)}
+
+/* ===== SECTIONS ===== */
+section.pad{padding:100px 0}
+.sec-head{max-width:680px;margin-bottom:54px}
+.sec-head.center{margin-inline:auto;text-align:center}
+.sec-head h2{font-size:clamp(2rem,4.5vw,3.1rem);font-weight:900;line-height:1.1;color:var(--ink);margin-bottom:16px}
+.sec-head p{font-size:1.12rem;color:var(--muted)}
+
+/* STORY */
+.story{background:var(--sea);color:var(--cream);position:relative;overflow:hidden}
+.story::after{content:"";position:absolute;left:-120px;top:-120px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(29,138,160,.5),transparent 70%)}
+.story-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2}
+.story h2{color:#fff}
+.story .eyebrow{color:var(--foam)}
+.story p{color:rgba(251,247,240,.85);font-size:1.1rem;margin-bottom:18px;font-weight:300}
+.story p strong{color:var(--foam);font-weight:600}
+.story-visual{position:relative;aspect-ratio:1;border-radius:28px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.6)}
+.story-visual img{width:100%;height:100%;object-fit:cover}
+.story-quote{
+  position:absolute;bottom:24px;right:24px;left:24px;
+  background:rgba(6,42,51,.78);backdrop-filter:blur(6px);
+  padding:18px 22px;border-radius:18px;border-right:3px solid var(--coral);
+}
+.story-quote p{margin:0;font-family:'Frank Ruhl Libre',serif;font-size:1.05rem;color:#fff}
+.story-quote span{font-size:.85rem;color:var(--foam)}
+
+/* CATEGORIES */
+.cats{background:var(--cream)}
+.cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.cat-card{
+  position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:3/4;
+  background:linear-gradient(160deg,var(--sea-2),var(--abyss));
+  box-shadow:var(--shadow);cursor:pointer;transition:transform .4s;
+}
+.cat-card:hover{transform:translateY(-8px)}
+.cat-card img{width:100%;height:100%;object-fit:cover;opacity:.78;transition:transform .6s,opacity .4s}
+.cat-card:hover img{transform:scale(1.08);opacity:.9}
+.cat-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(6,42,51,.92) 0%,rgba(6,42,51,.1) 55%,transparent 100%)}
+.cat-card .body{position:absolute;bottom:0;right:0;left:0;padding:26px;z-index:2;color:#fff}
+.cat-card h3{font-size:1.45rem;font-weight:900;margin-bottom:6px}
+.cat-card p{font-size:.92rem;color:rgba(255,255,255,.8);font-weight:300}
+.cat-card .tag{position:absolute;top:18px;right:18px;z-index:2;background:var(--coral);color:#fff;font-size:.75rem;font-weight:700;padding:6px 13px;border-radius:50px}
+
+/* CUTTING STYLES */
+.cuts{background:var(--sand)}
+.cut-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.cut-card{
+  background:#fff;border-radius:var(--r);padding:30px 24px;text-align:center;
+  border:1px solid var(--line);transition:transform .3s,box-shadow .3s,border-color .3s;cursor:default;
+}
+.cut-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.cut-ic{
+  width:72px;height:72px;margin:0 auto 18px;border-radius:20px;
+  background:var(--sand);display:grid;place-items:center;transition:background .3s;
+}
+.cut-card:hover .cut-ic{background:var(--foam)}
+.cut-ic svg{width:42px;height:42px;stroke:var(--sea);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cut-card h3{font-size:1.3rem;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.cut-card p{font-size:.92rem;color:var(--muted)}
+
+/* RECIPES */
+.recipes{background:var(--cream)}
+.recipe-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.recipe-card{
+  background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;
+}
+.recipe-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.recipe-img{aspect-ratio:16/10;background:linear-gradient(135deg,var(--teal),var(--sea));position:relative;overflow:hidden}
+.recipe-img img{width:100%;height:100%;object-fit:cover}
+.recipe-img .num{position:absolute;top:14px;right:14px;background:rgba(251,247,240,.92);color:var(--sea);width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-family:'Frank Ruhl Libre',serif}
+.recipe-body{padding:22px 24px;flex:1;display:flex;flex-direction:column}
+.recipe-body h3{font-size:1.3rem;font-weight:700;margin-bottom:8px}
+.recipe-body p{font-size:.92rem;color:var(--muted);flex:1;margin-bottom:14px}
+.recipe-body .meta{display:flex;gap:16px;font-size:.82rem;color:var(--teal);font-weight:600}
+.recipe-body .meta span{display:flex;align-items:center;gap:5px}
+
+/* GALLERY */
+.gallery{background:var(--abyss)}
+.gallery .sec-head h2{color:#fff}
+.gallery .sec-head p{color:var(--foam)}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;grid-auto-rows:200px}
+.g-item{border-radius:16px;overflow:hidden;position:relative;background:var(--sea-2)}
+.g-item img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.g-item:hover img{transform:scale(1.1)}
+.g-item.tall{grid-row:span 2}
+.g-item.wide{grid-column:span 2}
+
+/* TESTIMONIALS */
+.testi{background:var(--sand)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:#fff;border-radius:var(--r);padding:32px;box-shadow:0 10px 30px -18px rgba(6,42,51,.3);position:relative}
+.testi-card .stars{color:var(--gold);font-size:1.05rem;letter-spacing:2px;margin-bottom:14px}
+.testi-card p{font-size:1.02rem;color:var(--ink);margin-bottom:20px;line-height:1.7}
+.testi-card .who{display:flex;align-items:center;gap:12px}
+.testi-card .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--teal),var(--sea));display:grid;place-items:center;color:#fff;font-weight:700;font-family:'Frank Ruhl Libre',serif;font-size:1.2rem}
+.testi-card .who b{display:block;font-weight:700}
+.testi-card .who span{font-size:.82rem;color:var(--muted)}
+
+/* CTA BANNER */
+.cta-banner{
+  background:linear-gradient(135deg,var(--coral),#cf4527);color:#fff;text-align:center;
+  border-radius:var(--r);padding:64px 32px;margin:0 auto;max-width:var(--maxw);
+  position:relative;overflow:hidden;box-shadow:0 30px 60px -25px rgba(232,93,61,.6);
+}
+.cta-banner::before{content:"";position:absolute;top:-60px;left:-60px;width:280px;height:280px;border-radius:50%;background:rgba(255,255,255,.1)}
+.cta-banner::after{content:"";position:absolute;bottom:-80px;right:-40px;width:240px;height:240px;border-radius:50%;background:rgba(0,0,0,.08)}
+.cta-banner h2{font-size:clamp(1.9rem,4vw,2.8rem);font-weight:900;margin-bottom:14px;position:relative;z-index:2}
+.cta-banner p{font-size:1.15rem;opacity:.92;margin-bottom:30px;position:relative;z-index:2}
+.cta-banner .btn{background:#fff;color:var(--coral);position:relative;z-index:2}
+.cta-banner .btn:hover{transform:translateY(-3px);box-shadow:0 18px 40px -12px rgba(0,0,0,.3)}
+
+/* CONTACT */
+.contact{background:var(--cream)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.contact-info{display:flex;flex-direction:column;gap:8px}
+.info-row{display:flex;align-items:flex-start;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.info-row .ic{width:46px;height:46px;border-radius:14px;background:var(--sand);display:grid;place-items:center;flex-shrink:0}
+.info-row .ic svg{width:22px;height:22px;stroke:var(--teal);fill:none;stroke-width:1.8}
+.info-row b{display:block;font-weight:700;margin-bottom:2px}
+.info-row a,.info-row span{color:var(--muted);font-size:.98rem}
+.info-row a:hover{color:var(--coral)}
+.hours-box{background:#fff;border-radius:var(--r);padding:30px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.hours-box h3{font-size:1.4rem;font-weight:700;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.hours-box h3 svg{width:24px;height:24px;stroke:var(--coral);fill:none;stroke-width:1.8}
+.hour-line{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed var(--line);font-size:1rem}
+.hour-line:last-child{border:none}
+.hour-line.today{background:var(--sand);margin:0 -14px;padding:9px 14px;border-radius:10px;font-weight:700;border-bottom:none}
+.hour-line .d{color:var(--ink)}
+.hour-line .t{color:var(--teal);font-weight:700;font-variant-numeric:tabular-nums}
+.hour-line .closed{color:var(--coral)}
+.map-wrap{margin-top:20px;border-radius:18px;overflow:hidden;height:240px;box-shadow:var(--shadow)}
+.map-wrap iframe{width:100%;height:100%;border:0;filter:saturate(1.05)}
+
+/* FOOTER */
+footer{background:var(--abyss);color:rgba(251,247,240,.7);padding:60px 0 30px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.foot-grid .logo{color:#fff;margin-bottom:16px}
+footer p{font-size:.95rem;font-weight:300;max-width:320px}
+.foot-col h4{color:#fff;font-size:1rem;font-weight:700;margin-bottom:16px}
+.foot-col a{display:block;padding:6px 0;font-size:.95rem;transition:color .2s}
+.foot-col a:hover{color:var(--foam)}
+.socials{display:flex;gap:12px;margin-top:18px}
+.socials a{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.08);display:grid;place-items:center;transition:.25s}
+.socials a:hover{background:var(--coral);transform:translateY(-3px)}
+.socials svg{width:20px;height:20px;fill:#fff}
+.kosher-foot{display:inline-flex;align-items:center;gap:10px;background:rgba(217,164,65,.15);border:1px solid rgba(217,164,65,.4);padding:8px 16px;border-radius:50px;color:var(--gold);font-size:.85rem;font-weight:600;margin-top:18px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.85rem}
+.foot-bottom a:hover{color:var(--foam)}
+
+/* FLOATING ACTIONS */
+.fab{position:fixed;bottom:24px;left:24px;z-index:90;display:flex;flex-direction:column;gap:12px}
+.fab a{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;box-shadow:0 10px 24px -8px rgba(0,0,0,.4);transition:transform .25s}
+.fab a:hover{transform:scale(1.1)}
+.fab svg{width:28px;height:28px;fill:#fff}
+.fab .wa{background:#25d366}
+.fab .order{background:var(--coral);width:auto;border-radius:50px;padding:0 22px;gap:9px;color:#fff;font-weight:700;font-size:.95rem}
+
+/* REVEAL ANIMATION */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* MOBILE */
+@media(max-width:900px){
+  .hero-grid,.story-grid,.contact-grid,.foot-grid{grid-template-columns:1fr}
+  .hero-card{max-width:380px;margin:0 auto;aspect-ratio:4/4}
+  .cat-grid,.recipe-grid,.testi-grid{grid-template-columns:1fr 1fr}
+  .cut-grid{grid-template-columns:1fr 1fr}
+  .trust-inner{grid-template-columns:1fr 1fr}
+  .trust-item:nth-child(2){border-left:none}
+  .trust-item:nth-child(3),.trust-item:nth-child(4){border-top:1px solid var(--line)}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-auto-rows:160px}
+  .g-item.wide{grid-column:span 1}
+  .nav-links{
+    position:fixed;inset:0 0 0 30%;background:var(--sea);flex-direction:column;
+    justify-content:center;gap:28px;transform:translateX(100%);transition:transform .4s;z-index:99;
+  }
+  .nav-links.open{transform:none}
+  .nav-links a{color:#fff;font-size:1.3rem}
+  header.scrolled .nav-links a{color:#fff}
+  .burger{display:flex;z-index:100}
+  .nav-cta .btn-dark{display:none}
+  .story-visual{aspect-ratio:4/3}
+}
+@media(max-width:560px){
+  .cat-grid,.recipe-grid,.testi-grid,.cut-grid{grid-template-columns:1fr}
+  .hero-meta{gap:20px}
+  section.pad{padding:64px 0}
+  .fab .order span{display:none}
+  .fab .order{width:56px;border-radius:50%;padding:0}
+}
+
+/* ===== SHOP / ORDER ===== */
+.shop{background:var(--sand)}
+.shop-filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:40px}
+.filter-btn{
+  background:#fff;border:1px solid var(--line);color:var(--ink);
+  padding:10px 22px;border-radius:50px;font-weight:600;font-size:.95rem;cursor:pointer;
+  transition:all .25s;font-family:'Heebo',sans-serif;
+}
+.filter-btn:hover{border-color:var(--teal);color:var(--teal)}
+.filter-btn.active{background:var(--sea);color:#fff;border-color:var(--sea)}
+.product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product-card{
+  background:#fff;border-radius:var(--r);overflow:hidden;border:1px solid var(--line);
+  display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;
+}
+.product-card:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.product-img{aspect-ratio:1;position:relative;overflow:hidden;background:linear-gradient(135deg,var(--foam),var(--teal))}
+.product-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.product-card:hover .product-img img{transform:scale(1.07)}
+.product-img .pill{position:absolute;top:12px;right:12px;background:rgba(251,247,240,.95);color:var(--sea);font-size:.72rem;font-weight:700;padding:5px 11px;border-radius:50px}
+.product-img .pill.hot{background:var(--coral);color:#fff}
+.product-body{padding:18px;display:flex;flex-direction:column;flex:1}
+.product-body h3{font-size:1.15rem;font-weight:700;margin-bottom:3px}
+.product-body .desc{font-size:.82rem;color:var(--muted);margin-bottom:12px;flex:1}
+.product-price{display:flex;align-items:baseline;gap:5px;margin-bottom:14px}
+.product-price b{font-family:'Frank Ruhl Libre',serif;font-size:1.5rem;font-weight:900;color:var(--sea)}
+.product-price span{font-size:.82rem;color:var(--muted)}
+.product-controls{display:flex;flex-direction:column;gap:10px}
+.cut-select{
+  width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:12px;
+  font-family:'Heebo',sans-serif;font-size:.88rem;color:var(--ink);background:var(--cream);cursor:pointer;
+}
+.add-btn{
+  width:100%;justify-content:center;background:var(--sea);color:#fff;border:none;cursor:pointer;
+  padding:12px;border-radius:12px;font-weight:700;font-size:.95rem;font-family:'Heebo',sans-serif;
+  display:flex;align-items:center;gap:8px;transition:background .25s,transform .2s;
+}
+.add-btn:hover{background:var(--coral);transform:translateY(-2px)}
+.add-btn svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.2}
+
+/* CART BUTTON */
+.cart-btn{position:relative;background:none;border:none;cursor:pointer;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;transition:background .25s}
+.cart-btn:hover{background:rgba(255,255,255,.12)}
+header.scrolled .cart-btn:hover{background:var(--sand)}
+.cart-btn svg{width:26px;height:26px;stroke:var(--cream);fill:none;stroke-width:2}
+header.scrolled .cart-btn svg{stroke:var(--ink)}
+.cart-count{
+  position:absolute;top:2px;left:2px;min-width:20px;height:20px;padding:0 5px;
+  background:var(--coral);color:#fff;border-radius:50px;font-size:.72rem;font-weight:700;
+  display:grid;place-items:center;transform:scale(0);transition:transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.cart-count.show{transform:scale(1)}
+
+/* CART DRAWER */
+.overlay{position:fixed;inset:0;background:rgba(6,42,51,.55);backdrop-filter:blur(3px);z-index:200;opacity:0;visibility:hidden;transition:.35s}
+.overlay.open{opacity:1;visibility:visible}
+.drawer{
+  position:fixed;top:0;left:0;bottom:0;width:min(420px,92vw);background:var(--cream);z-index:210;
+  transform:translateX(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1);
+  display:flex;flex-direction:column;box-shadow:8px 0 40px -10px rgba(0,0,0,.4);
+}
+.drawer.open{transform:none}
+.drawer-head{padding:24px;background:var(--sea);color:#fff;display:flex;align-items:center;justify-content:space-between}
+.drawer-head h3{font-size:1.4rem;font-weight:900;display:flex;align-items:center;gap:10px}
+.drawer-head .x{background:rgba(255,255,255,.15);border:none;color:#fff;width:38px;height:38px;border-radius:10px;cursor:pointer;font-size:1.3rem;transition:background .2s}
+.drawer-head .x:hover{background:rgba(255,255,255,.3)}
+.drawer-body{flex:1;overflow-y:auto;padding:20px 24px}
+.cart-empty{text-align:center;color:var(--muted);padding:60px 20px}
+.cart-empty svg{width:64px;height:64px;stroke:var(--line);fill:none;stroke-width:1.5;margin-bottom:16px}
+.cart-item{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}
+.cart-item img{width:64px;height:64px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.ci-info{flex:1;min-width:0}
+.ci-info b{display:block;font-weight:700;font-size:.98rem}
+.ci-info .ci-cut{font-size:.8rem;color:var(--teal);font-weight:600}
+.ci-info .ci-price{font-size:.85rem;color:var(--muted)}
+.ci-controls{display:flex;align-items:center;gap:8px;margin-top:8px}
+.qty{display:flex;align-items:center;gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.qty button{width:30px;height:30px;background:#fff;border:none;cursor:pointer;font-size:1.1rem;color:var(--sea);font-weight:700;transition:background .2s}
+.qty button:hover{background:var(--sand)}
+.qty span{min-width:30px;text-align:center;font-weight:700;font-size:.9rem}
+.ci-remove{background:none;border:none;color:var(--muted);cursor:pointer;font-size:.8rem;margin-right:auto;text-decoration:underline}
+.ci-remove:hover{color:var(--coral)}
+.ci-total{font-weight:700;color:var(--sea);font-variant-numeric:tabular-nums}
+.drawer-foot{padding:20px 24px;border-top:1px solid var(--line);background:#fff}
+.cart-row{display:flex;justify-content:space-between;font-size:.95rem;margin-bottom:8px;color:var(--muted)}
+.cart-row.total{font-size:1.3rem;font-weight:900;color:var(--ink);font-family:'Frank Ruhl Libre',serif;margin:12px 0 4px}
+.cart-row.total span:last-child{color:var(--sea)}
+.cart-note{font-size:.78rem;color:var(--muted);text-align:center;margin-bottom:14px}
+.checkout-btn{width:100%;justify-content:center}
+
+/* CHECKOUT MODAL */
+.modal{
+  position:fixed;inset:0;z-index:220;display:grid;place-items:center;padding:20px;
+  background:rgba(6,42,51,.6);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:.3s;
+}
+.modal.open{opacity:1;visibility:visible}
+.modal-box{
+  background:var(--cream);border-radius:var(--r);max-width:480px;width:100%;max-height:90vh;overflow-y:auto;
+  box-shadow:var(--shadow);transform:translateY(20px);transition:transform .35s;
+}
+.modal.open .modal-box{transform:none}
+.modal-head{padding:22px 26px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.modal-head h3{font-size:1.45rem;font-weight:900}
+.modal-head .x{background:var(--sand);border:none;width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:1.2rem}
+.modal-form{padding:24px 26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-weight:600;font-size:.9rem;margin-bottom:6px}
+.field label .req{color:var(--coral);margin-right:3px;font-weight:700}
+.field input,.field textarea,.field select{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;
+  font-family:'Heebo',sans-serif;font-size:1rem;background:#fff;color:var(--ink);transition:border-color .2s;
+}
+.field input:focus,.field textarea:focus,.field select:focus{outline:none;border-color:var(--teal)}
+.field.err input{border-color:var(--coral)}
+.field .msg{font-size:.78rem;color:var(--coral);margin-top:4px;display:none}
+.field.err .msg{display:block}
+.deliv-toggle{display:flex;gap:10px;margin-bottom:16px}
+.deliv-toggle label{flex:1;text-align:center;padding:12px;border:1px solid var(--line);border-radius:12px;cursor:pointer;font-weight:600;transition:.2s;background:#fff}
+.deliv-toggle input{display:none}
+.deliv-toggle input:checked + span{color:var(--sea)}
+.deliv-toggle label:has(input:checked){border-color:var(--sea);background:var(--sand)}
+.modal-summary{background:var(--sand);border-radius:14px;padding:14px 16px;margin-bottom:18px;font-size:.9rem}
+.modal-summary .sr{display:flex;justify-content:space-between;padding:3px 0}
+.modal-summary .sr.tot{font-weight:800;border-top:1px dashed var(--line);margin-top:6px;padding-top:8px;color:var(--sea)}
+/* CONFIRMATION */
+.confirm{text-align:center;padding:40px 30px}
+.confirm .check{width:80px;height:80px;margin:0 auto 20px;border-radius:50%;background:var(--foam);display:grid;place-items:center;animation:pop .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.confirm .check svg{width:42px;height:42px;stroke:var(--sea);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.confirm h3{font-size:1.7rem;font-weight:900;margin-bottom:10px}
+.confirm p{color:var(--muted);margin-bottom:8px}
+.confirm .ord-num{font-family:'Frank Ruhl Libre',serif;font-weight:900;color:var(--sea);font-size:1.2rem}
+.confirm .btn{margin-top:20px}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:30px;right:50%;transform:translate(50%,120px);z-index:300;
+  background:var(--sea);color:#fff;padding:14px 26px;border-radius:50px;font-weight:600;
+  box-shadow:var(--shadow);transition:transform .4s cubic-bezier(.34,1.56,.64,1);display:flex;align-items:center;gap:10px;
+}
+.toast.show{transform:translate(50%,0)}
+.toast svg{width:20px;height:20px;stroke:var(--foam);fill:none;stroke-width:2.5}
+
+@media(max-width:900px){.product-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.product-grid{grid-template-columns:1fr 1fr;gap:14px}.product-body{padding:14px}.deliv-toggle{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <div class="wrap nav">
+    <a href="#top" class="logo">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M2 12c3-5 8-7 13-6 3 .6 5 2.5 7 6-2 3.5-4 5.4-7 6-5 1-10-1-13-6Zm14-2.2a1 1 0 100 2 1 1 0 000-2Z"/></svg>
+      </span>
+      <span class="logo-txt"><b>כחול הים</b><span>בוטיק דגים · אשדוד</span></span>
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#story">הסיפור שלנו</a>
+      <a href="#cats">המבחר</a>
+      <a href="#cuts">צורות חיתוך</a>
+      <a href="#recipes">מתכונים</a>
+      <a href="#contact">צור קשר</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="cart-btn" id="cartBtn" aria-label="עגלת קניות" onclick="openCart()">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <a href="#order" class="btn btn-dark">להזמנה אונליין</a>
+      <button class="burger" id="burger" aria-label="תפריט"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bubbles" id="bubbles"></div>
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">מעל 27 שנה של מסורת דייגים</span>
+      <h1>הדג הכי טרי באשדוד<br>מגיע <span class="accent">עד הבית</span> שלך</h1>
+      <p class="lead">בוטיק דגים משפחתי שמספק דגים טריים מדי יום, בחיתוך לפי בחירתכם, באיכות ובשירות שאין כמותם. מהים — ישר אליכם.</p>
+      <div class="hero-actions">
+        <a href="#order" class="btn btn-primary">
+          הזמינו עכשיו
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 18l-6-6 6-6"/></svg>
+        </a>
+        <a href="#story" class="btn btn-ghost">מי אנחנו</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>27+</b><span>שנות ניסיון</span></div>
+        <div><b>יומי</b><span>סחורה טרייה</span></div>
+        <div><b>כשר</b><span>כשרות מהודרת</span></div>
+        <div><b>אלפי</b><span>לקוחות מרוצים</span></div>
+      </div>
+    </div>
+    <div class="hero-card reveal">
+      <div class="badge"><i></i> טרי היום</div>
+      <img src="https://images.unsplash.com/photo-1535140728325-a4d3707eee61?q=80&w=900&auto=format&fit=crop" alt="דגים טריים על קרח" loading="eager">
+    </div>
+  </div>
+  <div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1440 90" preserveAspectRatio="none"><path fill="#fbf7f0" d="M0,40 C240,90 480,0 720,30 C960,60 1200,90 1440,45 L1440,90 L0,90 Z"/></svg>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-inner reveal">
+      <div class="trust-item">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12c3-5 8-7 13-6 3 .6 5 2.5 7 6-2 3.5-4 5.4-7 6-5 1-10-1-13-6Z"/><circle cx="16" cy="11" r="1"/></svg></div>
+        <b>טריות מעל הכל</b><span>סחורה מתקבלת מדי יום</span>
+      </div>
+      <div class="trust-item">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+        <b>כשרות מהודרת</b><span>בהשגחת רבנות מקומית</span>
+      </div>
+      <div class="trust-item">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="1" y="6" width="15" height="11" rx="2"/><path d="M16 9h4l3 3v5h-7z"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg></div>
+        <b>משלוחים עד הבית</b><span>אשדוד והסביבה</span>
+      </div>
+      <div class="trust-item">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.8 7.2 17l.9-5.4L4.2 7.7l5.4-.8z"/></svg></div>
+        <b>מסורת משפחתית</b><span>דורות של דייגים</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story pad" id="story">
+  <div class="wrap story-grid">
+    <div class="reveal">
+      <span class="eyebrow">הסיפור שלנו</span>
+      <h2>בוטיק דגים שנולד מאהבה לים</h2>
+      <p><strong>כחול הים</strong> הוא בוטיק דגים משפחתי הפועל באשדוד שנים רבות, בניהול המשפחה המייסדת — הממשיכה מסורת של דורות בתחום הדיג והדגים.</p>
+      <p>אצלנו טריות היא מעל הכל. הסחורה מתקבלת טרייה ואיכותית מדי יום, בסטנדרטים הגבוהים ביותר. תמצאו אצלנו את מבחר הדגים הגדול ביותר, לצד דליקטסים, יינות, ירקות קפואים ותבלינים.</p>
+      <p>אנחנו משרתים נאמנה אלפי לקוחות מאשדוד, מהסביבה ומכל הארץ — תוך הקפדה בלתי מתפשרת על איכות, טריות ושירות.</p>
+      <a href="#order" class="btn btn-primary" style="margin-top:14px">לביצוע הזמנה</a>
+    </div>
+    <div class="story-visual reveal">
+      <img src="https://images.unsplash.com/photo-1574781330855-d0db8cc6a79c?q=80&w=900&auto=format&fit=crop" alt="דוכן דגים טריים">
+      <div class="story-quote">
+        <p>"מהים אל הצלחת — כל יום מחדש"</p>
+        <span>המשפחה המייסדת</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="cats pad" id="cats">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">המבחר שלנו</span>
+      <h2>כל מה שהים מציע, במקום אחד</h2>
+      <p>מגוון עצום של דגים טריים, קפואים ומוצרים נלווים — נבחרים בקפידה בשבילכם.</p>
+    </div>
+    <div class="cat-grid">
+      <div class="cat-card reveal">
+        <span class="tag">הכי טרי</span>
+        <img src="https://images.unsplash.com/photo-1611171711912-e3f6b536f532?q=80&w=700&auto=format&fit=crop" alt="דגים טריים">
+        <div class="body"><h3>דגים טריים מהים</h3><p>סלמון, מוסר, בורי, לוקוס, נסיכה ועוד — טריים מדי יום, בחיתוך לבחירתכם.</p></div>
+      </div>
+      <div class="cat-card reveal">
+        <span class="tag">מבחר ענק</span>
+        <img src="https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=700&auto=format&fit=crop" alt="דגים קפואים">
+        <div class="body"><h3>דגים קפואים</h3><p>מבחר עצום של דגים ופירות ים קפואים באיכות גבוהה, זמינים תמיד.</p></div>
+      </div>
+      <div class="cat-card reveal">
+        <span class="tag">גורמה</span>
+        <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?q=80&w=700&auto=format&fit=crop" alt="דליקטסים ויינות">
+        <div class="body"><h3>דליקטסים ועוד</h3><p>יינות, תבלינים, ירקות קפואים ומוצרי גורמה להשלמת הארוחה המושלמת.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOP / ORDER -->
+<section class="shop pad" id="order">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">להזמנה אונליין</span>
+      <h2>בחרו את הדגים שלכם</h2>
+      <p>בחרו מוצר, צורת חיתוך וכמות — והוסיפו לעגלה. סיום ההזמנה בקליק.</p>
+    </div>
+    <div class="shop-filters reveal" id="filters">
+      <button class="filter-btn active" data-cat="all">הכל</button>
+      <button class="filter-btn" data-cat="fresh">דגים טריים</button>
+      <button class="filter-btn" data-cat="fillet">פילה</button>
+      <button class="filter-btn" data-cat="seafood">פירות ים</button>
+      <button class="filter-btn" data-cat="frozen">קפוא</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+</section>
+
+<!-- CUTTING STYLES -->
+<section class="cuts pad" id="cuts">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">צורות חיתוך</span>
+      <h2>בדיוק איך שאתם אוהבים</h2>
+      <p>כל דג מגיע נקי וטרי, חתוך בדיוק לפי הבישול שתכננתם. אפשר לציין בקשות מיוחדות בהערות.</p>
+    </div>
+    <div class="cut-grid">
+      <div class="cut-card reveal">
+        <div class="cut-ic"><svg viewBox="0 0 48 48"><path d="M6 24c8-12 22-15 33-9 3 1.6 5 4 6 9-1 5-3 7.4-6 9-11 6-25 3-33-9Z"/><circle cx="35" cy="21" r="2"/><path d="M40 18l4-4M40 30l4 4"/></svg></div>
+        <h3>שלם</h3><p>מגיע נקי מקשקשים, בטן וסנפירים. מושלם לגריל, לתנור או לטיגון.</p>
+      </div>
+      <div class="cut-card reveal">
+        <div class="cut-ic"><svg viewBox="0 0 48 48"><path d="M6 24c8-12 22-15 33-9 3 1.6 5 4 6 9-1 5-3 7.4-6 9-11 6-25 3-33-9Z"/><path d="M18 12v24M27 13v22M36 16v16"/></svg></div>
+        <h3>פרוס</h3><p>פרוס למנות עם העצם. מתאים במיוחד לבישול בסיר או לטיגון במחבת.</p>
+      </div>
+      <div class="cut-card reveal">
+        <div class="cut-ic"><svg viewBox="0 0 48 48"><path d="M6 28c10-10 24-12 36-6M6 28c10 6 24 5 33-2"/><path d="M6 28h36"/></svg></div>
+        <h3>פילה</h3><p>מפולט עם העור וללא עצמות. שתי יחידות מכל דג, מתאים לכל בישול.</p>
+      </div>
+      <div class="cut-card reveal">
+        <div class="cut-ic"><svg viewBox="0 0 48 48"><path d="M24 8c-8 4-14 10-14 16s6 12 14 16c8-4 14-10 14-16S32 12 24 8Z"/><path d="M24 8v32"/></svg></div>
+        <h3>ספר</h3><p>פתוח מהבטן בצורת "ספר". מתאים לגריל, לתנור ואף למילוי הדג.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECIPES -->
+<section class="recipes pad" id="recipes">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">מהמטבח של כחול הים</span>
+      <h2>מתכונים שעושים חשק</h2>
+      <p>קחו את הדג הטרי שלכם והפכו אותו לארוחה בלתי נשכחת.</p>
+    </div>
+    <div class="recipe-grid">
+      <div class="recipe-card reveal">
+        <div class="recipe-img"><span class="num">1</span><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=600&auto=format&fit=crop" alt="סלמון בתנור"></div>
+        <div class="recipe-body">
+          <h3>פילה סלמון בתנור</h3>
+          <p>נתח סלמון טרי עם זיגוג חרדל-דבש, שום ותימין. פשוט, אלגנטי ומנצח כל פעם.</p>
+          <div class="meta"><span>⏱ 35 דק'</span><span>🍽 6 מנות</span></div>
+        </div>
+      </div>
+      <div class="recipe-card reveal">
+        <div class="recipe-img"><span class="num">2</span><img src="https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?q=80&w=600&auto=format&fit=crop" alt="חריימה"></div>
+        <div class="recipe-body">
+          <h3>חריימה מרוקאית</h3>
+          <p>נתחי מוסר או לוקוס ברוטב עגבניות שום ופפריקה — קלאסיקה ים-תיכונית לשבת.</p>
+          <div class="meta"><span>⏱ 40 דק'</span><span>🍽 6 מנות</span></div>
+        </div>
+      </div>
+      <div class="recipe-card reveal">
+        <div class="recipe-img"><span class="num">3</span><img src="https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?q=80&w=600&auto=format&fit=crop" alt="סביצ'ה סלמון"></div>
+        <div class="recipe-body">
+          <h3>סביצ'ה סלמון</h3>
+          <p>קוביות סלמון טרי בלימון, בצל סגול, כוסברה ואבוקדו. רענן, חי ומרשים.</p>
+          <div class="meta"><span>⏱ 45 דק'</span><span>🍽 6-10 מנות</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery pad">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">גלריה</span>
+      <h2>רגע לפני שזה מגיע אליכם</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="g-item tall"><img src="https://images.unsplash.com/photo-1544943910-4c1dc44aab44?q=80&w=600&auto=format&fit=crop" alt="דגים על קרח"></div>
+      <div class="g-item wide"><img src="https://images.unsplash.com/photo-1559737558-2f5a35f4523b?q=80&w=700&auto=format&fit=crop" alt="דוכן דגים"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1611171711912-e3f6b536f532?q=80&w=400&auto=format&fit=crop" alt="פילה דג"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=400&auto=format&fit=crop" alt="סלמון טרי"></div>
+      <div class="g-item wide"><img src="https://images.unsplash.com/photo-1498654200943-1088dd4438ae?q=80&w=700&auto=format&fit=crop" alt="פירות ים"></div>
+      <div class="g-item tall"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=600&auto=format&fit=crop" alt="מנת דג מוכנה"></div>
+      <div class="g-item"><img src="https://images.unsplash.com/photo-1535140728325-a4d3707eee61?q=80&w=400&auto=format&fit=crop" alt="דג שלם"></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi pad">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="eyebrow" style="justify-content:center">לקוחות מספרים</span>
+      <h2>הטעם שמחזיר אותם שוב ושוב</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"הדגים הכי טריים שאכלתי באשדוד, בלי מתחרים. השירות אדיב והמשלוח תמיד בזמן. לא קונה דגים בשום מקום אחר."</p>
+        <div class="who"><div class="av">ר</div><div><b>רונית מ.</b><span>אשדוד</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"חותכים בדיוק איך שמבקשים, ממליצים על דגים לפי מה שמבשלים, ותמיד יש חיוך. מרגישים כמו במשפחה."</p>
+        <div class="who"><div class="av">ד</div><div><b>דוד כ.</b><span>אשקלון</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p>"מזמינה דרך האתר כל שישי לשבת. איכות מדהימה, אריזה מוקפדת והכול מגיע קר וטרי. פשוט מושלם."</p>
+        <div class="who"><div class="av">ש</div><div><b>שירה ל.</b><span>גן יבנה</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="pad" style="background:var(--cream)">
+  <div class="cta-banner reveal">
+    <h2>מתחשק דג טרי להיום?</h2>
+    <p>הזמינו אונליין תוך דקות — ואנחנו נדאג לשאר.</p>
+    <a href="#order" class="btn">להזמנה אונליין →</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact pad" id="contact">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">צור קשר</span>
+      <h2>נשמח לראות אתכם</h2>
+      <p>בואו לבקר בחנות ברחוב הראשי 10, אשדוד, או הזמינו בקלות בטלפון, בוואטסאפ ואונליין.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><b>הכתובת שלנו</b><a href="https://waze.com/ul?q=אשדוד" target="_blank" rel="noopener">רחוב הראשי 10, אשדוד · ניווט בוויז ←</a></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.6A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .4 1.9.7 2.8a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.3-1.3a2 2 0 012.1-.4c.9.3 1.8.6 2.8.7a2 2 0 011.7 2Z"/></svg></div>
+          <div><b>טלפון</b><a href="tel:050-1234567">050-123-4567</a> · <a href="tel:03-7654321">03-765-4321</a></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 6l8 6 8-6"/></svg></div>
+          <div><b>אימייל</b><a href="mailto:info@example.co.il">info@example.co.il</a></div>
+        </div>
+        <div class="info-row">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 14.8 7.2 17l.9-5.4L4.2 7.7l5.4-.8z"/></svg></div>
+          <div><b>כשרות מהודרת</b><span>בהשגחת רבנות מקומית</span></div>
+        </div>
+        <div class="map-wrap">
+          <iframe src="https://maps.google.com/maps?q=%D7%90%D7%A9%D7%93%D7%95%D7%93&t=m&z=13&output=embed" loading="lazy" title="מפת כחול הים"></iframe>
+        </div>
+      </div>
+      <div class="hours-box reveal">
+        <h3><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> שעות פעילות</h3>
+        <div class="hour-line" data-day="0"><span class="d">ראשון</span><span class="t">10:00–17:00</span></div>
+        <div class="hour-line" data-day="1"><span class="d">שני</span><span class="t">08:00–18:00</span></div>
+        <div class="hour-line" data-day="2"><span class="d">שלישי</span><span class="t">08:00–19:00</span></div>
+        <div class="hour-line" data-day="3"><span class="d">רביעי</span><span class="t">08:00–20:00</span></div>
+        <div class="hour-line" data-day="4"><span class="d">חמישי</span><span class="t">08:00–20:00</span></div>
+        <div class="hour-line" data-day="5"><span class="d">שישי</span><span class="t">07:30–13:30</span></div>
+        <div class="hour-line" data-day="6"><span class="d">שבת</span><span class="t closed">סגור</span></div>
+        <a href="#order" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px">להזמנה אונליין</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <a href="#top" class="logo">
+          <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M2 12c3-5 8-7 13-6 3 .6 5 2.5 7 6-2 3.5-4 5.4-7 6-5 1-10-1-13-6Zm14-2.2a1 1 0 100 2 1 1 0 000-2Z"/></svg></span>
+          <span class="logo-txt"><b>כחול הים</b><span>בוטיק דגים · אשדוד</span></span>
+        </a>
+        <p>בוטיק דגים משפחתי מעל 27 שנה. טריות, איכות ושירות עד הבית — מהים ישר אליכם.</p>
+        <div class="kosher-foot">✡ כשרות מהודרת · בהשגחת רבנות מקומית</div>
+        <div class="socials">
+          <a href="https://wa.me/972500000000" target="_blank" rel="noopener" aria-label="וואטסאפ"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.2-4.8-4.4-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.2 0 .4 0 .6-.2l.9-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3.1.1.1.7-.1 1.3Z"/></svg></a>
+          <a href="https://www.instagram.com/your-page" target="_blank" rel="noopener" aria-label="אינסטגרם"><svg viewBox="0 0 24 24"><path d="M12 2c2.7 0 3 0 4.1.1 1 0 1.7.2 2.3.4.6.3 1.1.6 1.6 1.1s.8 1 1.1 1.6c.2.6.4 1.3.4 2.3C21.9 9 22 9.3 22 12s0 3-.1 4.1c0 1-.2 1.7-.4 2.3-.3.6-.6 1.1-1.1 1.6s-1 .8-1.6 1.1c-.6.2-1.3.4-2.3.4C15 21.9 14.7 22 12 22s-3 0-4.1-.1c-1 0-1.7-.2-2.3-.4-.6-.3-1.1-.6-1.6-1.1s-.8-1-1.1-1.6c-.2-.6-.4-1.3-.4-2.3C2.1 15 2 14.7 2 12s0-3 .1-4.1c0-1 .2-1.7.4-2.3.3-.6.6-1.1 1.1-1.6S4.6 3.2 5.2 3c.6-.2 1.3-.4 2.3-.4C9 2.1 9.3 2 12 2Zm0 5a5 5 0 100 10 5 5 0 000-10Zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4ZM17.4 5.6a1.2 1.2 0 100 2.4 1.2 1.2 0 000-2.4Z"/></svg></a>
+          <a href="https://www.facebook.com/your-page" target="_blank" rel="noopener" aria-label="פייסבוק"><svg viewBox="0 0 24 24"><path d="M22 12a10 10 0 10-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0022 12Z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>ניווט מהיר</h4>
+        <a href="#story">הסיפור שלנו</a>
+        <a href="#cats">המבחר שלנו</a>
+        <a href="#cuts">צורות חיתוך</a>
+        <a href="#recipes">מתכונים</a>
+        <a href="#contact">צור קשר</a>
+      </div>
+      <div class="foot-col">
+        <h4>הזמנות ושירות</h4>
+        <a href="#order">הזמנה אונליין</a>
+        <a href="tel:050-1234567">050-123-4567</a>
+        <a href="https://wa.me/972500000000" target="_blank" rel="noopener">וואטסאפ</a>
+        <a href="mailto:info@example.co.il">אימייל</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© כל הזכויות שמורות 2026 · כחול הים אשדוד</span>
+      <span><a href="#">הצהרת נגישות</a> · <a href="#">מדיניות פרטיות</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- CART DRAWER -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer" aria-label="עגלת קניות">
+  <div class="drawer-head">
+    <h3>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+      העגלה שלי
+    </h3>
+    <button class="x" onclick="closeCart()" aria-label="סגור">✕</button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot" style="display:none">
+    <div class="cart-row"><span>סכום ביניים</span><span id="subTotal">₪0</span></div>
+    <div class="cart-row"><span>משלוח</span><span id="delivFee">₪25</span></div>
+    <div class="cart-row total"><span>סה"כ</span><span id="grandTotal">₪0</span></div>
+    <p class="cart-note">המחיר משוער לפי משקל; שקילה סופית בחנות. מעל ₪250 — משלוח חינם.</p>
+    <button class="btn btn-primary checkout-btn" onclick="openCheckout()">לסיום ההזמנה →</button>
+  </div>
+</aside>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal" id="checkoutModal">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-head">
+      <h3>פרטי ההזמנה</h3>
+      <button class="x" onclick="closeCheckout()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-form" id="modalForm">
+      <div class="modal-summary" id="checkoutSummary"></div>
+      <div class="deliv-toggle">
+        <label><input type="radio" name="deliv" value="delivery" checked onchange="updateDeliv()"><span>משלוח עד הבית</span></label>
+        <label><input type="radio" name="deliv" value="pickup" onchange="updateDeliv()"><span>איסוף עצמי</span></label>
+      </div>
+      <div class="field" id="f-name">
+        <label>שם מלא <span class="req">*</span></label>
+        <input type="text" id="cName" placeholder="ישראל ישראלי" oninput="clearErr('f-name')">
+        <div class="msg">נא להזין שם</div>
+      </div>
+      <div class="field" id="f-phone">
+        <label>טלפון <span class="req">*</span></label>
+        <input type="tel" id="cPhone" placeholder="050-0000000" inputmode="tel" oninput="clearErr('f-phone')">
+        <div class="msg">נא להזין מספר טלפון תקין</div>
+      </div>
+      <div class="field" id="f-addr">
+        <label>כתובת למשלוח <span class="req">*</span></label>
+        <input type="text" id="cAddr" placeholder="רחוב, מספר, עיר" oninput="clearErr('f-addr')">
+        <div class="msg">נא להזין כתובת</div>
+      </div>
+      <div class="field">
+        <label>הערות להזמנה (לא חובה)</label>
+        <textarea id="cNotes" rows="2" placeholder="למשל: ללא ראש, חיתוך לקוביות..."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="submitOrder()">שליחת הזמנה</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">נוסף לעגלה</span></div>
+
+<!-- FLOATING ACTIONS -->
+<div class="fab">
+  <a href="#order" class="order" aria-label="הזמנה">
+    <svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.3 4.5A1 1 0 005.6 19H19" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="21" r="1.5"/><circle cx="18" cy="21" r="1.5"/></svg>
+    <span>הזמנה</span>
+  </a>
+  <a href="https://wa.me/972500000000" class="wa" target="_blank" rel="noopener" aria-label="וואטסאפ">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.3A10 10 0 1012 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.2-4.7-4.2-4.8-4.4-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6c-.2.2-.3.4-.1.7.2.3.9 1.4 1.9 2.3 1.3 1.1 2.3 1.5 2.6 1.6.2 0 .4 0 .6-.2l.9-1c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.3.1.1.1.7-.1 1.3Z"/></svg>
+  </a>
+</div>
+
+<script>
+/* ===== PRODUCT CATALOG ===== */
+const CUT_OPTIONS=['שלם','פרוס','פילה','ספר'];
+const PRODUCTS=[
+  {id:'salmon',name:'סלמון נורווגי',cat:'fresh',price:89,unit:'ק"ג',tag:'הכי נמכר',hot:true,desc:'טרי, שומני ועשיר באומגה 3',cuts:true,img:'https://images.unsplash.com/photo-1599084993091-1cb5c0721cc6?q=80&w=500&auto=format&fit=crop'},
+  {id:'denis',name:'דניס ים',cat:'fresh',price:69,unit:'ק"ג',tag:'טרי היום',desc:'דג מלא טעם, מצוין לתנור ולגריל',cuts:true,img:'https://images.unsplash.com/photo-1611171711912-e3f6b536f532?q=80&w=500&auto=format&fit=crop'},
+  {id:'levrak',name:'לברק',cat:'fresh',price:72,unit:'ק"ג',desc:'בשר עדין ולבן, קלאסיקה ים-תיכונית',cuts:true,img:'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=500&auto=format&fit=crop'},
+  {id:'musar',name:'מוסר ים',cat:'fresh',price:75,unit:'ק"ג',desc:'אידיאלי לחריימה ולבישול ברוטב',cuts:true,img:'https://images.unsplash.com/photo-1544943910-4c1dc44aab44?q=80&w=500&auto=format&fit=crop'},
+  {id:'tuna',name:'טונה אדומה',cat:'fresh',price:120,unit:'ק"ג',tag:'פרימיום',hot:true,desc:'נתח אדום ואיכותי, מושלם לסשימי',cuts:false,img:'https://images.unsplash.com/photo-1582750433449-648ed127bb54?q=80&w=500&auto=format&fit=crop'},
+  {id:'amnon',name:'פילה אמנון',cat:'fillet',price:49,unit:'ק"ג',desc:'פילה נקי ללא עצמות, קל להכנה',cuts:false,img:'https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=500&auto=format&fit=crop'},
+  {id:'cod',name:'פילה קוד מצופה',cat:'fillet',price:79,unit:'ק"ג',desc:'מצופה ומוכן לטיגון פריך',cuts:false,img:'https://images.unsplash.com/photo-1580476262798-bddd9f4b7369?q=80&w=500&auto=format&fit=crop'},
+  {id:'nesicha',name:'פילה נסיכת הנילוס',cat:'fillet',price:42,unit:'ק"ג',desc:'עדין וחסכוני, אהוב על כל המשפחה',cuts:false,img:'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?q=80&w=500&auto=format&fit=crop'},
+  {id:'shrimp',name:'שרימפס טרי',cat:'seafood',price:89,unit:'ק"ג',tag:'פירות ים',desc:'חסילונים נקיים ומוכנים לבישול',cuts:false,img:'https://images.unsplash.com/photo-1565680018434-b513d5e5fd47?q=80&w=500&auto=format&fit=crop'},
+  {id:'calamari',name:'קלמארי',cat:'seafood',price:65,unit:'ק"ג',desc:'טבעות דיונון נקיות, מצוין לטיגון',cuts:false,img:'https://images.unsplash.com/photo-1498654200943-1088dd4438ae?q=80&w=500&auto=format&fit=crop'},
+  {id:'salmon-smoked',name:'סלמון מעושן',cat:'frozen',price:140,unit:'ק"ג',tag:'דליקטס',desc:'פרוס דק, מושלם לבראנץ',cuts:false,img:'https://images.unsplash.com/photo-1607330289024-1535c6b4e1c1?q=80&w=500&auto=format&fit=crop'},
+  {id:'seafood-mix',name:'מיקס פירות ים קפוא',cat:'frozen',price:59,unit:'ק"ג',desc:'תערובת עשירה לפסטות ולמוקפצים',cuts:false,img:'https://images.unsplash.com/photo-1559737558-2f5a35f4523b?q=80&w=500&auto=format&fit=crop'},
+];
+
+const FREE_DELIV=250, DELIV_FEE=25;
+let cart=[]; // {key,id,name,price,unit,img,cut,qty}
+
+const ils=n=>'₪'+n.toLocaleString('he-IL');
+const grid=document.getElementById('productGrid');
+
+function renderProducts(cat='all'){
+  const list=cat==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===cat);
+  grid.innerHTML=list.map(p=>`
+    <div class="product-card reveal in">
+      <div class="product-img">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+        ${p.tag?`<span class="pill ${p.hot?'hot':''}">${p.tag}</span>`:''}
+      </div>
+      <div class="product-body">
+        <h3>${p.name}</h3>
+        <div class="desc">${p.desc}</div>
+        <div class="product-price"><b>${ils(p.price)}</b><span>/ ${p.unit}</span></div>
+        <div class="product-controls">
+          ${p.cuts?`<select class="cut-select" id="cut-${p.id}">${CUT_OPTIONS.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>`:''}
+          <button class="add-btn" onclick="addToCart('${p.id}')">
+            <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            הוספה לעגלה
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+renderProducts();
+
+document.getElementById('filters').addEventListener('click',e=>{
+  if(!e.target.classList.contains('filter-btn'))return;
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  e.target.classList.add('active');
+  renderProducts(e.target.dataset.cat);
+});
+
+/* ===== CART ===== */
+function addToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  const cut=p.cuts?document.getElementById('cut-'+id).value:null;
+  const key=id+(cut||'');
+  const existing=cart.find(i=>i.key===key);
+  if(existing)existing.qty++;
+  else cart.push({key,id,name:p.name,price:p.price,unit:p.unit,img:p.img,cut,qty:1});
+  updateCart();
+  toast(p.name+' נוסף לעגלה');
+  const cb=document.getElementById('cartBtn');
+  cb.animate([{transform:'scale(1)'},{transform:'scale(1.25)'},{transform:'scale(1)'}],{duration:300});
+}
+function changeQty(key,d){
+  const i=cart.find(x=>x.key===key);if(!i)return;
+  i.qty+=d;if(i.qty<=0)cart=cart.filter(x=>x.key!==key);
+  updateCart();
+}
+function removeItem(key){cart=cart.filter(x=>x.key!==key);updateCart();}
+
+function cartSubtotal(){return cart.reduce((s,i)=>s+i.price*i.qty,0);}
+function deliveryFee(){
+  if(document.querySelector('input[name="deliv"]:checked')?.value==='pickup')return 0;
+  return cartSubtotal()>=FREE_DELIV||cart.length===0?0:DELIV_FEE;
+}
+
+function updateCart(){
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  const badge=document.getElementById('cartCount');
+  badge.textContent=count;badge.classList.toggle('show',count>0);
+  const body=document.getElementById('cartBody'),foot=document.getElementById('cartFoot');
+  if(cart.length===0){
+    body.innerHTML=`<div class="cart-empty">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+      <p>העגלה ריקה</p><p style="font-size:.85rem">בחרו דגים טריים מהקטלוג</p></div>`;
+    foot.style.display='none';return;
+  }
+  body.innerHTML=cart.map(i=>`
+    <div class="cart-item">
+      <img src="${i.img}" alt="${i.name}">
+      <div class="ci-info">
+        <b>${i.name}</b>
+        ${i.cut?`<div class="ci-cut">חיתוך: ${i.cut}</div>`:''}
+        <div class="ci-price">${ils(i.price)} / ${i.unit}</div>
+        <div class="ci-controls">
+          <div class="qty">
+            <button onclick="changeQty('${i.key}',-1)">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty('${i.key}',1)">+</button>
+          </div>
+          <span class="ci-total">${ils(i.price*i.qty)}</span>
+          <button class="ci-remove" onclick="removeItem('${i.key}')">הסר</button>
+        </div>
+      </div>
+    </div>`).join('');
+  foot.style.display='block';
+  const sub=cartSubtotal(),fee=deliveryFee();
+  document.getElementById('subTotal').textContent=ils(sub);
+  document.getElementById('delivFee').textContent=fee===0?'חינם':ils(fee);
+  document.getElementById('grandTotal').textContent=ils(sub+fee);
+}
+updateCart();
+
+function openCart(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('open');document.body.style.overflow='hidden';}
+function closeCart(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('open');document.body.style.overflow='';}
+
+/* ===== CHECKOUT ===== */
+function openCheckout(){
+  if(cart.length===0)return;
+  renderCheckoutSummary();updateDeliv();
+  document.getElementById('modalForm').style.display='block';
+  document.getElementById('checkoutModal').classList.add('open');
+}
+function closeCheckout(){
+  document.getElementById('checkoutModal').classList.remove('open');
+  // reset to form view for next time
+  setTimeout(()=>{document.querySelector('.modal-head h3').textContent='פרטי ההזמנה';},300);
+}
+function updateDeliv(){
+  const pickup=document.querySelector('input[name="deliv"]:checked').value==='pickup';
+  document.getElementById('f-addr').style.display=pickup?'none':'block';
+  renderCheckoutSummary();
+}
+function renderCheckoutSummary(){
+  const sub=cartSubtotal(),fee=deliveryFee();
+  document.getElementById('checkoutSummary').innerHTML=
+    cart.map(i=>`<div class="sr"><span>${i.name}${i.cut?' · '+i.cut:''} ×${i.qty}</span><span>${ils(i.price*i.qty)}</span></div>`).join('')+
+    `<div class="sr"><span>משלוח</span><span>${fee===0?'חינם':ils(fee)}</span></div>`+
+    `<div class="sr tot"><span>סה"כ לתשלום</span><span>${ils(sub+fee)}</span></div>`;
+}
+function clearErr(id){document.getElementById(id).classList.remove('err');}
+function submitOrder(){
+  const name=document.getElementById('cName'),phone=document.getElementById('cPhone'),addr=document.getElementById('cAddr');
+  const pickup=document.querySelector('input[name="deliv"]:checked').value==='pickup';
+  let ok=true;
+  const setErr=(el,c)=>{el.parentElement.classList.toggle('err',c);if(c)ok=false;};
+  setErr(name,!name.value.trim());
+  setErr(phone,!/^0\d[\d\-\s]{7,}$/.test(phone.value.trim()));
+  setErr(addr,!pickup&&!addr.value.trim());
+  if(!ok)return;
+
+  const sub=cartSubtotal(),fee=deliveryFee(),ordNum='KH-'+Math.floor(100000+Math.random()*900000);
+  // Build WhatsApp message
+  let msg=`הזמנה חדשה מאתר כחול הים (#${ordNum})%0A%0A`;
+  cart.forEach(i=>{msg+=`• ${i.name}${i.cut?' ('+i.cut+')':''} ×${i.qty} — ${ils(i.price*i.qty)}%0A`;});
+  msg+=`%0Aמשלוח: ${fee===0?'חינם':ils(fee)}%0Aסה"כ: ${ils(sub+fee)}%0A%0A`;
+  msg+=`שם: ${name.value}%0Aטלפון: ${phone.value}%0A`;
+  msg+=pickup?`איסוף עצמי מהחנות`:`כתובת: ${addr.value}`;
+  const notes=document.getElementById('cNotes').value.trim();
+  if(notes)msg+=`%0Aהערות: ${notes}`;
+  const waLink='https://wa.me/972500000000?text='+msg;
+
+  // Confirmation view
+  document.querySelector('.modal-head h3').textContent='ההזמנה התקבלה';
+  document.getElementById('modalForm').innerHTML=`
+    <div class="confirm">
+      <div class="check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>
+      <h3>תודה, ${name.value.split(' ')[0]}!</h3>
+      <p>ההזמנה שלך התקבלה בהצלחה.</p>
+      <p>מספר הזמנה: <span class="ord-num">#${ordNum}</span></p>
+      <p style="font-size:.88rem">ניצור איתך קשר לאישור ${pickup?'מועד האיסוף':'מועד המשלוח'}.</p>
+      <a href="${waLink}" target="_blank" rel="noopener" class="btn btn-primary">שליחת ההזמנה בוואטסאפ</a>
+      <br><button class="btn btn-dark" style="margin-top:10px" onclick="resetOrder()">סגירה</button>
+    </div>`;
+  cart=[];updateCart();
+}
+function resetOrder(){
+  closeCheckout();closeCart();
+  setTimeout(()=>location.reload(),200);
+}
+function toast(m){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=m;t.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(()=>t.classList.remove('show'),2000);}
+
+// Header scroll
+const header=document.getElementById('header');
+window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>40),{passive:true});
+
+// Mobile menu
+const burger=document.getElementById('burger'),navLinks=document.getElementById('navLinks');
+burger.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+
+// Reveal on scroll
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Highlight today's hours
+const today=new Date().getDay();
+document.querySelectorAll('.hour-line').forEach(l=>{if(+l.dataset.day===today)l.classList.add('today');});
+
+// Bubbles
+const bub=document.getElementById('bubbles');
+for(let i=0;i<14;i++){
+  const b=document.createElement('span');b.className='bubble';
+  const s=Math.random()*26+6;
+  b.style.width=b.style.height=s+'px';
+  b.style.right=Math.random()*100+'%';
+  b.style.bottom=-Math.random()*40+'px';
+  b.style.animationDuration=(Math.random()*12+10)+'s';
+  b.style.animationDelay=(Math.random()*8)+'s';
+  bub.appendChild(b);
+}
+</script>
+</body>
+</html>

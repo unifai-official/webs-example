@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F7F2EA;color:#3A3027;font-family:'Assistant',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  ::selection{background:#E6D3C4;color:#3A3027}
+  @keyframes ivPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.45),0 10px 30px rgba(58,48,39,.22)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0),0 10px 30px rgba(58,48,39,.22)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0),0 10px 30px rgba(58,48,39,.22)}}
+  @keyframes ivRevealUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  [data-reveal]{animation:ivRevealUp linear both;animation-timeline:view();animation-range:entry 2% cover 24%}
+  [data-burger]{display:none}
+  @media (max-width:880px){
+    [data-desktop-nav]{display:none!important}
+    [data-burger]{display:inline-flex!important}
+    [data-hero-grid]{grid-template-columns:1fr!important}
+    [data-hero-img]{order:-1}
+    [data-contact-grid]{grid-template-columns:1fr!important}
+  }
+  @media (prefers-reduced-motion: reduce){[data-reveal]{animation:none}[data-wa-float]{animation:none!important}}
+</style>
+<script src="./image-slot.js"></script>
+</helmet>
+
+<div dir="rtl" lang="he" style="overflow-x:hidden">
+
+  <header ref="{{ headerRef }}" data-site-header style="position:fixed;top:0;inset-inline:0;z-index:120;transition:background .4s ease, box-shadow .4s ease, backdrop-filter .4s ease">
+    <div style="max-width:1200px;margin:0 auto;padding:18px clamp(20px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="#top" style="text-decoration:none;display:flex;flex-direction:column;line-height:1">
+        <span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:26px;letter-spacing:.04em;color:#3A3027">אִיווֹרי</span>
+        <span style="font-size:10.5px;letter-spacing:.42em;color:#9A7C4E;margin-top:4px;padding-inline-start:2px">מכון יופי</span>
+      </a>
+      <nav data-desktop-nav style="display:flex;align-items:center;gap:34px">
+        <a href="#services" onClick="{{ closeMenu }}" style="text-decoration:none;color:#6B5D4F;font-size:15.5px;font-weight:500;letter-spacing:.01em">טיפולים</a>
+        <a href="#why" onClick="{{ closeMenu }}" style="text-decoration:none;color:#6B5D4F;font-size:15.5px;font-weight:500">למה אנחנו</a>
+        <a href="#gallery" onClick="{{ closeMenu }}" style="text-decoration:none;color:#6B5D4F;font-size:15.5px;font-weight:500">גלריה</a>
+        <a href="#testimonials" onClick="{{ closeMenu }}" style="text-decoration:none;color:#6B5D4F;font-size:15.5px;font-weight:500">המלצות</a>
+        <a class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" style="text-decoration:none;background:#3A3027;color:#F7F2EA;font-size:14.5px;font-weight:600;padding:11px 22px;border-radius:999px;box-shadow:0 6px 18px rgba(58,48,39,.18)" style-hover="background:#2c241c">קביעת תור</a>
+      </nav>
+      <button data-burger onClick="{{ toggleMenu }}" aria-label="פתיחת תפריט" style="display:none;align-items:center;justify-content:center;width:46px;height:46px;border:none;border-radius:14px;background:rgba(255,253,250,.7);backdrop-filter:blur(8px);cursor:pointer;color:#3A3027">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+    <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="margin:0 clamp(16px,4vw,28px) 8px;background:rgba(247,242,234,.94);backdrop-filter:blur(18px) saturate(160%);border:.5px solid rgba(184,153,104,.35);border-radius:22px;box-shadow:0 20px 50px rgba(58,48,39,.16);padding:14px;display:flex;flex-direction:column">
+        <a href="#services" onClick="{{ closeMenu }}" style="text-decoration:none;color:#3A3027;font-size:17px;font-weight:500;padding:14px 16px;border-radius:12px">טיפולים</a>
+        <a href="#why" onClick="{{ closeMenu }}" style="text-decoration:none;color:#3A3027;font-size:17px;font-weight:500;padding:14px 16px;border-radius:12px">למה אנחנו</a>
+        <a href="#gallery" onClick="{{ closeMenu }}" style="text-decoration:none;color:#3A3027;font-size:17px;font-weight:500;padding:14px 16px;border-radius:12px">גלריה</a>
+        <a href="#testimonials" onClick="{{ closeMenu }}" style="text-decoration:none;color:#3A3027;font-size:17px;font-weight:500;padding:14px 16px;border-radius:12px">המלצות</a>
+        <a class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" onClick="{{ closeMenu }}" style="text-decoration:none;text-align:center;background:#3A3027;color:#F7F2EA;font-size:16px;font-weight:600;padding:15px;border-radius:14px;margin-top:6px">קביעת תור בוואטסאפ</a>
+      </div>
+    </sc-if>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section style="position:relative;padding:clamp(120px,15vh,170px) clamp(20px,4vw,40px) clamp(64px,8vh,110px);background:radial-gradient(120% 90% at 85% 0%, #FBF7F0 0%, #F7F2EA 46%, #F0E8DB 100%)">
+      <div data-hero-grid style="max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1.04fr .96fr;gap:clamp(36px,5vw,76px);align-items:center">
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:26px">
+            <span style="width:26px;height:1px;background:#B89968"></span>
+            <span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9A7C4E">מכון יופי בוטיק · הרצליה</span>
+          </div>
+          <h1 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.04;letter-spacing:-.01em;margin:0 0 22px;color:#3A3027;text-wrap:balance">היופי שלך,<br>בידיים הנכונות</h1>
+          <p style="font-size:clamp(1.06rem,1.6vw,1.22rem);line-height:1.7;color:#6B5D4F;max-width:30em;margin:0 0 34px;font-weight:400">חוויית טיפוח אישית במרחב פרטי ושקט. אבחון מדויק, מוצרים מובחרים, וליווי מקצועי שמתאים בדיוק לעור שלך — מהפגישה הראשונה.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:14px;margin-bottom:46px">
+            <a class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:11px;text-decoration:none;background:#3A3027;color:#F7F2EA;font-size:16.5px;font-weight:600;padding:16px 30px;border-radius:999px;box-shadow:0 12px 30px rgba(58,48,39,.22)" style-hover="background:#2c241c;transform:translateY(-1px)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+              קביעת תור בוואטסאפ
+            </a>
+            <a href="#services" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;background:transparent;color:#3A3027;font-size:16.5px;font-weight:600;padding:16px 26px;border-radius:999px;border:1px solid rgba(184,153,104,.55)" style-hover="background:rgba(184,153,104,.12)">לתפריט הטיפולים</a>
+          </div>
+          <div style="display:flex;align-items:center;gap:clamp(20px,3vw,40px)">
+            <div>
+              <div style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:2rem;color:#3A3027;line-height:1">12</div>
+              <div style="font-size:13.5px;color:#6B5D4F;margin-top:5px">שנות ניסיון</div>
+            </div>
+            <span style="width:1px;height:38px;background:rgba(184,153,104,.45)"></span>
+            <div>
+              <div style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:2rem;color:#3A3027;line-height:1">2,400+</div>
+              <div style="font-size:13.5px;color:#6B5D4F;margin-top:5px">לקוחות מרוצות</div>
+            </div>
+            <span style="width:1px;height:38px;background:rgba(184,153,104,.45)"></span>
+            <div>
+              <div style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:2rem;color:#3A3027;line-height:1;display:flex;align-items:baseline;gap:4px">4.9<span style="color:#B89968;font-size:1.3rem">★</span></div>
+              <div style="font-size:13.5px;color:#6B5D4F;margin-top:5px">דירוג ממוצע</div>
+            </div>
+          </div>
+        </div>
+        <div data-hero-img style="position:relative">
+          <div style="position:absolute;inset:-8% -6% -6% -8%;background:radial-gradient(60% 55% at 50% 35%, rgba(184,153,104,.34), rgba(184,153,104,0) 70%);filter:blur(8px);z-index:0"></div>
+          <div style="position:relative;z-index:1;border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(58,48,39,.2);border:.5px solid rgba(184,153,104,.4)">
+            <image-slot id="iv-hero-portrait" style="display:block;width:100%;height:clamp(440px,54vw,640px)" shape="rect" fit="cover" placeholder="גררי לכאן תמונת hero מהמכון (portrait)"></image-slot>
+          </div>
+          <div style="position:absolute;z-index:2;top:22px;inset-inline-start:22px;background:rgba(247,242,234,.86);backdrop-filter:blur(10px);border:.5px solid rgba(184,153,104,.4);border-radius:999px;padding:9px 16px;font-size:13px;font-weight:600;color:#9A7C4E;box-shadow:0 6px 18px rgba(58,48,39,.12)">מוצרים טבעיים בלבד</div>
+          <div style="position:absolute;z-index:2;bottom:22px;inset-inline-end:22px;background:#3A3027;color:#F7F2EA;border-radius:18px;padding:14px 18px;box-shadow:0 14px 30px rgba(58,48,39,.28)">
+            <div style="font-size:11.5px;letter-spacing:.14em;color:#B89968;margin-bottom:3px">הטיפול שלנו</div>
+            <div style="font-family:'Frank Ruhl Libre',serif;font-size:18px;font-weight:500">טיפול סיגנצ'ר</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" style="scroll-margin-top:90px;padding:clamp(64px,9vh,110px) clamp(20px,4vw,40px);background:#F7F2EA">
+      <div style="max-width:1200px;margin:0 auto">
+        <div data-reveal style="text-align:center;margin-bottom:54px">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:22px;height:1px;background:#B89968"></span><span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9A7C4E">הטיפולים שלנו</span><span style="width:22px;height:1px;background:#B89968"></span></div>
+          <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);margin:0 0 14px;color:#3A3027">טיפוח שמתחיל באבחון</h2>
+          <p style="font-size:1.08rem;color:#6B5D4F;max-width:34em;margin:0 auto;line-height:1.6">מגוון טיפולי פנים מתקדמים, מותאמים אישית. מחירים שקופים — בלי הפתעות.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px">
+          <!-- card -->
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 10.5h.01M15.5 10.5h.01M8.5 15c1 1 2 1.5 3.5 1.5S14.5 16 15.5 15"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">טיפול פנים עמוק</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">ניקוי לעומק, סקראב עדין ומסכה מותאמת. העור יוצא נקי, נושם וזוהר.</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪280</span></div>
+          </div>
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5c3.4 4 5.5 6.6 5.5 9.5a5.5 5.5 0 0 1-11 0c0-2.9 2.1-5.5 5.5-9.5Z"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">הזרקות חומצה היאלורונית</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">מילוי עדין והחזרת נפח, בגישה טבעית ומדויקת. תוצאה רעננה, לא "עשויה".</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪650</span></div>
+          </div>
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12M6 21h12M7 3c0 4 4 5 4 9s-4 5-4 9M17 3c0 4-4 5-4 9s4 5 4 9"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">אנטי-אייג'ינג</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">פרוטוקול ממצק ומחדש שמטשטש קמטוטים ומחזיר לעור גמישות וטונוס.</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪390</span></div>
+          </div>
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4c2 2.5 4 4.2 4 6.5a4 4 0 0 1-8 0C8 8.2 10 6.5 12 4Z"/><path d="M5 18c2.2-1.2 4.5-1.8 7-1.8s4.8.6 7 1.8M5 21c2.2-1.2 4.5-1.8 7-1.8s4.8.6 7 1.8"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">פילינג כימי</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">חידוש מבוקר של שכבת העור החיצונית — לטקסטורה חלקה וגוון אחיד יותר.</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪320</span></div>
+          </div>
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.4M12 19.1v2.4M21.5 12h-2.4M4.9 12H2.5M18.7 5.3l-1.7 1.7M7 17l-1.7 1.7M18.7 18.7 17 17M7 7 5.3 5.3"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">טיפול הבהרה</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">דהיית כתמים וגוון לא אחיד, עם רכיבים פעילים מובחרים. עור בהיר ואחיד.</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪350</span></div>
+          </div>
+          <div data-reveal style="position:relative;background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05);border-top:2px solid transparent;transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease" style-hover="transform:translateY(-6px);box-shadow:0 18px 44px rgba(58,48,39,.12);border-top-color:#B89968">
+            <div style="width:56px;height:56px;border-radius:16px;background:#F0E8DB;display:flex;align-items:center;justify-content:center;margin-bottom:22px;color:#9A7C4E"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.6"/></svg></div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.4rem;margin:0 0 10px;color:#3A3027">טיפוח עיניים</h3>
+            <p style="font-size:.98rem;line-height:1.6;color:#6B5D4F;margin:0 0 20px">טיפול ממוקד לאזור העדין סביב העין — להפחתת נפיחות, עייפות וקווים דקים.</p>
+            <div style="display:flex;align-items:baseline;gap:6px;padding-top:16px;border-top:.5px solid rgba(184,153,104,.28)"><span style="font-size:13px;color:#9A7C4E">החל מ-</span><span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:1.5rem;color:#3A3027">₪180</span></div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:13px;color:#9B7E6B;margin-top:30px;opacity:.85">* המחירים מהווים נקודת התחלה ועשויים להשתנות בהתאם לטיפול. לפרטים מלאים — נשמח בוואטסאפ.</p>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section id="why" style="scroll-margin-top:90px;padding:clamp(64px,9vh,110px) clamp(20px,4vw,40px);background:#F0E8DB">
+      <div style="max-width:1200px;margin:0 auto">
+        <div data-reveal style="margin-bottom:52px;max-width:36em">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:22px;height:1px;background:#B89968"></span><span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9A7C4E">למה אִיווֹרי</span></div>
+          <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);margin:0 0 14px;color:#3A3027">בוטיק, לא קו ייצור</h2>
+          <p style="font-size:1.08rem;color:#6B5D4F;line-height:1.6;margin:0">מה שמייחד אותנו הוא לא רק מה שאנחנו עושות — אלא איך.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px 40px">
+          <div data-reveal style="padding-top:26px;border-top:1px solid rgba(184,153,104,.4)">
+            <div style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:2.3rem;color:#B89968;line-height:1;margin-bottom:16px">01</div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.32rem;margin:0 0 10px;color:#3A3027">אבחון אישי</h3>
+            <p style="font-size:.99rem;line-height:1.65;color:#6B5D4F;margin:0">כל טיפול מתחיל בהיכרות עם העור שלך. בלי תבניות מוכנות — תוכנית שנבנית עבורך בלבד.</p>
+          </div>
+          <div data-reveal style="padding-top:26px;border-top:1px solid rgba(184,153,104,.4)">
+            <div style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:2.3rem;color:#B89968;line-height:1;margin-bottom:16px">02</div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.32rem;margin:0 0 10px;color:#3A3027">מוצרים מובחרים</h3>
+            <p style="font-size:.99rem;line-height:1.65;color:#6B5D4F;margin:0">עובדות רק עם מותגים מקצועיים ורכיבים פעילים מוכחים. איכות שמרגישים על העור.</p>
+          </div>
+          <div data-reveal style="padding-top:26px;border-top:1px solid rgba(184,153,104,.4)">
+            <div style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:2.3rem;color:#B89968;line-height:1;margin-bottom:16px">03</div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.32rem;margin:0 0 10px;color:#3A3027">חלל פרטי</h3>
+            <p style="font-size:.99rem;line-height:1.65;color:#6B5D4F;margin:0">לקוחה אחת בכל רגע. שקט, דיסקרטיות וזמן מלא שמוקדש רק לך.</p>
+          </div>
+          <div data-reveal style="padding-top:26px;border-top:1px solid rgba(184,153,104,.4)">
+            <div style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:2.3rem;color:#B89968;line-height:1;margin-bottom:16px">04</div>
+            <h3 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:1.32rem;margin:0 0 10px;color:#3A3027">ליווי מתמשך</h3>
+            <p style="font-size:.99rem;line-height:1.65;color:#6B5D4F;margin:0">הקשר לא נגמר ביציאה מהדלת. המלצות טיפוח לבית ומעקב שמבטיח תוצאה שנשארת.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery" style="scroll-margin-top:90px;padding:clamp(64px,9vh,110px) clamp(20px,4vw,40px);background:#F7F2EA">
+      <div style="max-width:1200px;margin:0 auto">
+        <div data-reveal style="text-align:center;margin-bottom:48px">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:22px;height:1px;background:#B89968"></span><span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9A7C4E">הצצה פנימה</span><span style="width:22px;height:1px;background:#B89968"></span></div>
+          <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);margin:0;color:#3A3027">המרחב והתוצאות</h2>
+        </div>
+        <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));grid-auto-rows:200px;gap:16px">
+          <image-slot id="iv-gal-1" style="display:block;width:100%;height:100%;grid-row:span 2" shape="rounded" radius="20" fit="cover" placeholder="תמונה — חלל הקבלה"></image-slot>
+          <image-slot id="iv-gal-2" style="display:block;width:100%;height:100%" shape="rounded" radius="20" fit="cover" placeholder="תמונה — חדר טיפולים"></image-slot>
+          <image-slot id="iv-gal-3" style="display:block;width:100%;height:100%" shape="rounded" radius="20" fit="cover" placeholder="תמונה — מוצרים"></image-slot>
+          <image-slot id="iv-gal-4" style="display:block;width:100%;height:100%;grid-row:span 2" shape="rounded" radius="20" fit="cover" placeholder="תמונה — תהליך טיפול"></image-slot>
+          <image-slot id="iv-gal-5" style="display:block;width:100%;height:100%" shape="rounded" radius="20" fit="cover" placeholder="תמונה — פרט עיצובי"></image-slot>
+          <image-slot id="iv-gal-6" style="display:block;width:100%;height:100%" shape="rounded" radius="20" fit="cover" placeholder="תמונה — לפני/אחרי"></image-slot>
+          <image-slot id="iv-gal-7" style="display:block;width:100%;height:100%;grid-row:span 2" shape="rounded" radius="20" fit="cover" placeholder="תמונה — אווירה"></image-slot>
+          <image-slot id="iv-gal-8" style="display:block;width:100%;height:100%" shape="rounded" radius="20" fit="cover" placeholder="תמונה — צוות"></image-slot>
+        </div>
+        <p style="text-align:center;font-size:13px;color:#9B7E6B;margin-top:24px;opacity:.85">לפני השקה: להחליף בתמונות אמת מהמכון — לסעיף הזה ההשפעה הגדולה ביותר על ההמרה.</p>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" style="scroll-margin-top:90px;padding:clamp(64px,9vh,110px) clamp(20px,4vw,40px);background:#F0E8DB">
+      <div style="max-width:1200px;margin:0 auto">
+        <div data-reveal style="text-align:center;margin-bottom:50px">
+          <div style="display:inline-flex;align-items:center;gap:10px;margin-bottom:16px"><span style="width:22px;height:1px;background:#B89968"></span><span style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#9A7C4E">מה אומרות הלקוחות</span><span style="width:22px;height:1px;background:#B89968"></span></div>
+          <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(2rem,4vw,3rem);margin:0;color:#3A3027">אמון נבנה בתוצאות</h2>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:24px">
+          <div data-reveal style="background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05)">
+            <div style="color:#B89968;font-size:18px;letter-spacing:2px;margin-bottom:18px">★★★★★</div>
+            <p style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:1.18rem;line-height:1.65;color:#3A3027;margin:0 0 26px">"הרגשתי שמקשיבות לי באמת. אחרי הסדרה העור שלי נראה אחר לגמרי — ובלי תחושת לחץ למכור לי עוד."</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:46px;height:46px;border-radius:50%;background:#9B7E6B;color:#F7F2EA;display:flex;align-items:center;justify-content:center;font-family:'Frank Ruhl Libre',serif;font-size:19px">נ</div>
+              <div><div style="font-weight:600;color:#3A3027">נועה ל׳</div><div style="font-size:13px;color:#9A7C4E">סדרת טיפולי פנים</div></div>
+            </div>
+          </div>
+          <div data-reveal style="background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05)">
+            <div style="color:#B89968;font-size:18px;letter-spacing:2px;margin-bottom:18px">★★★★★</div>
+            <p style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:1.18rem;line-height:1.65;color:#3A3027;margin:0 0 26px">"חיפשתי טיפול אנטי-אייג'ינג שנראה טבעי. קיבלתי בדיוק את זה — מקצועיות ויחס שקשה למצוא."</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:46px;height:46px;border-radius:50%;background:#9B7E6B;color:#F7F2EA;display:flex;align-items:center;justify-content:center;font-family:'Frank Ruhl Libre',serif;font-size:19px">מ</div>
+              <div><div style="font-weight:600;color:#3A3027">מיכל ב׳</div><div style="font-size:13px;color:#9A7C4E">אנטי-אייג'ינג</div></div>
+            </div>
+          </div>
+          <div data-reveal style="background:#FFFDFA;border-radius:22px;padding:32px 28px;box-shadow:0 1px 0 rgba(184,153,104,.18),0 14px 30px rgba(58,48,39,.05)">
+            <div style="color:#B89968;font-size:18px;letter-spacing:2px;margin-bottom:18px">★★★★★</div>
+            <p style="font-family:'Frank Ruhl Libre',serif;font-weight:400;font-size:1.18rem;line-height:1.65;color:#3A3027;margin:0 0 26px">"המקום שקט, נקי ומפנק. קביעת התור בוואטסאפ לקחה שתי דקות. חזרתי וכבר קבעתי את הבאה."</p>
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:46px;height:46px;border-radius:50%;background:#9B7E6B;color:#F7F2EA;display:flex;align-items:center;justify-content:center;font-family:'Frank Ruhl Libre',serif;font-size:19px">ש</div>
+              <div><div style="font-weight:600;color:#3A3027">שירה ק׳</div><div style="font-size:13px;color:#9A7C4E">טיפול הבהרה</div></div>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:13px;color:#9B7E6B;margin-top:26px;opacity:.85">לפרסום: רק המלצות אמת מלקוחות שנתנו הסכמה.</p>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" style="scroll-margin-top:90px;padding:clamp(64px,9vh,110px) clamp(20px,4vw,40px);background:#F7F2EA">
+      <div data-contact-grid style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,4vw,56px);align-items:stretch">
+        <div data-reveal style="background:#3A3027;color:#F7F2EA;border-radius:28px;padding:clamp(34px,4vw,52px);position:relative;overflow:hidden">
+          <div style="position:absolute;inset-block-start:-30%;inset-inline-end:-10%;width:50%;height:80%;background:radial-gradient(circle, rgba(184,153,104,.5), transparent 70%);filter:blur(6px)"></div>
+          <div style="position:relative;z-index:1">
+            <div style="font-size:13px;font-weight:600;letter-spacing:.16em;color:#B89968;margin-bottom:16px">קביעת תור</div>
+            <h2 style="font-family:'Frank Ruhl Libre',serif;font-weight:500;font-size:clamp(1.9rem,3.4vw,2.7rem);line-height:1.1;margin:0 0 16px">נשמח לראות אותך</h2>
+            <p style="font-size:1.06rem;line-height:1.65;color:rgba(247,242,234,.8);margin:0 0 32px;max-width:26em">שלחי הודעה קצרה בוואטסאפ ונחזור אלייך עם תיאום מהיר. בלי טפסים, בלי המתנה.</p>
+            <div style="display:flex;flex-wrap:wrap;gap:13px">
+              <a class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;background:#25D366;color:#0b2e18;font-size:16px;font-weight:700;padding:15px 26px;border-radius:999px" style-hover="filter:brightness(1.05)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15c-1.48 0-2.93-.4-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.23 8.23 0 0 1-1.26-4.38c0-4.54 3.7-8.23 8.25-8.23 2.2 0 4.27.86 5.83 2.42a8.18 8.18 0 0 1 2.41 5.82c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+                וואטסאפ
+              </a>
+              <a href="{{ telHref }}" style="display:inline-flex;align-items:center;gap:10px;text-decoration:none;background:transparent;color:#F7F2EA;font-size:16px;font-weight:600;padding:15px 26px;border-radius:999px;border:1px solid rgba(247,242,234,.35)" style-hover="background:rgba(247,242,234,.1)">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg>
+                חיוג ישיר
+              </a>
+            </div>
+          </div>
+        </div>
+        <div data-reveal style="display:flex;flex-direction:column;justify-content:center;gap:6px">
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:.5px solid rgba(184,153,104,.3)">
+            <div style="color:#9A7C4E;margin-top:2px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div style="font-weight:600;color:#3A3027;margin-bottom:3px">כתובת</div><div style="color:#6B5D4F;font-size:.97rem">רחוב הדוגמה 12, הרצליה פיתוח</div></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:.5px solid rgba(184,153,104,.3)">
+            <div style="color:#9A7C4E;margin-top:2px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <div><div style="font-weight:600;color:#3A3027;margin-bottom:3px">שעות פעילות</div><div style="color:#6B5D4F;font-size:.97rem">א׳–ה׳ 09:00–19:00 · ו׳ 09:00–13:00</div></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0;border-bottom:.5px solid rgba(184,153,104,.3)">
+            <div style="color:#9A7C4E;margin-top:2px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92Z"/></svg></div>
+            <div><div style="font-weight:600;color:#3A3027;margin-bottom:3px">טלפון</div><a href="{{ telHref }}" style="color:#9A7C4E;font-size:.97rem;text-decoration:none">{{ telDisplay }}</a></div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start;padding:18px 0">
+            <div style="color:#9A7C4E;margin-top:2px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+            <div><div style="font-weight:600;color:#3A3027;margin-bottom:3px">אימייל</div><a href="mailto:hello@ivory.example" style="color:#9A7C4E;font-size:.97rem;text-decoration:none">hello@ivory.example</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:#2c241c;color:rgba(247,242,234,.75);padding:50px clamp(20px,4vw,40px) 40px">
+    <div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px">
+      <div style="display:flex;flex-direction:column;line-height:1">
+        <span style="font-family:'Frank Ruhl Libre',serif;font-weight:700;font-size:24px;letter-spacing:.04em;color:#F7F2EA">אִיווֹרי</span>
+        <span style="font-size:10.5px;letter-spacing:.4em;color:#B89968;margin-top:5px">מכון יופי · הרצליה</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px">
+        <a href="#" target="_blank" rel="noopener" aria-label="אינסטגרם" style="width:44px;height:44px;border-radius:50%;border:.5px solid rgba(184,153,104,.5);display:flex;align-items:center;justify-content:center;color:#F7F2EA;text-decoration:none" style-hover="background:rgba(184,153,104,.18)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" aria-label="וואטסאפ" style="width:44px;height:44px;border-radius:50%;border:.5px solid rgba(184,153,104,.5);display:flex;align-items:center;justify-content:center;color:#F7F2EA;text-decoration:none" style-hover="background:rgba(184,153,104,.18)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg></a>
+      </div>
+    </div>
+    <div style="max-width:1100px;margin:32px auto 0;padding-top:24px;border-top:.5px solid rgba(184,153,104,.25);font-size:12.5px;color:rgba(247,242,234,.5);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between">
+      <span>© 2026 מכון יופי אִיווֹרי · כל הזכויות שמורות</span>
+      <span>הצהרת נגישות · מדיניות פרטיות</span>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a data-wa-float class="wa-link" href="{{ waHref }}" target="_blank" rel="noopener" aria-label="פתיחת שיחת וואטסאפ" style="position:fixed;inset-block-end:24px;inset-inline-start:24px;z-index:200;width:60px;height:60px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;color:#fff;text-decoration:none;animation:ivPulse 2.6s ease-out infinite" style-hover="filter:brightness(1.06)">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm4.52 11.99c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+  </a>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;whatsappPhone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;972 50 000 0000&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;whatsappMsg&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;היי, הגעתי דרך האתר ואשמח לקבוע תור לטיפול 🌿&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;phoneDisplay&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;09-000-0000&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { menuOpen: false };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const el = this._header;
+      if (!el) return;
+      if (window.scrollY > 30) {
+        el.style.background = 'rgba(247,242,234,0.82)';
+        el.style.backdropFilter = 'blur(16px) saturate(160%)';
+        el.style.webkitBackdropFilter = 'blur(16px) saturate(160%)';
+        el.style.boxShadow = '0 0.5px 0 rgba(184,153,104,0.35), 0 8px 30px rgba(58,48,39,0.07)';
+      } else {
+        el.style.background = 'transparent';
+        el.style.backdropFilter = 'none';
+        el.style.webkitBackdropFilter = 'none';
+        el.style.boxShadow = 'none';
+      }
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+
+  renderVals() {
+    const rawPhone = (this.props.whatsappPhone ?? '972 50 000 0000');
+    const phone = String(rawPhone).replace(/[^0-9]/g, '');
+    const msg = this.props.whatsappMsg ?? 'היי, הגעתי דרך האתר ואשמח לקבוע תור לטיפול 🌿';
+    const waHref = 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg);
+    const telDisplay = this.props.phoneDisplay ?? '09-000-0000';
+    const telHref = 'tel:' + String(telDisplay).replace(/[^0-9+]/g, '');
+    return {
+      waHref,
+      telHref,
+      telDisplay,
+      menuOpen: this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false }),
+      headerRef: (el) => { this._header = el; },
+    };
+  }
+}
+</script>
+</body>
+</html>
