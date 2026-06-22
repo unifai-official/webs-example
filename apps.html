@@ -150,15 +150,15 @@
   <script>
     // hasOwnFrame: app already draws its own iPhone frame -> don't wrap it again.
     var APPS = [
-      { folder:"אפליקציה לקביעת תורי ציפורניים", file:"אפליקציית ציפורניים.dc.html", name:"תורים לציפורניים", category:"קביעת תורים", desc:"קביעת תורי ציפורניים — בחירת עיצוב, שירות ותאריך.", hasOwnFrame:true },
-      { folder:"Barbershop community design", file:"תֵּעַר Barbershop.dc.html", name:"תֵּעַר — ברברשופ", category:"קביעת תורים", desc:"מספרת גברים — הזמנת תור אונליין ואישור מיידי לנייד.", hasOwnFrame:false },
-      { folder:"Design specifications answered", file:"מספרת זיו.dc.html", name:"מספרת זיו", category:"קביעת תורים", desc:"קביעת תורים למספרה עם רשימת המתנה והתראות וואטסאפ.", hasOwnFrame:false },
-      { folder:"אפליקציה מהדפים המצורפים", file:"Nore Lorm.dc.html", name:"Nore Lorm", category:"אפליקציית עסק", desc:"אפליקציית סטודיו יופי — דפי תוכן, גלריה ויצירת קשר.", hasOwnFrame:true },
-      { folder:"אפליקציה מלאה מהדפים", file:"Gobar.dc.html", name:"Gobar — הזמנת ברבר", category:"אפליקציה מלאה", desc:"אפליקציית ברבר מלאה — חיפוש, הזמנות, צ'אט, פרופיל ותשלום.", hasOwnFrame:true },
-      { folder:"אפליקציה מלאה מהדפים", file:"Gobar-RTL-Herzliya.dc.html", name:"Gobar — גרסת RTL", category:"אפליקציה מלאה", desc:"גרסת עברית (RTL) של אפליקציית הברבר Gobar.", hasOwnFrame:true },
-      { folder:"תספורות הרצליה", file:"Gobar-RTL-Herzliya.dc.html", name:"תספורות הרצליה", category:"אפליקציה מלאה", desc:"הזמנת תורים למספרות בהרצליה — מבוסס Gobar בעברית.", hasOwnFrame:true },
-      { folder:"יצירת אפליקציה מלאה", file:"Obank.dc.html", name:"Obank — בנקאות", category:"אפליקציה מלאה", desc:"אפליקציית בנקאות דיגיטלית — יתרה, העברות ותנועות, מצב כהה/בהיר.", hasOwnFrame:true },
-      { folder:"אפליקציה לבניית אתרים ודפי נחיתה", file:"AppScreen.dc.html", name:"AppScreen — אפליקציית מוצר", category:"אפליקציית עסק", desc:"אפליקציית מובייל למוצר — מסכי תוכן וניווט.", hasOwnFrame:false }
+      { folder:"אפליקציה לקביעת תורי ציפורניים", file:"אפליקציית ציפורניים.dc.html", name:"תורים לציפורניים", category:"קביעת תורים", desc:"קביעת תורי ציפורניים — בחירת עיצוב, שירות ותאריך.", w:402, h:874, hasOwnFrame:true },
+      { folder:"Barbershop community design", file:"תֵּעַר Barbershop.dc.html", name:"תֵּעַר — ברברשופ", category:"קביעת תורים", desc:"מספרת גברים — הזמנת תור אונליין ואישור מיידי לנייד.", w:402, h:874, hasOwnFrame:false },
+      { folder:"Design specifications answered", file:"מספרת זיו.dc.html", name:"מספרת זיו", category:"קביעת תורים", desc:"קביעת תורים למספרה עם רשימת המתנה והתראות וואטסאפ.", w:400, h:860, hasOwnFrame:true },
+      { folder:"אפליקציה מהדפים המצורפים", file:"Nore Lorm.dc.html", name:"Nore Lorm", category:"אפליקציית עסק", desc:"אפליקציית סטודיו יופי — דפי תוכן, גלריה ויצירת קשר.", w:402, h:858, hasOwnFrame:true },
+      { folder:"אפליקציה מלאה מהדפים", file:"Gobar.dc.html", name:"Gobar — הזמנת ברבר", category:"אפליקציה מלאה", desc:"אפליקציית ברבר מלאה — חיפוש, הזמנות, צ'אט, פרופיל ותשלום.", w:375, h:812, hasOwnFrame:true },
+      { folder:"אפליקציה מלאה מהדפים", file:"Gobar-RTL-Herzliya.dc.html", name:"Gobar — גרסת RTL", category:"אפליקציה מלאה", desc:"גרסת עברית (RTL) של אפליקציית הברבר Gobar.", w:375, h:812, hasOwnFrame:true },
+      { folder:"תספורות הרצליה", file:"Gobar-RTL-Herzliya.dc.html", name:"תספורות הרצליה", category:"אפליקציה מלאה", desc:"הזמנת תורים למספרות בהרצליה — מבוסס Gobar בעברית.", w:375, h:812, hasOwnFrame:true },
+      { folder:"יצירת אפליקציה מלאה", file:"Obank.dc.html", name:"Obank — בנקאות", category:"אפליקציה מלאה", desc:"אפליקציית בנקאות דיגיטלית — יתרה, העברות ותנועות, מצב כהה/בהיר.", w:402, h:874, hasOwnFrame:true },
+      { folder:"אפליקציה לבניית אתרים ודפי נחיתה", file:"AppScreen.dc.html", name:"AppScreen — אפליקציית מוצר", category:"אפליקציית עסק", desc:"אפליקציית מובייל למוצר — מסכי תוכן וניווט.", w:240, h:480, hasOwnFrame:false }
     ];
 
     function appUrl(a){ return encodeURIComponent(a.folder).replace(/%2F/g,"/") + "/" + encodeURIComponent(a.file); }
@@ -184,20 +184,21 @@
       card.addEventListener("click", open);
       card.addEventListener("keydown", function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); open(); } });
       grid.appendChild(card);
-      previews.push({ el: card.querySelector("iframe"), framed: !a.hasOwnFrame });
+      previews.push({ el: card.querySelector("iframe"), w: a.w, h: a.h });
     });
 
-    // Scale each preview so the app's 440px design width fits the window width.
-    var REF = 440;
+    // Scale each preview so the app FILLS its frame (cover): the app's native
+    // design width maps to the frame width; height follows so there are no gaps.
     function scalePreviews(){
       previews.forEach(function(p){
-        var box = p.framed ? p.el.parentElement : p.el.parentElement; // .inner or .stagewin
-        var w = box.clientWidth;
-        if(!w) return;
-        var scale = w / REF;
+        var box = p.el.parentElement;            // .inner (framed) or .stagewin
+        var bw = box.clientWidth, bh = box.clientHeight;
+        if(!bw || !bh) return;
+        var scale = Math.max(bw / p.w, bh / p.h); // cover: no gaps on either axis
+        p.el.style.width  = p.w + "px";
+        p.el.style.height = p.h + "px";
         p.el.style.transform = "scale(" + scale + ")";
-        p.el.style.width = REF + "px";
-        p.el.style.height = (box.clientHeight / scale) + "px";
+        p.el.style.left = ((bw - p.w * scale) / 2) + "px"; // center horizontally
       });
     }
     scalePreviews();
