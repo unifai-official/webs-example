@@ -1,4 +1,4 @@
-﻿# OS / editor
+# OS / editor
 .DS_Store
 Thumbs.db
 *.log
@@ -8,3 +8,8 @@ Thumbs.db
 
 # Node (in case any jsx tooling is added later)
 node_modules/
+
+# test artifacts
+.playwright-mcp/
+romi-verify.png
+romi-check-2026.png
