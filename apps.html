@@ -94,11 +94,22 @@
     .overlay .bar .close { background: var(--color-brand-accent); border-color: transparent; }
     .overlay .stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 0 16px 24px; }
 
-    /* App fills the full screen — no drawn frame. Feels like the real app. */
-    .overlay .stage { padding: 0; }
-    .overlay .device { position: relative; width: 100%; height: 100%; background: #fff; overflow: hidden; }
+    /* Desktop: a centered phone at real mobile size on a dark backdrop —
+       the app keeps its mobile layout instead of being stretched wide. */
+    .overlay .stage { padding: 24px 16px; }
+    .overlay .device {
+      position: relative;
+      width: min(430px, 96vw);
+      height: min(932px, calc(100vh - 48px));
+      background: #fff; overflow: hidden;
+      border-radius: 38px;
+      box-shadow: 0 30px 90px rgba(0,0,0,0.6);
+    }
     .overlay .device .screen { width: 100%; height: 100%; overflow: hidden; background: #fff; }
-    .overlay .device iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .overlay .device iframe {
+      position: absolute; top: 0; left: 0; border: 0; display: block;
+      transform-origin: top left; background: #fff;
+    }
     /* floating close bar over the app */
     .overlay .bar {
       position: absolute; top: 0; left: 0; right: 0; z-index: 5;
@@ -107,6 +118,12 @@
     }
     .overlay .bar .actions { pointer-events: auto; }
     .overlay .bar .title { display: none; }
+
+    /* Real phone: the device IS the frame — app fills the entire screen. */
+    @media (max-width: 700px) {
+      .overlay .stage { padding: 0; }
+      .overlay .device { width: 100%; height: 100%; border-radius: 0; box-shadow: none; }
+    }
     body.locked { overflow: hidden; }
     .note { max-width: 680px; margin: 0 auto; text-align: center; color: var(--color-label-tertiary); font-size: 13px; padding: 0 20px 60px; }
   </style>
@@ -211,16 +228,35 @@
         ovTitle=document.getElementById("ov-title"), ovNew=document.getElementById("ov-newtab"),
         ovClose=document.getElementById("ov-close"), ovDevice=document.getElementById("ov-device");
 
+    var currentApp = null;
+    // Scale the open app to fill the device box (cover) using its native w/h,
+    // so the mobile layout is preserved and fills the phone — never stretched.
+    function scaleOverlay(){
+      if(!currentApp) return;
+      var box = ovFrame.parentElement;            // .screen
+      var bw = box.clientWidth, bh = box.clientHeight;
+      if(!bw || !bh) return;
+      var scale = Math.max(bw / currentApp.w, bh / currentApp.h); // cover
+      ovFrame.style.width  = currentApp.w + "px";
+      ovFrame.style.height = currentApp.h + "px";
+      ovFrame.style.transform = "scale(" + scale + ")";
+      ovFrame.style.left = ((bw - currentApp.w * scale) / 2) + "px";
+      ovFrame.style.top  = ((bh - currentApp.h * scale) / 2) + "px";
+    }
     function openApp(a){
+      currentApp = a;
       var url=appUrl(a);
       ovTitle.textContent=a.name; ovFrame.src=url; ovNew.href=url;
-      // app fills the full screen — no drawn frame
       overlay.classList.add("open"); document.body.classList.add("locked"); ovClose.focus();
+      // wait a frame so the device box has measured dimensions, then scale
+      requestAnimationFrame(scaleOverlay);
+      setTimeout(scaleOverlay, 60);
     }
-    function closeApp(){ overlay.classList.remove("open"); document.body.classList.remove("locked"); ovFrame.src="about:blank"; }
+    function closeApp(){ overlay.classList.remove("open"); document.body.classList.remove("locked"); ovFrame.src="about:blank"; currentApp=null; }
     ovClose.addEventListener("click", closeApp);
     overlay.addEventListener("click", function(e){ if(e.target===overlay||e.target.classList.contains("stage")) closeApp(); });
     document.addEventListener("keydown", function(e){ if(e.key==="Escape"&&overlay.classList.contains("open")) closeApp(); });
+    window.addEventListener("resize", scaleOverlay);
   </script>
 </body>
 </html>

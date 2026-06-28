@@ -14,3 +14,9 @@ node_modules/
 romi-verify.png
 romi-check-2026.png
 apps-fill-check.png
+overlay-*-check.png
+apps-fill-check.png
+
+# non-portfolio / duplicates
+*.xlsx
+steimatzky-books (1).html
